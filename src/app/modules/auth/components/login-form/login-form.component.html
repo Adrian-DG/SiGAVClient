@@ -6,17 +6,35 @@
 		>
 	</mat-card-header>
 	<mat-card-content>
-		<mat-form-field>
-			<mat-label>Usuario</mat-label>
-			<input matInput placeholder="usuario" />
-		</mat-form-field>
-		<br />
-		<mat-form-field>
-			<mat-label>Contraseña</mat-label>
-			<input matInput placeholder="Contraseña" />
-		</mat-form-field>
+		<form id="loginForm" [formGroup]="loginForm" (ngSubmit)="login()">
+			<mat-form-field>
+				<mat-label>Usuario</mat-label>
+				<input
+					matInput
+					placeholder="usuario"
+					formControlName="username"
+				/>
+			</mat-form-field>
+			<br />
+			<mat-form-field>
+				<mat-label>Contraseña</mat-label>
+				<input
+					matInput
+					placeholder="Contraseña"
+					formControlName="password"
+				/>
+			</mat-form-field>
+		</form>
 	</mat-card-content>
 	<mat-card-actions>
-		<button mat-raised-button color="accent">Ingresar</button>
+		<button
+			form="loginForm"
+			mat-raised-button
+			color="accent"
+			type="submit"
+			[disabled]="!loginForm.valid"
+		>
+			Ingresar
+		</button>
 	</mat-card-actions>
 </mat-card>

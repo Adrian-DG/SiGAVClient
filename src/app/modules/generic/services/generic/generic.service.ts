@@ -2,7 +2,7 @@ import { Injectable, isDevMode } from '@angular/core';
 import { environment as Prod } from 'src/environment/environment.prod';
 import { environment as Dev } from 'src/environment/environment';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { IPaginationFilters } from '../../interfaces/ipagination-filters';
+import { IPaginationFilters } from '../../DTO/ipagination-filters';
 
 @Injectable({
 	providedIn: 'root',
