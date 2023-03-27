@@ -1,0 +1,13 @@
+.container {
+	width: 100vw;
+	height: 89.5vh;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	background-image: url('../../../../../assets/slider_image.jpg');
+	background-position: center center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	opacity: 0.9;
+}
