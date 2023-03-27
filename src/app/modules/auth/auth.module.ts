@@ -6,14 +6,16 @@ import { IndexComponent } from './pages/index/index.component';
 import { LoginFormComponent } from './components/login-form/login-form.component';
 import { MaterialModule } from '../material/material.module';
 import { ReactiveFormsModule } from '@angular/forms';
+import { GenericModule } from '../generic/generic.module';
 
 @NgModule({
 	declarations: [IndexComponent, LoginFormComponent],
 	imports: [
 		CommonModule,
 		AuthRoutingModule,
-		HttpClientModule,
+		GenericModule,
 		MaterialModule,
+		HttpClientModule,
 		ReactiveFormsModule,
 	],
 })

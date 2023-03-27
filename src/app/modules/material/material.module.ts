@@ -9,6 +9,10 @@ import { MatListModule } from '@angular/material/list';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatMenuModule } from '@angular/material/menu';
+
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 @NgModule({
 	declarations: [],
@@ -22,6 +26,9 @@ import { MatInputModule } from '@angular/material/input';
 		MatCardModule,
 		MatFormFieldModule,
 		MatInputModule,
+		MatMenuModule,
+		MatTableModule,
+		MatPaginatorModule,
 	],
 })
 export class MaterialModule {}

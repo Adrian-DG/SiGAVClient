@@ -1,0 +1,16 @@
+<mat-card-header class="page-intro">
+	<mat-card-title>{{ title | uppercase }}</mat-card-title>
+	<mat-card-subtitle>{{ description }}</mat-card-subtitle>
+	<mat-toolbar>
+		<mat-toolbar-row class="page-intro-routes">
+			<button
+				mat-flat-button
+				style="color: gray; background-color: gainsboro"
+				(click)="navToPage(item)"
+				*ngFor="let item of childRoutes; let i = index"
+			>
+				{{ item }}
+			</button>
+		</mat-toolbar-row>
+	</mat-toolbar>
+</mat-card-header>

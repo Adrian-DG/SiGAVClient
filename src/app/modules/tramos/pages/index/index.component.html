@@ -1,0 +1,10 @@
+<mat-card>
+	<app-page-intro
+		[title]="moduleInfo.title"
+		[description]="moduleInfo.description"
+		[childRoutes]="moduleInfo.links"
+	></app-page-intro>
+	<mat-card-content>
+		<router-outlet></router-outlet>
+	</mat-card-content>
+</mat-card>

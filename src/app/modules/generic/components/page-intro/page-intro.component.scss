@@ -1,0 +1,23 @@
+.page-intro {
+	width: 80vw;
+	height: 75vh;
+	display: flex;
+	flex-direction: column;
+	justify-content: start;
+	align-items: center;
+	text-align: center;
+	color: rgb(105, 105, 105);
+	.page-intro-routes {
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+		align-items: center;
+		button {
+			width: 45%;
+		}
+	}
+}
+
+mat-toolbar {
+	background: none;
+}
