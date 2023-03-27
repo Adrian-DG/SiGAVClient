@@ -1,6 +1,23 @@
-<mat-toolbar color="primary">
-	<button mat-icon-button>
-		<mat-icon>menu</mat-icon>
-	</button>
-	<span>SiGAV</span>
-</mat-toolbar>
+<div class="main-container">
+	<mat-toolbar color="primary">
+		<button mat-icon-button (click)="sidenav.toggle()">
+			<mat-icon>menu</mat-icon>
+		</button>
+		<span>SiGAV</span>
+	</mat-toolbar>
+	<!-- menu -->
+	<mat-sidenav-container class="sidenav-container">
+		<mat-sidenav #sidenav class="sidenav">
+			<mat-nav-list class="sidenav-list" *ngFor="let item of links">
+				<a mat-list-item [routerLink]="item" routerLinkActive="active">
+					{{ item | uppercase }}
+				</a>
+			</mat-nav-list>
+		</mat-sidenav>
+		<mat-sidenav-content class="sidenav-content">
+			<div class="content">
+				<router-outlet></router-outlet>
+			</div>
+		</mat-sidenav-content>
+	</mat-sidenav-container>
+</div>
