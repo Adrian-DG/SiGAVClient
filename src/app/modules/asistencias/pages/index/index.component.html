@@ -1,12 +1,11 @@
 <div class="container">
 	<mat-card>
 		<app-page-intro
-			[title]="moduleInfo.title"
-			[description]="moduleInfo.description"
-			[childRoutes]="moduleInfo.links"
+			title="asistencias"
+			description="Este modulo permitira el manejo de los casos de asistencia."
+			[childRoutes]="['listado', 'crear']"
 		></app-page-intro>
 		<mat-card-content class="content">
-			<mat-divider></mat-divider>
 			<router-outlet></router-outlet>
 		</mat-card-content>
 	</mat-card>

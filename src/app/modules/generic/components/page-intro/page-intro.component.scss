@@ -3,15 +3,17 @@
 	height: auto;
 	display: flex;
 	flex-direction: column;
-	justify-content: start;
+	justify-content: center;
 	align-items: center;
 	text-align: center;
 	color: rgb(105, 105, 105);
 	.page-intro-routes {
+		width: 100%;
 		display: flex;
 		flex-direction: row;
-		justify-content: space-between;
+		justify-content: center;
 		align-items: center;
+		gap: 2em;
 		button {
 			width: 45%;
 		}

@@ -1,0 +1,166 @@
+<!-- filter -->
+
+<div class="row">
+	<div class="col" style="width: 50%">
+		<mat-form-field class="filter">
+			<mat-label>Filtrar</mat-label>
+			<input
+				matInput
+				(keyup)="loadData()"
+				placeholder="Nombre"
+				[(ngModel)]="filters.searchTerm"
+			/>
+		</mat-form-field>
+	</div>
+	<div class="col" style="width: 20%">
+		<mat-checkbox
+			class="example-margin"
+			[(ngModel)]="filters.status"
+			color="primary"
+			(change)="loadData()"
+		>
+			Mostrar Completadas
+		</mat-checkbox>
+	</div>
+</div>
+
+<!-- Table -->
+<div class="table">
+	<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+		<!-- Table header -->
+		<ng-container matColumnDef="id">
+			<th mat-header-cell *matHeaderCellDef>#</th>
+			<td mat-cell *matCellDef="let element; let i = index">
+				{{ i + 1 }}
+			</td>
+		</ng-container>
+		<ng-container matColumnDef="ciudadano">
+			<th mat-header-cell *matHeaderCellDef>Ciudadano</th>
+			<td mat-cell *matCellDef="let element">
+				<span
+					><strong>Cédula:</strong>
+					<br />
+					{{ element.identificacion | cedula }}</span
+				>
+				<br />
+				<span
+					><strong>Nombre:</strong>
+					{{ element.nombreCiudadano | titlecase }}</span
+				>
+				<br />
+				<span><strong>Tel.:</strong> {{ element.telefono }}</span>
+			</td>
+		</ng-container>
+
+		<ng-container matColumnDef="vehiculo">
+			<th mat-header-cell *matHeaderCellDef>Vehiculo</th>
+			<td mat-cell *matCellDef="let element">
+				<span><strong>Marca: </strong>{{ element.vehiculoMarca }}</span>
+				<br />
+				<span
+					><strong>Modelo: </strong>{{ element.vehiculoModelo }}</span
+				>
+				<br />
+				<span><strong>Tipo: </strong>{{ element.vehiculoTipo }}</span>
+				<br />
+				<span><strong>Color: </strong>{{ element.vehiculoColor }}</span>
+			</td>
+		</ng-container>
+
+		<ng-container matColumnDef="detalles">
+			<th mat-header-cell *matHeaderCellDef>Asistencia</th>
+			<td mat-cell *matCellDef="let element">
+				<span><strong>Tipo: </strong>{{ element.tipoAsistencia }}</span>
+				<br />
+				<span><strong>Tramo: </strong>{{ element.tramo }}</span>
+				<br />
+				<span><strong>Unidad: </strong>{{ element.unidad }}</span>
+			</td>
+		</ng-container>
+
+		<ng-container matColumnDef="ubicacion">
+			<th mat-header-cell *matHeaderCellDef>Ubicación</th>
+			<td mat-cell *matCellDef="let element">
+				<span><strong>Provincia: </strong>{{ element.provincia }}</span>
+				<br />
+				<span><strong>Municipio: </strong>{{ element.municipio }}</span>
+			</td>
+		</ng-container>
+
+		<ng-container matColumnDef="agente">
+			<th mat-header-cell *matHeaderCellDef>Agente</th>
+			<td mat-cell *matCellDef="let element">
+				<span><strong>Rango: </strong>{{ element.rangoAgente }}</span>
+				<br />
+				<span
+					><strong>Cédula: </strong> <br />{{
+						element.cedulaAgente | cedula
+					}}</span
+				>
+				<br />
+				<span><strong>Nombre: </strong>{{ element.nombreAgente }}</span>
+			</td>
+		</ng-container>
+
+		<ng-container matColumnDef="creacion">
+			<th mat-header-cell *matHeaderCellDef>Creación</th>
+			<td mat-cell *matCellDef="let element">
+				<span
+					><strong>Reportó: </strong>{{ element.reportadoPor }}</span
+				>
+				<br />
+				<span
+					><strong>Creado: </strong
+					>{{ element.fechaCreacion | date : 'short' }}</span
+				>
+			</td>
+		</ng-container>
+
+		<ng-container matColumnDef="acciones">
+			<th mat-header-cell *matHeaderCellDef>Acciones</th>
+			<td mat-cell *matCellDef="let element; let i = index">
+				<!-- <button
+					mat-raised-button
+					color="primary"
+					(click)="updateAsistenciaCompletar(element.id)"
+					[disabled]="element.completada"
+				>
+					<mat-icon style="color: rgb(21, 204, 21)"
+						>check_box</mat-icon
+					>
+					Completar
+				</button> -->
+				<br />
+				<button mat-icon-button [routerLink]="['', element.id]">
+					<mat-icon style="color: rgb(243, 201, 84)">edit</mat-icon>
+				</button>
+				<!-- <button mat-icon-button>
+					<mat-icon class="trash-icon">delete</mat-icon>
+				</button> -->
+			</td>
+		</ng-container>
+
+		<tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+		<tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+
+		<!-- Row shown when there is no matching data. -->
+		<tr class="mat-row" *matNoDataRow>
+			<td class="mat-cell" colspan="12" style="width: 100%">
+				No hay registros para mostrar
+			</td>
+		</tr>
+	</table>
+</div>
+<mat-divider></mat-divider>
+<mat-paginator
+	#paginator
+	style="margin-top: 1em"
+	(page)="pageChanged($event)"
+	[pageSizeOptions]="pageSizeOptions"
+	[length]="totalRows"
+	[pageIndex]="filters.page"
+	[pageSize]="filters.size"
+	[showFirstLastButtons]="true"
+	aria-label="Select page"
+>
+</mat-paginator>

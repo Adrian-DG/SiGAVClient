@@ -14,6 +14,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatDividerModule } from '@angular/material/divider';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 @NgModule({
 	declarations: [],
@@ -31,6 +32,7 @@ import { MatDividerModule } from '@angular/material/divider';
 		MatTableModule,
 		MatPaginatorModule,
 		MatDividerModule,
+		MatCheckboxModule,
 	],
 })
 export class MaterialModule {}
