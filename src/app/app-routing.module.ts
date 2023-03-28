@@ -6,6 +6,14 @@ import { AuthModule } from './modules/auth/auth.module';
 
 const routes: Routes = [
 	{
+		path: 'unidades',
+		loadChildren: () =>
+			import('./modules/unidades/unidades.module').then(
+				(m) => m.UnidadesModule
+			),
+		canActivate: [AuthGuard],
+	},
+	{
 		path: 'tramos',
 		loadChildren: () =>
 			import('./modules/tramos/tramos.module').then(

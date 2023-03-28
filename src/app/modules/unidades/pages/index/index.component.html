@@ -1,0 +1,10 @@
+<mat-card>
+	<app-page-intro
+		title="unidades"
+		description="Este modulo permitira manejar las unidades en el terreno"
+		[childRoutes]="['listado', 'crear']"
+	></app-page-intro>
+	<mat-card-content class="content">
+		<router-outlet></router-outlet>
+	</mat-card-content>
+</mat-card>
