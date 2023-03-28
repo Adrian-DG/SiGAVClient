@@ -29,11 +29,7 @@ export class TramoService extends GenericService {
 		);
 	}
 
-	createTramo(model: ITramo): void {
-		this.$http
-			.post<IServerResponse>(`${this.endPoint}`, model)
-			.subscribe((response: IServerResponse) => {
-				alert(response.message);
-			});
+	getFilteredTramosByNombre(): Observable<ITramoViewModel[]> {
+		return this.$http.get<ITramoViewModel[]>(`${this.endPoint}/search`);
 	}
 }
