@@ -1,1 +1,38 @@
-<p>create works!</p>
+<form [formGroup]="tramoForm" (ngSubmit)="createTramo()">
+	<div>
+		<mat-form-field appearance="fill" style="width: 100%">
+			<mat-label>Descripcion</mat-label>
+			<input
+				type="text"
+				matInput
+				placeholder="Nombre"
+				formControlName="nombre"
+			/>
+			<mat-hint>Nombre que identificara el tramo</mat-hint>
+		</mat-form-field>
+		<mat-form-field
+			appearance="fill"
+			style="width: 50%"
+			(click)="_cache.getData('regiones')"
+		>
+			<mat-label>Seleccionar region</mat-label>
+			<mat-select formControlName="regionAsistenciaId">
+				<mat-option
+					[value]="item.id"
+					*ngFor="let item of _cache.regionesAsistencia$ | async"
+					>{{ item.nombre }}</mat-option
+				>
+			</mat-select>
+		</mat-form-field>
+		<br />
+		<button
+			mat-raised-button
+			color="accent"
+			style="width: 100%"
+			type="submit"
+			[disabled]="!tramoForm.valid"
+		>
+			Crear Tramo
+		</button>
+	</div>
+</form>

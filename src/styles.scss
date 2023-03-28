@@ -1,4 +1,31 @@
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body {
+	height: 100%;
+}
+body {
+	margin: 0;
+	font-family: Roboto, 'Helvetica Neue', sans-serif;
+}
+
+.page-container {
+	width: 80vw;
+}
+
+.filter {
+	width: 100%;
+}
+
+.table {
+	width: 80vw;
+	height: 40vh;
+	overflow-y: auto;
+}
+
+.edit-icon {
+	color: rgb(69, 209, 69);
+}
+.trash-icon {
+	color: rgb(235, 79, 79);
+}
