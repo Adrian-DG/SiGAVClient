@@ -9,8 +9,44 @@ body {
 	font-family: Roboto, 'Helvetica Neue', sans-serif;
 }
 
+$border-red: 2px solid red;
+
+/* ----------- App component ------------ */
+
+.main-container {
+	width: 100%;
+	min-height: 90vh;
+	height: auto;
+	overflow-y: auto;
+}
+
+.sidenav-container {
+	width: 100%;
+	height: 89.5vh;
+}
+
+.sidenav {
+	width: 15%;
+}
+
+.sidenav-content {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	background-color: whitesmoke;
+}
+
+/* ----------- pages ------------------- */
+
 .page-container {
-	width: 80vw;
+	width: 100%;
+	height: 85vh;
+	overflow-y: auto;
+}
+
+mat-card {
+	box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 }
 
 .filter {
@@ -18,8 +54,7 @@ body {
 }
 
 .table {
-	width: 80vw;
-	height: 40vh;
+	max-height: 35vh;
 	overflow-y: auto;
 }
 

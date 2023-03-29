@@ -1,5 +1,5 @@
 import { Injectable, isDevMode } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { IGenericData } from '../../Responses/igeneric-data';
 import { BehaviorSubject, Observable } from 'rxjs';
 
@@ -75,9 +75,12 @@ export class CacheService {
 	}
 
 	getDataOnId(resource: string, id: number): void {
+		const params = new HttpParams().set('id', id);
 		const sourcesKeys = Object.entries(this.sources);
 		this.$http
-			.get<IGenericData[]>(`${this.endPoint}/${resource}/${id}`)
+			.get<IGenericData[]>(`${this.endPoint}/${resource}`, {
+				params: params,
+			})
 			.subscribe((data: IGenericData[]) => {
 				const key = sourcesKeys.findIndex((x) => x[0] == resource);
 				sourcesKeys[key][1](data);
