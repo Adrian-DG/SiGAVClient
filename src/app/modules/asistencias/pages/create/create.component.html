@@ -18,40 +18,10 @@
 		</mat-form-field>
 	</div>
 
-	<div class="row">
+	<div class="row-start">
 		<mat-form-field
 			appearance="fill"
-			style="width: 25%"
-			(click)="_cache.getData('VehiculoMarca')"
-		>
-			<mat-label>Marca</mat-label>
-			<mat-select #marcaId formControlName="vehiculoMarcaId">
-				<mat-option
-					[value]="item.id"
-					*ngFor="let item of _cache.vehiculoMarca$ | async"
-				>
-					{{ item.nombre }}
-				</mat-option>
-			</mat-select>
-		</mat-form-field>
-		<mat-form-field
-			appearance="fill"
-			style="width: 25%"
-			(click)="_cache.getDataOnId('VehiculoModelo', marcaId.value)"
-		>
-			<mat-label>Modelo</mat-label>
-			<mat-select formControlName="vehiculoModeloId">
-				<mat-option
-					[value]="item.id"
-					*ngFor="let item of _cache.vehiculoModelo$ | async"
-				>
-					{{ item.nombre }}
-				</mat-option>
-			</mat-select>
-		</mat-form-field>
-		<mat-form-field
-			appearance="fill"
-			style="width: 25%"
+			style="width: 40%"
 			(click)="_cache.getData('VehiculoTipo')"
 		>
 			<mat-label>Tipo vehiculo</mat-label>
@@ -66,7 +36,7 @@
 		</mat-form-field>
 		<mat-form-field
 			appearance="fill"
-			style="width: 25%"
+			style="width: 40%"
 			(click)="_cache.getData('VehiculoColores')"
 		>
 			<mat-label>Color</mat-label>
@@ -78,6 +48,43 @@
 					{{ item.nombre }}
 				</mat-option>
 			</mat-select>
+		</mat-form-field>
+	</div>
+
+	<div class="row">
+		<mat-form-field
+			appearance="fill"
+			style="width: 40%"
+			(click)="_cache.getData('VehiculoMarca')"
+		>
+			<mat-label>Marca</mat-label>
+			<mat-select #marcaId formControlName="vehiculoMarcaId">
+				<mat-option
+					[value]="item.id"
+					*ngFor="let item of _cache.vehiculoMarca$ | async"
+				>
+					{{ item.nombre }}
+				</mat-option>
+			</mat-select>
+		</mat-form-field>
+		<mat-form-field
+			appearance="fill"
+			style="width: 40%"
+			(click)="_cache.getDataOnId('VehiculoModelo', marcaId.value)"
+		>
+			<mat-label>Modelo</mat-label>
+			<mat-select formControlName="vehiculoModeloId">
+				<mat-option
+					[value]="item.id"
+					*ngFor="let item of _cache.vehiculoModelo$ | async"
+				>
+					{{ item.nombre }}
+				</mat-option>
+			</mat-select>
+		</mat-form-field>
+		<mat-form-field style="width: 20%">
+			<mat-label>Placa</mat-label>
+			<input matInput formControlName="placa" />
 		</mat-form-field>
 	</div>
 
@@ -165,7 +172,7 @@
 			"
 		>
 			<mat-label>Tipo Asistencia</mat-label>
-			<mat-select formControlName="tipoAsistenciaId">
+			<mat-select formControlName="tipoAsistenciaId" [multiple]="true">
 				<mat-option
 					[value]="item.id"
 					*ngFor="let item of _cache.tipoAsistencia$ | async"
@@ -175,6 +182,15 @@
 			</mat-select>
 		</mat-form-field>
 	</div>
+
+	<mat-form-field style="width: 100%">
+		<mat-label>Comentarios</mat-label>
+		<textarea
+			formControlName="comentarios"
+			matInput
+			placeholder="comentarios..."
+		></textarea>
+	</mat-form-field>
 
 	<div class="row" style="margin-top: 1em">
 		<button mat-stroked-button style="width: 50%">

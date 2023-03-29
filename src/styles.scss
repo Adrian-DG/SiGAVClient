@@ -49,6 +49,10 @@ mat-card {
 	box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 }
 
+.mdc-text-field--filled:not(.mdc-text-field--disabled) {
+	background-color: transparent !important;
+}
+
 .filter {
 	width: 100%;
 }

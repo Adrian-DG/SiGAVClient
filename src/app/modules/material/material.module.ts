@@ -17,6 +17,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSelectModule } from '@angular/material/select';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatStepperModule } from '@angular/material/stepper';
 
 @NgModule({
 	declarations: [],
@@ -37,6 +38,7 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 		MatCheckboxModule,
 		MatSelectModule,
 		MatAutocompleteModule,
+		MatStepperModule,
 	],
 })
 export class MaterialModule {}

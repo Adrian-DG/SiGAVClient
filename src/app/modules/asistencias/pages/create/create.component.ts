@@ -26,13 +26,13 @@ export class CreateComponent implements OnInit {
 		vehiculoColorId: [0],
 		vehiculoModeloId: [0],
 		vehiculoMarcaId: [0],
-		latitud: [''],
-		longitud: [''],
+		placa: [''],
 		municipioId: [0],
 		provinciaId: [0],
 		unidadId: [0],
 		tipoAsistenciaId: [0],
 		reportadoPor: [1],
+		comentarios: [''],
 	});
 
 	ngOnInit(): void {

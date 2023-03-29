@@ -27,32 +27,34 @@
 			</mat-form-field>
 		</div>
 
-		<mat-form-field appearance="fill" style="width: 100%">
-			<mat-label>Seleccionar Tipo Unidad</mat-label>
-			<mat-select
-				formControlName="tipoUnidadId"
-				(click)="_cache.getData('TipoUnidades')"
-			>
-				<mat-option
-					[value]="item.id"
-					*ngFor="let item of _cache.tipoUnidades$ | async"
+		<div class="row">
+			<mat-form-field appearance="fill" style="width: 50%">
+				<mat-label>Seleccionar Tipo Unidad</mat-label>
+				<mat-select
+					formControlName="tipoUnidadId"
+					(click)="_cache.getData('TipoUnidades')"
 				>
-					{{ item.nombre }}
-				</mat-option>
-			</mat-select>
-		</mat-form-field>
+					<mat-option
+						[value]="item.id"
+						*ngFor="let item of _cache.tipoUnidades$ | async"
+					>
+						{{ item.nombre }}
+					</mat-option>
+				</mat-select>
+			</mat-form-field>
 
-		<mat-form-field appearance="fill" style="width: 100%">
-			<mat-label>Seleccionar Tramo</mat-label>
-			<mat-select formControlName="tramoId">
-				<mat-option
-					*ngFor="let item of tramosFilteredList"
-					[value]="item.id"
-				>
-					{{ item.nombre }}
-				</mat-option>
-			</mat-select>
-		</mat-form-field>
+			<mat-form-field appearance="fill" style="width: 50%">
+				<mat-label>Seleccionar Tramo</mat-label>
+				<mat-select formControlName="tramoId">
+					<mat-option
+						*ngFor="let item of tramosFilteredList"
+						[value]="item.id"
+					>
+						{{ item.nombre }}
+					</mat-option>
+				</mat-select>
+			</mat-form-field>
+		</div>
 
 		<button
 			type="submit"
