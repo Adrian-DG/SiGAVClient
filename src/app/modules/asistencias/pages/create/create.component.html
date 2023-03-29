@@ -1,209 +1,264 @@
-<form
-	[formGroup]="asistenciaForm"
-	style="width: 100%"
-	(ngSubmit)="createAsistencia()"
->
-	<div class="row">
-		<mat-form-field style="width: 40%">
-			<mat-label>Identificación</mat-label>
-			<input matInput formControlName="identificacion" />
-		</mat-form-field>
-		<mat-form-field style="width: 40%">
-			<mat-label>Nombre Ciudadano</mat-label>
-			<input matInput formControlName="nombreCiudadano" />
-		</mat-form-field>
-		<mat-form-field style="width: 40%">
-			<mat-label>Telefono</mat-label>
-			<input matInput formControlName="telefono" />
-		</mat-form-field>
-	</div>
+<mat-stepper [linear]="true">
+	<!-- Informacion ciudadano -->
 
-	<div class="row-start">
-		<mat-form-field
-			appearance="fill"
-			style="width: 40%"
-			(click)="_cache.getData('VehiculoTipo')"
-		>
-			<mat-label>Tipo vehiculo</mat-label>
-			<mat-select formControlName="vehiculoTipoId">
-				<mat-option
-					[value]="item.id"
-					*ngFor="let item of _cache.vehiculoTipos$ | async"
+	<mat-step [stepControl]="ciudadanoForm" label="Información del ciudadano">
+		<form [formGroup]="ciudadanoForm">
+			<!-- <ng-template matStepLabel>Informacion del ciudadano</ng-template> -->
+			<div class="row">
+				<mat-form-field style="width: 40%">
+					<mat-label>Identificación</mat-label>
+					<input matInput formControlName="identificacion" />
+				</mat-form-field>
+				<mat-form-field style="width: 40%">
+					<mat-label>Nombre</mat-label>
+					<input matInput formControlName="nombre" />
+				</mat-form-field>
+				<mat-form-field style="width: 40%">
+					<mat-label>Apellido</mat-label>
+					<input matInput formControlName="apellido" />
+				</mat-form-field>
+			</div>
+			<div class="row-start">
+				<mat-form-field style="width: 40%">
+					<mat-label>Telefono</mat-label>
+					<input matInput formControlName="telefono" />
+				</mat-form-field>
+				<mat-checkbox formControlName="esExtranjero"
+					>Extranjero</mat-checkbox
 				>
-					{{ item.nombre }}
-				</mat-option>
-			</mat-select>
-		</mat-form-field>
-		<mat-form-field
-			appearance="fill"
-			style="width: 40%"
-			(click)="_cache.getData('VehiculoColores')"
-		>
-			<mat-label>Color</mat-label>
-			<mat-select formControlName="vehiculoColorId">
-				<mat-option
-					[value]="item.id"
-					*ngFor="let item of _cache.vehiculoColor$ | async"
+				<button
+					style="width: 20%"
+					mat-raised-button
+					color="accent"
+					matStepperNext
 				>
-					{{ item.nombre }}
-				</mat-option>
-			</mat-select>
-		</mat-form-field>
-	</div>
+					Siguiente
+				</button>
+			</div>
+		</form>
+	</mat-step>
 
-	<div class="row">
-		<mat-form-field
-			appearance="fill"
-			style="width: 40%"
-			(click)="_cache.getData('VehiculoMarca')"
-		>
-			<mat-label>Marca</mat-label>
-			<mat-select #marcaId formControlName="vehiculoMarcaId">
-				<mat-option
-					[value]="item.id"
-					*ngFor="let item of _cache.vehiculoMarca$ | async"
-				>
-					{{ item.nombre }}
-				</mat-option>
-			</mat-select>
-		</mat-form-field>
-		<mat-form-field
-			appearance="fill"
-			style="width: 40%"
-			(click)="_cache.getDataOnId('VehiculoModelo', marcaId.value)"
-		>
-			<mat-label>Modelo</mat-label>
-			<mat-select formControlName="vehiculoModeloId">
-				<mat-option
-					[value]="item.id"
-					*ngFor="let item of _cache.vehiculoModelo$ | async"
-				>
-					{{ item.nombre }}
-				</mat-option>
-			</mat-select>
-		</mat-form-field>
-		<mat-form-field style="width: 20%">
-			<mat-label>Placa</mat-label>
-			<input matInput formControlName="placa" />
-		</mat-form-field>
-	</div>
+	<!-- Informacion Vehiculo -->
 
-	<div class="row">
-		<mat-form-field
-			appearance="fill"
-			style="width: 50%"
-			(click)="_cache.getData('provincias')"
-		>
-			<mat-label>Provincia</mat-label>
-			<mat-select #provinciaId formControlName="provinciaId">
-				<mat-option
-					[value]="item.id"
-					*ngFor="let item of _cache.provincias$ | async"
-					>{{ item.nombre }}</mat-option
+	<mat-step [stepControl]="vehiculoForm" label="Información vehiculo">
+		<form [formGroup]="vehiculoForm">
+			<div class="row-start">
+				<mat-form-field
+					appearance="fill"
+					style="width: 40%"
+					(click)="_cache.getData('VehiculoTipo')"
 				>
-			</mat-select>
-		</mat-form-field>
-		<mat-form-field
-			appearance="fill"
-			style="width: 50%"
-			(click)="_cache.getDataOnId('municipios', provinciaId.value)"
-		>
-			<mat-label>Municipio</mat-label>
-			<mat-select formControlName="municipioId">
-				<mat-option
-					[value]="item.id"
-					*ngFor="let item of _cache.municipios$ | async"
-					>{{ item.nombre }}</mat-option
-				>
-			</mat-select>
-		</mat-form-field>
-	</div>
-
-	<div class="row">
-		<!-- TODO: implement autocomplete -->
-		<mat-form-field
-			style="width: 30%"
-			class="example-full-width"
-			appearance="fill"
-		>
-			<mat-label>Asignar Unidad</mat-label>
-			<input
-				type="text"
-				placeholder="Selecciona unidad"
-				aria-label="Unidad-Miembro"
-				matInput
-				formControlName="unidadId"
-				#unidad
-				(change)="_unidades.getUnidadesAutoComplete(unidad.value)"
-				[matAutocomplete]="auto"
-			/>
-			<mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
-				<mat-option
-					*ngFor="let item of _unidades.unidadeAutocomplete$ | async"
-					[value]="item.unidadId"
-				>
-					<div>
-						Den.: {{ item.denominacion }}
-						<br />
-						<small
-							>Ficha: {{ item.ficha }} | Placa:
-							{{ item.placa }}</small
+					<mat-label>Tipo vehiculo</mat-label>
+					<mat-select formControlName="vehiculoTipoId">
+						<mat-option
+							[value]="item.id"
+							*ngFor="let item of _cache.vehiculoTipos$ | async"
 						>
-						<br />
-						<small>Tramo: {{ item.tramo }}</small>
-					</div>
-				</mat-option>
-			</mat-autocomplete>
-		</mat-form-field>
-
-		<mat-form-field appearance="fill" style="width: 20%">
-			<mat-label>Categoria Asistencia</mat-label>
-			<mat-select #categoriaAsistencia>
-				<mat-option [value]="1">Accidente</mat-option>
-				<mat-option [value]="2">Asistencia</mat-option>
-			</mat-select>
-		</mat-form-field>
-
-		<mat-form-field
-			appearance="fill"
-			style="width: 50%"
-			(click)="
-				_cache.getDataOnId('TipoAsistencia', categoriaAsistencia.value)
-			"
-		>
-			<mat-label>Tipo Asistencia</mat-label>
-			<mat-select formControlName="tipoAsistenciaId" [multiple]="true">
-				<mat-option
-					[value]="item.id"
-					*ngFor="let item of _cache.tipoAsistencia$ | async"
+							{{ item.nombre }}
+						</mat-option>
+					</mat-select>
+				</mat-form-field>
+				<mat-form-field
+					appearance="fill"
+					style="width: 40%"
+					(click)="_cache.getData('VehiculoColores')"
 				>
-					{{ item.nombre }}
-				</mat-option>
-			</mat-select>
-		</mat-form-field>
-	</div>
+					<mat-label>Color</mat-label>
+					<mat-select formControlName="vehiculoColorId">
+						<mat-option
+							[value]="item.id"
+							*ngFor="let item of _cache.vehiculoColor$ | async"
+						>
+							{{ item.nombre }}
+						</mat-option>
+					</mat-select>
+				</mat-form-field>
+			</div>
 
-	<mat-form-field style="width: 100%">
-		<mat-label>Comentarios</mat-label>
-		<textarea
-			formControlName="comentarios"
-			matInput
-			placeholder="comentarios..."
-		></textarea>
-	</mat-form-field>
+			<div class="row">
+				<mat-form-field
+					appearance="fill"
+					style="width: 40%"
+					(click)="_cache.getData('VehiculoMarca')"
+				>
+					<mat-label>Marca</mat-label>
+					<mat-select #marcaId formControlName="vehiculoMarcaId">
+						<mat-option
+							[value]="item.id"
+							*ngFor="let item of _cache.vehiculoMarca$ | async"
+						>
+							{{ item.nombre }}
+						</mat-option>
+					</mat-select>
+				</mat-form-field>
+				<mat-form-field
+					appearance="fill"
+					style="width: 40%"
+					(click)="
+						_cache.getDataOnId('VehiculoModelo', marcaId.value)
+					"
+				>
+					<mat-label>Modelo</mat-label>
+					<mat-select formControlName="vehiculoModeloId">
+						<mat-option
+							[value]="item.id"
+							*ngFor="let item of _cache.vehiculoModelo$ | async"
+						>
+							{{ item.nombre }}
+						</mat-option>
+					</mat-select>
+				</mat-form-field>
+				<mat-form-field style="width: 20%">
+					<mat-label>Placa</mat-label>
+					<input matInput formControlName="placa" />
+				</mat-form-field>
+			</div>
+			<div class="row">
+				<button style="width: 50%" mat-raised-button matStepperPrevious>
+					Atras
+				</button>
+				<button
+					style="width: 50%"
+					mat-raised-button
+					color="accent"
+					matStepperNext
+				>
+					Siguiente
+				</button>
+			</div>
+		</form>
+	</mat-step>
 
-	<div class="row" style="margin-top: 1em">
-		<button mat-stroked-button style="width: 50%">
-			Limpiar Formulario
-		</button>
-		<button
-			type="submit"
-			mat-raised-button
-			style="width: 50%"
-			color="accent"
-			[disabled]="!asistenciaForm.valid"
-		>
-			Crear Asistencia
-		</button>
-	</div>
-</form>
+	<!-- Informacion asistencia -->
+
+	<mat-step [stepControl]="asistenciaForm" label="Información asistencia">
+		<form [formGroup]="asistenciaForm">
+			<div class="row">
+				<mat-form-field
+					appearance="fill"
+					style="width: 50%"
+					(click)="_cache.getData('provincias')"
+				>
+					<mat-label>Provincia</mat-label>
+					<mat-select #provinciaId formControlName="provinciaId">
+						<mat-option
+							[value]="item.id"
+							*ngFor="let item of _cache.provincias$ | async"
+							>{{ item.nombre }}</mat-option
+						>
+					</mat-select>
+				</mat-form-field>
+				<mat-form-field
+					appearance="fill"
+					style="width: 50%"
+					(click)="
+						_cache.getDataOnId('municipios', provinciaId.value)
+					"
+				>
+					<mat-label>Municipio</mat-label>
+					<mat-select formControlName="municipioId">
+						<mat-option
+							[value]="item.id"
+							*ngFor="let item of _cache.municipios$ | async"
+							>{{ item.nombre }}</mat-option
+						>
+					</mat-select>
+				</mat-form-field>
+			</div>
+			<div class="row">
+				<!-- TODO: implement autocomplete -->
+				<mat-form-field
+					style="width: 30%"
+					class="example-full-width"
+					appearance="fill"
+				>
+					<mat-label>Asignar Unidad</mat-label>
+					<input
+						type="text"
+						placeholder="Selecciona unidad"
+						aria-label="Unidad-Miembro"
+						matInput
+						formControlName="unidadId"
+						#unidad
+						(change)="
+							_unidades.getUnidadesAutoComplete(unidad.value)
+						"
+						[matAutocomplete]="auto"
+					/>
+					<mat-autocomplete
+						autoActiveFirstOption
+						#auto="matAutocomplete"
+					>
+						<mat-option
+							*ngFor="
+								let item of _unidades.unidadeAutocomplete$
+									| async
+							"
+							[value]="item.unidadId"
+						>
+							<div>
+								Den.: {{ item.denominacion }}
+								<br />
+								<small
+									>Ficha: {{ item.ficha }} | Placa:
+									{{ item.placa }}</small
+								>
+								<br />
+								<small>Tramo: {{ item.tramo }}</small>
+							</div>
+						</mat-option>
+					</mat-autocomplete>
+				</mat-form-field>
+
+				<mat-form-field appearance="fill" style="width: 20%">
+					<mat-label>Categoria Asistencia</mat-label>
+					<mat-select #categoriaAsistencia>
+						<mat-option [value]="1">Accidente</mat-option>
+						<mat-option [value]="2">Asistencia</mat-option>
+					</mat-select>
+				</mat-form-field>
+
+				<mat-form-field
+					appearance="fill"
+					style="width: 50%"
+					(click)="
+						_cache.getDataOnId(
+							'TipoAsistencia',
+							categoriaAsistencia.value
+						)
+					"
+				>
+					<mat-label>Tipo Asistencia</mat-label>
+					<mat-select
+						formControlName="tipoAsistenciaId"
+						[multiple]="true"
+					>
+						<mat-option
+							[value]="item.id"
+							*ngFor="let item of _cache.tipoAsistencia$ | async"
+						>
+							{{ item.nombre }}
+						</mat-option>
+					</mat-select>
+				</mat-form-field>
+			</div>
+
+			<mat-form-field style="width: 100%">
+				<mat-label>Comentarios</mat-label>
+				<textarea
+					formControlName="comentarios"
+					matInput
+					placeholder="comentarios..."
+				></textarea>
+			</mat-form-field>
+			<div class="row">
+				<button style="width: 50%" mat-raised-button matStepperPrevious>
+					Atras
+				</button>
+				<button style="width: 50%" mat-raised-button color="accent">
+					Terminar
+				</button>
+			</div>
+		</form>
+	</mat-step>
+</mat-stepper>

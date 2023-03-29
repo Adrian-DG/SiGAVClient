@@ -6,6 +6,7 @@ export interface IAsistencia extends IModelMetadata {
 	apellido: string;
 	telefono: string;
 	genero: string;
+	placa: string;
 	vehiculoTipoId: number;
 	vehiculoColorId: number;
 	vehiculoModeloId: number;
@@ -15,4 +16,6 @@ export interface IAsistencia extends IModelMetadata {
 	provinciaId: number;
 	unidadMiembroId: number;
 	estatusAsistencia: number;
+	reportadoPor: number;
+	comentarios: string;
 }
