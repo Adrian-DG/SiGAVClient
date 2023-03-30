@@ -18,6 +18,9 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSelectModule } from '@angular/material/select';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatStepperModule } from '@angular/material/stepper';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatRadioModule } from '@angular/material/radio';
 
 @NgModule({
 	declarations: [],
@@ -39,6 +42,9 @@ import { MatStepperModule } from '@angular/material/stepper';
 		MatSelectModule,
 		MatAutocompleteModule,
 		MatStepperModule,
+		MatDatepickerModule,
+		MatNativeDateModule,
+		MatRadioModule,
 	],
 })
 export class MaterialModule {}
