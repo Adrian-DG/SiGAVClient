@@ -6,6 +6,22 @@ import { AuthModule } from './modules/auth/auth.module';
 
 const routes: Routes = [
 	{
+		path: 'usuarios',
+		loadChildren: () =>
+			import('./modules/usuarios/usuarios.module').then(
+				(m) => m.UsuariosModule
+			),
+		canActivate: [AuthGuard],
+	},
+	{
+		path: 'miembros',
+		loadChildren: () =>
+			import('./modules/miembros/miembros.module').then(
+				(m) => m.MiembrosModule
+			),
+		canActivate: [AuthGuard],
+	},
+	{
 		path: 'asistencias',
 		loadChildren: () =>
 			import('./modules/asistencias/asistencias.module').then(

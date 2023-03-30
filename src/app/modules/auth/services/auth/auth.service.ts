@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, ReplaySubject } from 'rxjs';
 import { GenericService } from 'src/app/modules/generic/services/generic/generic.service';
 import { ILoginUser } from '../../DTO/ilogin-user';
 import { IUserData } from '../../interfaces/iuser-data';
@@ -15,7 +15,7 @@ export class AuthService extends GenericService {
 	private isAuthenticatedSource = new BehaviorSubject<boolean>(false);
 	public isAuthenticated$ = this.isAuthenticatedSource.asObservable();
 
-	private userDataSource = new BehaviorSubject<IUserData | null>(null);
+	private userDataSource = new ReplaySubject<IUserData>();
 	public userData$ = this.userDataSource.asObservable();
 
 	GetResource(): string {
@@ -52,14 +52,19 @@ export class AuthService extends GenericService {
 		const esAdministrador = sessionStorage.getItem('esAdministrador');
 		const permisos = sessionStorage.getItem('permisos');
 
-		console.log('session info', {
-			userId,
-			username,
-			esAdministrador,
-			permisos,
-		});
+		// console.log('session info', {
+		// 	userId,
+		// 	username,
+		// 	esAdministrador,
+		// 	permisos,
+		// });
 
-		if (userId && username && esAdministrador && permisos) {
+		if (
+			userId != null &&
+			username != null &&
+			esAdministrador != null &&
+			permisos != null
+		) {
 			const userInfo: IUserData = {
 				usuarioId: parseInt(userId),
 				usuario: username,

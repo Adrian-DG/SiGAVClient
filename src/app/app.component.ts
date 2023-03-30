@@ -8,7 +8,13 @@ import { AuthService } from './modules/auth/services/auth/auth.service';
 })
 export class AppComponent implements OnInit {
 	title = 'SiGAVClient';
-	links: string[] = ['asistencias', 'unidades', 'tramos'];
+	links: string[] = [
+		'asistencias',
+		'unidades',
+		'tramos',
+		'miembros',
+		'usuarios',
+	];
 
 	constructor(public _auth: AuthService) {}
 

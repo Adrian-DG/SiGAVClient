@@ -1,1 +1,8 @@
 @import url('../styles.scss');
+
+mat-toolbar-row {
+	display: row;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+}

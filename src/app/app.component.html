@@ -1,18 +1,21 @@
 <div class="main-container">
 	<mat-toolbar color="primary">
 		<mat-toolbar-row>
-			<button
-				mat-icon-button
-				(click)="sidenav.toggle()"
-				*ngIf="_auth.isAuthenticated$ | async"
-			>
-				<mat-icon>menu</mat-icon>
-			</button>
-			<span>SiGAV</span>
+			<div>
+				<button
+					mat-icon-button
+					(click)="sidenav.toggle()"
+					*ngIf="_auth.isAuthenticated$ | async"
+				>
+					<mat-icon>menu</mat-icon>
+				</button>
+				<span>SiGAV</span>
+			</div>
+
 			<div class="links" *ngIf="_auth.userData$ | async as user">
 				<a mat-button>
 					<button mat-button [matMenuTriggerFor]="afterMenu">
-						Usuario: {{ user?.usuario }}
+						Usuario: {{ user.usuario }}
 					</button>
 					<mat-menu #afterMenu="matMenu" xPosition="after">
 						<button mat-menu-item (click)="logout()">Salir</button>
