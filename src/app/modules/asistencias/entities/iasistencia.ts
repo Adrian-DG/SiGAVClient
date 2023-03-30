@@ -6,6 +6,7 @@ export interface IAsistencia extends IModelMetadata {
 	apellido: string;
 	telefono: string;
 	genero: string;
+	esExtranjero: boolean;
 	placa: string;
 	vehiculoTipoId: number;
 	vehiculoColorId: number;

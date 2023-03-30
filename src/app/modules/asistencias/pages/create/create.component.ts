@@ -7,6 +7,8 @@ import {
 } from '@angular/forms';
 import { CacheService } from 'src/app/modules/generic/services/cache/cache.service';
 import { UnidadesService } from 'src/app/modules/unidades/services/unidades.service';
+import { IAsistenciaR5Create } from '../../DTO/iasistencia-r5-create';
+import { IAsistencia } from '../../entities/iasistencia';
 import { AsistenciasService } from '../../services/asistencias.service';
 
 @Component({
@@ -44,7 +46,6 @@ export class CreateComponent implements OnInit {
 		provinciaId: new FormControl(0),
 		unidadId: new FormControl(0),
 		tipoAsistenciaId: new FormControl(0),
-		reportadoPor: new FormControl(1),
 		comentarios: new FormControl(''),
 	});
 
@@ -70,6 +71,54 @@ export class CreateComponent implements OnInit {
 	}
 
 	createAsistencia(): void {
-		this._asistencias.createAsistencia(this.asistenciaForm.value);
+		const {
+			identificacion,
+			nombre,
+			apellido,
+			genero,
+			telefono,
+			esExtranjero,
+		} = this.ciudadanoForm.value;
+
+		const {
+			vehiculoTipoId,
+			vehiculoColorId,
+			vehiculoModeloId,
+			vehiculoMarcaId,
+			placa,
+		} = this.vehiculoForm.value;
+
+		const {
+			municipioId,
+			provinciaId,
+			unidadId,
+			tipoAsistenciaId,
+			comentarios,
+		} = this.asistenciaForm.value;
+
+		const newAsistencia: IAsistenciaR5Create = {
+			// ciudadano
+			identificacion: identificacion,
+			nombre: nombre,
+			apellido: apellido,
+			genero: parseInt(genero),
+			esExtranjero: esExtranjero,
+			telefono: telefono,
+			// vehiculo
+			vehiculoColorId: vehiculoColorId,
+			vehiculoTipoId: vehiculoTipoId,
+			vehiculoMarcaId: vehiculoMarcaId,
+			vehiculoModeloId: vehiculoModeloId,
+			placa: placa,
+			// asistencia
+			municipioId: municipioId,
+			provinciaId: provinciaId,
+			unidadId: unidadId,
+			tipoAsistencias: tipoAsistenciaId,
+			comentario: comentarios,
+			usuarioId: this._asistencias.userId,
+		};
+
+		this._asistencias.createAsistencia(newAsistencia);
 	}
 }

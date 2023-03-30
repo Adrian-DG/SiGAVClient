@@ -42,11 +42,17 @@ $border-red: 2px solid red;
 .page-container {
 	width: 100%;
 	height: 85vh;
+	overflow-x: hidden;
 	overflow-y: auto;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: center;
 }
 
 mat-card {
 	box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+	max-width: 95%;
 }
 
 .mdc-text-field--filled:not(.mdc-text-field--disabled) {

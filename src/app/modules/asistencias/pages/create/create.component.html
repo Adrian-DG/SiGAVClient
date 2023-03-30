@@ -18,23 +18,34 @@
 					<input matInput formControlName="apellido" />
 				</mat-form-field>
 			</div>
-			<div class="row-start">
-				<mat-form-field style="width: 40%">
+
+			<div class="row">
+				<fieldset>
+					<legend>Escoger Sexo</legend>
+					<mat-radio-group
+						aria-label="Select an option"
+						formControlName="genero"
+					>
+						<mat-radio-button value="1">Hombre</mat-radio-button>
+						<mat-radio-button value="2">Mujer</mat-radio-button>
+					</mat-radio-group>
+				</fieldset>
+				<mat-form-field style="flex-grow: 1">
 					<mat-label>Telefono</mat-label>
 					<input matInput formControlName="telefono" />
 				</mat-form-field>
 				<mat-checkbox formControlName="esExtranjero"
 					>Extranjero</mat-checkbox
 				>
-				<button
-					style="width: 20%"
-					mat-raised-button
-					color="accent"
-					matStepperNext
-				>
-					Siguiente
-				</button>
 			</div>
+			<button
+				style="width: 100%; margin-top: 1em"
+				mat-raised-button
+				color="accent"
+				matStepperNext
+			>
+				Siguiente
+			</button>
 		</form>
 	</mat-step>
 
@@ -132,7 +143,7 @@
 	<!-- Informacion asistencia -->
 
 	<mat-step [stepControl]="asistenciaForm" label="Información asistencia">
-		<form [formGroup]="asistenciaForm">
+		<form [formGroup]="asistenciaForm" (ngSubmit)="createAsistencia()">
 			<div class="row">
 				<mat-form-field
 					appearance="fill"
@@ -255,7 +266,13 @@
 				<button style="width: 50%" mat-raised-button matStepperPrevious>
 					Atras
 				</button>
-				<button style="width: 50%" mat-raised-button color="accent">
+				<button
+					type="submit"
+					style="width: 50%"
+					mat-raised-button
+					color="accent"
+					[disabled]="!asistenciaForm.valid"
+				>
 					Terminar
 				</button>
 			</div>

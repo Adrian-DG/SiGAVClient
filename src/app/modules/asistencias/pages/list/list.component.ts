@@ -17,6 +17,7 @@ export class ListComponent implements OnInit, AfterViewInit {
 	displayedColumns: string[] = [
 		'id',
 		'agente',
+		'unidad',
 		'ciudadano',
 		'vehiculo',
 		'detalles',
@@ -31,7 +32,7 @@ export class ListComponent implements OnInit, AfterViewInit {
 		page: 0,
 		size: 5,
 		searchTerm: '',
-		status: true,
+		status: false,
 	};
 
 	@ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -64,5 +65,9 @@ export class ListComponent implements OnInit, AfterViewInit {
 		this.filters.size = event.pageSize;
 		this.filters.page = event.pageIndex;
 		this.loadData();
+	}
+
+	completarAsistencia(id: number): void {
+		this._asistencias.updateAsistenciaCompletar(id);
 	}
 }

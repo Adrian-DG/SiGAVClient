@@ -1,17 +1,24 @@
 export interface IAsistenciaR5Create {
 	// ciudadano
 	identificacion: string;
-	nombreCiudadano: string;
+	nombre: string;
+	apellido: string;
 	telefono: string;
-	edad: number;
+	genero: number;
+	esExtranjero: boolean;
 	// vehiculo
 	vehiculoMarcaId: number;
 	vehiculoModeloId: number;
 	vehiculoTipoId: number;
 	vehiculoColorId: number;
+	placa: string;
+
 	// ubicacion
 	provinciaId: number;
 	municipioId: number;
 	unidadId: number;
-	tipoAsistenciaId: number;
+	tipoAsistencias: number[];
+
+	comentario: string;
+	usuarioId: number;
 }

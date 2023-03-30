@@ -58,15 +58,16 @@
 			<td mat-cell *matCellDef="let element">{{ element.cobertura }}</td>
 		</ng-container>
 
+		<!-- TODO: Modulo: Unidades (implementar acciones)-->
 		<ng-container matColumnDef="acciones">
 			<th mat-header-cell *matHeaderCellDef>Acciones</th>
 			<td mat-cell *matCellDef="let element; let i = index">
-				<button
+				<!-- <button
 					mat-icon-button
 					[routerLink]="['/unidades/edit', element.id]"
 				>
 					<mat-icon class="edit-icon">edit</mat-icon>
-				</button>
+				</button> -->
 				<!-- <button mat-icon-button (click)="changeEstatus(element)">
 					<mat-icon class="trash-icon">delete</mat-icon>
 				</button> -->

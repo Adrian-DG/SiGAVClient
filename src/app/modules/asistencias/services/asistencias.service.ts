@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { IPaginationFilters } from '../../generic/DTO/ipagination-filters';
 import { IPagedData } from '../../generic/Responses/ipaged-data';
+import { IServerResponse } from '../../generic/Responses/iserver-response';
 import { GenericService } from '../../generic/services/generic/generic.service';
 import { IAsistenciaR5Create } from '../DTO/iasistencia-r5-create';
 import { IAsistenciaViewModel } from '../viewModels/iasistencia-view-model';
@@ -29,15 +30,11 @@ export class AsistenciasService extends GenericService {
 	}
 
 	createAsistencia(model: IAsistenciaR5Create): void {
-		console.log('Create asistencia');
+		console.log('Create asistencia: ', model);
 		this.$http
-			.post<boolean>(`${this.endPoint}/createR5`, model)
-			.subscribe((response: boolean) => {
-				alert(
-					response
-						? 'Se creo la asistencia de forma exitosa!!'
-						: 'Algo salio mal, no se pudo registrar las asistencia!!'
-				);
+			.post<IServerResponse>(`${this.endPoint}/createR5`, model)
+			.subscribe((response: IServerResponse) => {
+				alert(response.message);
 			});
 	}
 

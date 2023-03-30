@@ -1,5 +1,4 @@
 <!-- filter -->
-
 <div class="row">
 	<div class="col" style="width: 50%">
 		<mat-form-field class="filter">
@@ -14,6 +13,7 @@
 	</div>
 	<div class="col" style="width: 20%">
 		<mat-checkbox
+			style="margin-top: 1em"
 			class="example-margin"
 			[(ngModel)]="filters.status"
 			color="primary"
@@ -38,8 +38,7 @@
 			<th mat-header-cell *matHeaderCellDef>Ciudadano</th>
 			<td mat-cell *matCellDef="let element">
 				<span
-					><strong>Cédula:</strong>
-					<br />
+					><strong>Céd.:</strong>
 					{{ element.identificacion | cedula }}</span
 				>
 				<br />
@@ -55,26 +54,38 @@
 		<ng-container matColumnDef="vehiculo">
 			<th mat-header-cell *matHeaderCellDef>Vehiculo</th>
 			<td mat-cell *matCellDef="let element">
-				<span><strong>Marca: </strong>{{ element.vehiculoMarca }}</span>
+				<span><strong>Marca:</strong>{{ element.vehiculoMarca }}</span>
 				<br />
 				<span
-					><strong>Modelo: </strong>{{ element.vehiculoModelo }}</span
+					><strong>Modelo:</strong>{{ element.vehiculoModelo }}</span
 				>
 				<br />
-				<span><strong>Tipo: </strong>{{ element.vehiculoTipo }}</span>
+				<span><strong>Tipo:</strong>{{ element.vehiculoTipo }}</span>
 				<br />
-				<span><strong>Color: </strong>{{ element.vehiculoColor }}</span>
+				<span><strong>Color:</strong>{{ element.vehiculoColor }}</span>
 			</td>
 		</ng-container>
 
 		<ng-container matColumnDef="detalles">
 			<th mat-header-cell *matHeaderCellDef>Asistencia</th>
 			<td mat-cell *matCellDef="let element">
-				<span><strong>Tipo: </strong>{{ element.tipoAsistencia }}</span>
+				<span><strong>Tipo: </strong>{{ element.tipoUnidad }}</span>
 				<br />
 				<span><strong>Tramo: </strong>{{ element.tramo }}</span>
+			</td>
+		</ng-container>
+
+		<ng-container matColumnDef="unidad">
+			<th mat-header-cell *matHeaderCellDef>Unidad</th>
+			<td mat-cell *matCellDef="let element">
+				<span
+					><strong>Den.: </strong
+					>{{ element.denominacionUnidad }}</span
+				>
 				<br />
-				<span><strong>Unidad: </strong>{{ element.unidad }}</span>
+				<span><strong>Ficha: </strong>{{ element.fichaUnidad }}</span>
+				<br />
+				<span><strong>Tipo: </strong>{{ element.tipoUnidad }}</span>
 			</td>
 		</ng-container>
 
@@ -84,21 +95,25 @@
 				<span><strong>Provincia: </strong>{{ element.provincia }}</span>
 				<br />
 				<span><strong>Municipio: </strong>{{ element.municipio }}</span>
+				<br />
+				<span><strong>Coord.: </strong>{{ '' }}</span>
 			</td>
 		</ng-container>
 
 		<ng-container matColumnDef="agente">
 			<th mat-header-cell *matHeaderCellDef>Agente</th>
 			<td mat-cell *matCellDef="let element">
-				<span><strong>Rango: </strong>{{ element.rangoAgente }}</span>
+				<span><strong>Rango:</strong>{{ element.rangoAgente }}</span>
 				<br />
 				<span
-					><strong>Cédula: </strong> <br />{{
+					><strong>Cédula:</strong><br />{{
 						element.cedulaAgente | cedula
 					}}</span
 				>
 				<br />
-				<span><strong>Nombre: </strong>{{ element.nombreAgente }}</span>
+				<span><strong>Nombre:</strong>{{ element.nombreAgente }}</span>
+				<br />
+				<span><strong>Inst.:</strong>{{ '' }}</span>
 			</td>
 		</ng-container>
 
@@ -106,7 +121,12 @@
 			<th mat-header-cell *matHeaderCellDef>Creación</th>
 			<td mat-cell *matCellDef="let element">
 				<span
-					><strong>Reportó: </strong>{{ element.reportadoPor }}</span
+					><strong>Reportó: </strong>{{ element.reportadaPor }}</span
+				>
+				<br />
+				<span
+					><strong>Estatus: </strong
+					>{{ element.estatusAsistencia }}</span
 				>
 				<br />
 				<span
@@ -119,21 +139,21 @@
 		<ng-container matColumnDef="acciones">
 			<th mat-header-cell *matHeaderCellDef>Acciones</th>
 			<td mat-cell *matCellDef="let element; let i = index">
-				<!-- <button
+				<button
 					mat-raised-button
 					color="primary"
-					(click)="updateAsistenciaCompletar(element.id)"
+					(click)="completarAsistencia(element.id)"
 					[disabled]="element.completada"
 				>
 					<mat-icon style="color: rgb(21, 204, 21)"
 						>check_box</mat-icon
 					>
 					Completar
-				</button> -->
-				<br />
+				</button>
+				<!-- <br />
 				<button mat-icon-button [routerLink]="['', element.id]">
 					<mat-icon style="color: rgb(243, 201, 84)">edit</mat-icon>
-				</button>
+				</button> -->
 				<!-- <button mat-icon-button>
 					<mat-icon class="trash-icon">delete</mat-icon>
 				</button> -->
