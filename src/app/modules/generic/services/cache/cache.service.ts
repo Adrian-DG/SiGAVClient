@@ -39,6 +39,9 @@ export class CacheService {
 	private tipoUnidadesSource = new BehaviorSubject<IGenericData[]>([]);
 	public tipoUnidades$ = this.tipoUnidadesSource.asObservable();
 
+	private rangosSource = new BehaviorSubject<IGenericData[]>([]);
+	public rangos$ = this.rangosSource.asObservable();
+
 	private readonly sources = {
 		VehiculoTipo: (value: IGenericData[]) =>
 			this.vehiculoTiposSource.next(value),
@@ -57,6 +60,7 @@ export class CacheService {
 			this.regionesAsistenciaSource.next(value),
 		TipoUnidades: (value: IGenericData[]) =>
 			this.tipoUnidadesSource.next(value),
+		rangos: (value: IGenericData[]) => this.rangosSource.next(value),
 	};
 
 	constructor(private $http: HttpClient) {
