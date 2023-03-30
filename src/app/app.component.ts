@@ -16,6 +16,8 @@ export class AppComponent implements OnInit {
 		'usuarios',
 	];
 
+	miscelaneos = ['marcas', 'modelos', 'colores', 'tipo asistencias'];
+
 	constructor(public _auth: AuthService) {}
 
 	ngOnInit(): void {

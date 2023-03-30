@@ -6,6 +6,7 @@ import { IPagedData } from '../../generic/Responses/ipaged-data';
 import { IServerResponse } from '../../generic/Responses/iserver-response';
 import { GenericService } from '../../generic/services/generic/generic.service';
 import { IUsuario } from '../entities/iusuario';
+import { IUsuarioPermisoViewModel } from '../viewModels/iusuario-permiso-view-model';
 import { IUsuarioViewModel } from '../viewModels/iusuario-view-model';
 
 @Injectable({
@@ -26,6 +27,12 @@ export class UsuarioService extends GenericService {
 		return this.$http.get<IPagedData<IUsuarioViewModel>>(
 			`${this.endPoint}/all`,
 			{ params: this.getPaginationParams(filters) }
+		);
+	}
+
+	getUsuarioDetalles(id: number): Observable<IUsuarioPermisoViewModel> {
+		return this.$http.get<IUsuarioPermisoViewModel>(
+			`${this.endPoint}/${id}/details`
 		);
 	}
 

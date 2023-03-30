@@ -9,9 +9,10 @@ import { GenericModule } from '../generic/generic.module';
 import { MaterialModule } from '../material/material.module';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { EditComponent } from './pages/edit/edit.component';
 
 @NgModule({
-	declarations: [IndexComponent, ListComponent, CreateComponent],
+	declarations: [IndexComponent, ListComponent, CreateComponent, EditComponent],
 	imports: [
 		CommonModule,
 		UsuariosRoutingModule,
