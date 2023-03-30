@@ -19,24 +19,32 @@
 				</mat-form-field>
 			</div>
 
-			<div class="row">
-				<fieldset>
+			<div class="row-start">
+				<fieldset style="width: 40%">
 					<legend>Escoger Sexo</legend>
 					<mat-radio-group
 						aria-label="Select an option"
 						formControlName="genero"
 					>
-						<mat-radio-button value="1">Hombre</mat-radio-button>
-						<mat-radio-button value="2">Mujer</mat-radio-button>
+						<mat-radio-button value="1" style="width: 20%"
+							>Hombre</mat-radio-button
+						>
+						<mat-radio-button value="2" style="width: 20%"
+							>Mujer</mat-radio-button
+						>
 					</mat-radio-group>
 				</fieldset>
-				<mat-form-field style="flex-grow: 1">
-					<mat-label>Telefono</mat-label>
-					<input matInput formControlName="telefono" />
-				</mat-form-field>
-				<mat-checkbox formControlName="esExtranjero"
-					>Extranjero</mat-checkbox
-				>
+				<div class="col">
+					<mat-checkbox
+						formControlName="esExtranjero"
+						style="margin-top: 1.5em"
+						>Extranjero</mat-checkbox
+					>
+					<mat-form-field style="width: 100%">
+						<mat-label>Telefono</mat-label>
+						<input matInput formControlName="telefono" />
+					</mat-form-field>
+				</div>
 			</div>
 			<button
 				style="width: 100%; margin-top: 1em"

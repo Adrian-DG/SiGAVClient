@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CacheService } from 'src/app/modules/generic/services/cache/cache.service';
+import { ICreateMiembro } from '../../DTO/icreate-miembro';
+import { IMiembro } from '../../entities/imiembro';
 import { MiembroService } from '../../services/miembro.service';
 
 @Component({
@@ -37,6 +39,26 @@ export class CreateComponent implements OnInit {
 	}
 
 	onSubmit(): void {
-		this._miembros.Post(this.miembroForm.value);
+		const {
+			cedula,
+			nombre,
+			apellido,
+			fechaNacimiento,
+			genero,
+			rangoId,
+			institucion,
+		} = this.miembroForm.value;
+
+		const miembro: ICreateMiembro = {
+			cedula: cedula,
+			nombre: nombre,
+			apellido: apellido,
+			fechaCreacion: fechaNacimiento,
+			genero: genero,
+			rangoId: rangoId,
+			institucion: institucion,
+		};
+
+		this._miembros.createMiembro(this.miembroForm.value);
 	}
 }

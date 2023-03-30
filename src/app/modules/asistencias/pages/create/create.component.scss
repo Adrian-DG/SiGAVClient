@@ -13,3 +13,19 @@
 	align-items: center;
 	gap: 1em;
 }
+
+fieldset {
+	height: 15vh;
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-start;
+	align-items: center;
+}
+
+.col {
+	flex-grow: 1;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	align-items: flex-start;
+}

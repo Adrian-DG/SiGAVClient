@@ -6,6 +6,7 @@ import { IPagedData } from '../../generic/Responses/ipaged-data';
 import { IServerResponse } from '../../generic/Responses/iserver-response';
 import { GenericService } from '../../generic/services/generic/generic.service';
 import { IAsistenciaR5Create } from '../DTO/iasistencia-r5-create';
+import { IUpdateAsistencia } from '../DTO/iupdate-asistencia';
 import { IAsistenciaViewModel } from '../viewModels/iasistencia-view-model';
 
 @Injectable({
@@ -38,17 +39,14 @@ export class AsistenciasService extends GenericService {
 			});
 	}
 
-	updateAsistenciaCompletar(id: number): void {
-		if (confirm('Esta seguro de completar esta asistencia ?')) {
+	updateAsistenciaCompletar(model: IUpdateAsistencia): void {
+		const estatus = model.estatusAsistencia == 2 ? 'comenzar' : 'completar';
+		if (confirm(`Esta seguro de ${estatus} esta asistencia ?`)) {
 			this.$http
-				.put<boolean>(`${this.endPoint}/${id}`, id)
-				.subscribe((response: boolean) =>
-					alert(
-						response
-							? 'Se han guardado los cambios'
-							: 'Algo salio mal al actualizar asistencia'
-					)
-				);
+				.put<IServerResponse>(`${this.endPoint}/actualizar`, model)
+				.subscribe((response: IServerResponse) => {
+					alert(response.message);
+				});
 		}
 	}
 }

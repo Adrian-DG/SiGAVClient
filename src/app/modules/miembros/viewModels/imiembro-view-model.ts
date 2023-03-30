@@ -4,4 +4,7 @@ export interface IMiembroViewModel {
 	nombreCompleto: string;
 	rango: string;
 	institucion: string;
+	estatus: boolean;
+	fechaCreacion: Date;
+	usuarioId: number;
 }

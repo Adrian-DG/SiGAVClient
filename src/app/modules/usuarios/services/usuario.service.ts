@@ -41,4 +41,10 @@ export class UsuarioService extends GenericService {
 			.post<IServerResponse>(`${this.endPoint}/create`, model)
 			.subscribe((response: IServerResponse) => alert(response.message));
 	}
+
+	UpdateUsuarioEstatus(id: number): void {
+		this.$http
+			.put<IServerResponse>(`${this.endPoint}/authorize`, id)
+			.subscribe((response: IServerResponse) => alert(response.message));
+	}
 }

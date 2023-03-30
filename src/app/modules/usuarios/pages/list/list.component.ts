@@ -15,7 +15,7 @@ export class ListComponent implements OnInit, AfterViewInit {
 	pageSizeOptions = [5, 10, 50, 100];
 	totalRows = 0;
 	filters: IPaginationFilters = {
-		page: 0,
+		page: 1,
 		size: 5,
 		searchTerm: '',
 		status: true,
@@ -45,7 +45,6 @@ export class ListComponent implements OnInit, AfterViewInit {
 	}
 
 	loadData(): void {
-		this.filters.page += 1;
 		this._usuarios
 			.getAllUsuarios(this.filters)
 			.subscribe((data: IPagedData<IUsuarioViewModel>) => {
@@ -63,5 +62,9 @@ export class ListComponent implements OnInit, AfterViewInit {
 		this.filters.size = event.pageSize;
 		this.filters.page = event.pageIndex;
 		this.loadData();
+	}
+
+	UpdateUsuarioEstatus(id: number): void {
+		this._usuarios.UpdateUsuarioEstatus(id);
 	}
 }

@@ -14,7 +14,7 @@ import { IMiembroViewModel } from '../../viewModels/imiembro-view-model';
 export class ListComponent implements OnInit, AfterViewInit {
 	totalRows = 0;
 	filters: IPaginationFilters = {
-		page: 0,
+		page: 1,
 		size: 5,
 		searchTerm: '',
 		status: true,
@@ -27,6 +27,7 @@ export class ListComponent implements OnInit, AfterViewInit {
 		'nombreCompleto',
 		'rango',
 		'institucion',
+		'creacion',
 		'acciones',
 	];
 
@@ -44,7 +45,6 @@ export class ListComponent implements OnInit, AfterViewInit {
 	}
 
 	loadData(): void {
-		this.filters.page += 1;
 		this._miembros
 			.getAllMiembros(this.filters)
 			.subscribe((data: IPagedData<IMiembroViewModel>) => {
@@ -61,6 +61,11 @@ export class ListComponent implements OnInit, AfterViewInit {
 		this.totalRows = event.length;
 		this.filters.size = event.pageSize;
 		this.filters.page = event.pageIndex;
+		this.loadData();
+	}
+
+	UpdateEstatusMiembro(id: number): void {
+		this._miembros.UpdateEstatusMiembro(id);
 		this.loadData();
 	}
 }

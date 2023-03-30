@@ -3,6 +3,7 @@ import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { IPaginationFilters } from 'src/app/modules/generic/DTO/ipagination-filters';
 import { IPagedData } from 'src/app/modules/generic/Responses/ipaged-data';
+import { IUpdateAsistencia } from '../../DTO/iupdate-asistencia';
 import { AsistenciasService } from '../../services/asistencias.service';
 import { IAsistenciaViewModel } from '../../viewModels/iasistencia-view-model';
 
@@ -29,7 +30,7 @@ export class ListComponent implements OnInit, AfterViewInit {
 	pageSizeOptions = [5, 10, 25, 100];
 	totalRows: number = 0;
 	filters: IPaginationFilters = {
-		page: 0,
+		page: 1,
 		size: 5,
 		searchTerm: '',
 		status: false,
@@ -47,7 +48,7 @@ export class ListComponent implements OnInit, AfterViewInit {
 	}
 
 	loadData(): void {
-		this.filters.page += 1;
+		// this.filters.page += 1;
 		this._asistencias
 			.getAllAsistencias(this.filters)
 			.subscribe((data: IPagedData<IAsistenciaViewModel>) => {
@@ -67,7 +68,9 @@ export class ListComponent implements OnInit, AfterViewInit {
 		this.loadData();
 	}
 
-	completarAsistencia(id: number): void {
-		this._asistencias.updateAsistenciaCompletar(id);
+	actualizarAsistencia(id: number, estatus: number): void {
+		const model: IUpdateAsistencia = { id: id, estatusAsistencia: estatus };
+		this._asistencias.updateAsistenciaCompletar(model);
+		this.loadData();
 	}
 }
