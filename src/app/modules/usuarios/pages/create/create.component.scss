@@ -1,0 +1,36 @@
+form {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	.container {
+		width: 90%;
+		display: flex;
+		flex-direction: column;
+		justify-content: flex-start;
+		align-items: center;
+		gap: 1em;
+		.row {
+			width: 100%;
+			display: flex;
+			flex-direction: row;
+			justify-content: space-between;
+			align-items: center;
+			gap: 1em;
+			mat-form-field {
+				flex-grow: 1;
+			}
+		}
+		.row-start {
+			width: 100%;
+			display: flex;
+			flex-direction: row;
+			justify-content: flex-start;
+			align-items: center;
+			gap: 1em;
+			mat-form-field {
+				flex-grow: 1;
+			}
+		}
+	}
+}
