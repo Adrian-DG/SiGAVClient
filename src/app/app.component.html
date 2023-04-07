@@ -31,6 +31,14 @@
 				<a mat-list-item [routerLink]="item" *ngFor="let item of links">
 					{{ item | uppercase }}
 				</a>
+
+				<a mat-list-item [matMenuTriggerFor]="miscelaneos"
+					>MISCELANEOS</a
+				>
+				<mat-menu #miscelaneos xPosition="after" yPosition="below">
+					<menu mat-menu-item [routerLink]="['marcas']">Marcas</menu>
+					<menu mat-menu-item>Modelos</menu>
+				</mat-menu>
 			</mat-nav-list>
 		</mat-sidenav>
 		<mat-sidenav-content class="sidenav-content">

@@ -1,0 +1,12 @@
+<div class="page-container">
+	<mat-card>
+		<app-page-intro
+			title="marcas"
+			description="El siguiente modulo permitira manejar las marcas a ser asignadas a los vehiculos."
+			[childRoutes]="['listado', 'crear']"
+		></app-page-intro>
+		<mat-card-content>
+			<router-outlet></router-outlet>
+		</mat-card-content>
+	</mat-card>
+</div>
