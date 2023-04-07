@@ -23,6 +23,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
 	declarations: [],
@@ -49,6 +50,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 		MatRadioModule,
 		MatExpansionModule,
 		MatSlideToggleModule,
+		MatSnackBarModule,
 	],
 })
 export class MaterialModule {}

@@ -7,6 +7,7 @@ import { ILoginUser } from '../../DTO/ilogin-user';
 import { IUserData } from '../../interfaces/iuser-data';
 import { ILoginResponse } from '../../responses/ilogin-response';
 import { JwtTokenService } from '../jwt/jwt.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Injectable({
 	providedIn: 'root',
@@ -25,7 +26,8 @@ export class AuthService extends GenericService {
 	constructor(
 		protected override $http: HttpClient,
 		private $router: Router,
-		private _jwt: JwtTokenService
+		private _jwt: JwtTokenService,
+		private _snackbar: MatSnackBar
 	) {
 		super($http);
 	}
@@ -86,6 +88,8 @@ export class AuthService extends GenericService {
 					// navigate to home
 					this.$router.navigateByUrl('/tramos');
 				}
+
+				this._snackbar.open(response.message, 'ocultar');
 			});
 	}
 
