@@ -27,12 +27,44 @@
 	<!-- menu -->
 	<mat-sidenav-container class="sidenav-container">
 		<mat-sidenav #sidenav class="sidenav">
-			<mat-nav-list class="sidenav-list">
-				<a mat-list-item [routerLink]="item" *ngFor="let item of links">
+			<mat-nav-list
+				class="sidenav-list"
+				*ngIf="_auth.userData$ | async as user"
+			>
+				<!-- <a mat-list-item [routerLink]="item" *ngFor="let item of links">
 					{{ item | uppercase }}
-				</a>
+				</a> -->
 
-				<a mat-list-item [matMenuTriggerFor]="miscelaneos"
+				<a mat-list-item [routerLink]="['asistencias']">ASISTENCIAS</a>
+				<a
+					mat-list-item
+					[routerLink]="['unidades']"
+					*ngIf="user.esAdministrador"
+					>UNIDADES</a
+				>
+				<a
+					mat-list-item
+					[routerLink]="['tramos']"
+					*ngIf="user.esAdministrador"
+					>TRAMOS</a
+				>
+				<a
+					mat-list-item
+					[routerLink]="['miembros']"
+					*ngIf="user.esAdministrador"
+					>MIEMBROS</a
+				>
+				<a
+					mat-list-item
+					[routerLink]="['usuarios']"
+					*ngIf="user.esAdministrador"
+					>USUARIOS</a
+				>
+
+				<a
+					mat-list-item
+					[matMenuTriggerFor]="miscelaneos"
+					*ngIf="user.esAdministrador"
 					>MISCELANEOS</a
 				>
 				<mat-menu #miscelaneos xPosition="after" yPosition="below">

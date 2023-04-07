@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from './modules/auth/services/auth/auth.service';
+import { IUserData } from './modules/auth/interfaces/iuser-data';
 
 @Component({
 	selector: 'app-root',
@@ -15,8 +16,6 @@ export class AppComponent implements OnInit {
 		'miembros',
 		'usuarios',
 	];
-
-	miscelaneos = ['marcas', 'modelos', 'colores', 'tipo asistencias'];
 
 	constructor(public _auth: AuthService) {}
 
