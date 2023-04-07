@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, finalize } from 'rxjs';
 import { IPaginationFilters } from '../../generic/DTO/ipagination-filters';
 import { IPagedData } from '../../generic/Responses/ipaged-data';
 import { IServerResponse } from '../../generic/Responses/iserver-response';
@@ -24,10 +24,16 @@ export class AsistenciasService extends GenericService {
 	getAllAsistencias(
 		filters: IPaginationFilters
 	): Observable<IPagedData<IAsistenciaViewModel>> {
-		return this.$http.get<IPagedData<IAsistenciaViewModel>>(
-			`${this.endPoint}/all`,
-			{ params: this.getPaginationParams(filters) }
-		);
+		this.setLoading(true);
+		return this.$http
+			.get<IPagedData<IAsistenciaViewModel>>(`${this.endPoint}/all`, {
+				params: this.getPaginationParams(filters),
+			})
+			.pipe(
+				finalize(() => {
+					setTimeout(() => this.setLoading(false), 2000);
+				})
+			);
 	}
 
 	createAsistencia(model: IAsistenciaR5Create): void {

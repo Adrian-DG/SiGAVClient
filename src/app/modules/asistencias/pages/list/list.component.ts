@@ -13,7 +13,7 @@ import { IAsistenciaViewModel } from '../../viewModels/iasistencia-view-model';
 	styleUrls: ['./list.component.scss'],
 })
 export class ListComponent implements OnInit, AfterViewInit {
-	constructor(private _asistencias: AsistenciasService) {}
+	constructor(public _asistencias: AsistenciasService) {}
 
 	displayedColumns: string[] = [
 		'id',
@@ -30,7 +30,7 @@ export class ListComponent implements OnInit, AfterViewInit {
 	pageSizeOptions = [5, 10, 25, 100];
 	totalRows: number = 0;
 	filters: IPaginationFilters = {
-		page: 1,
+		page: 0,
 		size: 5,
 		searchTerm: '',
 		status: false,
@@ -48,7 +48,7 @@ export class ListComponent implements OnInit, AfterViewInit {
 	}
 
 	loadData(): void {
-		// this.filters.page += 1;
+		this.filters.page += 1;
 		this._asistencias
 			.getAllAsistencias(this.filters)
 			.subscribe((data: IPagedData<IAsistenciaViewModel>) => {

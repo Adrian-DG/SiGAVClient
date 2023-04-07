@@ -7,6 +7,7 @@ import { IServerResponse } from '../../Responses/iserver-response';
 import { AuthService } from 'src/app/modules/auth/services/auth/auth.service';
 import { IUserData } from 'src/app/modules/auth/interfaces/iuser-data';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { BehaviorSubject, Subject } from 'rxjs';
 
 @Injectable({
 	providedIn: 'root',
@@ -15,6 +16,13 @@ export abstract class GenericService {
 	protected readonly endPoint: string = '';
 	abstract GetResource(): string;
 	public readonly userId: number = 0;
+
+	private isLoadingSource = new BehaviorSubject<boolean>(false);
+	public isLoading$ = this.isLoadingSource.asObservable();
+
+	setLoading(state: boolean) {
+		this.isLoadingSource.next(state);
+	}
 
 	getPaginationParams(filters: IPaginationFilters): HttpParams {
 		return new HttpParams()
