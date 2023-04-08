@@ -1,0 +1,13 @@
+.row {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	gap: 0.5em;
+	mat-form-field {
+		flex-grow: 1;
+	}
+	button {
+		flex-grow: 1;
+	}
+}
