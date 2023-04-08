@@ -24,16 +24,12 @@ export class AsistenciasService extends GenericService {
 	getAllAsistencias(
 		filters: IPaginationFilters
 	): Observable<IPagedData<IAsistenciaViewModel>> {
-		this.setLoading(true);
-		return this.$http
-			.get<IPagedData<IAsistenciaViewModel>>(`${this.endPoint}/all`, {
+		return this.$http.get<IPagedData<IAsistenciaViewModel>>(
+			`${this.endPoint}/all`,
+			{
 				params: this.getPaginationParams(filters),
-			})
-			.pipe(
-				finalize(() => {
-					setTimeout(() => this.setLoading(false), 2000);
-				})
-			);
+			}
+		);
 	}
 
 	createAsistencia(model: IAsistenciaR5Create): void {
