@@ -1,11 +1,10 @@
 import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
+import { ModeloService } from '../../services/modelo.service';
+import { IPaginationFilters } from 'src/app/modules/generic/DTO/ipagination-filters';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
-import { IPaginationFilters } from 'src/app/modules/generic/DTO/ipagination-filters';
+import { IModeloViewModel } from '../../viewmodels/imodelo-view-model';
 import { IPagedData } from 'src/app/modules/generic/Responses/ipaged-data';
-import { IUpdateAsistencia } from '../../DTO/iupdate-asistencia';
-import { AsistenciasService } from '../../services/asistencias.service';
-import { IAsistenciaViewModel } from '../../viewModels/iasistencia-view-model';
 
 @Component({
 	selector: 'app-list',
@@ -13,45 +12,33 @@ import { IAsistenciaViewModel } from '../../viewModels/iasistencia-view-model';
 	styleUrls: ['./list.component.scss'],
 })
 export class ListComponent implements OnInit, AfterViewInit {
-	constructor(public _asistencias: AsistenciasService) {}
-
-	displayedColumns: string[] = [
-		'id',
-		'agente',
-		'unidad',
-		'ciudadano',
-		'vehiculo',
-		'detalles',
-		'ubicacion',
-		'creacion',
-		'acciones',
-	];
-
+	displayedColumns = ['#', 'modelo', 'marca', 'tipo', 'acciones'];
 	pageSizeOptions = [5, 10, 25, 100];
 	totalRows: number = 0;
 	filters: IPaginationFilters = {
-		page: 0,
+		page: 1,
 		size: 5,
 		searchTerm: '',
-		status: false,
+		status: true,
 	};
 
 	@ViewChild(MatPaginator) paginator!: MatPaginator;
-	dataSource = new MatTableDataSource<IAsistenciaViewModel>();
+	dataSource = new MatTableDataSource<IModeloViewModel>();
+
+	constructor(private _modelos: ModeloService) {}
 
 	ngOnInit(): void {
 		this.loadData();
 	}
-
 	ngAfterViewInit(): void {
 		this.dataSource.paginator = this.paginator;
 	}
 
 	loadData(): void {
-		this.filters.page += 1;
-		this._asistencias
-			.getAllAsistencias(this.filters)
-			.subscribe((data: IPagedData<IAsistenciaViewModel>) => {
+		this.filters.page = this.filters.page >= 1 ? this.filters.page : 1;
+		this._modelos
+			.getAllModelos(this.filters)
+			.subscribe((data: IPagedData<IModeloViewModel>) => {
 				this.dataSource.data = data.items;
 				setTimeout(() => {
 					this.paginator.pageIndex = this.filters.page - 1;
@@ -64,13 +51,7 @@ export class ListComponent implements OnInit, AfterViewInit {
 	pageChanged(event: PageEvent): void {
 		this.totalRows = event.length;
 		this.filters.size = event.pageSize;
-		this.filters.page = event.pageIndex;
-		this.loadData();
-	}
-
-	actualizarAsistencia(id: number, estatus: number): void {
-		const model: IUpdateAsistencia = { id: id, estatusAsistencia: estatus };
-		this._asistencias.updateAsistenciaCompletar(model);
+		this.filters.page = event.pageIndex + 1;
 		this.loadData();
 	}
 }

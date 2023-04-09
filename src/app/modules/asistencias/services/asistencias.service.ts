@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, finalize } from 'rxjs';
 import { IPaginationFilters } from '../../generic/DTO/ipagination-filters';
 import { IPagedData } from '../../generic/Responses/ipaged-data';
 import { IServerResponse } from '../../generic/Responses/iserver-response';
@@ -26,7 +26,9 @@ export class AsistenciasService extends GenericService {
 	): Observable<IPagedData<IAsistenciaViewModel>> {
 		return this.$http.get<IPagedData<IAsistenciaViewModel>>(
 			`${this.endPoint}/all`,
-			{ params: this.getPaginationParams(filters) }
+			{
+				params: this.getPaginationParams(filters),
+			}
 		);
 	}
 

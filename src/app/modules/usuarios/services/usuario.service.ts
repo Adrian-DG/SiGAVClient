@@ -8,6 +8,7 @@ import { GenericService } from '../../generic/services/generic/generic.service';
 import { IUsuario } from '../entities/iusuario';
 import { IUsuarioPermisoViewModel } from '../viewModels/iusuario-permiso-view-model';
 import { IUsuarioViewModel } from '../viewModels/iusuario-view-model';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Injectable({
 	providedIn: 'root',
@@ -17,7 +18,10 @@ export class UsuarioService extends GenericService {
 		return 'usuarios';
 	}
 
-	constructor(protected override $http: HttpClient) {
+	constructor(
+		protected override $http: HttpClient,
+		private _snackbar: MatSnackBar
+	) {
 		super($http);
 	}
 
@@ -39,12 +43,16 @@ export class UsuarioService extends GenericService {
 	createUsuario(model: IUsuario): void {
 		this.$http
 			.post<IServerResponse>(`${this.endPoint}/create`, model)
-			.subscribe((response: IServerResponse) => alert(response.message));
+			.subscribe((response: IServerResponse) =>
+				this._snackbar.open(response.message, 'Ok')
+			);
 	}
 
 	UpdateUsuarioEstatus(id: number): void {
 		this.$http
 			.put<IServerResponse>(`${this.endPoint}/authorize`, id)
-			.subscribe((response: IServerResponse) => alert(response.message));
+			.subscribe((response: IServerResponse) =>
+				this._snackbar.open(response.message, 'Ok')
+			);
 	}
 }

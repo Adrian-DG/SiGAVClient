@@ -4,6 +4,22 @@ import { AuthGuard } from './guards/auth.guard';
 
 const routes: Routes = [
 	{
+		path: 'modelos',
+		loadChildren: () =>
+			import('./modules/modelos/modelos.module').then(
+				(m) => m.ModelosModule
+			),
+		canActivate: [AuthGuard],
+	},
+	{
+		path: 'marcas',
+		loadChildren: () =>
+			import('./modules/marcas/marcas.module').then(
+				(m) => m.MarcasModule
+			),
+		canActivate: [AuthGuard],
+	},
+	{
 		path: 'usuarios',
 		loadChildren: () =>
 			import('./modules/usuarios/usuarios.module').then(

@@ -1,0 +1,12 @@
+.row {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	mat-form-field {
+		width: 60%;
+	}
+	button {
+		width: 30%;
+	}
+}

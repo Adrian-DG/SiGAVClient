@@ -1,0 +1,36 @@
+<form [formGroup]="modeloForm" (ngSubmit)="create()" class="row">
+	<mat-form-field>
+		<mat-label>Modelo</mat-label>
+		<input matInput formControlName="nombre" />
+	</mat-form-field>
+	<mat-form-field (click)="_cache.getData('VehiculoMarca')">
+		<mat-label>Marca</mat-label>
+		<mat-select formControlName="vehiculoMarcaId">
+			<mat-option
+				[value]="item.id"
+				*ngFor="let item of _cache.vehiculoMarca$ | async"
+			>
+				{{ item.nombre }}
+			</mat-option>
+		</mat-select>
+	</mat-form-field>
+	<mat-form-field (click)="_cache.getData('VehiculoTipo')">
+		<mat-label>Tipo</mat-label>
+		<mat-select formControlName="vehiculoTipoId">
+			<mat-option
+				[value]="item.id"
+				*ngFor="let item of _cache.vehiculoTipos$ | async"
+			>
+				{{ item.nombre }}
+			</mat-option>
+		</mat-select>
+	</mat-form-field>
+	<button
+		type="submit"
+		mat-raised-button
+		color="accent"
+		[disabled]="!modeloForm.valid"
+	>
+		Crear Modelo
+	</button>
+</form>

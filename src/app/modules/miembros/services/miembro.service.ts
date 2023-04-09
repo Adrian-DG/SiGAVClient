@@ -7,6 +7,7 @@ import { IServerResponse } from '../../generic/Responses/iserver-response';
 import { GenericService } from '../../generic/services/generic/generic.service';
 import { ICreateMiembro } from '../DTO/icreate-miembro';
 import { IMiembroViewModel } from '../viewModels/imiembro-view-model';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Injectable({
 	providedIn: 'root',
@@ -16,7 +17,10 @@ export class MiembroService extends GenericService {
 		return 'miembros';
 	}
 
-	constructor(protected override $http: HttpClient) {
+	constructor(
+		protected override $http: HttpClient,
+		private _snackbar: MatSnackBar
+	) {
 		super($http);
 	}
 
@@ -32,12 +36,16 @@ export class MiembroService extends GenericService {
 	createMiembro(model: ICreateMiembro): void {
 		this.$http
 			.post<IServerResponse>(`${this.endPoint}/create`, model)
-			.subscribe((response: IServerResponse) => alert(response.message));
+			.subscribe((response: IServerResponse) =>
+				this._snackbar.open(response.message)
+			);
 	}
 
 	UpdateEstatusMiembro(id: number): void {
 		this.$http
 			.put<IServerResponse>(`${this.endPoint}/authorize`, id)
-			.subscribe((response: IServerResponse) => alert(response.message));
+			.subscribe((response: IServerResponse) =>
+				this._snackbar.open(response.message)
+			);
 	}
 }
