@@ -47,6 +47,11 @@ export class ListComponent implements OnInit, AfterViewInit {
 		this.dataSource.paginator = this.paginator;
 	}
 
+	changeStatus(): void {
+		this.filters.page = 0;
+		this.loadData();
+	}
+
 	loadData(): void {
 		this.filters.page += 1;
 		this._asistencias
