@@ -53,13 +53,12 @@ export class ListComponent implements OnInit, AfterViewInit {
 	}
 
 	loadData(): void {
-		this.filters.page += 1;
 		this._asistencias
 			.getAllAsistencias(this.filters)
 			.subscribe((data: IPagedData<IAsistenciaViewModel>) => {
 				this.dataSource.data = data.items;
 				setTimeout(() => {
-					this.paginator.pageIndex = this.filters.page - 1;
+					this.paginator.pageIndex = this.filters.page;
 					this.paginator.pageSize = this.filters.size;
 					this.paginator.length = data.totalCount;
 				});
