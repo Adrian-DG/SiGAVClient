@@ -9,6 +9,7 @@ import { IAsistenciaR5Create } from '../DTO/iasistencia-r5-create';
 import { IUpdateAsistencia } from '../DTO/iupdate-asistencia';
 import { IAsistenciaViewModel } from '../viewModels/iasistencia-view-model';
 import { IDateFilter } from '../DTO/idate-filter';
+import { Router } from '@angular/router';
 
 @Injectable({
 	providedIn: 'root',
@@ -18,7 +19,7 @@ export class AsistenciasService extends GenericService {
 		return 'asistencias';
 	}
 
-	constructor(protected override $http: HttpClient) {
+	constructor(protected override $http: HttpClient, private $router: Router) {
 		super($http);
 	}
 
@@ -39,16 +40,28 @@ export class AsistenciasService extends GenericService {
 			.post<IServerResponse>(`${this.endPoint}/createR5`, model)
 			.subscribe((response: IServerResponse) => {
 				alert(response.message);
+				if (response.status) {
+					this.$router.navigate(['asistencias/listado']);
+				}
 			});
 	}
 
 	updateAsistenciaCompletar(model: IUpdateAsistencia): void {
+		// TODO: revisar el estatus en que se colocan las asistencias
 		const estatus = model.estatusAsistencia == 2 ? 'comenzar' : 'completar';
 		if (confirm(`Esta seguro de ${estatus} esta asistencia ?`)) {
 			this.$http
 				.put<IServerResponse>(`${this.endPoint}/actualizar`, model)
 				.subscribe((response: IServerResponse) => {
-					alert(response.message);
+					//alert(response.message);
+					if (response.status) {
+						this.getAllAsistencias({
+							page: 0,
+							size: 5,
+							searchTerm: '',
+							status: false,
+						});
+					}
 				});
 		}
 	}
