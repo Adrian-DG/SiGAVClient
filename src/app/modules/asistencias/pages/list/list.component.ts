@@ -77,4 +77,22 @@ export class ListComponent implements OnInit, AfterViewInit {
 		this._asistencias.updateAsistenciaCompletar(model);
 		this.loadData();
 	}
+
+	getReporteResumenAsistenciasDiario(): void {
+		console.log('resumen diario');
+		this._asistencias
+			.GetReporteResumenAsistenciasDiario()
+			.subscribe((response) => {
+				let filename = response.headers
+					.get('content-disposition')
+					?.split(';')[1]
+					.split('=')[1];
+				let blob: Blob = response.body as Blob;
+				let a = document.createElement('a');
+
+				a.download = filename ?? '';
+				a.href = window.URL.createObjectURL(blob);
+				a.click();
+			});
+	}
 }

@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, finalize } from 'rxjs';
 import { IPaginationFilters } from '../../generic/DTO/ipagination-filters';
@@ -8,6 +8,7 @@ import { GenericService } from '../../generic/services/generic/generic.service';
 import { IAsistenciaR5Create } from '../DTO/iasistencia-r5-create';
 import { IUpdateAsistencia } from '../DTO/iupdate-asistencia';
 import { IAsistenciaViewModel } from '../viewModels/iasistencia-view-model';
+import { IDateFilter } from '../DTO/idate-filter';
 
 @Injectable({
 	providedIn: 'root',
@@ -50,5 +51,21 @@ export class AsistenciasService extends GenericService {
 					alert(response.message);
 				});
 		}
+	}
+
+	getReporteResumenAsistenciasPorFecha(filter: IDateFilter): void {
+		const params = new HttpParams()
+			.set('initialDate', filter.initialDate.toDateString())
+			.set('finalDate', filter.finalDate.toDateString());
+		this.$http.get(`${this.endPoint}/reporte/resumen_fecha`, {
+			params: params,
+		});
+	}
+
+	GetReporteResumenAsistenciasDiario() {
+		return this.$http.get(`${this.endPoint}/reporte/resumen_diario`, {
+			observe: 'response',
+			responseType: 'blob',
+		});
 	}
 }
