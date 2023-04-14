@@ -95,4 +95,11 @@ export class ListComponent implements OnInit, AfterViewInit {
 				a.click();
 			});
 	}
+
+	getRowClass(row: any) {
+		return {
+			enCurso: row.estatusAsistencia == 'EN_CURSO',
+			pendiente: row.estatusAsistencia == 'PENDIENTE',
+		};
+	}
 }
