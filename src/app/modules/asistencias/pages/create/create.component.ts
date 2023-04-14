@@ -67,7 +67,7 @@ export class CreateComponent implements OnInit {
 	// });
 
 	ngOnInit(): void {
-		this._unidades.getUnidadesAutoComplete('');
+		this._unidades.getUnidadesAutoComplete('""');
 	}
 
 	createAsistencia(): void {

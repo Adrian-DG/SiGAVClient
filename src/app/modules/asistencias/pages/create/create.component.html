@@ -209,6 +209,7 @@
 						#auto="matAutocomplete"
 					>
 						<mat-option
+							[disabled]="!item.estaDisponible"
 							*ngFor="
 								let item of _unidades.unidadeAutocomplete$
 									| async
@@ -218,13 +219,21 @@
 							<div>
 								Den.: {{ item.denominacion }}
 								<br />
-								<small
-									>Ficha: {{ item.ficha }} | Placa:
-									{{ item.placa }}</small
-								>
-								<br />
 								<small>Tramo: {{ item.tramo }}</small>
+								<br />
+								<div class="row-start">
+									Disponibilidad:
+									<div
+										class="availability"
+										[ngClass]="
+											item.estaDisponible
+												? 'free'
+												: 'notFree'
+										"
+									></div>
+								</div>
 							</div>
+							<mat-divider></mat-divider>
 						</mat-option>
 					</mat-autocomplete>
 				</mat-form-field>

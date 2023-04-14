@@ -4,4 +4,5 @@ export interface IUnidadAutoComplete {
 	ficha: string;
 	placa: string;
 	tramo: string;
+	estaDisponible: boolean;
 }

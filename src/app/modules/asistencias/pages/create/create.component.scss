@@ -29,3 +29,17 @@ fieldset {
 	justify-content: space-between;
 	align-items: flex-start;
 }
+
+.availability {
+	width: 1em;
+	height: 1em;
+	border-radius: 100%;
+}
+
+.free {
+	background-color: green;
+}
+
+.notFree {
+	background-color: red;
+}
