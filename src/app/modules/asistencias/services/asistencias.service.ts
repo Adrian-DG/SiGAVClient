@@ -81,4 +81,11 @@ export class AsistenciasService extends GenericService {
 			responseType: 'blob',
 		});
 	}
+
+	GetReporteDetalleAsistencias() {
+		return this.$http.get(`${this.endPoint}/reporte/resumen_detalles`, {
+			observe: 'response',
+			responseType: 'blob',
+		});
+	}
 }

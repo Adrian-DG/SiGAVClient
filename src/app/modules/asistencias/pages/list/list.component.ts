@@ -52,11 +52,28 @@ export class ListComponent implements OnInit, AfterViewInit {
 		this.loadData();
 	}
 
+	stateSelection: number = 1;
+
 	loadData(): void {
+		this.filters.status = this.stateSelection == 3;
 		this._asistencias
 			.getAllAsistencias(this.filters)
 			.subscribe((data: IPagedData<IAsistenciaViewModel>) => {
-				this.dataSource.data = data.items;
+				switch (this.stateSelection) {
+					case 1:
+						this.dataSource.data = data.items.filter(
+							(x) => x.estatusAsistencia == 'PENDIENTE'
+						);
+						break;
+					case 2:
+						this.dataSource.data = data.items.filter(
+							(x) => x.estatusAsistencia == 'EN_CURSO'
+						);
+						break;
+					default:
+						this.dataSource.data = data.items;
+				}
+
 				setTimeout(() => {
 					this.paginator.pageIndex = this.filters.page;
 					this.paginator.pageSize = this.filters.size;
@@ -78,8 +95,36 @@ export class ListComponent implements OnInit, AfterViewInit {
 		this.loadData();
 	}
 
+	onReportSelection(value: number): void {
+		switch (value) {
+			case 1:
+				console.log('value: ', value);
+				this.getReporteResumenAsistenciasDiario();
+				break;
+			case 2:
+				this.getReporteAsistenciasDetalles();
+				break;
+		}
+	}
+
+	getReporteAsistenciasDetalles(): void {
+		this._asistencias
+			.GetReporteDetalleAsistencias()
+			.subscribe((response) => {
+				let filename = response.headers
+					.get('content-disposition')
+					?.split(';')[1]
+					.split('=')[1];
+				let blob: Blob = response.body as Blob;
+				let a = document.createElement('a');
+
+				a.download = filename ?? '';
+				a.href = window.URL.createObjectURL(blob);
+				a.click();
+			});
+	}
+
 	getReporteResumenAsistenciasDiario(): void {
-		console.log('resumen diario');
 		this._asistencias
 			.GetReporteResumenAsistenciasDiario()
 			.subscribe((response) => {
@@ -100,6 +145,7 @@ export class ListComponent implements OnInit, AfterViewInit {
 		return {
 			enCurso: row.estatusAsistencia == 'EN_CURSO',
 			pendiente: row.estatusAsistencia == 'PENDIENTE',
+			completada: row.estatusAsistencia == 'COMPLETADA',
 		};
 	}
 }

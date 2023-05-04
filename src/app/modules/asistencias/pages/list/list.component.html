@@ -7,7 +7,7 @@
 
 <ng-template #listado>
 	<div class="row">
-		<div class="col" style="width: 50%">
+		<div class="col" style="width: 40%">
 			<mat-form-field class="filter">
 				<mat-label>Filtrar</mat-label>
 				<input
@@ -18,8 +18,19 @@
 				/>
 			</mat-form-field>
 		</div>
-		<div class="col" style="width: 15%; margin-top: 0.5em">
-			<mat-checkbox
+		<div class="col" style="width: 20%">
+			<mat-form-field style="width: 100%">
+				<mat-label>Estatus</mat-label>
+				<mat-select
+					[(ngModel)]="stateSelection"
+					(selectionChange)="loadData()"
+				>
+					<mat-option [value]="1">Pendiente</mat-option>
+					<mat-option [value]="2">En Proceso</mat-option>
+					<mat-option [value]="3">Completadas</mat-option>
+				</mat-select>
+			</mat-form-field>
+			<!-- <mat-checkbox
 				style="margin-top: 1em"
 				class="example-margin"
 				[(ngModel)]="filters.status"
@@ -27,18 +38,29 @@
 				(change)="changeStatus()"
 			>
 				Mostrar Completadas
-			</mat-checkbox>
+			</mat-checkbox> -->
 		</div>
 
-		<div class="col" style="width: 30%">
-			<button
+		<div class="col" style="width: 20%">
+			<mat-form-field style="width: 100%">
+				<mat-label>Reportes</mat-label>
+				<mat-select
+					(selectionChange)="onReportSelection(reportValue.value)"
+					#reportValue
+				>
+					<mat-option [value]="1">Resumen Diario</mat-option>
+					<mat-option [value]="2">Detalles Asistencias</mat-option>
+				</mat-select>
+			</mat-form-field>
+
+			<!-- <button
 				mat-raised-button
 				class="print-btn"
 				(click)="getReporteResumenAsistenciasDiario()"
 			>
 				<mat-icon>print</mat-icon>
 				Resumen Diario
-			</button>
+			</button> -->
 		</div>
 	</div>
 
@@ -180,7 +202,9 @@
 						}}</span
 					>
 					<br />
-					<span><strong>Inst.:</strong>{{ '' }}</span>
+					<span
+						><strong>Inst.:</strong>{{ element.institucion }}</span
+					>
 				</td>
 			</ng-container>
 

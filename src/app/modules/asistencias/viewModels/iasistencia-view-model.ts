@@ -21,6 +21,7 @@ export interface IAsistenciaViewModel {
 	cedulaAgente: string;
 	nombreAgente: string;
 	rangoAgente: string;
+	institucion: string;
 	tipoAsistencias: ITipoAsistenciaViewModel[];
 	comentario: string;
 	fechaCreacion: Date;
