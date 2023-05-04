@@ -67,7 +67,7 @@ export class CreateComponent implements OnInit {
 	// });
 
 	ngOnInit(): void {
-		this._unidades.getUnidadesAutoComplete('""');
+		this._unidades.getUnidadesAutoComplete('');
 	}
 
 	createAsistencia(): void {
@@ -113,7 +113,7 @@ export class CreateComponent implements OnInit {
 			// asistencia
 			municipioId: municipioId,
 			provinciaId: provinciaId,
-			unidadId: unidadId,
+			unidadId: unidadId ?? '',
 			tipoAsistencias: tipoAsistenciaId,
 			comentario: comentarios,
 			usuarioId: this._asistencias.userId,
