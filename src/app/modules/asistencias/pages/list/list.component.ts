@@ -59,25 +59,28 @@ export class ListComponent implements OnInit, AfterViewInit {
 		this._asistencias
 			.getAllAsistencias(this.filters)
 			.subscribe((data: IPagedData<IAsistenciaViewModel>) => {
+				let records = [];
 				switch (this.stateSelection) {
 					case 1:
-						this.dataSource.data = data.items.filter(
+						records  = data.items.filter(
 							(x) => x.estatusAsistencia == 'PENDIENTE'
 						);
 						break;
 					case 2:
-						this.dataSource.data = data.items.filter(
+						records = data.items.filter(
 							(x) => x.estatusAsistencia == 'EN_CURSO'
 						);
 						break;
 					default:
-						this.dataSource.data = data.items;
+						records = data.items;
 				}
+
+				this.dataSource.data = records;
 
 				setTimeout(() => {
 					this.paginator.pageIndex = this.filters.page;
 					this.paginator.pageSize = this.filters.size;
-					this.paginator.length = data.totalCount;
+					this.paginator.length = this.filters.status ? data.totalCount : records.length;
 				});
 			});
 	}
