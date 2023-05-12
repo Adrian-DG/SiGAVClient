@@ -1,4 +1,4 @@
 export const environment = {
-	api_url: 'http://94.74.67.195/api',
+	api_url: 'https://sigavapi.azurewebsites.net/api',
 	production: true,
 };
