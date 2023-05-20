@@ -62,7 +62,7 @@ export class ListComponent implements OnInit, AfterViewInit {
 				let records = [];
 				switch (this.stateSelection) {
 					case 1:
-						records  = data.items.filter(
+						records = data.items.filter(
 							(x) => x.estatusAsistencia == 'PENDIENTE'
 						);
 						break;
@@ -80,7 +80,9 @@ export class ListComponent implements OnInit, AfterViewInit {
 				setTimeout(() => {
 					this.paginator.pageIndex = this.filters.page;
 					this.paginator.pageSize = this.filters.size;
-					this.paginator.length = this.filters.status ? data.totalCount : records.length;
+					this.paginator.length = this.filters.status
+						? data.totalCount
+						: records.length;
 				});
 			});
 	}
@@ -93,7 +95,11 @@ export class ListComponent implements OnInit, AfterViewInit {
 	}
 
 	actualizarAsistencia(id: number, estatus: number): void {
-		const model: IUpdateAsistencia = { id: id, estatusAsistencia: estatus };
+		let model: IUpdateAsistencia = {
+			id: id,
+			estatusAsistencia: estatus,
+			codUsuario: this._asistencias.userId,
+		};
 		this._asistencias.updateAsistenciaCompletar(model);
 		this.loadData();
 	}
