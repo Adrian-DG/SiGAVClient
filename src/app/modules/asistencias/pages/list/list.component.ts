@@ -150,6 +150,10 @@ export class ListComponent implements OnInit, AfterViewInit {
 			});
 	}
 
+	enableCompleteBtn(status: string): boolean {
+		return ['COMPLETADA', 'PENDIENTE'].includes(status);
+	}
+
 	getRowClass(row: any) {
 		return {
 			enCurso: row.estatusAsistencia == 'EN_CURSO',

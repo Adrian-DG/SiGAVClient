@@ -237,7 +237,9 @@
 						mat-raised-button
 						color="primary"
 						(click)="actualizarAsistencia(element.id, 3)"
-						[disabled]="element.estatusAsistencia === 'COMPLETADA'"
+						[disabled]="
+							enableCompleteBtn(element.estatusAsistencia)
+						"
 					>
 						<mat-icon style="color: rgb(21, 204, 21)"
 							>check_box</mat-icon
