@@ -24,12 +24,31 @@ export class CreateComponent implements OnInit {
 		public _unidades: UnidadesService
 	) {}
 
+	customizedValidator = {
+		identification: [
+			Validators.required,
+			Validators.pattern(/^[0-9]{11,15}$/),
+		],
+		fullname: [
+			Validators.required,
+			Validators.pattern(/^[A-Za-z\s]{2,50}$/),
+		],
+		phonenumber: [
+			Validators.required,
+			Validators.pattern(/^[0-9]{10,15}$/),
+		],
+		placa: [Validators.required, Validators.pattern(/^[A-Za-z0-9]{1,10}$/)],
+	};
+
 	ciudadanoForm: FormGroup = new FormGroup({
-		identificacion: new FormControl('', [Validators.required]),
-		nombre: new FormControl(''),
-		apellido: new FormControl(''),
+		identificacion: new FormControl(
+			'',
+			this.customizedValidator.identification
+		),
+		nombre: new FormControl('', this.customizedValidator.fullname),
+		apellido: new FormControl('', this.customizedValidator.fullname),
 		genero: new FormControl(),
-		telefono: new FormControl(''),
+		telefono: new FormControl('', this.customizedValidator.phonenumber),
 		esExtranjero: new FormControl(false),
 	});
 
@@ -38,7 +57,7 @@ export class CreateComponent implements OnInit {
 		vehiculoColorId: new FormControl(0),
 		vehiculoModeloId: new FormControl(0),
 		vehiculoMarcaId: new FormControl(0),
-		placa: new FormControl(''),
+		placa: new FormControl('', this.customizedValidator.placa),
 	});
 
 	asistenciaForm: FormGroup = new FormGroup({
@@ -69,6 +88,14 @@ export class CreateComponent implements OnInit {
 	ngOnInit(): void {
 		this._unidades.getUnidadesAutoComplete('');
 	}
+
+	// validateInput(controlName: string): string {
+	// 	const control = this.asistenciaForm.controls[controlName];
+
+	// 	return control && control.invalid && (control.dirty || control.touched)
+	// 		? 'invalid'
+	// 		: 'valid';
+	// }
 
 	createAsistencia(): void {
 		const {

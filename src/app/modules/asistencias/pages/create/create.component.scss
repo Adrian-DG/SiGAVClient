@@ -43,3 +43,19 @@ fieldset {
 .notFree {
 	background-color: red;
 }
+
+.hasDataAlert {
+	display: row;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	background-color: rgb(240, 240, 157);
+	padding: 0.3em 0.5em;
+	border: none;
+	border-radius: 0.5em;
+	span {
+		display: block;
+		font-weight: 500;
+		color: rgb(116, 116, 15);
+	}
+}

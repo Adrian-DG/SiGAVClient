@@ -41,11 +41,10 @@ export class MiembroService extends GenericService {
 			);
 	}
 
-	UpdateEstatusMiembro(id: number): void {
-		this.$http
-			.put<IServerResponse>(`${this.endPoint}/authorize`, id)
-			.subscribe((response: IServerResponse) =>
-				this._snackbar.open(response.message)
-			);
+	UpdateEstatusMiembro(id: number): Observable<IServerResponse> {
+		return this.$http.put<IServerResponse>(
+			`${this.endPoint}/authorize`,
+			id
+		);
 	}
 }

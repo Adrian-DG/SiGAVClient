@@ -5,6 +5,7 @@ import { IPaginationFilters } from 'src/app/modules/generic/DTO/ipagination-filt
 import { IPagedData } from 'src/app/modules/generic/Responses/ipaged-data';
 import { MiembroService } from '../../services/miembro.service';
 import { IMiembroViewModel } from '../../viewModels/imiembro-view-model';
+import { IServerResponse } from 'src/app/modules/generic/Responses/iserver-response';
 
 @Component({
 	selector: 'app-list',
@@ -65,7 +66,14 @@ export class ListComponent implements OnInit, AfterViewInit {
 	}
 
 	UpdateEstatusMiembro(id: number): void {
-		this._miembros.UpdateEstatusMiembro(id);
-		this.loadData();
+		if (confirm('Se cambiara el estatus de este miembro, esta seguro ?')) {
+			this._miembros
+				.UpdateEstatusMiembro(id)
+				.subscribe((response: IServerResponse) => {
+					this.filters.status = !this.filters.status;
+					this.loadData();
+					alert(response.message);
+				});
+		}
 	}
 }

@@ -2,12 +2,32 @@
 	<!-- Informacion ciudadano -->
 
 	<mat-step [stepControl]="ciudadanoForm" label="Información del ciudadano">
+		<!-- <div class="hasDataAlert">
+			<span>
+				<mat-slide-toggle
+					[checked]="hasPersonInformation"
+					[(ngModel)]="hasPersonInformation"
+					(change)="setPersonInformationPermission()"
+				>
+				</mat-slide-toggle>
+				La persona acepto brindar su información:
+				{{ hasPersonInformation ? 'Si' : 'No' }}
+			</span>
+		</div> -->
+
 		<form [formGroup]="ciudadanoForm">
 			<!-- <ng-template matStepLabel>Informacion del ciudadano</ng-template> -->
 			<div class="row">
 				<mat-form-field style="width: 40%">
 					<mat-label>Identificación</mat-label>
 					<input matInput formControlName="identificacion" />
+					<mat-hint
+						*ngIf="
+							ciudadanoForm.controls['identificacion'].invalid &&
+							ciudadanoForm.controls['identificacion'].touched
+						"
+						>Debe tener 11 números como mínimo.</mat-hint
+					>
 				</mat-form-field>
 				<mat-form-field style="width: 40%">
 					<mat-label>Nombre</mat-label>
@@ -23,6 +43,7 @@
 				<fieldset style="width: 40%">
 					<legend>Escoger Sexo</legend>
 					<mat-radio-group
+						required
 						aria-label="Select an option"
 						formControlName="genero"
 					>
@@ -43,6 +64,14 @@
 					<mat-form-field style="width: 100%">
 						<mat-label>Telefono</mat-label>
 						<input matInput formControlName="telefono" />
+						<mat-hint
+							*ngIf="
+								ciudadanoForm.controls['telefono'].invalid &&
+								ciudadanoForm.controls['telefono'].touched
+							"
+							>El teléfono debe terer 10 números como
+							mínimo.</mat-hint
+						>
 					</mat-form-field>
 				</div>
 			</div>
@@ -220,7 +249,7 @@
 								Den.: {{ item.denominacion }}
 								<br />
 								<small>Tramo: {{ item.tramo }}</small>
-								<br/>
+								<br />
 								<small>Ficha: {{ item.ficha }}</small>
 								<br />
 								<div class="row-start">
