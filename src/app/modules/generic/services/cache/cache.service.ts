@@ -90,4 +90,23 @@ export class CacheService {
 				sourcesKeys[key][1](data);
 			});
 	}
+
+	getDataOnIdFilters(
+		resource: string,
+		tipoId: number,
+		marcaId: number
+	): void {
+		const params = new HttpParams()
+			.set('tipo', tipoId)
+			.set('marca', marcaId);
+		const sourcesKeys = Object.entries(this.sources);
+		this.$http
+			.get<IGenericData[]>(`${this.endPoint}/${resource}`, {
+				params: params,
+			})
+			.subscribe((data: IGenericData[]) => {
+				const key = sourcesKeys.findIndex((x) => x[0] == resource);
+				sourcesKeys[key][1](data);
+			});
+	}
 }

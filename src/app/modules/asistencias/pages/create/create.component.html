@@ -1,8 +1,11 @@
-<mat-stepper [linear]="true">
+<mat-stepper
+	[linear]="hasPersonInformation"
+	*ngIf="ciudadanoForm && vehiculoForm && asistenciaForm"
+>
 	<!-- Informacion ciudadano -->
 
 	<mat-step [stepControl]="ciudadanoForm" label="Información del ciudadano">
-		<!-- <div class="hasDataAlert">
+		<div class="hasDataAlert">
 			<span>
 				<mat-slide-toggle
 					[checked]="hasPersonInformation"
@@ -13,7 +16,7 @@
 				La persona acepto brindar su información:
 				{{ hasPersonInformation ? 'Si' : 'No' }}
 			</span>
-		</div> -->
+		</div>
 
 		<form [formGroup]="ciudadanoForm">
 			<!-- <ng-template matStepLabel>Informacion del ciudadano</ng-template> -->
@@ -69,7 +72,7 @@
 								ciudadanoForm.controls['telefono'].invalid &&
 								ciudadanoForm.controls['telefono'].touched
 							"
-							>El teléfono debe terer 10 números como
+							>El teléfono debe tener 10 números como
 							mínimo.</mat-hint
 						>
 					</mat-form-field>
@@ -97,7 +100,7 @@
 					(click)="_cache.getData('VehiculoTipo')"
 				>
 					<mat-label>Tipo vehiculo</mat-label>
-					<mat-select formControlName="vehiculoTipoId">
+					<mat-select formControlName="vehiculoTipoId" #tipoId>
 						<mat-option
 							[value]="item.id"
 							*ngFor="let item of _cache.vehiculoTipos$ | async"
@@ -143,7 +146,11 @@
 					appearance="fill"
 					style="width: 40%"
 					(click)="
-						_cache.getDataOnId('VehiculoModelo', marcaId.value)
+						_cache.getDataOnIdFilters(
+							'VehiculoModelo',
+							tipoId.value,
+							marcaId.value
+						)
 					"
 				>
 					<mat-label>Modelo</mat-label>
@@ -216,12 +223,13 @@
 			<div class="row">
 				<!-- TODO: implement autocomplete -->
 				<mat-form-field
-					style="width: 30%"
+					style="width: 50%"
 					class="example-full-width"
 					appearance="fill"
 				>
 					<mat-label>Asignar Unidad</mat-label>
 					<input
+						id="unidadAutoComplete"
 						type="text"
 						placeholder="Selecciona unidad"
 						aria-label="Unidad-Miembro"
@@ -236,6 +244,7 @@
 					<mat-autocomplete
 						autoActiveFirstOption
 						#auto="matAutocomplete"
+						[displayWith]="displayFn"
 					>
 						<mat-option
 							[disabled]="!item.estaDisponible"
@@ -243,7 +252,7 @@
 								let item of _unidades.unidadeAutocomplete$
 									| async
 							"
-							[value]="item.unidadId"
+							[value]="item"
 						>
 							<div>
 								Den.: {{ item.denominacion }}
@@ -279,7 +288,7 @@
 
 				<mat-form-field
 					appearance="fill"
-					style="width: 50%"
+					style="width: 30%"
 					(click)="
 						_cache.getDataOnId(
 							'TipoAsistencia',

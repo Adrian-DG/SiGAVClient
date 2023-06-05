@@ -8,8 +8,8 @@ import {
 import { CacheService } from 'src/app/modules/generic/services/cache/cache.service';
 import { UnidadesService } from 'src/app/modules/unidades/services/unidades.service';
 import { IAsistenciaR5Create } from '../../DTO/iasistencia-r5-create';
-import { IAsistencia } from '../../entities/iasistencia';
 import { AsistenciasService } from '../../services/asistencias.service';
+import { IUnidadAutoComplete } from 'src/app/modules/unidades/viewModels/iunidad-auto-complete';
 
 @Component({
 	selector: 'app-create',
@@ -24,6 +24,22 @@ export class CreateComponent implements OnInit {
 		public _unidades: UnidadesService
 	) {}
 
+	hasPersonInformation: boolean = true;
+
+	setPersonInformationPermission(): void {
+		console.log('Permission: ', this.hasPersonInformation);
+		if (!this.hasPersonInformation) {
+			// ciudadano
+			this.ciudadanoForm!.clearValidators();
+			this.ciudadanoForm!.updateValueAndValidity();
+			// vehiculo
+			this.vehiculoForm!.clearValidators();
+			this.vehiculoForm!.updateValueAndValidity();
+		} else {
+			this.initFormulary();
+		}
+	}
+
 	customizedValidator = {
 		identification: [
 			Validators.required,
@@ -31,7 +47,7 @@ export class CreateComponent implements OnInit {
 		],
 		fullname: [
 			Validators.required,
-			Validators.pattern(/^[A-Za-z\s]{2,50}$/),
+			Validators.pattern(/^[A-Za-z0-9ñÑ]{1,30}$/),
 		],
 		phonenumber: [
 			Validators.required,
@@ -40,62 +56,50 @@ export class CreateComponent implements OnInit {
 		placa: [Validators.required, Validators.pattern(/^[A-Za-z0-9]{1,10}$/)],
 	};
 
-	ciudadanoForm: FormGroup = new FormGroup({
-		identificacion: new FormControl(
-			'',
-			this.customizedValidator.identification
-		),
-		nombre: new FormControl('', this.customizedValidator.fullname),
-		apellido: new FormControl('', this.customizedValidator.fullname),
-		genero: new FormControl(),
-		telefono: new FormControl('', this.customizedValidator.phonenumber),
-		esExtranjero: new FormControl(false),
-	});
+	ciudadanoForm: FormGroup | undefined;
+	vehiculoForm: FormGroup | undefined;
+	asistenciaForm: FormGroup | undefined;
 
-	vehiculoForm: FormGroup = new FormGroup({
-		vehiculoTipoId: new FormControl(0),
-		vehiculoColorId: new FormControl(0),
-		vehiculoModeloId: new FormControl(0),
-		vehiculoMarcaId: new FormControl(0),
-		placa: new FormControl('', this.customizedValidator.placa),
-	});
+	initFormulary(): void {
+		this.ciudadanoForm = new FormGroup({
+			identificacion: new FormControl(
+				'',
+				this.customizedValidator.identification
+			),
+			nombre: new FormControl('', this.customizedValidator.fullname),
+			apellido: new FormControl('', this.customizedValidator.fullname),
+			genero: new FormControl(),
+			telefono: new FormControl('', this.customizedValidator.phonenumber),
+			esExtranjero: new FormControl(false),
+		});
 
-	asistenciaForm: FormGroup = new FormGroup({
-		municipioId: new FormControl(0),
-		provinciaId: new FormControl(0),
-		unidadId: new FormControl(0),
-		tipoAsistenciaId: new FormControl(0),
-		comentarios: new FormControl(''),
-	});
+		this.vehiculoForm = new FormGroup({
+			vehiculoTipoId: new FormControl(0),
+			vehiculoColorId: new FormControl(0),
+			vehiculoModeloId: new FormControl(0),
+			vehiculoMarcaId: new FormControl(0),
+			placa: new FormControl('', this.customizedValidator.placa),
+		});
 
-	// asistenciaForm: FormGroup = this.$fb.group({
-	// 	identificacion: ['', [Validators.required, Validators.minLength(11)]],
-	// 	nombreCiudadano: [''],
-	// 	telefono: [''],
-	// 	vehiculoTipoId: [0],
-	// 	vehiculoColorId: [0],
-	// 	vehiculoModeloId: [0],
-	// 	vehiculoMarcaId: [0],
-	// 	placa: [''],
-	// 	municipioId: [0],
-	// 	provinciaId: [0],
-	// 	unidadId: [0],
-	// 	tipoAsistenciaId: [0],
-	// 	reportadoPor: [1],
-	// 	comentarios: [''],
-	// });
+		this.asistenciaForm = new FormGroup({
+			municipioId: new FormControl(0),
+			provinciaId: new FormControl(0),
+			unidadId: new FormControl(0),
+			tipoAsistenciaId: new FormControl(0),
+			comentarios: new FormControl(''),
+		});
+	}
 
 	ngOnInit(): void {
 		this._unidades.getUnidadesAutoComplete('');
+		this.initFormulary();
 	}
 
-	// validateInput(controlName: string): string {
-	// 	const control = this.asistenciaForm.controls[controlName];
-
-	// 	return control && control.invalid && (control.dirty || control.touched)
-	// 		? 'invalid'
-	// 		: 'valid';
-	// }
+	displayFn(unidad: IUnidadAutoComplete): string {
+		return unidad.ficha && unidad.denominacion
+			? `${unidad.ficha} - ${unidad.denominacion}`
+			: '';
+	}
 
 	createAsistencia(): void {
 		const {
@@ -105,7 +109,7 @@ export class CreateComponent implements OnInit {
 			genero,
 			telefono,
 			esExtranjero,
-		} = this.ciudadanoForm.value;
+		} = this.ciudadanoForm!.value;
 
 		const {
 			vehiculoTipoId,
@@ -113,7 +117,7 @@ export class CreateComponent implements OnInit {
 			vehiculoModeloId,
 			vehiculoMarcaId,
 			placa,
-		} = this.vehiculoForm.value;
+		} = this.vehiculoForm!.value;
 
 		const {
 			municipioId,
@@ -121,7 +125,9 @@ export class CreateComponent implements OnInit {
 			unidadId,
 			tipoAsistenciaId,
 			comentarios,
-		} = this.asistenciaForm.value;
+		} = this.asistenciaForm!.value;
+
+		const unidadSelected: IUnidadAutoComplete = unidadId;
 
 		const newAsistencia: IAsistenciaR5Create = {
 			// ciudadano
@@ -140,7 +146,7 @@ export class CreateComponent implements OnInit {
 			// asistencia
 			municipioId: municipioId,
 			provinciaId: provinciaId,
-			unidadId: unidadId ?? '',
+			unidadId: unidadSelected.unidadId,
 			tipoAsistencias: tipoAsistenciaId,
 			comentario: comentarios,
 			usuarioId: this._asistencias.userId,
