@@ -27,4 +27,5 @@ export interface IAsistenciaViewModel {
 	fechaCreacion: Date;
 	estatusAsistencia: string;
 	reportadaPor: string;
+	tieneDatosCompletados: boolean;
 }
