@@ -28,7 +28,8 @@ export class CreateComponent implements OnInit {
 			[
 				Validators.required,
 				Validators.minLength(7),
-				Validators.pattern(/^[A-Z]\d{6}$/),
+				Validators.maxLength(10),
+				Validators.pattern(/^[A-Za-z0-9]{1,10}$/),
 			],
 		],
 		puntosAsignados: [''],
