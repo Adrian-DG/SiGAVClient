@@ -16,6 +16,7 @@ export interface IAsistenciaR5Create {
 	// ubicacion
 	provinciaId: number;
 	municipioId: number;
+	direccion: string;
 	unidadId: number;
 	tipoAsistencias: number[];
 

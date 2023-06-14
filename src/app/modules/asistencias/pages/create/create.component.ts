@@ -84,6 +84,7 @@ export class CreateComponent implements OnInit {
 		this.asistenciaForm = new FormGroup({
 			municipioId: new FormControl(0),
 			provinciaId: new FormControl(0),
+			direccion: new FormControl(''),
 			unidadId: new FormControl(0),
 			tipoAsistenciaId: new FormControl(0),
 			comentarios: new FormControl(''),
@@ -122,6 +123,7 @@ export class CreateComponent implements OnInit {
 		const {
 			municipioId,
 			provinciaId,
+			direccion,
 			unidadId,
 			tipoAsistenciaId,
 			comentarios,
@@ -146,6 +148,7 @@ export class CreateComponent implements OnInit {
 			// asistencia
 			municipioId: municipioId,
 			provinciaId: provinciaId,
+			direccion: direccion,
 			unidadId: unidadSelected.unidadId,
 			tipoAsistencias: tipoAsistenciaId,
 			comentario: comentarios,
