@@ -37,12 +37,12 @@ $border-red: 2px solid red;
 	justify-content: flex-start;
 	align-items: center;
 	background-color: whitesmoke;
-	padding-top: 2em;
 }
 
 /* ----------- pages ------------------- */
 
 .page-container {
+	padding-top: 2em;
 	width: 100%;
 	height: 85vh;
 	overflow-x: hidden;
@@ -59,7 +59,7 @@ $border-red: 2px solid red;
 		justify-content: space-between;
 		align-items: center;
 		mat-card-content {
-			min-height: 30vh;
+			min-height: 5vh;
 			max-height: 60vh;
 			min-width: 75vw;
 			width: auto;
@@ -76,7 +76,7 @@ $border-red: 2px solid red;
 }
 
 .table {
-	min-height: 10vh;
+	min-height: 5vh;
 	max-height: 40vh;
 	overflow-y: auto;
 }

@@ -99,7 +99,7 @@
 					style="width: 40%"
 					(click)="_cache.getData('VehiculoTipo')"
 				>
-					<mat-label>Tipo vehiculo</mat-label>
+					<mat-label>Tipo vehiculo (opcional)</mat-label>
 					<mat-select formControlName="vehiculoTipoId" #tipoId>
 						<mat-option
 							[value]="item.id"
@@ -114,7 +114,7 @@
 					style="width: 40%"
 					(click)="_cache.getData('VehiculoColores')"
 				>
-					<mat-label>Color</mat-label>
+					<mat-label>Color (opcional)</mat-label>
 					<mat-select formControlName="vehiculoColorId">
 						<mat-option
 							[value]="item.id"
@@ -132,7 +132,7 @@
 					style="width: 40%"
 					(click)="_cache.getData('VehiculoMarca')"
 				>
-					<mat-label>Marca</mat-label>
+					<mat-label>Marca (opcional)</mat-label>
 					<mat-select #marcaId formControlName="vehiculoMarcaId">
 						<mat-option
 							[value]="item.id"
@@ -153,7 +153,7 @@
 						)
 					"
 				>
-					<mat-label>Modelo</mat-label>
+					<mat-label>Modelo (opcional)</mat-label>
 					<mat-select formControlName="vehiculoModeloId">
 						<mat-option
 							[value]="item.id"
@@ -194,7 +194,7 @@
 					style="width: 50%"
 					(click)="_cache.getData('provincias')"
 				>
-					<mat-label>Provincia</mat-label>
+					<mat-label>Provincia (opcional)</mat-label>
 					<mat-select #provinciaId formControlName="provinciaId">
 						<mat-option
 							[value]="item.id"
@@ -210,7 +210,7 @@
 						_cache.getDataOnId('municipios', provinciaId.value)
 					"
 				>
-					<mat-label>Municipio</mat-label>
+					<mat-label>Municipio (opcional)</mat-label>
 					<mat-select formControlName="municipioId">
 						<mat-option
 							[value]="item.id"
@@ -247,7 +247,6 @@
 						[displayWith]="displayFn"
 					>
 						<mat-option
-							[disabled]="!item.estaDisponible"
 							*ngFor="
 								let item of _unidades.unidadeAutocomplete$
 									| async
@@ -257,12 +256,16 @@
 							<div>
 								Den.: {{ item.denominacion }}
 								<br />
-								<small>Tramo: {{ item.tramo }}</small>
-								<br />
-								<small>Ficha: {{ item.ficha }}</small>
-								<br />
 								<div class="row-start">
-									Disponibilidad:
+									<small>Tramo: {{ item.tramo }}</small>
+									<small>Ficha: {{ item.ficha }}</small>
+								</div>
+								<div class="row-start">
+									{{
+										item.estaDisponible
+											? 'Disponible'
+											: 'No Disponible'
+									}}:
 									<div
 										class="availability"
 										[ngClass]="
