@@ -1,5 +1,26 @@
 @import url('../styles.scss');
 
+mat-toolbar {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.mat-toolbar-multiple-rows {
+	min-height: 2.5em !important;
+}
+
+.mat-toolbar-row {
+	height: 1em;
+	.logo-div {
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+		align-items: center;
+	}
+}
+
 mat-toolbar-row {
 	display: row;
 	flex-direction: row;

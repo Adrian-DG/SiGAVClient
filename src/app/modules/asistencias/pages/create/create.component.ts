@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import {
 	FormBuilder,
 	FormControl,
@@ -16,7 +16,7 @@ import { IUnidadAutoComplete } from 'src/app/modules/unidades/viewModels/iunidad
 	templateUrl: './create.component.html',
 	styleUrls: ['./create.component.scss'],
 })
-export class CreateComponent implements OnInit {
+export class CreateComponent implements OnInit, AfterViewInit {
 	constructor(
 		private $fb: FormBuilder,
 		private _asistencias: AsistenciasService,
@@ -47,13 +47,16 @@ export class CreateComponent implements OnInit {
 		],
 		fullname: [
 			Validators.required,
-			Validators.pattern(/^[A-Za-z0-9ñÑ]{1,30}$/),
+			Validators.pattern(/^[A-Za-z0-9ñÑ ]{1,30}$/),
 		],
 		phonenumber: [
 			Validators.required,
 			Validators.pattern(/^[0-9]{10,15}$/),
 		],
-		placa: [Validators.required, Validators.pattern(/^[A-Za-z0-9]{1,10}$/)],
+		placa: [
+			Validators.required,
+			Validators.pattern(/^[A-Za-z][A-Za-z0-9]{0,11}$/),
+		],
 	};
 
 	ciudadanoForm: FormGroup | undefined;
@@ -92,8 +95,11 @@ export class CreateComponent implements OnInit {
 	}
 
 	ngOnInit(): void {
-		this._unidades.getUnidadesAutoComplete('');
 		this.initFormulary();
+	}
+
+	ngAfterViewInit(): void {
+		this._unidades.getUnidadesAutoComplete('');
 	}
 
 	displayFn(unidad: IUnidadAutoComplete): string {

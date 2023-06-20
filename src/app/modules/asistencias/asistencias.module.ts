@@ -10,9 +10,10 @@ import { HttpClientModule } from '@angular/common/http';
 import { ListComponent } from './pages/list/list.component';
 import { CreateComponent } from './pages/create/create.component';
 import { CedulaPipe } from './pipes/cedula.pipe';
+import { TelefonoPipe } from './pipes/telefono.pipe';
 
 @NgModule({
-	declarations: [IndexComponent, ListComponent, CreateComponent, CedulaPipe],
+	declarations: [IndexComponent, ListComponent, CreateComponent, CedulaPipe, TelefonoPipe],
 	imports: [
 		CommonModule,
 		AsistenciasRoutingModule,
