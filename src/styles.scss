@@ -15,14 +15,15 @@ $border-red: 2px solid red;
 
 .main-container {
 	width: 100%;
-	min-height: 90vh;
+	min-height: 100vh;
 	height: auto;
 	overflow-y: auto;
 }
 
 .sidenav-container {
 	width: 100%;
-	height: 89.5vh;
+	height: 95vh;
+	overflow-y: hidden;
 }
 
 .sidenav {
@@ -30,11 +31,13 @@ $border-red: 2px solid red;
 }
 
 .sidenav-content {
+	height: 100%;
 	display: flex;
 	flex-direction: column;
-	justify-content: flex-end;
+	justify-content: flex-start;
 	align-items: center;
 	background-color: whitesmoke;
+	padding-top: 2em;
 }
 
 /* ----------- pages ------------------- */
@@ -49,13 +52,15 @@ $border-red: 2px solid red;
 	justify-content: flex-start;
 	align-items: center;
 	mat-card {
-		box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+		box-shadow: rgba(104, 108, 112, 0.2) 1px 10px 25px;
 		max-width: 95%;
 		display: flex;
 		flex-direction: column;
 		justify-content: space-between;
 		align-items: center;
 		mat-card-content {
+			min-height: 30vh;
+			max-height: 60vh;
 			min-width: 75vw;
 			width: auto;
 		}
@@ -71,8 +76,19 @@ $border-red: 2px solid red;
 }
 
 .table {
-	max-height: 35vh;
+	min-height: 10vh;
+	max-height: 40vh;
 	overflow-y: auto;
+}
+
+.mat-mdc-table .mdc-data-table__header-row {
+	height: 30px !important;
+}
+
+.mat-mdc-paginator-container {
+	margin-top: 1em;
+	min-height: 30px !important;
+	max-height: 35px !important;
 }
 
 .edit-icon {
