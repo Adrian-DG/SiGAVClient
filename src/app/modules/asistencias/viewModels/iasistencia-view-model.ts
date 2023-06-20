@@ -11,6 +11,7 @@ export interface IAsistenciaViewModel {
 	vehiculoColor: string;
 	vehiculoModelo: string;
 	vehiculoMarca: string;
+	placa: string;
 	coordenadas: string;
 	municipio: string;
 	provincia: string;

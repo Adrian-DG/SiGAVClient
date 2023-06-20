@@ -13,7 +13,7 @@
 				<input
 					matInput
 					(keyup)="loadData()"
-					placeholder="Nombre"
+					placeholder="Nombre o Identificación"
 					[(ngModel)]="filters.searchTerm"
 				/>
 			</mat-form-field>
@@ -30,15 +30,6 @@
 					<mat-option [value]="3">Completadas</mat-option>
 				</mat-select>
 			</mat-form-field>
-			<!-- <mat-checkbox
-				style="margin-top: 1em"
-				class="example-margin"
-				[(ngModel)]="filters.status"
-				color="primary"
-				(change)="changeStatus()"
-			>
-				Mostrar Completadas
-			</mat-checkbox> -->
 		</div>
 
 		<div class="col" style="width: 20%">
@@ -52,15 +43,6 @@
 					<mat-option [value]="2">Detalles Asistencias</mat-option>
 				</mat-select>
 			</mat-form-field>
-
-			<!-- <button
-				mat-raised-button
-				class="print-btn"
-				(click)="getReporteResumenAsistenciasDiario()"
-			>
-				<mat-icon>print</mat-icon>
-				Resumen Diario
-			</button> -->
 		</div>
 	</div>
 
@@ -74,165 +56,70 @@
 					{{ i + 1 }}
 				</td>
 			</ng-container>
+
 			<ng-container matColumnDef="ciudadano">
 				<th mat-header-cell *matHeaderCellDef>Ciudadano</th>
 				<td mat-cell *matCellDef="let element">
-					<span
-						><strong>Céd.:</strong><br />
-						{{ element.identificacion | cedula }}</span
-					>
+					<span>{{ element.identificacion | cedula }}</span>
 					<br />
-					<span
-						><strong>Nombre:</strong><br />
-						{{ element.nombreCiudadano | titlecase }}</span
-					>
+					<span>{{ element.nombreCiudadano | titlecase }}</span>
 					<br />
-					<span
-						><strong>Tel.:</strong><br />{{
-							element.telefono
-						}}</span
-					>
+					<span>{{ element.telefono }}</span>
 				</td>
 			</ng-container>
 
 			<ng-container matColumnDef="vehiculo">
-				<th mat-header-cell *matHeaderCellDef>Vehiculo</th>
+				<th mat-header-cell *matHeaderCellDef>Vehículo</th>
 				<td mat-cell *matCellDef="let element">
 					<span
-						><strong>Marca:</strong><br />{{
-							element.vehiculoMarca
-						}}</span
+						>{{ element.vehiculoTipo }} -
+						{{ element.vehiculoColor }}</span
 					>
 					<br />
 					<span
-						><strong>Modelo:</strong><br />{{
-							element.vehiculoModelo
-						}}</span
+						>{{ element.vehiculoMarca }}
+						{{ element.vehiculoModelo }}</span
 					>
 					<br />
-					<span
-						><strong>Tipo:</strong><br />{{
-							element.vehiculoTipo
-						}}</span
-					>
-					<br />
-					<span
-						><strong>Color:</strong><br />{{
-							element.vehiculoColor
-						}}</span
-					>
-				</td>
-			</ng-container>
-
-			<ng-container matColumnDef="detalles">
-				<th mat-header-cell *matHeaderCellDef>Asistencia</th>
-				<td mat-cell *matCellDef="let element">
-					<span
-						><strong>Tipo: </strong><br />{{
-							element.tipoUnidad
-						}}</span
-					>
-					<br />
-					<span
-						><strong>Tramo: </strong><br />{{ element.tramo }}</span
-					>
+					<span>Placa: {{ element.placa }}</span>
 				</td>
 			</ng-container>
 
 			<ng-container matColumnDef="unidad">
 				<th mat-header-cell *matHeaderCellDef>Unidad</th>
 				<td mat-cell *matCellDef="let element">
-					<span
-						><strong>Denomincación: </strong><br />{{
-							element.denominacionUnidad
-						}}</span
-					>
+					<span>{{ element.tramo }}</span>
 					<br />
 					<span
-						><strong>Ficha: </strong><br />{{
-							element.fichaUnidad
-						}}</span
+						>{{ element.fichaUnidad }} -
+						{{ element.tipoUnidad }}</span
 					>
-					<br />
-					<span
-						><strong>Tipo: </strong><br />{{
-							element.tipoUnidad
-						}}</span
-					>
-				</td>
-			</ng-container>
-
-			<ng-container matColumnDef="ubicacion">
-				<th mat-header-cell *matHeaderCellDef>Ubicación</th>
-				<td mat-cell *matCellDef="let element">
-					<span
-						><strong>Provincia: </strong><br />{{
-							element.provincia
-						}}</span
-					>
-					<br />
-					<span
-						><strong>Municipio: </strong><br />{{
-							element.municipio
-						}}</span
-					>
-					<br />
-					<span><strong>Coord.: </strong>{{ '' }}</span>
 				</td>
 			</ng-container>
 
 			<ng-container matColumnDef="agente">
 				<th mat-header-cell *matHeaderCellDef>Agente</th>
 				<td mat-cell *matCellDef="let element">
-					<span
-						><strong>Rango:</strong><br />{{
-							element.rangoAgente
-						}}</span
-					>
+					<span>{{ element.rangoAgente }}</span>
 					<br />
-					<span
-						><strong>Cédula:</strong><br />{{
-							element.cedulaAgente | cedula
-						}}</span
-					>
+					<span>{{ element.cedulaAgente | cedula }}</span>
 					<br />
-					<span
-						><strong>Nombre:</strong><br />{{
-							element.nombreAgente
-						}}</span
-					>
-					<br />
-					<span
-						><strong>Inst.:</strong>{{ element.institucion }}</span
-					>
+					<span>{{ element.nombreAgente }}</span>
 				</td>
 			</ng-container>
 
 			<ng-container matColumnDef="creacion">
 				<th mat-header-cell *matHeaderCellDef>Creación</th>
 				<td mat-cell *matCellDef="let element">
-					<span
-						><strong>Reportó: </strong
-						>{{ element.reportadaPor }}</span
-					>
+					<span>Reporta: {{ element.reportadaPor }}</span>
 					<br />
-					<span
-						><strong>Estatus: </strong><br />{{
-							element.estatusAsistencia
-						}}</span
-					>
-					<br />
-					<span
-						><strong>Creado: </strong><br />{{
-							element.fechaCreacion | date : 'short'
-						}}</span
-					>
+					<span>{{ element.fechaCreacion | date : 'short' }}</span>
 				</td>
 			</ng-container>
 
 			<ng-container matColumnDef="acciones">
 				<th mat-header-cell *matHeaderCellDef>Acciones</th>
-				<td mat-cell *matCellDef="let element; let i = index">
+				<td mat-cell *matCellDef="let element">
 					<button
 						mat-raised-button
 						color="primary"
@@ -267,7 +154,7 @@
 	<mat-divider></mat-divider>
 	<mat-paginator
 		#paginator
-		style="margin-top: 1em"
+		style="margin-top: 0.5em"
 		(page)="pageChanged($event)"
 		[pageSizeOptions]="pageSizeOptions"
 		[length]="totalRows"
