@@ -46,24 +46,14 @@ export class AsistenciasService extends GenericService {
 			});
 	}
 
-	updateAsistenciaCompletar(model: IUpdateAsistencia): void {
-		// TODO: revisar el estatus en que se colocan las asistencias
+	updateAsistenciaCompletar(
+		model: IUpdateAsistencia
+	): Observable<IServerResponse> {
 		const estatus = model.estatusAsistencia == 2 ? 'comenzar' : 'completar';
-		if (confirm(`Esta seguro de ${estatus} esta asistencia ?`)) {
-			this.$http
-				.put<IServerResponse>(`${this.endPoint}/actualizar`, model)
-				.subscribe((response: IServerResponse) => {
-					//alert(response.message);
-					if (response.status) {
-						this.getAllAsistencias({
-							page: 0,
-							size: 5,
-							searchTerm: '',
-							status: false,
-						});
-					}
-				});
-		}
+		return this.$http.put<IServerResponse>(
+			`${this.endPoint}/actualizar`,
+			model
+		);
 	}
 
 	getReporteResumenAsistenciasPorFecha(filter: IDateFilter): void {
