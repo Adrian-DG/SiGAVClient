@@ -6,6 +6,7 @@ import { IPagedData } from 'src/app/modules/generic/Responses/ipaged-data';
 import { IUpdateAsistencia } from '../../DTO/iupdate-asistencia';
 import { AsistenciasService } from '../../services/asistencias.service';
 import { IAsistenciaViewModel } from '../../viewModels/iasistencia-view-model';
+import { IServerResponse } from 'src/app/modules/generic/Responses/iserver-response';
 
 @Component({
 	selector: 'app-list',
@@ -98,8 +99,12 @@ export class ListComponent implements OnInit, AfterViewInit {
 			estatusAsistencia: estatus,
 			codUsuario: this._asistencias.userId,
 		};
-		this._asistencias.updateAsistenciaCompletar(model);
-		this.loadData();
+
+		if (confirm(`Esta seguro de ${estatus} esta asistencia ?`)) {
+			this._asistencias
+				.updateAsistenciaCompletar(model)
+				.subscribe((response: IServerResponse) => this.loadData());
+		}
 	}
 
 	onReportSelection(value: number): void {
