@@ -100,7 +100,7 @@ export class ListComponent implements OnInit, AfterViewInit {
 			codUsuario: this._asistencias.userId,
 		};
 
-		if (confirm(`Esta seguro de ${estatus} esta asistencia ?`)) {
+		if (confirm(`Esta seguro de terminar esta asistencia ?`)) {
 			this._asistencias
 				.updateAsistenciaCompletar(model)
 				.subscribe((response: IServerResponse) => this.loadData());
