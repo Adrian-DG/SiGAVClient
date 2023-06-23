@@ -49,16 +49,18 @@ export class CreateComponent implements OnInit {
 			institucion,
 		} = this.miembroForm.value;
 
+		const fecha = Date.now();
+
 		const miembro: ICreateMiembro = {
 			cedula: cedula,
 			nombre: nombre,
 			apellido: apellido,
-			fechaCreacion: fechaNacimiento,
+			fechaCreacion: new Date(fecha),
 			genero: genero,
 			rangoId: rangoId,
 			institucion: institucion,
 		};
 
-		this._miembros.createMiembro(this.miembroForm.value);
+		this._miembros.createMiembro(miembro);
 	}
 }

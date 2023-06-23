@@ -16,7 +16,7 @@
 		</div>
 
 		<div class="row-start">
-			<mat-form-field class="date-field" appearance="fill">
+			<!-- <mat-form-field class="date-field" appearance="fill">
 				<mat-label>Fecha de Nacimiento</mat-label>
 				<input
 					matInput
@@ -29,17 +29,20 @@
 					[for]="picker"
 				></mat-datepicker-toggle>
 				<mat-datepicker #picker></mat-datepicker>
-			</mat-form-field>
-			<mat-radio-group
-				formControlName="genero"
-				aria-label="Sexo"
-				style="margin-left: 3em; margin-top: 1em"
-			>
-				<mat-radio-button value="1">Hombre</mat-radio-button>
-				<mat-radio-button value="2">Mujer</mat-radio-button>
-			</mat-radio-group>
+			</mat-form-field> -->
 		</div>
 		<div class="row-start">
+			<fieldset style="margin-bottom: 1em">
+				<legend>Escoger sexo</legend>
+				<mat-radio-group
+					formControlName="genero"
+					aria-label="Sexo"
+					style="margin-left: 3em; margin-top: 1em"
+				>
+					<mat-radio-button value="1">Hombre</mat-radio-button>
+					<mat-radio-button value="2">Mujer</mat-radio-button>
+				</mat-radio-group>
+			</fieldset>
 			<mat-form-field appearance="fill">
 				<mat-label>Rango</mat-label>
 				<mat-select formControlName="rangoId">
