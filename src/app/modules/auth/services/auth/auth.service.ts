@@ -7,7 +7,7 @@ import { ILoginUser } from '../../DTO/ilogin-user';
 import { IUserData } from '../../interfaces/iuser-data';
 import { ILoginResponse } from '../../responses/ilogin-response';
 import { JwtTokenService } from '../jwt/jwt.service';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 
 @Injectable({
 	providedIn: 'root',
@@ -89,7 +89,12 @@ export class AuthService extends GenericService {
 					this.$router.navigateByUrl('/asistencias');
 				}
 
-				this._snackbar.open(response.message, 'ocultar');
+				const snackBarConfig: MatSnackBarConfig = { duration: 2000 };
+				this._snackbar.open(
+					response.message,
+					'ocultar',
+					snackBarConfig
+				);
 			});
 	}
 
