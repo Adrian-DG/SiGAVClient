@@ -8,7 +8,7 @@ import { Component } from '@angular/core';
 export class IndexComponent {
 	moduleInfo = {
 		title: 'tramos',
-		description: 'Este modulo permitira manejar los tramos en carretera',
+		description: 'Este módulo permitira manejar los tramos en carretera',
 		links: ['listado', 'crear'],
 	};
 }

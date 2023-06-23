@@ -23,8 +23,6 @@ export class ListComponent implements OnInit, AfterViewInit {
 
 	displayedColumns = [
 		'id',
-		'cedula',
-		'nombreCompleto',
 		'nombreUsuario',
 		'esAdministrador',
 		'estatus',

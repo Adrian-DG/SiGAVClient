@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UsuarioService } from '../../services/usuario.service';
+import { IUsuario } from '../../entities/iusuario';
 
 @Component({
 	selector: 'app-create',
@@ -11,9 +12,9 @@ export class CreateComponent {
 	constructor(private _usuarios: UsuarioService, private $fb: FormBuilder) {}
 
 	usuarioForm: FormGroup = this.$fb.group({
-		cedula: ['', [Validators.required]],
-		nombre: ['', [Validators.required]],
-		apellido: ['', [Validators.required]],
+		cedula: [''],
+		nombre: [''],
+		apellido: [''],
 		fechaNacimiento: [''],
 		genero: [0],
 		username: ['', [Validators.required]],
@@ -22,6 +23,22 @@ export class CreateComponent {
 	});
 
 	onSubmit(): void {
-		this._usuarios.createUsuario(this.usuarioForm.value);
+		const fecha = Date.now();
+		const { username, password, genero, esAdministrador } =
+			this.usuarioForm.value;
+		const usuario: IUsuario = {
+			cedula: '',
+			nombre: '',
+			apellido: '',
+			fechaNacimiento: new Date(fecha),
+			fechaCreacion: new Date(fecha),
+			fechaModificacion: new Date(fecha),
+			genero: genero,
+			username: username,
+			password: password,
+			esAdministrador: esAdministrador,
+			estatus: false,
+		};
+		this._usuarios.createUsuario(usuario);
 	}
 }
