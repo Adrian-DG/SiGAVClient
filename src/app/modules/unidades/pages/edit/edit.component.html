@@ -1,0 +1,75 @@
+<h3 style="text-align: center; font-weight: bold">Editar Unidad</h3>
+<hr />
+<br />
+
+<div class="column" *ngIf="unidad; else emptyResouce">
+	<mat-form-field appearance="fill" style="width: 100%">
+		<mat-label>Denominacion</mat-label>
+		<input matInput [(ngModel)]="unidad.denominacion" type="text" />
+	</mat-form-field>
+
+	<div class="row">
+		<mat-form-field appearance="fill" style="width: 50%">
+			<mat-label>Ficha</mat-label>
+			<input matInput [(ngModel)]="unidad.ficha" type="text" />
+		</mat-form-field>
+		<mat-form-field appearance="fill" style="width: 50%">
+			<mat-label>Placa</mat-label>
+			<input matInput [(ngModel)]="unidad.placa" />
+		</mat-form-field>
+	</div>
+
+	<!-- <div class="row">
+		<mat-form-field appearance="fill" style="width: 70%">
+			<mat-label>Puntos Asignados</mat-label>
+			<input matInput [(ngModel)]="unidad.puntosAsignado" type="text" />
+		</mat-form-field>
+		<mat-form-field appearance="fill" style="width: 30%">
+			<mat-label>Cobertura</mat-label>
+			<input matInput [(ngModel)]="unidad.cobertura" />
+		</mat-form-field>
+	</div> -->
+
+	<div class="row">
+		<mat-form-field appearance="fill" style="width: 50%">
+			<mat-label>Seleccionar Tipo Unidad</mat-label>
+			<mat-select
+				[(ngModel)]="unidad.tipoUnidadId"
+				(click)="_cache.getData('TipoUnidades')"
+			>
+				<mat-option
+					[value]="item.id"
+					*ngFor="let item of _cache.tipoUnidades$ | async"
+				>
+					{{ item.nombre }}
+				</mat-option>
+			</mat-select>
+		</mat-form-field>
+
+		<mat-form-field appearance="fill" style="width: 50%">
+			<mat-label>Seleccionar Tramo</mat-label>
+			<mat-select [(ngModel)]="unidad.tramoId">
+				<mat-option
+					*ngFor="let item of tramosFilteredList"
+					[value]="item.id"
+				>
+					{{ item.nombre }}
+				</mat-option>
+			</mat-select>
+		</mat-form-field>
+	</div>
+
+	<button
+		type="button"
+		mat-raised-button
+		color="accent"
+		style="width: 100%"
+		(click)="saveChanges()"
+	>
+		Guardar Cambios
+	</button>
+</div>
+
+<ng-template #emptyResouce>
+	<h5>Cargando....</h5>
+</ng-template>

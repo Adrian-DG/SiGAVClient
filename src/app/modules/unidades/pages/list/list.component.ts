@@ -21,8 +21,8 @@ export class ListComponent implements OnInit, AfterViewInit {
 		'placa',
 		'tipoUnidad',
 		'tramo',
-		'puntosAsignados',
-		'cobertura',
+		// 'puntosAsignados',
+		// 'cobertura',
 		'acciones',
 	];
 

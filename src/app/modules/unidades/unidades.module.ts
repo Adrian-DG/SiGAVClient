@@ -9,9 +9,10 @@ import { HttpClientModule } from '@angular/common/http';
 import { ListComponent } from './pages/list/list.component';
 import { CreateComponent } from './pages/create/create.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { EditComponent } from './pages/edit/edit.component';
 
 @NgModule({
-	declarations: [IndexComponent, ListComponent, CreateComponent],
+	declarations: [IndexComponent, ListComponent, CreateComponent, EditComponent],
 	imports: [
 		CommonModule,
 		UnidadesRoutingModule,

@@ -1,4 +1,5 @@
 import { HttpClient } from '@angular/common/http';
+import { Location } from '@angular/common';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject, ReplaySubject } from 'rxjs';
@@ -25,11 +26,12 @@ export class AuthService extends GenericService {
 
 	constructor(
 		protected override $http: HttpClient,
+		protected override $location: Location,
 		private $router: Router,
 		private _jwt: JwtTokenService,
 		private _snackbar: MatSnackBar
 	) {
-		super($http);
+		super($http, $location);
 	}
 
 	checkIfAuthenticated(): void {

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { GenericService } from '../../generic/services/generic/generic.service';
 import { HttpClient } from '@angular/common/http';
+import { Location } from '@angular/common';
 import { IPaginationFilters } from '../../generic/DTO/ipagination-filters';
 import { Observable } from 'rxjs';
 import { IPagedData } from '../../generic/Responses/ipaged-data';
@@ -14,8 +15,11 @@ export class ModeloService extends GenericService {
 		return 'modelos';
 	}
 
-	constructor(protected override $http: HttpClient) {
-		super($http);
+	constructor(
+		protected override $http: HttpClient,
+		protected override $location: Location
+	) {
+		super($http, $location);
 	}
 
 	getAllModelos(

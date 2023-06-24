@@ -1,4 +1,5 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
+import { Location } from '@angular/common';
 import { Injectable } from '@angular/core';
 import { Observable, finalize } from 'rxjs';
 import { IPaginationFilters } from '../../generic/DTO/ipagination-filters';
@@ -19,8 +20,12 @@ export class AsistenciasService extends GenericService {
 		return 'asistencias';
 	}
 
-	constructor(protected override $http: HttpClient, private $router: Router) {
-		super($http);
+	constructor(
+		protected override $http: HttpClient,
+		protected override $location: Location,
+		private $router: Router
+	) {
+		super($http, $location);
 	}
 
 	getAllAsistencias(

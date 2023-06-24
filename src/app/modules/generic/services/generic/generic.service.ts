@@ -1,13 +1,11 @@
 import { Injectable, isDevMode } from '@angular/core';
+import { Location as actualPage } from '@angular/common';
 import { environment as Prod } from 'src/environment/environment.prod';
 import { environment as Dev } from 'src/environment/environment';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { IPaginationFilters } from '../../DTO/ipagination-filters';
 import { IServerResponse } from '../../Responses/iserver-response';
-import { AuthService } from 'src/app/modules/auth/services/auth/auth.service';
-import { IUserData } from 'src/app/modules/auth/interfaces/iuser-data';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { IPagedData } from '../../Responses/ipaged-data';
 
 @Injectable({
@@ -33,7 +31,7 @@ export abstract class GenericService {
 			.set('status', filters.status);
 	}
 
-	constructor(protected $http: HttpClient) {
+	constructor(protected $http: HttpClient, protected $location: actualPage) {
 		const env: string = isDevMode() ? Dev.api_url : Prod.api_url;
 		this.endPoint += `${env}/${this.GetResource()}`;
 
@@ -49,9 +47,28 @@ export abstract class GenericService {
 		});
 	}
 
+	GetById<T>(id: number): Observable<T> {
+		return this.$http.get<T>(`${this.endPoint}/${id}`);
+	}
+
 	Post<T>(model: T): void {
 		this.$http
 			.post<IServerResponse>(this.endPoint, model)
 			.subscribe((response: IServerResponse) => alert(response.message));
+	}
+
+	Update<T>(model: T): void {
+		if (confirm('Estas seguro de guardar estos cambios')) {
+			this.$http.put<IServerResponse>(this.endPoint, model).subscribe(
+				(response: IServerResponse) => {
+					alert(response.message);
+					this.$location.back();
+				},
+				(error) =>
+					alert(
+						'Error: Algo salio mal al intentar guardar los cambios'
+					)
+			);
+		}
 	}
 }

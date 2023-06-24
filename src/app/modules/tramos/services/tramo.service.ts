@@ -1,4 +1,5 @@
 import { HttpClient } from '@angular/common/http';
+import { Location } from '@angular/common';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { IPaginationFilters } from '../../generic/DTO/ipagination-filters';
@@ -16,8 +17,11 @@ export class TramoService extends GenericService {
 		return 'tramos';
 	}
 
-	constructor(protected override $http: HttpClient) {
-		super($http);
+	constructor(
+		protected override $http: HttpClient,
+		protected override $location: Location
+	) {
+		super($http, $location);
 	}
 
 	getAllTramos(
