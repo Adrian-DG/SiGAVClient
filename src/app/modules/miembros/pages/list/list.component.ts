@@ -15,7 +15,7 @@ import { IServerResponse } from 'src/app/modules/generic/Responses/iserver-respo
 export class ListComponent implements OnInit, AfterViewInit {
 	totalRows = 0;
 	filters: IPaginationFilters = {
-		page: 1,
+		page: 0,
 		size: 5,
 		searchTerm: '',
 		status: true,
@@ -51,7 +51,7 @@ export class ListComponent implements OnInit, AfterViewInit {
 			.subscribe((data: IPagedData<IMiembroViewModel>) => {
 				this.dataSource.data = data.items;
 				setTimeout(() => {
-					this.paginator.pageIndex = this.filters.page - 1;
+					this.paginator.pageIndex = this.filters.page;
 					this.paginator.pageSize = this.filters.size;
 					this.paginator.length = data.totalCount;
 				});
@@ -59,6 +59,7 @@ export class ListComponent implements OnInit, AfterViewInit {
 	}
 
 	pageChanged(event: PageEvent): void {
+		console.log('Event: ', event);
 		this.totalRows = event.length;
 		this.filters.size = event.pageSize;
 		this.filters.page = event.pageIndex;

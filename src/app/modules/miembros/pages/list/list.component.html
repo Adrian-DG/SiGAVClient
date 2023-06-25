@@ -104,11 +104,13 @@
 <mat-divider></mat-divider>
 <mat-paginator
 	#paginator
+	style="margin-top: 0.5em"
+	(page)="pageChanged($event)"
+	[pageSizeOptions]="pageSizeOptions"
 	[length]="totalRows"
 	[pageIndex]="filters.page"
 	[pageSize]="filters.size"
-	[pageSizeOptions]="pageSizeOptions"
-	(page)="pageChanged($event)"
+	[showFirstLastButtons]="true"
 	aria-label="Select page"
 >
 </mat-paginator>
