@@ -51,7 +51,7 @@ export class ListComponent implements OnInit, AfterViewInit {
 		this.loadData();
 	}
 
-	stateSelection: number = 1;
+	stateSelection: number = 0;
 
 	loadData(): void {
 		this.filters.status = this.stateSelection == 3;
@@ -68,6 +68,11 @@ export class ListComponent implements OnInit, AfterViewInit {
 					case 2:
 						records = data.items.filter(
 							(x) => x.estatusAsistencia == 'EN_CURSO'
+						);
+						break;
+					case 3:
+						records = data.items.filter(
+							(x) => x.estatusAsistencia == 'COMPLETADA'
 						);
 						break;
 					default:

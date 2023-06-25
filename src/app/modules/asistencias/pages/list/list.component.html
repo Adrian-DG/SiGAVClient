@@ -25,6 +25,7 @@
 					[(ngModel)]="stateSelection"
 					(selectionChange)="loadData()"
 				>
+					<mat-option [value]="0">Todas</mat-option>
 					<mat-option [value]="1">Pendiente</mat-option>
 					<mat-option [value]="2">En Proceso</mat-option>
 					<mat-option [value]="3">Completadas</mat-option>
