@@ -8,4 +8,5 @@ export interface IUnidad extends IModelMetadata {
 	cobertura: string;
 	tipoUnidadId: number;
 	tramoId: number;
+	estaDisponible: boolean;
 }

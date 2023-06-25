@@ -5,6 +5,7 @@ import { IPaginationFilters } from 'src/app/modules/generic/DTO/ipagination-filt
 import { IPagedData } from 'src/app/modules/generic/Responses/ipaged-data';
 import { UnidadesService } from '../../services/unidades.service';
 import { IUnidadViewModel } from '../../viewModels/iunidad-view-model';
+import { IUnidad } from '../../entities/iunidad';
 
 @Component({
 	selector: 'app-list',
@@ -47,7 +48,6 @@ export class ListComponent implements OnInit, AfterViewInit {
 	}
 
 	loadData(): void {
-		this.filters.page += 1; //this.filters.page < 1 ? 1 : this.filters.page;
 		this._unidades
 			.getAllUnidades(this.filters)
 			.subscribe((data: IPagedData<IUnidadViewModel>) => {
@@ -65,5 +65,12 @@ export class ListComponent implements OnInit, AfterViewInit {
 		this.filters.size = event.pageSize;
 		this.filters.page = event.pageIndex;
 		this.loadData();
+	}
+
+	changeStatus(model: IUnidadViewModel): void {
+		this._unidades.GetById<IUnidad>(model.id).subscribe((data: IUnidad) => {
+			data.estatus = !data.estatus;
+			this._unidades.Update<IUnidad>(data);
+		});
 	}
 }

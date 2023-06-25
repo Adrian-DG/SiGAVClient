@@ -61,7 +61,18 @@
 		<!-- TODO: Modulo: Unidades (implementar acciones)-->
 		<ng-container matColumnDef="acciones">
 			<th mat-header-cell *matHeaderCellDef>Acciones</th>
-			<td mat-cell *matCellDef="let element; let i = index">
+			<td
+				mat-cell
+				*matCellDef="let element; let i = index"
+				class="td-row"
+			>
+				<mat-checkbox
+					[(ngModel)]="element.estatus"
+					[checked]="element.estatus"
+					color="accent"
+					(change)="changeStatus(element)"
+					>{{ element.estatus ? 'Activa' : 'Inactiva' }}</mat-checkbox
+				>
 				<button
 					mat-icon-button
 					[routerLink]="['/unidades/edit', element.id]"
