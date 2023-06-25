@@ -5,6 +5,7 @@ import { IUnidad } from '../../entities/iunidad';
 import { CacheService } from 'src/app/modules/generic/services/cache/cache.service';
 import { TramoService } from 'src/app/modules/tramos/services/tramo.service';
 import { ITramoViewModel } from 'src/app/modules/tramos/viewModels/itramo-view-model';
+import { Location } from '@angular/common';
 
 @Component({
 	selector: 'app-edit',
@@ -18,6 +19,7 @@ export class EditComponent implements OnInit, AfterViewInit {
 
 	constructor(
 		private $router: Router,
+		private $location: Location,
 		private $activeRoute: ActivatedRoute,
 		public _cache: CacheService,
 		public _tramos: TramoService,
@@ -42,5 +44,9 @@ export class EditComponent implements OnInit, AfterViewInit {
 
 	saveChanges(): void {
 		this._unidad.Update(this.unidad);
+	}
+
+	cancel(): void {
+		this.$location.back();
 	}
 }
