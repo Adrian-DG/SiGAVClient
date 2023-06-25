@@ -2,11 +2,11 @@
 
 <div class="row">
 	<mat-form-field style="width: 60%">
-		<mat-label>Filtrar</mat-label>
+		<mat-label>Filtrar por nombre o cédula</mat-label>
 		<input
 			matInput
 			(keyup)="loadData()"
-			placeholder="Nombre"
+			placeholder="Nombre o Cédula"
 			[(ngModel)]="filters.searchTerm"
 		/>
 	</mat-form-field>

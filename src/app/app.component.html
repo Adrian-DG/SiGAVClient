@@ -35,28 +35,30 @@
 					{{ item | uppercase }}
 				</a> -->
 
-				<a mat-list-item [routerLink]="['asistencias']">ASISTENCIAS</a>
+				<a mat-list-item [routerLink]="['asistencias/listado']"
+					>ASISTENCIAS</a
+				>
 				<a
 					mat-list-item
-					[routerLink]="['unidades']"
+					[routerLink]="['unidades/listado']"
 					*ngIf="user.esAdministrador"
 					>UNIDADES</a
 				>
 				<a
 					mat-list-item
-					[routerLink]="['tramos']"
+					[routerLink]="['tramos/listado']"
 					*ngIf="user.esAdministrador"
 					>TRAMOS</a
 				>
 				<a
 					mat-list-item
-					[routerLink]="['miembros']"
+					[routerLink]="['miembros/listado']"
 					*ngIf="user.esAdministrador"
 					>MIEMBROS</a
 				>
 				<a
 					mat-list-item
-					[routerLink]="['usuarios']"
+					[routerLink]="['usuarios/listado']"
 					*ngIf="user.esAdministrador"
 					>USUARIOS</a
 				>
@@ -68,8 +70,10 @@
 					>MISCELANEOS</a
 				>
 				<mat-menu #miscelaneos xPosition="after" yPosition="below">
-					<menu mat-menu-item [routerLink]="['marcas']">Marcas</menu>
-					<menu mat-menu-item [routerLink]="['modelos']"
+					<menu mat-menu-item [routerLink]="['marcas/listado']"
+						>Marcas</menu
+					>
+					<menu mat-menu-item [routerLink]="['modelos/listado']"
 						>Modelos</menu
 					>
 				</mat-menu>
