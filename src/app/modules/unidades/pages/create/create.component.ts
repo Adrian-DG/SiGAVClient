@@ -51,6 +51,6 @@ export class CreateComponent implements OnInit {
 	}
 
 	createUnidad(): void {
-		this._unidad.Post(this.unidadForm.value);
+		this._unidad.PostConfirm(this.unidadForm.value);
 	}
 }

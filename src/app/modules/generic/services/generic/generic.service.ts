@@ -57,6 +57,12 @@ export abstract class GenericService {
 			.subscribe((response: IServerResponse) => alert(response.message));
 	}
 
+	PostConfirm<T>(model: T): void {
+		this.$http
+			.post<IServerResponse>(`${this.endPoint}/create`, model)
+			.subscribe((response: IServerResponse) => alert(response.message));
+	}
+
 	Update<T>(model: T): void {
 		if (confirm('Estas seguro de guardar estos cambios')) {
 			this.$http.put<IServerResponse>(this.endPoint, model).subscribe(

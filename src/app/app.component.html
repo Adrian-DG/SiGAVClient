@@ -65,6 +65,20 @@
 
 				<a
 					mat-list-item
+					[routerLink]="['marcas/listado']"
+					*ngIf="user.esAdministrador"
+					>Vehículo Marcas</a
+				>
+
+				<a
+					mat-list-item
+					[routerLink]="['modelos/listado']"
+					*ngIf="user.esAdministrador"
+					>Vehículo Modelos</a
+				>
+
+				<!-- <a
+					mat-list-item
 					[matMenuTriggerFor]="miscelaneos"
 					*ngIf="user.esAdministrador"
 					>MISCELANEOS</a
@@ -76,7 +90,7 @@
 					<menu mat-menu-item [routerLink]="['modelos/listado']"
 						>Modelos</menu
 					>
-				</mat-menu>
+				</mat-menu> -->
 			</mat-nav-list>
 		</mat-sidenav>
 		<mat-sidenav-content class="sidenav-content">

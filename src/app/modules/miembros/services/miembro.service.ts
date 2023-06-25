@@ -41,9 +41,12 @@ export class MiembroService extends GenericService {
 		this.$http
 			.post<IServerResponse>(`${this.endPoint}/create`, model)
 			.subscribe((response: IServerResponse) => {
-				const snackBarConfig: MatSnackBarConfig = { duration: 2000 };
-				this._snackbar.open(response.message, '', snackBarConfig);
-				this.$router.navigate(['miembros/listado']);
+				alert(response.message);
+				if (response.status) {
+					this.$router.navigate(['miembros/listado']);
+				}
+				// const snackBarConfig: MatSnackBarConfig = { duration: 2000 };
+				// this._snackbar.open(response.message, '', snackBarConfig);
 			});
 	}
 

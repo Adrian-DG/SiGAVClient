@@ -19,6 +19,6 @@ export class CreateComponent {
 			fechaCreacion: new Date(),
 			fechaModificacion: new Date(),
 		};
-		this._marcas.Post<INombreModelMetadata>(model);
+		this._marcas.PostConfirm<INombreModelMetadata>(model);
 	}
 }

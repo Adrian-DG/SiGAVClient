@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { GenericService } from '../../generic/services/generic/generic.service';
 import { HttpClient } from '@angular/common/http';
 import { Location } from '@angular/common';
+import { INombreModelMetadata } from '../../generic/abstraction/inombre-model-metadata';
 
 @Injectable({
 	providedIn: 'root',

@@ -23,6 +23,6 @@ export class CreateComponent {
 	});
 
 	create(): void {
-		this._modelos.Post<IModelo>(this.modeloForm.value);
+		this._modelos.PostConfirm<IModelo>(this.modeloForm.value);
 	}
 }
