@@ -1,0 +1,98 @@
+<mat-card>
+	<mat-card-header>
+		<mat-card-title>Editar</mat-card-title>
+	</mat-card-header>
+	<mat-card-content>
+		<ng-template #empty>
+			<h3>Cargando...</h3>
+		</ng-template>
+
+		<div class="container" *ngIf="miembro; else empty">
+			<div class="row">
+				<mat-form-field style="width: 30%">
+					<mat-label>Cédula</mat-label>
+					<input matInput [(ngModel)]="miembro.cedula" />
+				</mat-form-field>
+				<mat-form-field style="width: 30%">
+					<mat-label>Nombre</mat-label>
+					<input matInput [(ngModel)]="miembro.nombre" />
+				</mat-form-field>
+				<mat-form-field style="width: 30%">
+					<mat-label>Apellido</mat-label>
+					<input matInput [(ngModel)]="miembro.apellido" />
+				</mat-form-field>
+			</div>
+
+			<div class="row-start">
+				<!-- <mat-form-field class="date-field" appearance="fill">
+                    <mat-label>Fecha de Nacimiento</mat-label>
+                    <input
+                        matInput
+                        [matDatepicker]="picker"
+                        formControlName="fechaNacimiento"
+                    />
+                    <mat-hint>MM/DD/YYYY</mat-hint>
+                    <mat-datepicker-toggle
+                        matIconSuffix
+                        [for]="picker"
+                    ></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field> -->
+			</div>
+			<div class="row">
+				<fieldset style="margin-bottom: 1em; width: 30%">
+					<legend>Escoger sexo</legend>
+					<mat-radio-group
+						[(ngModel)]="miembro.genero"
+						aria-label="Sexo"
+						style="margin-left: 3em; margin-top: 1em"
+					>
+						<mat-radio-button value="1">Hombre</mat-radio-button>
+						<mat-radio-button value="2">Mujer</mat-radio-button>
+					</mat-radio-group>
+				</fieldset>
+				<mat-form-field appearance="fill" style="width: 30%">
+					<mat-label>Rango</mat-label>
+					<mat-select [(ngModel)]="miembro.rangoId">
+						<mat-option
+							[value]="item.id"
+							*ngFor="let item of _cache.rangos$ | async"
+							>{{ item.nombre }}</mat-option
+						>
+					</mat-select>
+				</mat-form-field>
+				<mat-form-field appearance="fill" style="width: 30%">
+					<mat-label>Institución</mat-label>
+					<mat-select [(ngModel)]="miembro.institucion">
+						<mat-option [value]="1">MIDE</mat-option>
+						<mat-option [value]="2">ERD</mat-option>
+						<mat-option [value]="3">ARD</mat-option>
+						<mat-option [value]="4">FARD</mat-option>
+						<mat-option [value]="5">PN</mat-option>
+						<mat-option [value]="6">MOPC</mat-option>
+					</mat-select>
+				</mat-form-field>
+			</div>
+			<div class="row">
+				<button
+					type="button"
+					mat-raised-button
+					style="width: 100%"
+					(click)="cancel()"
+				>
+					Cancelar
+				</button>
+
+				<button
+					type="button"
+					mat-raised-button
+					color="accent"
+					style="width: 100%"
+					(click)="saveChanges()"
+				>
+					Guardar Cambios
+				</button>
+			</div>
+		</div>
+	</mat-card-content>
+</mat-card>
