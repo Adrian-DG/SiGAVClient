@@ -1,5 +1,6 @@
 import { Injectable, isDevMode } from '@angular/core';
 import { Location as actualPage } from '@angular/common';
+import { Router } from '@angular/router';
 import { environment as Prod } from 'src/environment/environment.prod';
 import { environment as Dev } from 'src/environment/environment';
 import { HttpClient, HttpParams } from '@angular/common/http';
@@ -31,7 +32,7 @@ export abstract class GenericService {
 			.set('status', filters.status);
 	}
 
-	constructor(protected $http: HttpClient, protected $location: actualPage) {
+	constructor(protected $http: HttpClient, protected $router: Router) {
 		const env: string = isDevMode() ? Dev.api_url : Prod.api_url;
 		this.endPoint += `${env}/${this.GetResource()}`;
 
@@ -54,13 +55,17 @@ export abstract class GenericService {
 	Post<T>(model: T): void {
 		this.$http
 			.post<IServerResponse>(this.endPoint, model)
-			.subscribe((response: IServerResponse) => alert(response.message));
+			.subscribe((response: IServerResponse) => {
+				alert(response.message);
+			});
 	}
 
 	PostConfirm<T>(model: T): void {
 		this.$http
 			.post<IServerResponse>(`${this.endPoint}/create`, model)
-			.subscribe((response: IServerResponse) => alert(response.message));
+			.subscribe((response: IServerResponse) => {
+				alert(response.message);
+			});
 	}
 
 	Update<T>(model: T): void {
@@ -68,7 +73,7 @@ export abstract class GenericService {
 			this.$http.put<IServerResponse>(this.endPoint, model).subscribe(
 				(response: IServerResponse) => {
 					alert(response.message);
-					this.$location.back();
+					//this.$location.back();
 				},
 				(error) =>
 					alert(

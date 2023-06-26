@@ -51,7 +51,7 @@ export class ListComponent implements OnInit, AfterViewInit {
 		this.loadData();
 	}
 
-	stateSelection: number = 0;
+	stateSelection: number = 1;
 
 	loadData(): void {
 		this.filters.status = this.stateSelection == 3;

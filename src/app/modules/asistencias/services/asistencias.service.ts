@@ -22,10 +22,9 @@ export class AsistenciasService extends GenericService {
 
 	constructor(
 		protected override $http: HttpClient,
-		protected override $location: Location,
-		private $router: Router
+		protected override $router: Router
 	) {
-		super($http, $location);
+		super($http, $router);
 	}
 
 	getAllAsistencias(

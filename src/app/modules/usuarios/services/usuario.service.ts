@@ -10,6 +10,7 @@ import { IUsuario } from '../entities/iusuario';
 import { IUsuarioPermisoViewModel } from '../viewModels/iusuario-permiso-view-model';
 import { IUsuarioViewModel } from '../viewModels/iusuario-view-model';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 
 @Injectable({
 	providedIn: 'root',
@@ -21,10 +22,10 @@ export class UsuarioService extends GenericService {
 
 	constructor(
 		protected override $http: HttpClient,
-		protected override $location: Location,
+		protected override $router: Router,
 		private _snackbar: MatSnackBar
 	) {
-		super($http, $location);
+		super($http, $router);
 	}
 
 	getAllUsuarios(

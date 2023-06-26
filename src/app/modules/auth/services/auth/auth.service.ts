@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
-import { Location } from '@angular/common';
-import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { Injectable } from '@angular/core';
 import { BehaviorSubject, ReplaySubject } from 'rxjs';
 import { GenericService } from 'src/app/modules/generic/services/generic/generic.service';
 import { ILoginUser } from '../../DTO/ilogin-user';
@@ -26,12 +25,11 @@ export class AuthService extends GenericService {
 
 	constructor(
 		protected override $http: HttpClient,
-		protected override $location: Location,
-		private $router: Router,
+		protected override $router: Router,
 		private _jwt: JwtTokenService,
 		private _snackbar: MatSnackBar
 	) {
-		super($http, $location);
+		super($http, $router);
 	}
 
 	checkIfAuthenticated(): void {

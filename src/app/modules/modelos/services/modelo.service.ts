@@ -6,6 +6,7 @@ import { IPaginationFilters } from '../../generic/DTO/ipagination-filters';
 import { Observable } from 'rxjs';
 import { IPagedData } from '../../generic/Responses/ipaged-data';
 import { IModeloViewModel } from '../viewmodels/imodelo-view-model';
+import { Router } from '@angular/router';
 
 @Injectable({
 	providedIn: 'root',
@@ -17,9 +18,9 @@ export class ModeloService extends GenericService {
 
 	constructor(
 		protected override $http: HttpClient,
-		protected override $location: Location
+		protected override $router: Router
 	) {
-		super($http, $location);
+		super($http, $router);
 	}
 
 	getAllModelos(

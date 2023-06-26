@@ -16,7 +16,7 @@ export class ListComponent implements OnInit, AfterViewInit {
 	pageSizeOptions = [5, 10, 25, 100];
 	totalRows: number = 0;
 	filters: IPaginationFilters = {
-		page: 1,
+		page: 0,
 		size: 5,
 		searchTerm: '',
 		status: true,
@@ -35,13 +35,12 @@ export class ListComponent implements OnInit, AfterViewInit {
 	}
 
 	loadData(): void {
-		this.filters.page = this.filters.page >= 1 ? this.filters.page : 1;
 		this._modelos
 			.getAllModelos(this.filters)
 			.subscribe((data: IPagedData<IModeloViewModel>) => {
 				this.dataSource.data = data.items;
 				setTimeout(() => {
-					this.paginator.pageIndex = this.filters.page - 1;
+					this.paginator.pageIndex = this.filters.page;
 					this.paginator.pageSize = this.filters.size;
 					this.paginator.length = data.totalCount;
 				});
@@ -51,7 +50,7 @@ export class ListComponent implements OnInit, AfterViewInit {
 	pageChanged(event: PageEvent): void {
 		this.totalRows = event.length;
 		this.filters.size = event.pageSize;
-		this.filters.page = event.pageIndex + 1;
+		this.filters.page = event.pageIndex;
 		this.loadData();
 	}
 }

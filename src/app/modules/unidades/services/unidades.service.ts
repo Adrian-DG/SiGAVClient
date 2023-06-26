@@ -8,6 +8,7 @@ import { IPagedData } from '../../generic/Responses/ipaged-data';
 import { GenericService } from '../../generic/services/generic/generic.service';
 import { IUnidadAutoComplete } from '../viewModels/iunidad-auto-complete';
 import { IUnidadViewModel } from '../viewModels/iunidad-view-model';
+import { Router } from '@angular/router';
 
 @Injectable({
 	providedIn: 'root',
@@ -19,9 +20,9 @@ export class UnidadesService extends GenericService {
 	public unidadeAutocomplete$ = this.unidadesAutocomplteSource.asObservable();
 	constructor(
 		protected override $http: HttpClient,
-		protected override $location: Location
+		protected override $router: Router
 	) {
-		super($http, $location);
+		super($http, $router);
 	}
 
 	GetResource(): string {

@@ -21,11 +21,10 @@ export class MiembroService extends GenericService {
 
 	constructor(
 		protected override $http: HttpClient,
-		protected override $location: Location,
-		private _snackbar: MatSnackBar,
-		private $router: Router
+		protected override $router: Router,
+		private _snackbar: MatSnackBar
 	) {
-		super($http, $location);
+		super($http, $router);
 	}
 
 	getAllMiembros(

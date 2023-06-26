@@ -8,6 +8,7 @@ import { IServerResponse } from '../../generic/Responses/iserver-response';
 import { GenericService } from '../../generic/services/generic/generic.service';
 import { ITramo } from '../entities/itramo';
 import { ITramoViewModel } from '../viewModels/itramo-view-model';
+import { Router } from '@angular/router';
 
 @Injectable({
 	providedIn: 'root',
@@ -19,9 +20,9 @@ export class TramoService extends GenericService {
 
 	constructor(
 		protected override $http: HttpClient,
-		protected override $location: Location
+		protected override $router: Router
 	) {
-		super($http, $location);
+		super($http, $router);
 	}
 
 	getAllTramos(
