@@ -7,6 +7,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './modules/material/material.module';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { JwtInterceptor } from './interceptors/jwt/jwt.interceptor';
+import { GenericModule } from './modules/generic/generic.module';
+import { LoadingInterceptor } from './interceptors/loading/loading.interceptor';
 
 @NgModule({
 	declarations: [AppComponent],
@@ -16,9 +18,15 @@ import { JwtInterceptor } from './interceptors/jwt/jwt.interceptor';
 		BrowserAnimationsModule,
 		HttpClientModule,
 		MaterialModule,
+		GenericModule,
 	],
 	providers: [
 		{ provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+		{
+			provide: HTTP_INTERCEPTORS,
+			useClass: LoadingInterceptor,
+			multi: true,
+		},
 	],
 	bootstrap: [AppComponent],
 })

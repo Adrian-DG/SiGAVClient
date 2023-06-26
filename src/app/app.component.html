@@ -94,7 +94,17 @@
 			</mat-nav-list>
 		</mat-sidenav>
 		<mat-sidenav-content class="sidenav-content">
-			<router-outlet></router-outlet>
+			<router-outlet>
+				<div
+					class="loading-container"
+					*ngIf="_spinner.loading$ | async"
+				>
+					<mat-spinner
+						mode="indeterminate"
+						color="primary"
+					></mat-spinner>
+				</div>
+			</router-outlet>
 		</mat-sidenav-content>
 	</mat-sidenav-container>
 </div>
