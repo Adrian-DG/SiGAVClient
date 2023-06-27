@@ -97,7 +97,7 @@
 			<router-outlet>
 				<div
 					class="loading-container"
-					*ngIf="_spinner.loading$ | async"
+					*ngIf="_spinner.isloading$ | async"
 				>
 					<mat-spinner
 						mode="indeterminate"

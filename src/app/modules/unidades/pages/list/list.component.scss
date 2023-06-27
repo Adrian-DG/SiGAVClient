@@ -5,3 +5,18 @@
 	align-items: center;
 	gap: 0.5em;
 }
+
+.estatusIndicator {
+	width: 1em;
+	height: 1em;
+	border-radius: 100%;
+	border: 2px solid gray;
+}
+
+.disponible {
+	background-color: rgb(31, 165, 31);
+}
+
+.noDisponible {
+	background-color: rgb(199, 31, 31);
+}

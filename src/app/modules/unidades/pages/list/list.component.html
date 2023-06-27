@@ -66,6 +66,12 @@
 				*matCellDef="let element; let i = index"
 				class="td-row"
 			>
+				<div
+					class="estatusIndicator"
+					[ngClass]="
+						element.estaDisponible ? 'disponible' : 'noDisponible'
+					"
+				></div>
 				<mat-checkbox
 					[(ngModel)]="element.estatus"
 					[checked]="element.estatus"

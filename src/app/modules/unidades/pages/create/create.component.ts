@@ -26,7 +26,6 @@ export class CreateComponent implements OnInit {
 		placa: [
 			'',
 			[
-				Validators.required,
 				Validators.minLength(7),
 				Validators.maxLength(10),
 				Validators.pattern(/^[A-Za-z0-9]{1,10}$/),

@@ -7,5 +7,6 @@ export interface IUnidadViewModel {
 	cobertura: string;
 	tipoUnidad: string;
 	puntosAsignados: string;
+	estaDisponible: boolean;
 	estatus: boolean;
 }

@@ -8,6 +8,7 @@ import { IPaginationFilters } from '../../DTO/ipagination-filters';
 import { IServerResponse } from '../../Responses/iserver-response';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { IPagedData } from '../../Responses/ipaged-data';
+import { SpinnerService } from '../spinner/spinner.service';
 
 @Injectable({
 	providedIn: 'root',
@@ -16,13 +17,6 @@ export abstract class GenericService {
 	protected readonly endPoint: string = '';
 	abstract GetResource(): string;
 	public readonly userId: number = 0;
-
-	private isLoadingSource = new BehaviorSubject<boolean>(false);
-	public isLoading$ = this.isLoadingSource.asObservable();
-
-	setLoading(state: boolean) {
-		this.isLoadingSource.next(state);
-	}
 
 	getPaginationParams(filters: IPaginationFilters): HttpParams {
 		return new HttpParams()

@@ -66,10 +66,16 @@ export class ListComponent implements OnInit, AfterViewInit {
 		this.loadData();
 	}
 
-	UpdateEstatusMiembro(id: number): void {
-		if (confirm('Se cambiara el estatus de este miembro, esta seguro ?')) {
+	UpdateEstatusMiembro(id: number, type: number): void {
+		if (
+			confirm(
+				type == 1
+					? 'Se cambiara el estatus de este miembro, esta seguro ?'
+					: 'Se ocultara y deshabilitara este este miembro, esta seguro de continuar ?'
+			)
+		) {
 			this._miembros
-				.UpdateEstatusMiembro(id)
+				.UpdateEstatusMiembro(id, type)
 				.subscribe((response: IServerResponse) => {
 					this.filters.status = !this.filters.status;
 					this.loadData();

@@ -70,6 +70,7 @@ export class ListComponent implements OnInit, AfterViewInit {
 	changeStatus(model: IUnidadViewModel): void {
 		this._unidades.GetById<IUnidad>(model.id).subscribe((data: IUnidad) => {
 			data.estatus = !data.estatus;
+			data.estaDisponible = false;
 			this._unidades.Update<IUnidad>(data);
 		});
 	}

@@ -72,10 +72,10 @@
 			<td mat-cell *matCellDef="let element; let i = index" class="row">
 				<mat-slide-toggle
 					color="accent"
-					[(ngModel)]="element.estatus"
-					(change)="UpdateEstatusMiembro(element.id)"
+					[(ngModel)]="element.autorizado"
+					(change)="UpdateEstatusMiembro(element.id, 1)"
 					><strong>Autorizado: </strong
-					>{{ element.estatus ? 'Si' : 'No' }}</mat-slide-toggle
+					>{{ element.autorizado ? 'Si' : 'No' }}</mat-slide-toggle
 				>
 				<!-- TODO: crear boton de confirmar miembro -->
 				<button
@@ -84,9 +84,15 @@
 				>
 					<mat-icon class="edit-icon">edit</mat-icon>
 				</button>
-				<!-- <button mat-icon-button (click)="openDialog(element.id)">
-					<mat-icon class="trash-icon">delete</mat-icon>
-				</button> -->
+				<mat-checkbox
+					color="accent"
+					[checked]="element.estatus"
+					[disabled]="element.autorizado"
+					[(ngModel)]="element.estatus"
+					(change)="UpdateEstatusMiembro(element.id, 2)"
+				>
+					<strong>Activo: </strong>{{ element.estatus ? 'Si' : 'No' }}
+				</mat-checkbox>
 			</td>
 		</ng-container>
 

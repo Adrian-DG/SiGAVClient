@@ -10,6 +10,7 @@ import { ICreateMiembro } from '../DTO/icreate-miembro';
 import { IMiembroViewModel } from '../viewModels/imiembro-view-model';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { SpinnerService } from '../../generic/services/spinner/spinner.service';
 
 @Injectable({
 	providedIn: 'root',
@@ -22,7 +23,8 @@ export class MiembroService extends GenericService {
 	constructor(
 		protected override $http: HttpClient,
 		protected override $router: Router,
-		private _snackbar: MatSnackBar
+		private _snackbar: MatSnackBar,
+		private _spinner: SpinnerService
 	) {
 		super($http, $router);
 	}
@@ -49,10 +51,14 @@ export class MiembroService extends GenericService {
 			});
 	}
 
-	UpdateEstatusMiembro(id: number): Observable<IServerResponse> {
-		return this.$http.put<IServerResponse>(
-			`${this.endPoint}/authorize`,
-			id
-		);
+	UpdateEstatusMiembro(
+		id: number,
+		type: number
+	): Observable<IServerResponse> {
+		this._spinner.setLoading(true);
+		return this.$http.put<IServerResponse>(`${this.endPoint}/authorize`, {
+			id: id,
+			type: type,
+		});
 	}
 }
