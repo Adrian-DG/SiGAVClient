@@ -32,6 +32,12 @@
 				{{ element.regionAsistencia }}
 			</td>
 		</ng-container>
+		<ng-container matColumnDef="pertenece">
+			<th mat-header-cell *matHeaderCellDef>Pertence A</th>
+			<td mat-cell *matCellDef="let element">
+				{{ element.perteneceA }}
+			</td>
+		</ng-container>
 
 		<!-- TODO: Modulo: Tramos (terminar acciones)-->
 		<ng-container matColumnDef="acciones">

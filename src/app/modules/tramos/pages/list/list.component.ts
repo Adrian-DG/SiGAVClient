@@ -14,7 +14,13 @@ import { ITramoViewModel } from '../../viewModels/itramo-view-model';
 export class ListComponent implements OnInit, AfterViewInit {
 	constructor(private _tramos: TramoService) {}
 
-	displayedColumns = ['id', 'nombre', 'regionAsistencia', 'acciones'];
+	displayedColumns = [
+		'id',
+		'nombre',
+		'regionAsistencia',
+		'pertenece',
+		'acciones',
+	];
 	pageSizeOptions = [5, 10, 25, 100];
 	totalRows: number = 0;
 	filters: IPaginationFilters = {

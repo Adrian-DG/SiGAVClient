@@ -11,6 +11,7 @@ import { IUpdateAsistencia } from '../DTO/iupdate-asistencia';
 import { IAsistenciaViewModel } from '../viewModels/iasistencia-view-model';
 import { IDateFilter } from '../DTO/idate-filter';
 import { Router } from '@angular/router';
+import { SpinnerService } from '../../generic/services/spinner/spinner.service';
 
 @Injectable({
 	providedIn: 'root',
@@ -22,9 +23,14 @@ export class AsistenciasService extends GenericService {
 
 	constructor(
 		protected override $http: HttpClient,
-		protected override $router: Router
+		protected override $router: Router,
+		private _spinner: SpinnerService
 	) {
 		super($http, $router);
+	}
+
+	showSpinner(): void {
+		this._spinner.setLoading(true);
 	}
 
 	getAllAsistencias(
