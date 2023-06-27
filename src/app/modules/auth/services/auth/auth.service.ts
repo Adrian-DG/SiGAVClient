@@ -8,6 +8,7 @@ import { IUserData } from '../../interfaces/iuser-data';
 import { ILoginResponse } from '../../responses/ilogin-response';
 import { JwtTokenService } from '../jwt/jwt.service';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
+import { SpinnerService } from 'src/app/modules/generic/services/spinner/spinner.service';
 
 @Injectable({
 	providedIn: 'root',
@@ -27,7 +28,8 @@ export class AuthService extends GenericService {
 		protected override $http: HttpClient,
 		protected override $router: Router,
 		private _jwt: JwtTokenService,
-		private _snackbar: MatSnackBar
+		private _snackbar: MatSnackBar,
+		private _spinner: SpinnerService
 	) {
 		super($http, $router);
 	}
@@ -79,6 +81,7 @@ export class AuthService extends GenericService {
 	}
 
 	loginUser(model: ILoginUser): void {
+		this._spinner.setLoading(true);
 		this.$http
 			.post<ILoginResponse>(`${this.endPoint}/login`, model)
 			.subscribe((response: ILoginResponse) => {

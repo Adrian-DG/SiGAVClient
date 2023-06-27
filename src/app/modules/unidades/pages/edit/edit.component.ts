@@ -36,6 +36,7 @@ export class EditComponent implements OnInit, AfterViewInit {
 	}
 
 	ngAfterViewInit(): void {
+		this._unidad.showSpinner();
 		this._unidad.GetById<IUnidad>(this.id).subscribe((data: IUnidad) => {
 			console.log('unidad: ', data);
 			this.unidad = data;
@@ -43,10 +44,20 @@ export class EditComponent implements OnInit, AfterViewInit {
 	}
 
 	saveChanges(): void {
-		this._unidad.Update(this.unidad);
+		if (confirm('Estas seguro de guardar estos cambios')) {
+			this._unidad.showSpinner();
+			this._unidad.Update(this.unidad);
+			this.$location.back();
+		}
 	}
 
 	cancel(): void {
-		this.$location.back();
+		if (
+			confirm(
+				'Cualquier cambio que hayas realizado no se guardara, ¿estas seguro?'
+			)
+		) {
+			this.$location.back();
+		}
 	}
 }

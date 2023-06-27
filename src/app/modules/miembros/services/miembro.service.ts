@@ -20,6 +20,10 @@ export class MiembroService extends GenericService {
 		return 'miembros';
 	}
 
+	showSpinner(): void {
+		this._spinner.setLoading(true);
+	}
+
 	constructor(
 		protected override $http: HttpClient,
 		protected override $router: Router,
@@ -32,6 +36,7 @@ export class MiembroService extends GenericService {
 	getAllMiembros(
 		filters: IPaginationFilters
 	): Observable<IPagedData<IMiembroViewModel>> {
+		this._spinner.setLoading(true);
 		return this.$http.get<IPagedData<IMiembroViewModel>>(
 			`${this.endPoint}/all`,
 			{ params: this.getPaginationParams(filters) }
@@ -39,6 +44,7 @@ export class MiembroService extends GenericService {
 	}
 
 	createMiembro(model: ICreateMiembro): void {
+		this.showSpinner();
 		this.$http
 			.post<IServerResponse>(`${this.endPoint}/create`, model)
 			.subscribe((response: IServerResponse) => {
@@ -55,7 +61,7 @@ export class MiembroService extends GenericService {
 		id: number,
 		type: number
 	): Observable<IServerResponse> {
-		this._spinner.setLoading(true);
+		this.showSpinner();
 		return this.$http.put<IServerResponse>(`${this.endPoint}/authorize`, {
 			id: id,
 			type: type,

@@ -63,17 +63,13 @@ export abstract class GenericService {
 	}
 
 	Update<T>(model: T): void {
-		if (confirm('Estas seguro de guardar estos cambios')) {
-			this.$http.put<IServerResponse>(this.endPoint, model).subscribe(
-				(response: IServerResponse) => {
-					alert(response.message);
-					//this.$location.back();
-				},
-				(error) =>
-					alert(
-						'Error: Algo salio mal al intentar guardar los cambios'
-					)
-			);
-		}
+		this.$http.put<IServerResponse>(this.endPoint, model).subscribe(
+			(response: IServerResponse) => {
+				alert(response.message);
+				//this.$location.back();
+			},
+			(error) =>
+				alert('Error: Algo salio mal al intentar guardar los cambios')
+		);
 	}
 }

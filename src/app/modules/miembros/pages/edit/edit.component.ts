@@ -36,6 +36,7 @@ export class EditComponent implements OnInit, AfterViewInit {
 	}
 
 	saveChanges(): void {
+		this._miembros.showSpinner();
 		this._miembros.Update(this.miembro);
 	}
 }

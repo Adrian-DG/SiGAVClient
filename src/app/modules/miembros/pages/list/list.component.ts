@@ -82,5 +82,6 @@ export class ListComponent implements OnInit, AfterViewInit {
 					alert(response.message);
 				});
 		}
+		this.loadData();
 	}
 }

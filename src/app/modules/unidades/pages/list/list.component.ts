@@ -40,6 +40,7 @@ export class ListComponent implements OnInit, AfterViewInit {
 	dataSource = new MatTableDataSource<IUnidadViewModel>();
 
 	ngOnInit(): void {
+		this._unidades.showSpinner();
 		this.loadData();
 	}
 
@@ -61,6 +62,7 @@ export class ListComponent implements OnInit, AfterViewInit {
 	}
 
 	pageChanged(event: PageEvent): void {
+		this._unidades.showSpinner();
 		this.totalRows = event.length;
 		this.filters.size = event.pageSize;
 		this.filters.page = event.pageIndex;
@@ -68,10 +70,16 @@ export class ListComponent implements OnInit, AfterViewInit {
 	}
 
 	changeStatus(model: IUnidadViewModel): void {
-		this._unidades.GetById<IUnidad>(model.id).subscribe((data: IUnidad) => {
-			data.estatus = !data.estatus;
-			data.estaDisponible = false;
-			this._unidades.Update<IUnidad>(data);
-		});
+		if (confirm('¿Estas seguro de cambiar el estatus de esta unidad?')) {
+			this._unidades.showSpinner();
+			this._unidades
+				.GetById<IUnidad>(model.id)
+				.subscribe((data: IUnidad) => {
+					data.estatus = !data.estatus;
+					data.estaDisponible = false;
+					this._unidades.Update<IUnidad>(data);
+				});
+		}
+		this.loadData();
 	}
 }

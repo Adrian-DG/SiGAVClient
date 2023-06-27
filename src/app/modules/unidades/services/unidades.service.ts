@@ -9,6 +9,7 @@ import { GenericService } from '../../generic/services/generic/generic.service';
 import { IUnidadAutoComplete } from '../viewModels/iunidad-auto-complete';
 import { IUnidadViewModel } from '../viewModels/iunidad-view-model';
 import { Router } from '@angular/router';
+import { SpinnerService } from '../../generic/services/spinner/spinner.service';
 
 @Injectable({
 	providedIn: 'root',
@@ -20,9 +21,14 @@ export class UnidadesService extends GenericService {
 	public unidadeAutocomplete$ = this.unidadesAutocomplteSource.asObservable();
 	constructor(
 		protected override $http: HttpClient,
-		protected override $router: Router
+		protected override $router: Router,
+		private _spinner: SpinnerService
 	) {
 		super($http, $router);
+	}
+
+	showSpinner(): void {
+		this._spinner.setLoading(true);
 	}
 
 	GetResource(): string {
