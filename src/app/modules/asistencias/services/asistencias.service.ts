@@ -88,4 +88,8 @@ export class AsistenciasService extends GenericService {
 			responseType: 'blob',
 		});
 	}
+
+	GetImagenes(id: number): Observable<string[]> {
+		return this.$http.get<string[]>(`${this.endPoint}/${id}/imagenes`);
+	}
 }

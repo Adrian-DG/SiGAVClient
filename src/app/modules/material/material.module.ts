@@ -26,6 +26,8 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 @NgModule({
 	declarations: [],
@@ -55,6 +57,8 @@ import { MatDialogModule } from '@angular/material/dialog';
 		MatSnackBarModule,
 		MatProgressSpinnerModule,
 		MatDialogModule,
+		MatGridListModule,
+		MatProgressBarModule,
 	],
 })
 export class MaterialModule {}

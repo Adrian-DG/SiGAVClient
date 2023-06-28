@@ -6,6 +6,15 @@
 	gap: 1em;
 }
 
+.row-cell {
+	margin-top: 1em;
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-start;
+	align-self: center;
+	gap: 1em;
+}
+
 .print-btn {
 	margin-top: 1.5em;
 	color: rgb(12, 80, 12);

@@ -114,17 +114,28 @@
 		<ng-container matColumnDef="acciones">
 			<th mat-header-cell *matHeaderCellDef>Acciones</th>
 			<td mat-cell *matCellDef="let element">
-				<button
-					mat-raised-button
-					color="primary"
-					(click)="actualizarAsistencia(element.id, 3)"
-					[disabled]="enableCompleteBtn(element.estatusAsistencia)"
-				>
-					<mat-icon style="color: rgb(21, 204, 21)"
-						>check_box</mat-icon
+				<div class="row-cell">
+					<button
+						mat-icon-button
+						style="color: rgb(73, 73, 73)"
+						(click)="openPicturesDialog(element.id)"
 					>
-					Completar
-				</button>
+						<mat-icon>collections</mat-icon>
+					</button>
+					<button
+						mat-raised-button
+						color="primary"
+						(click)="actualizarAsistencia(element.id, 3)"
+						[disabled]="
+							enableCompleteBtn(element.estatusAsistencia)
+						"
+					>
+						<mat-icon style="color: rgb(21, 204, 21)"
+							>check_box</mat-icon
+						>
+						Completar
+					</button>
+				</div>
 			</td>
 		</ng-container>
 

@@ -7,6 +7,13 @@ import { IUpdateAsistencia } from '../../DTO/iupdate-asistencia';
 import { AsistenciasService } from '../../services/asistencias.service';
 import { IAsistenciaViewModel } from '../../viewModels/iasistencia-view-model';
 import { IServerResponse } from 'src/app/modules/generic/Responses/iserver-response';
+import { MatDialog } from '@angular/material/dialog';
+import { PicturesDialogComponent } from '../../components/pictures-dialog/pictures-dialog.component';
+
+// to validate dialog data
+export interface IDialogData {
+	id: number;
+}
 
 @Component({
 	selector: 'app-list',
@@ -14,7 +21,10 @@ import { IServerResponse } from 'src/app/modules/generic/Responses/iserver-respo
 	styleUrls: ['./list.component.scss'],
 })
 export class ListComponent implements OnInit, AfterViewInit {
-	constructor(public _asistencias: AsistenciasService) {}
+	constructor(
+		public _asistencias: AsistenciasService,
+		public dialog: MatDialog
+	) {}
 
 	displayedColumns: string[] = [
 		'id',
@@ -170,5 +180,16 @@ export class ListComponent implements OnInit, AfterViewInit {
 			pendiente: row.estatusAsistencia == 'PENDIENTE',
 			completada: row.estatusAsistencia == 'COMPLETADA',
 		};
+	}
+
+	openPicturesDialog(id: number): void {
+		this.dialog.open(PicturesDialogComponent, {
+			data: { id: id },
+			minWidth: '600px',
+			minHeight: '150px',
+			maxWidth: '800px',
+			maxHeight: '600px',
+			autoFocus: true,
+		});
 	}
 }

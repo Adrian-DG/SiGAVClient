@@ -11,9 +11,10 @@ import { ListComponent } from './pages/list/list.component';
 import { CreateComponent } from './pages/create/create.component';
 import { CedulaPipe } from './pipes/cedula.pipe';
 import { TelefonoPipe } from './pipes/telefono.pipe';
+import { PicturesDialogComponent } from './components/pictures-dialog/pictures-dialog.component';
 
 @NgModule({
-	declarations: [IndexComponent, ListComponent, CreateComponent, CedulaPipe, TelefonoPipe],
+	declarations: [IndexComponent, ListComponent, CreateComponent, CedulaPipe, TelefonoPipe, PicturesDialogComponent],
 	imports: [
 		CommonModule,
 		AsistenciasRoutingModule,

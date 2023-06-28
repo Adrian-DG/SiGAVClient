@@ -1,0 +1,42 @@
+<div class="dialog">
+	<div mat-dialog-title class="title">
+		<div class="row">
+			<h2>Imagenes Asistencia</h2>
+			<!-- <button mat-icon-button mat-dialog-close>
+				<mat-icon>close</mat-icon>
+			</button> -->
+		</div>
+		<small
+			>Las imagenes siguientes corresponden a la asistencia con ID
+			<strong>{{ data.id }}</strong
+			>.</small
+		>
+	</div>
+	<div mat-dialog-content [align]="'start'" class="content">
+		<mat-grid-list
+			*ngIf="hasPictures; else empty"
+			cols="2"
+			rowHeight="2:2"
+			[gutterSize]="'5px'"
+		>
+			<mat-grid-tile *ngFor="let item of pictures">
+				<img [src]="item" class="pictures" />
+			</mat-grid-tile>
+		</mat-grid-list>
+		<ng-template #empty>
+			<mat-progress-bar
+				*ngIf="isLoading"
+				mode="indeterminate"
+				color="accent"
+			></mat-progress-bar>
+			<div *ngIf="!isLoading" class="alert-message">
+				<h3>No hay imagenes para mostrar</h3>
+			</div>
+		</ng-template>
+	</div>
+	<div mat-dialog-actions [align]="'end'" class="actions">
+		<button mat-raised-button mat-dialog-close color="accent">
+			Cerrar
+		</button>
+	</div>
+</div>
