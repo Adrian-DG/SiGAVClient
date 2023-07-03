@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, isDevMode } from '@angular/core';
 import {
 	HttpRequest,
 	HttpHandler,
@@ -19,7 +19,9 @@ export class LoadingInterceptor implements HttpInterceptor {
 	): Observable<HttpEvent<unknown>> {
 		return next.handle(request).pipe(
 			finalize(() => {
-				setTimeout(() => this._spinner.setLoading(false), 2000);
+				isDevMode()
+					? setTimeout(() => this._spinner.setLoading(false), 2000)
+					: this._spinner.setLoading(false);
 			})
 		);
 	}

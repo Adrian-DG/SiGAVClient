@@ -171,7 +171,8 @@ export class ListComponent implements OnInit, AfterViewInit {
 	}
 
 	enableCompleteBtn(status: string): boolean {
-		return ['COMPLETADA', 'PENDIENTE'].includes(status);
+		// return ['COMPLETADA', 'PENDIENTE'].includes(status);
+		return ['COMPLETADA'].includes(status);
 	}
 
 	getRowClass(row: any) {
@@ -191,5 +192,18 @@ export class ListComponent implements OnInit, AfterViewInit {
 			maxHeight: '600px',
 			autoFocus: true,
 		});
+	}
+
+	copyLocationCoordinates(coords: string | null): void {
+		console.log('Coordenadas: ', coords);
+		if (coords) {
+			navigator.clipboard.writeText(coords);
+		}
+
+		alert(
+			coords
+				? `Se copiaron las coordenadas ${coords}`
+				: 'Error: Las coordenadas no estan disponibles!!'
+		);
 	}
 }

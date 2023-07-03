@@ -116,6 +116,18 @@
 			<td mat-cell *matCellDef="let element">
 				<div class="row-cell">
 					<button
+						[disabled]="element.estatusAsistencia == 'PENDIENTE'"
+						[style.color]="
+							element.estatusAsistencia == 'PENDIENTE'
+								? 'gray'
+								: 'rgb(212, 89, 89)'
+						"
+						mat-icon-button
+						(click)="copyLocationCoordinates(element.coordenadas)"
+					>
+						<mat-icon> pin_drop</mat-icon>
+					</button>
+					<button
 						mat-icon-button
 						style="color: rgb(73, 73, 73)"
 						(click)="openPicturesDialog(element.id)"
@@ -124,11 +136,8 @@
 					</button>
 					<button
 						mat-raised-button
-						color="primary"
 						(click)="actualizarAsistencia(element.id, 3)"
-						[disabled]="
-							enableCompleteBtn(element.estatusAsistencia)
-						"
+						*ngIf="!enableCompleteBtn(element.estatusAsistencia)"
 					>
 						<mat-icon style="color: rgb(21, 204, 21)"
 							>check_box</mat-icon
