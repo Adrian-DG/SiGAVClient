@@ -13,6 +13,8 @@ import { PicturesDialogComponent } from '../../components/pictures-dialog/pictur
 // to validate dialog data
 export interface IDialogData {
 	id: number;
+	cedula: string;
+	placa: string;
 }
 
 @Component({
@@ -183,9 +185,9 @@ export class ListComponent implements OnInit, AfterViewInit {
 		};
 	}
 
-	openPicturesDialog(id: number): void {
+	openPicturesDialog(id: number, cedula: string, placa: string): void {
 		this.dialog.open(PicturesDialogComponent, {
-			data: { id: id },
+			data: { id: id, cedula: cedula, placa: placa },
 			minWidth: '600px',
 			minHeight: '150px',
 			maxWidth: '800px',

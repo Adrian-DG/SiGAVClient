@@ -11,6 +11,10 @@
 			<strong>{{ data.id }}</strong
 			>.</small
 		>
+		<span
+			>Identificación Ciudadano: {{ data.cedula | cedula }} | Placa:
+			{{ data.placa }}</span
+		>
 	</div>
 	<div mat-dialog-content [align]="'start'" class="content">
 		<mat-grid-list

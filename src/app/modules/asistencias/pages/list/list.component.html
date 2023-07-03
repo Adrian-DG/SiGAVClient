@@ -130,7 +130,13 @@
 					<button
 						mat-icon-button
 						style="color: rgb(73, 73, 73)"
-						(click)="openPicturesDialog(element.id)"
+						(click)="
+							openPicturesDialog(
+								element.id,
+								element.identificacion,
+								element.placa
+							)
+						"
 					>
 						<mat-icon>collections</mat-icon>
 					</button>
