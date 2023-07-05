@@ -66,11 +66,13 @@ export class AsistenciasService extends GenericService {
 		);
 	}
 
-	getReporteResumenAsistenciasPorFecha(filter: IDateFilter): void {
+	getReporteResumenAsistenciasPorFecha(filter: IDateFilter) {
 		const params = new HttpParams()
 			.set('initialDate', filter.initialDate.toDateString())
 			.set('finalDate', filter.finalDate.toDateString());
-		this.$http.get(`${this.endPoint}/reporte/resumen_fecha`, {
+		return this.$http.get(`${this.endPoint}/reporte/resumen_fecha`, {
+			observe: 'response',
+			responseType: 'blob',
 			params: params,
 		});
 	}

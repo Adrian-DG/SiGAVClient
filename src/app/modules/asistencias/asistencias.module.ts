@@ -12,9 +12,10 @@ import { CreateComponent } from './pages/create/create.component';
 import { CedulaPipe } from './pipes/cedula.pipe';
 import { TelefonoPipe } from './pipes/telefono.pipe';
 import { PicturesDialogComponent } from './components/pictures-dialog/pictures-dialog.component';
+import { AsistenciaFilterByDateDialogComponent } from './components/asistencia-filter-by-date-dialog/asistencia-filter-by-date-dialog.component';
 
 @NgModule({
-	declarations: [IndexComponent, ListComponent, CreateComponent, CedulaPipe, TelefonoPipe, PicturesDialogComponent],
+	declarations: [IndexComponent, ListComponent, CreateComponent, CedulaPipe, TelefonoPipe, PicturesDialogComponent, AsistenciaFilterByDateDialogComponent],
 	imports: [
 		CommonModule,
 		AsistenciasRoutingModule,

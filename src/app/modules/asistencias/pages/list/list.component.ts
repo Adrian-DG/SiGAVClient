@@ -9,6 +9,7 @@ import { IAsistenciaViewModel } from '../../viewModels/iasistencia-view-model';
 import { IServerResponse } from 'src/app/modules/generic/Responses/iserver-response';
 import { MatDialog } from '@angular/material/dialog';
 import { PicturesDialogComponent } from '../../components/pictures-dialog/pictures-dialog.component';
+import { AsistenciaFilterByDateDialogComponent } from '../../components/asistencia-filter-by-date-dialog/asistencia-filter-by-date-dialog.component';
 
 // to validate dialog data
 export interface IDialogData {
@@ -126,7 +127,6 @@ export class ListComponent implements OnInit, AfterViewInit {
 	}
 
 	onReportSelection(value: number): void {
-		this._asistencias.showSpinner();
 		switch (value) {
 			case 1:
 				console.log('value: ', value);
@@ -135,6 +135,8 @@ export class ListComponent implements OnInit, AfterViewInit {
 			case 2:
 				this.getReporteAsistenciasDetalles();
 				break;
+			case 3:
+				this.dialog.open(AsistenciaFilterByDateDialogComponent);
 		}
 	}
 
