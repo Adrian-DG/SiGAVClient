@@ -17,6 +17,7 @@ export class LoadingInterceptor implements HttpInterceptor {
 		request: HttpRequest<unknown>,
 		next: HttpHandler
 	): Observable<HttpEvent<unknown>> {
+		this._spinner.setLoading(true);
 		return next.handle(request).pipe(
 			finalize(() => {
 				isDevMode()

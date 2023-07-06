@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { AsistenciasService } from '../../services/asistencias.service';
 import { IDateFilter } from '../../DTO/idate-filter';
 
@@ -14,9 +14,13 @@ export class AsistenciaFilterByDateDialogComponent {
 		finalDate: new Date(),
 	};
 
-	constructor(private _asistencias: AsistenciasService) {}
+	constructor(
+		public dialogRef: MatDialogRef<AsistenciaFilterByDateDialogComponent>,
+		private _asistencias: AsistenciasService
+	) {}
 
 	generateReport(): void {
+		this.dialogRef.close();
 		this._asistencias
 			.getReporteResumenAsistenciasPorFecha(this.dateFilter)
 			.subscribe((response: any) => {

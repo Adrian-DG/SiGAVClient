@@ -81,7 +81,6 @@ export class AuthService extends GenericService {
 	}
 
 	loginUser(model: ILoginUser): void {
-		this._spinner.setLoading(true);
 		this.$http
 			.post<ILoginResponse>(`${this.endPoint}/login`, model)
 			.subscribe((response: ILoginResponse) => {

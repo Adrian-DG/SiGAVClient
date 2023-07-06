@@ -67,7 +67,6 @@ export class ListComponent implements OnInit, AfterViewInit {
 	stateSelection: number = 1;
 
 	loadData(): void {
-		this._asistencias.showSpinner();
 		this.filters.status = this.stateSelection == 3;
 		this._asistencias
 			.getAllAsistencias(this.filters)
@@ -114,7 +113,6 @@ export class ListComponent implements OnInit, AfterViewInit {
 
 	actualizarAsistencia(id: number, estatus: number): void {
 		if (confirm(`Esta seguro de terminar esta asistencia ?`)) {
-			this._asistencias.showSpinner();
 			let model: IUpdateAsistencia = {
 				id: id,
 				estatusAsistencia: estatus,
