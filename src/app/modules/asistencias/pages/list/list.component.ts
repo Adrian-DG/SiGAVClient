@@ -189,9 +189,9 @@ export class ListComponent implements OnInit, AfterViewInit {
 	openPicturesDialog(id: number, cedula: string, placa: string): void {
 		this.dialog.open(PicturesDialogComponent, {
 			data: { id: id, cedula: cedula, placa: placa },
-			minWidth: '600px',
+			minWidth: '500px',
 			minHeight: '150px',
-			maxWidth: '800px',
+			maxWidth: '600px',
 			maxHeight: '600px',
 			autoFocus: true,
 		});

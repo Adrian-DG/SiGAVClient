@@ -58,7 +58,7 @@ export class ReasignarUnidadDialogComponent implements OnInit {
 					alert(
 						respose
 							? 'Se han guardado los cambios con exito'
-							: 'Error: algo salio mal`'
+							: 'Error: algo salio mal'
 					);
 				});
 		}
