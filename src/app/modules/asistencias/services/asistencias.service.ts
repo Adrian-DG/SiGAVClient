@@ -12,6 +12,7 @@ import { IAsistenciaViewModel } from '../viewModels/iasistencia-view-model';
 import { IDateFilter } from '../DTO/idate-filter';
 import { Router } from '@angular/router';
 import { SpinnerService } from '../../generic/services/spinner/spinner.service';
+import { IReassignUnit } from '../DTO/ireassign-unit';
 
 @Injectable({
 	providedIn: 'root',
@@ -93,5 +94,10 @@ export class AsistenciasService extends GenericService {
 
 	GetImagenes(id: number): Observable<string[]> {
 		return this.$http.get<string[]>(`${this.endPoint}/${id}/imagenes`);
+	}
+
+	changeUnidadAsignada(model: IReassignUnit): Observable<boolean> {
+		model.usuarioId = this.userId;
+		return this.$http.post<boolean>(`${this.endPoint}/reasignar`, model);
 	}
 }

@@ -10,6 +10,7 @@ import { IUnidadAutoComplete } from '../viewModels/iunidad-auto-complete';
 import { IUnidadViewModel } from '../viewModels/iunidad-view-model';
 import { Router } from '@angular/router';
 import { SpinnerService } from '../../generic/services/spinner/spinner.service';
+import { IUnidad } from '../entities/iunidad';
 
 @Injectable({
 	providedIn: 'root',
@@ -53,5 +54,12 @@ export class UnidadesService extends GenericService {
 			.subscribe((data: IUnidadAutoComplete[]) =>
 				this.unidadesAutocomplteSource.next(data)
 			);
+	}
+
+	GetUnidadesPorTramo(tramoId: number): Observable<IUnidad[]> {
+		const params = new HttpParams().set('tramoId', tramoId);
+		return this.$http.get<IUnidad[]>(`${this.endPoint}/filteredByTramo`, {
+			params: params,
+		});
 	}
 }

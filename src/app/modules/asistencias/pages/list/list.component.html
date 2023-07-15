@@ -129,6 +129,13 @@
 						<mat-icon> pin_drop</mat-icon>
 					</button>
 					<button
+						[disabled]="element.estatusAsistencia == 'COMPLETADA'"
+						mat-icon-button
+						(click)="openReasignationModal(element)"
+					>
+						<mat-icon>autorenew</mat-icon>
+					</button>
+					<button
 						mat-icon-button
 						style="color: rgb(73, 73, 73)"
 						(click)="

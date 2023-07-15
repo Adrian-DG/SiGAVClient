@@ -10,6 +10,7 @@ import { IServerResponse } from 'src/app/modules/generic/Responses/iserver-respo
 import { MatDialog } from '@angular/material/dialog';
 import { PicturesDialogComponent } from '../../components/pictures-dialog/pictures-dialog.component';
 import { AsistenciaFilterByDateDialogComponent } from '../../components/asistencia-filter-by-date-dialog/asistencia-filter-by-date-dialog.component';
+import { ReasignarUnidadDialogComponent } from '../../components/reasignar-unidad-dialog/reasignar-unidad-dialog.component';
 
 // to validate dialog data
 export interface IDialogData {
@@ -207,5 +208,21 @@ export class ListComponent implements OnInit, AfterViewInit {
 				? `Se copiaron las coordenadas ${coords}`
 				: 'Error: Las coordenadas no estan disponibles!!'
 		);
+	}
+
+	openReasignationModal(item: IAsistenciaViewModel): void {
+		this.dialog.open(ReasignarUnidadDialogComponent, {
+			data: {
+				idAsistencia: item.id,
+				tramo: item.tramo,
+				denominacion: item.denominacionUnidad,
+				ficha: item.fichaUnidad,
+			},
+			minWidth: '600px',
+			minHeight: '150px',
+			maxWidth: '800px',
+			maxHeight: '600px',
+			autoFocus: true,
+		});
 	}
 }

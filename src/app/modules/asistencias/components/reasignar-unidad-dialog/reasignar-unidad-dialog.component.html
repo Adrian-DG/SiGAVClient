@@ -1,0 +1,52 @@
+<div class="dialog">
+	<h3 mat-dialog-title>Reasignar Asistencia</h3>
+	<mat-divider></mat-divider>
+	<div class="content" mat-dialog-content>
+		<div class="info">
+			<div>ID: {{ data.idAsistencia }}</div>
+			<div>Tramo: {{ data.tramo }}</div>
+			<div>Ficha: {{ data.ficha }}</div>
+			<div>Unidad: {{ data.denominacion }}</div>
+		</div>
+
+		<div class="row">
+			<mat-form-field appearance="fill" style="width: 50%">
+				<mat-label>Seleccionar Tramo</mat-label>
+				<mat-select
+					(selectionChange)="onTramoSelectionChange()"
+					[(ngModel)]="selectedTramoId"
+				>
+					<mat-option
+						[value]="item.id"
+						*ngFor="let item of tramosList"
+						>{{ item.nombre }}</mat-option
+					>
+				</mat-select>
+			</mat-form-field>
+			<mat-form-field appearance="fill" style="width: 50%">
+				<mat-label>Seleccionar Unidad</mat-label>
+				<mat-select [(ngModel)]="newUnitAssign.newUnidadId">
+					<mat-option
+						[value]="item.id"
+						*ngFor="let item of unidadesList"
+						>{{
+							item.denominacion + ' | ' + item.ficha
+						}}</mat-option
+					>
+				</mat-select>
+			</mat-form-field>
+		</div>
+	</div>
+	<div class="actions" mat-dialog-actions>
+		<button mat-raised-button mat-dialog-close>Cancelar</button>
+		<button
+			mat-raised-button
+			[mat-dialog-close]="true"
+			cdkFocusInitial
+			color="accent"
+			(click)="confirmNewAssignment()"
+		>
+			Confirmar
+		</button>
+	</div>
+</div>

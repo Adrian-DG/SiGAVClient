@@ -13,9 +13,10 @@ import { CedulaPipe } from './pipes/cedula.pipe';
 import { TelefonoPipe } from './pipes/telefono.pipe';
 import { PicturesDialogComponent } from './components/pictures-dialog/pictures-dialog.component';
 import { AsistenciaFilterByDateDialogComponent } from './components/asistencia-filter-by-date-dialog/asistencia-filter-by-date-dialog.component';
+import { ReasignarUnidadDialogComponent } from './components/reasignar-unidad-dialog/reasignar-unidad-dialog.component';
 
 @NgModule({
-	declarations: [IndexComponent, ListComponent, CreateComponent, CedulaPipe, TelefonoPipe, PicturesDialogComponent, AsistenciaFilterByDateDialogComponent],
+	declarations: [IndexComponent, ListComponent, CreateComponent, CedulaPipe, TelefonoPipe, PicturesDialogComponent, AsistenciaFilterByDateDialogComponent, ReasignarUnidadDialogComponent],
 	imports: [
 		CommonModule,
 		AsistenciasRoutingModule,
