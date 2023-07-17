@@ -150,6 +150,13 @@
 						<mat-icon>collections</mat-icon>
 					</button>
 					<button
+						mat-icon-button
+						style="color: rgb(73, 73, 73)"
+						(click)="openHistoricoModal(element.id)"
+					>
+						<mat-icon>history</mat-icon>
+					</button>
+					<button
 						mat-raised-button
 						(click)="actualizarAsistencia(element.id, 3)"
 						*ngIf="!enableCompleteBtn(element.estatusAsistencia)"

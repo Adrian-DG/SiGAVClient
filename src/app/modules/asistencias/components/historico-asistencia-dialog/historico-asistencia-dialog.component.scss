@@ -1,0 +1,15 @@
+.title {
+	background-color: rgb(231, 231, 231);
+	color: rgb(85, 84, 84);
+}
+
+.content {
+	overflow-y: auto;
+}
+
+.actions {
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-end;
+	align-items: center;
+}

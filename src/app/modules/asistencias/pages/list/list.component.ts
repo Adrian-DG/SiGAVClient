@@ -7,10 +7,11 @@ import { IUpdateAsistencia } from '../../DTO/iupdate-asistencia';
 import { AsistenciasService } from '../../services/asistencias.service';
 import { IAsistenciaViewModel } from '../../viewModels/iasistencia-view-model';
 import { IServerResponse } from 'src/app/modules/generic/Responses/iserver-response';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { PicturesDialogComponent } from '../../components/pictures-dialog/pictures-dialog.component';
 import { AsistenciaFilterByDateDialogComponent } from '../../components/asistencia-filter-by-date-dialog/asistencia-filter-by-date-dialog.component';
 import { ReasignarUnidadDialogComponent } from '../../components/reasignar-unidad-dialog/reasignar-unidad-dialog.component';
+import { HistoricoAsistenciaDialogComponent } from '../../components/historico-asistencia-dialog/historico-asistencia-dialog.component';
 
 // to validate dialog data
 export interface IDialogData {
@@ -186,14 +187,18 @@ export class ListComponent implements OnInit, AfterViewInit {
 		};
 	}
 
+	private modalConfig: MatDialogConfig = {
+		minWidth: '500px',
+		minHeight: '150px',
+		maxWidth: '800px',
+		maxHeight: '600px',
+		autoFocus: true,
+	};
+
 	openPicturesDialog(id: number, cedula: string, placa: string): void {
 		this.dialog.open(PicturesDialogComponent, {
 			data: { id: id, cedula: cedula, placa: placa },
-			minWidth: '500px',
-			minHeight: '150px',
-			maxWidth: '600px',
-			maxHeight: '600px',
-			autoFocus: true,
+			...this.modalConfig,
 		});
 	}
 
@@ -218,11 +223,14 @@ export class ListComponent implements OnInit, AfterViewInit {
 				denominacion: item.denominacionUnidad,
 				ficha: item.fichaUnidad,
 			},
-			minWidth: '600px',
-			minHeight: '150px',
-			maxWidth: '800px',
-			maxHeight: '600px',
-			autoFocus: true,
+			...this.modalConfig,
+		});
+	}
+
+	openHistoricoModal(id: number): void {
+		this.dialog.open(HistoricoAsistenciaDialogComponent, {
+			data: { id: id },
+			...this.modalConfig,
 		});
 	}
 }

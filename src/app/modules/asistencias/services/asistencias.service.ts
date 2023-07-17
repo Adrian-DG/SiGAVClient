@@ -13,6 +13,7 @@ import { IDateFilter } from '../DTO/idate-filter';
 import { Router } from '@angular/router';
 import { SpinnerService } from '../../generic/services/spinner/spinner.service';
 import { IReassignUnit } from '../DTO/ireassign-unit';
+import { IHistoricoViewModel } from '../viewModels/ihistorico-view-model';
 
 @Injectable({
 	providedIn: 'root',
@@ -99,5 +100,12 @@ export class AsistenciasService extends GenericService {
 	changeUnidadAsignada(model: IReassignUnit): Observable<boolean> {
 		model.usuarioId = this.userId;
 		return this.$http.post<boolean>(`${this.endPoint}/reasignar`, model);
+	}
+
+	GetHistorialAsistencia(id: number): Observable<IHistoricoViewModel[]> {
+		return this.$http.get<IHistoricoViewModel[]>(
+			`${this.endPoint}/historial`,
+			{ params: new HttpParams().set('IdAsistencia', id) }
+		);
 	}
 }
