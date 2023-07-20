@@ -29,4 +29,5 @@ export interface IAsistenciaViewModel {
 	estatusAsistencia: string;
 	reportadaPor: string;
 	tieneDatosCompletados: boolean;
+	esEmergencia: boolean;
 }
