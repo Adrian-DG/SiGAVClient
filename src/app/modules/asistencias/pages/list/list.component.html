@@ -121,7 +121,9 @@
 				</ul>
 				<span>Reporta: {{ element.reportadaPor }}</span>
 				<br />
-				<span>{{ element.fechaCreacion | date : 'dd/MM/YYYY' }}</span>
+				<span>{{
+					element.fechaCreacion | date : 'dd/MM/YYYY hh:mm a'
+				}}</span>
 			</td>
 		</ng-container>
 

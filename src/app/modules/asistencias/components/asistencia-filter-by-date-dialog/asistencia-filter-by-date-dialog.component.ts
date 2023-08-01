@@ -9,9 +9,11 @@ import { IDateFilter } from '../../DTO/idate-filter';
 	styleUrls: ['./asistencia-filter-by-date-dialog.component.scss'],
 })
 export class AsistenciaFilterByDateDialogComponent {
+	private currentDate = new Date();
+
 	dateFilter: IDateFilter = {
-		initialDate: new Date(),
-		finalDate: new Date(),
+		initialDate: this.currentDate,
+		finalDate: this.currentDate,
 	};
 
 	constructor(

@@ -19,7 +19,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatNativeDateModule } from '@angular/material/core';
+import { MAT_DATE_LOCALE, MatNativeDateModule } from '@angular/material/core';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
@@ -60,5 +60,6 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 		MatGridListModule,
 		MatProgressBarModule,
 	],
+	providers: [{ provide: MAT_DATE_LOCALE, useValue: 'en-GB' }],
 })
 export class MaterialModule {}
