@@ -14,6 +14,7 @@ import { Router } from '@angular/router';
 import { SpinnerService } from '../../generic/services/spinner/spinner.service';
 import { IReassignUnit } from '../DTO/ireassign-unit';
 import { IHistoricoViewModel } from '../viewModels/ihistorico-view-model';
+import { IAsistenciaPaginationFilter } from '../DTO/iasistencia-pagination-filter';
 
 @Injectable({
 	providedIn: 'root',
@@ -35,13 +36,24 @@ export class AsistenciasService extends GenericService {
 		this._spinner.setLoading(true);
 	}
 
+	getAsistenciaPaginationParams(
+		filters: IAsistenciaPaginationFilter
+	): HttpParams {
+		return new HttpParams()
+			.set('page', filters.page)
+			.set('size', filters.size)
+			.set('searchTerm', filters.searchTerm)
+			.set('status', filters.status)
+			.set('estatusAsistencia', filters.estatusAsistencia);
+	}
+
 	getAllAsistencias(
-		filters: IPaginationFilters
+		filters: IAsistenciaPaginationFilter
 	): Observable<IPagedData<IAsistenciaViewModel>> {
 		return this.$http.get<IPagedData<IAsistenciaViewModel>>(
 			`${this.endPoint}/all`,
 			{
-				params: this.getPaginationParams(filters),
+				params: this.getAsistenciaPaginationParams(filters),
 			}
 		);
 	}

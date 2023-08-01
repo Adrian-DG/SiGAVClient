@@ -12,6 +12,7 @@ import { PicturesDialogComponent } from '../../components/pictures-dialog/pictur
 import { AsistenciaFilterByDateDialogComponent } from '../../components/asistencia-filter-by-date-dialog/asistencia-filter-by-date-dialog.component';
 import { ReasignarUnidadDialogComponent } from '../../components/reasignar-unidad-dialog/reasignar-unidad-dialog.component';
 import { HistoricoAsistenciaDialogComponent } from '../../components/historico-asistencia-dialog/historico-asistencia-dialog.component';
+import { IAsistenciaPaginationFilter } from '../../DTO/iasistencia-pagination-filter';
 
 // to validate dialog data
 export interface IDialogData {
@@ -43,11 +44,12 @@ export class ListComponent implements OnInit, AfterViewInit {
 
 	pageSizeOptions = [5, 10, 25, 100];
 	totalRows: number = 0;
-	filters: IPaginationFilters = {
+	filters: IAsistenciaPaginationFilter = {
 		page: 0,
 		size: 5,
 		searchTerm: '',
 		status: false,
+		estatusAsistencia: 0,
 	};
 
 	@ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -69,39 +71,14 @@ export class ListComponent implements OnInit, AfterViewInit {
 	stateSelection: number = 1;
 
 	loadData(): void {
-		this.filters.status = this.stateSelection == 3;
 		this._asistencias
 			.getAllAsistencias(this.filters)
 			.subscribe((data: IPagedData<IAsistenciaViewModel>) => {
-				let records = [];
-				switch (this.stateSelection) {
-					case 1:
-						records = data.items.filter(
-							(x) => x.estatusAsistencia == 'PENDIENTE'
-						);
-						break;
-					case 2:
-						records = data.items.filter(
-							(x) => x.estatusAsistencia == 'EN_CURSO'
-						);
-						break;
-					case 3:
-						records = data.items.filter(
-							(x) => x.estatusAsistencia == 'COMPLETADA'
-						);
-						break;
-					default:
-						records = data.items;
-				}
-
-				this.dataSource.data = records;
-
+				this.dataSource.data = data.items;
 				setTimeout(() => {
 					this.paginator.pageIndex = this.filters.page;
 					this.paginator.pageSize = this.filters.size;
-					this.paginator.length = this.filters.status
-						? data.totalCount
-						: records.length;
+					this.paginator.length = data.totalCount;
 				});
 			});
 	}
