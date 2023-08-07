@@ -121,9 +121,10 @@
 				</ul>
 				<span>Reporta: {{ element.reportadaPor }}</span>
 				<br />
-				<span>{{
-					element.fechaCreacion | date : 'dd/MM/YYYY HH:mm a'
-				}}</span>
+				<span
+					>{{ element.fechaCreacion | date : 'dd/MM/YYYY' }}
+					{{ element.fechaCreacion | horaMilitar }}</span
+				>
 			</td>
 		</ng-container>
 
