@@ -11,6 +11,7 @@ import { IUsuarioPermisoViewModel } from '../viewModels/iusuario-permiso-view-mo
 import { IUsuarioViewModel } from '../viewModels/iusuario-view-model';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { ChangePasswordDTO } from '../DTO/change-password-dto';
 
 @Injectable({
 	providedIn: 'root',
@@ -54,6 +55,14 @@ export class UsuarioService extends GenericService {
 	UpdateUsuarioEstatus(id: number): void {
 		this.$http
 			.put<IServerResponse>(`${this.endPoint}/authorize`, id)
+			.subscribe((response: IServerResponse) =>
+				this._snackbar.open(response.message, 'Ok')
+			);
+	}
+
+	ChangePassword(model: ChangePasswordDTO): void {
+		this.$http
+			.put<IServerResponse>(`${this.endPoint}/changePassword`, model)
 			.subscribe((response: IServerResponse) =>
 				this._snackbar.open(response.message, 'Ok')
 			);

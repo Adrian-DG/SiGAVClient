@@ -10,9 +10,16 @@ import { MaterialModule } from '../material/material.module';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EditComponent } from './pages/edit/edit.component';
+import { ChangePasswordDialogComponent } from './components/change-password-dialog/change-password-dialog.component';
 
 @NgModule({
-	declarations: [IndexComponent, ListComponent, CreateComponent, EditComponent],
+	declarations: [
+		IndexComponent,
+		ListComponent,
+		CreateComponent,
+		EditComponent,
+		ChangePasswordDialogComponent,
+	],
 	imports: [
 		CommonModule,
 		UsuariosRoutingModule,

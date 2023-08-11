@@ -5,6 +5,10 @@ import { IPaginationFilters } from 'src/app/modules/generic/DTO/ipagination-filt
 import { IPagedData } from 'src/app/modules/generic/Responses/ipaged-data';
 import { UsuarioService } from '../../services/usuario.service';
 import { IUsuarioViewModel } from '../../viewModels/iusuario-view-model';
+import { MatDialog } from '@angular/material/dialog';
+import { ChangePasswordDialogComponent } from '../../components/change-password-dialog/change-password-dialog.component';
+import { ChangePasswordDTO } from '../../DTO/change-password-dto';
+import { UserPasswordInfo } from '../../DTO/user-password-info';
 
 @Component({
 	selector: 'app-list',
@@ -32,7 +36,7 @@ export class ListComponent implements OnInit, AfterViewInit {
 	@ViewChild(MatPaginator) paginator!: MatPaginator;
 	dataSource = new MatTableDataSource<IUsuarioViewModel>();
 
-	constructor(private _usuarios: UsuarioService) {}
+	constructor(private _usuarios: UsuarioService, private dialog: MatDialog) {}
 
 	ngOnInit(): void {
 		this.loadData();
@@ -64,5 +68,21 @@ export class ListComponent implements OnInit, AfterViewInit {
 
 	UpdateUsuarioEstatus(id: number): void {
 		this._usuarios.UpdateUsuarioEstatus(id);
+	}
+
+	openDialog(item: IUsuarioViewModel): void {
+		const model: UserPasswordInfo = {
+			userId: item.id,
+			username: item.nombreUsuario,
+		};
+
+		this.dialog.open(ChangePasswordDialogComponent, {
+			minHeight: '200px',
+			maxHeight: '400px',
+			minWidth: '500px',
+			maxWidth: '800px',
+			role: 'dialog',
+			data: model,
+		});
 	}
 }
