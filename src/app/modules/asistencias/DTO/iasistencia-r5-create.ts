@@ -22,5 +22,4 @@ export interface IAsistenciaR5Create {
 
 	comentario: string;
 	usuarioId: number;
-	fechaCreacion: Date;
 }

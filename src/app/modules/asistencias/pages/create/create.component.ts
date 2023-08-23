@@ -159,7 +159,6 @@ export class CreateComponent implements OnInit, AfterViewInit {
 			tipoAsistencias: tipoAsistenciaId,
 			comentario: comentarios,
 			usuarioId: this._asistencias.userId,
-			fechaCreacion: new Date(),
 		};
 
 		this._asistencias.createAsistencia(newAsistencia);
