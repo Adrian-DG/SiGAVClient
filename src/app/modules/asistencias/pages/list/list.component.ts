@@ -22,6 +22,13 @@ export interface IDialogData {
 	placa: string;
 }
 
+export enum Roles {
+	Administrador = 1,
+	CallCenterR5,
+	GestionOperativa,
+	Supervisor,
+}
+
 @Component({
 	selector: 'app-list',
 	templateUrl: './list.component.html',
@@ -66,7 +73,11 @@ export class ListComponent implements OnInit, AfterViewInit {
 	}
 
 	hasValidStatus(rol: number): boolean {
-		return [1, 2, 3].includes(rol);
+		return [
+			Roles.Administrador,
+			Roles.CallCenterR5,
+			Roles.GestionOperativa,
+		].includes(rol);
 	}
 
 	changeStatus(): void {

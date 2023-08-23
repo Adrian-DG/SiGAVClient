@@ -3,6 +3,6 @@ export interface IUsuarioViewModel {
 	cedula: string;
 	nombreCompleto: string;
 	nombreUsuario: string;
-	esAdministrador: boolean;
+	tipoUsuario: string;
 	estatus: boolean;
 }

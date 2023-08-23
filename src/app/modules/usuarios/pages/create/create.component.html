@@ -39,17 +39,25 @@
 			</mat-radio-group>
 		</div> -->
 		<div class="row-start">
-			<mat-form-field>
+			<mat-form-field style="width: 40%">
 				<mat-label>Usuario</mat-label>
 				<input matInput formControlName="username" />
 			</mat-form-field>
-			<mat-form-field>
+			<mat-form-field style="width: 40%">
 				<mat-label>Contraseña</mat-label>
 				<input matInput formControlName="password" />
 			</mat-form-field>
-			<mat-checkbox formControlName="esAdministrador"
-				>Administrador</mat-checkbox
-			>
+			<mat-form-field>
+				<mat-label>Tipo Usuario</mat-label>
+				<mat-select formControlName="rolUsuario">
+					<mat-option [value]="1"
+						>Administrador (acceso total)</mat-option
+					>
+					<mat-option [value]="2">Call Center R5</mat-option>
+					<mat-option [value]="3">Gestión Operativa</mat-option>
+					<mat-option [value]="4">Supervisor (solo ver)</mat-option>
+				</mat-select>
+			</mat-form-field>
 		</div>
 		<button
 			type="submit"

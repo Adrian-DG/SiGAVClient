@@ -4,4 +4,5 @@ export interface IUsuario extends IPersonModelMetadata {
 	username: string;
 	password: string;
 	esAdministrador: boolean;
+	rolUsuario: number;
 }

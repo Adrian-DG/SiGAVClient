@@ -20,11 +20,12 @@ export class CreateComponent {
 		username: ['', [Validators.required]],
 		password: ['', [Validators.required, Validators.minLength(6)]],
 		esAdministrador: [false],
+		rolUsuario: [0],
 	});
 
 	onSubmit(): void {
 		const fecha = Date.now();
-		const { username, password, genero, esAdministrador } =
+		const { username, password, genero, esAdministrador, rolUsuario } =
 			this.usuarioForm.value;
 		const usuario: IUsuario = {
 			cedula: '',
@@ -38,6 +39,7 @@ export class CreateComponent {
 			password: password,
 			esAdministrador: esAdministrador,
 			estatus: false,
+			rolUsuario: rolUsuario,
 		};
 		this._usuarios.createUsuario(usuario);
 	}
