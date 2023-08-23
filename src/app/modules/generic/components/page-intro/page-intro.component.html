@@ -1,9 +1,10 @@
-<mat-card-header class="page-intro">
+<mat-card-header class="page-intro" *ngIf="_auth.userData$ | async as user">
 	<mat-card-title>{{ title | uppercase }}</mat-card-title>
 	<mat-card-subtitle>{{ description }}</mat-card-subtitle>
 	<mat-toolbar>
 		<mat-toolbar-row class="page-intro-routes">
 			<button
+				[disabled]="item == 'crear' && !hasValidAccess(user.rolUsuario)"
 				mat-flat-button
 				color="accent"
 				(click)="navToPage(item)"

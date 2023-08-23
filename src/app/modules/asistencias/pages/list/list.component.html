@@ -1,217 +1,239 @@
-<div class="row">
-	<div class="col" style="width: 40%">
-		<mat-form-field class="filter">
-			<mat-label>Filtrar</mat-label>
-			<input
-				matInput
-				(keyup)="loadData()"
-				placeholder="Nombre o Identificación"
-				[(ngModel)]="filters.searchTerm"
-			/>
-		</mat-form-field>
+<div *ngIf="_auth.userData$ | async as user">
+	<div class="row">
+		<div class="col" style="width: 40%">
+			<mat-form-field class="filter">
+				<mat-label>Filtrar</mat-label>
+				<input
+					matInput
+					(keyup)="loadData()"
+					placeholder="Nombre o Identificación"
+					[(ngModel)]="filters.searchTerm"
+				/>
+			</mat-form-field>
+		</div>
+		<div class="col" style="width: 20%">
+			<mat-form-field style="width: 100%">
+				<mat-label>Estatus</mat-label>
+				<mat-select
+					[(ngModel)]="filters.estatusAsistencia"
+					(selectionChange)="loadData()"
+				>
+					<mat-option [value]="0">Todas</mat-option>
+					<mat-option [value]="1">Pendiente</mat-option>
+					<mat-option [value]="2">En Proceso</mat-option>
+					<mat-option [value]="3">Completadas</mat-option>
+				</mat-select>
+			</mat-form-field>
+		</div>
+
+		<div class="col" style="width: 20%">
+			<mat-form-field style="width: 100%">
+				<mat-label>Reportes</mat-label>
+				<mat-select
+					(selectionChange)="onReportSelection(reportValue.value)"
+					#reportValue
+				>
+					<mat-option [value]="1">Estadistica Diaria</mat-option>
+					<mat-option [value]="2">Asistencias Diarias</mat-option>
+					<mat-option
+						[value]="3"
+						*ngIf="hasValidStatus(user.rolUsuario)"
+						>Asistencias Por Fecha</mat-option
+					>
+				</mat-select>
+			</mat-form-field>
+		</div>
 	</div>
-	<div class="col" style="width: 20%">
-		<mat-form-field style="width: 100%">
-			<mat-label>Estatus</mat-label>
-			<mat-select
-				[(ngModel)]="filters.estatusAsistencia"
-				(selectionChange)="loadData()"
-			>
-				<mat-option [value]="0">Todas</mat-option>
-				<mat-option [value]="1">Pendiente</mat-option>
-				<mat-option [value]="2">En Proceso</mat-option>
-				<mat-option [value]="3">Completadas</mat-option>
-			</mat-select>
-		</mat-form-field>
-	</div>
 
-	<div class="col" style="width: 20%">
-		<mat-form-field style="width: 100%">
-			<mat-label>Reportes</mat-label>
-			<mat-select
-				(selectionChange)="onReportSelection(reportValue.value)"
-				#reportValue
-			>
-				<mat-option [value]="1">Estadistica Diaria</mat-option>
-				<mat-option [value]="2">Asistencias Diarias</mat-option>
-				<mat-option [value]="3">Asistencias Por Fecha</mat-option>
-			</mat-select>
-		</mat-form-field>
-	</div>
-</div>
+	<!-- Table -->
+	<div class="table">
+		<table
+			mat-table
+			[dataSource]="dataSource"
+			[fixedLayout]="false"
+			class="mat-elevation-z8"
+		>
+			<!-- Table header -->
+			<ng-container matColumnDef="id">
+				<th mat-header-cell *matHeaderCellDef>#</th>
+				<td mat-cell *matCellDef="let element; let i = index">
+					{{ i + 1 }}
+				</td>
+			</ng-container>
 
-<!-- Table -->
-<div class="table">
-	<table
-		mat-table
-		[dataSource]="dataSource"
-		[fixedLayout]="false"
-		class="mat-elevation-z8"
-	>
-		<!-- Table header -->
-		<ng-container matColumnDef="id">
-			<th mat-header-cell *matHeaderCellDef>#</th>
-			<td mat-cell *matCellDef="let element; let i = index">
-				{{ i + 1 }}
-			</td>
-		</ng-container>
+			<ng-container matColumnDef="ciudadano">
+				<th mat-header-cell *matHeaderCellDef>Ciudadano</th>
+				<td mat-cell *matCellDef="let element" class="personDataCell">
+					<span>{{ element.identificacion | cedula }}</span>
+					<br />
+					<span>{{ element.nombreCiudadano | titlecase }}</span>
+					<br />
+					<span>{{ element.telefono | telefono }}</span>
+				</td>
+			</ng-container>
 
-		<ng-container matColumnDef="ciudadano">
-			<th mat-header-cell *matHeaderCellDef>Ciudadano</th>
-			<td mat-cell *matCellDef="let element" class="personDataCell">
-				<span>{{ element.identificacion | cedula }}</span>
-				<br />
-				<span>{{ element.nombreCiudadano | titlecase }}</span>
-				<br />
-				<span>{{ element.telefono | telefono }}</span>
-			</td>
-		</ng-container>
-
-		<ng-container matColumnDef="vehiculo">
-			<th mat-header-cell *matHeaderCellDef>Vehículo</th>
-			<td mat-cell *matCellDef="let element">
-				<span
-					>{{ element.vehiculoTipo }} -
-					{{ element.vehiculoColor }}</span
-				>
-				<br />
-				<span
-					>{{ element.vehiculoMarca }}
-					{{ element.vehiculoModelo }}</span
-				>
-				<br />
-				<span>Placa: {{ element.placa }}</span>
-			</td>
-		</ng-container>
-
-		<ng-container matColumnDef="unidad">
-			<th mat-header-cell *matHeaderCellDef>Unidad</th>
-			<td mat-cell *matCellDef="let element">
-				<span>{{ element.tramo }}</span>
-				<br />
-				<span>{{ element.denominacionUnidad }}</span>
-				<br />
-				<span
-					>{{ element.fichaUnidad }} - {{ element.tipoUnidad }}</span
-				>
-			</td>
-		</ng-container>
-
-		<ng-container matColumnDef="agente">
-			<th mat-header-cell *matHeaderCellDef>Agente</th>
-			<td mat-cell *matCellDef="let element" class="personDataCell">
-				<span>{{ element.cedulaAgente | cedula }}</span>
-				<br />
-				<span>{{ element.rangoAgente }}</span>
-				<br />
-				<span>{{ element.nombreAgente }}</span>
-			</td>
-		</ng-container>
-
-		<ng-container matColumnDef="creacion">
-			<th mat-header-cell *matHeaderCellDef>Datos</th>
-			<td mat-cell *matCellDef="let element">
-				<span style="font-weight: 500">{{
-					element.esEmergencia ? 'Accidente' : 'Asistencia'
-				}}</span>
-				<ul class="servicios">
-					<li *ngFor="let item of element.tipoAsistencias.reverse()">
-						{{ item.nombre }}
-					</li>
-				</ul>
-				<span>Reporta: {{ element.reportadaPor }}</span>
-				<br />
-				<span
-					>{{ element.fechaCreacion | date : 'dd/MM/YYYY' }}
-					{{ element.fechaCreacion | horaMilitar }}</span
-				>
-			</td>
-		</ng-container>
-
-		<ng-container matColumnDef="acciones">
-			<th mat-header-cell *matHeaderCellDef>Acciones</th>
-			<td mat-cell *matCellDef="let element">
-				<div class="action-row">
-					<button
-						title="Ubicación GPS"
-						*ngIf="element.estatusAsistencia != 'PENDIENTE'"
-						style="color: rgb(212, 89, 89)"
-						mat-icon-button
-						(click)="copyLocationCoordinates(element.coordenadas)"
+			<ng-container matColumnDef="vehiculo">
+				<th mat-header-cell *matHeaderCellDef>Vehículo</th>
+				<td mat-cell *matCellDef="let element">
+					<span
+						>{{ element.vehiculoTipo }} -
+						{{ element.vehiculoColor }}</span
 					>
-						<mat-icon> pin_drop</mat-icon>
-					</button>
-					<button
-						title="Reasignar Asistencia"
-						*ngIf="element.estatusAsistencia != 'COMPLETADA'"
-						mat-icon-button
-						(click)="openReasignationModal(element)"
+					<br />
+					<span
+						>{{ element.vehiculoMarca }}
+						{{ element.vehiculoModelo }}</span
 					>
-						<mat-icon>autorenew</mat-icon>
-					</button>
-					<button
-						title="Fotos asistencia"
-						mat-icon-button
-						style="color: rgb(73, 73, 73)"
-						(click)="
-							openPicturesDialog(
-								element.id,
-								element.identificacion,
-								element.placa
-							)
-						"
+					<br />
+					<span>Placa: {{ element.placa }}</span>
+				</td>
+			</ng-container>
+
+			<ng-container matColumnDef="unidad">
+				<th mat-header-cell *matHeaderCellDef>Unidad</th>
+				<td mat-cell *matCellDef="let element">
+					<span>{{ element.tramo }}</span>
+					<br />
+					<span>{{ element.denominacionUnidad }}</span>
+					<br />
+					<span
+						>{{ element.fichaUnidad }} -
+						{{ element.tipoUnidad }}</span
 					>
-						<mat-icon>collections</mat-icon>
-					</button>
-					<button
-						title="Historial de asignaciones"
-						mat-icon-button
-						style="color: rgb(73, 73, 73)"
-						(click)="openHistoricoModal(element.id)"
-					>
-						<mat-icon>history</mat-icon>
-					</button>
-					<button
-						style="width: 100%"
-						title="Completar o Cerrar asistencia"
-						mat-raised-button
-						(click)="actualizarAsistencia(element.id, 3)"
-						*ngIf="!enableCompleteBtn(element.estatusAsistencia)"
-					>
-						<mat-icon style="color: rgb(21, 204, 21)"
-							>check_box</mat-icon
+				</td>
+			</ng-container>
+
+			<ng-container matColumnDef="agente">
+				<th mat-header-cell *matHeaderCellDef>Agente</th>
+				<td mat-cell *matCellDef="let element" class="personDataCell">
+					<span>{{ element.cedulaAgente | cedula }}</span>
+					<br />
+					<span>{{ element.rangoAgente }}</span>
+					<br />
+					<span>{{ element.nombreAgente }}</span>
+				</td>
+			</ng-container>
+
+			<ng-container matColumnDef="creacion">
+				<th mat-header-cell *matHeaderCellDef>Datos</th>
+				<td mat-cell *matCellDef="let element">
+					<span style="font-weight: 500">{{
+						element.esEmergencia ? 'Accidente' : 'Asistencia'
+					}}</span>
+					<ul class="servicios">
+						<li
+							*ngFor="
+								let item of element.tipoAsistencias.reverse()
+							"
 						>
-						Completar
-					</button>
-				</div>
-			</td>
-		</ng-container>
+							{{ item.nombre }}
+						</li>
+					</ul>
+					<span>Reporta: {{ element.reportadaPor }}</span>
+					<br />
+					<span
+						>{{ element.fechaCreacion | date : 'dd/MM/YYYY' }}
+						{{ element.fechaCreacion | horaMilitar }}</span
+					>
+				</td>
+			</ng-container>
 
-		<tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-		<tr
-			mat-row
-			*matRowDef="let row; columns: displayedColumns"
-			[ngClass]="getRowClass(row)"
-		></tr>
+			<ng-container matColumnDef="acciones">
+				<th mat-header-cell *matHeaderCellDef>Acciones</th>
+				<td mat-cell *matCellDef="let element">
+					<div class="action-row">
+						<button
+							title="Ubicación GPS"
+							*ngIf="
+								element.estatusAsistencia != 'PENDIENTE' &&
+								hasValidStatus(user.rolUsuario)
+							"
+							style="color: rgb(212, 89, 89)"
+							mat-icon-button
+							(click)="
+								copyLocationCoordinates(element.coordenadas)
+							"
+						>
+							<mat-icon> pin_drop</mat-icon>
+						</button>
+						<button
+							title="Reasignar Asistencia"
+							*ngIf="
+								element.estatusAsistencia != 'COMPLETADA' &&
+								hasValidStatus(user.rolUsuario)
+							"
+							mat-icon-button
+							(click)="openReasignationModal(element)"
+						>
+							<mat-icon>autorenew</mat-icon>
+						</button>
+						<button
+							title="Fotos asistencia"
+							mat-icon-button
+							style="color: rgb(73, 73, 73)"
+							(click)="
+								openPicturesDialog(
+									element.id,
+									element.identificacion,
+									element.placa
+								)
+							"
+						>
+							<mat-icon>collections</mat-icon>
+						</button>
+						<button
+							title="Historial de asignaciones"
+							mat-icon-button
+							style="color: rgb(73, 73, 73)"
+							(click)="openHistoricoModal(element.id)"
+						>
+							<mat-icon>history</mat-icon>
+						</button>
+						<button
+							style="width: 80%"
+							title="Completar o Cerrar asistencia"
+							mat-raised-button
+							(click)="actualizarAsistencia(element.id, 3)"
+							*ngIf="
+								!enableCompleteBtn(element.estatusAsistencia) &&
+								hasValidStatus(user.rolUsuario)
+							"
+						>
+							<mat-icon style="color: rgb(21, 204, 21)"
+								>check_box</mat-icon
+							>
+							Completar
+						</button>
+					</div>
+				</td>
+			</ng-container>
 
-		<!-- Row shown when there is no matching data. -->
-		<tr class="mat-row" *matNoDataRow>
-			<td class="mat-cell" colspan="12" style="width: 100%">
-				No hay registros para mostrar
-			</td>
-		</tr>
-	</table>
+			<tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+			<tr
+				mat-row
+				*matRowDef="let row; columns: displayedColumns"
+				[ngClass]="getRowClass(row)"
+			></tr>
+
+			<!-- Row shown when there is no matching data. -->
+			<tr class="mat-row" *matNoDataRow>
+				<td class="mat-cell" colspan="12" style="width: 100%">
+					No hay registros para mostrar
+				</td>
+			</tr>
+		</table>
+	</div>
+	<mat-divider></mat-divider>
+	<mat-paginator
+		#paginator
+		style="margin-top: 0.5em"
+		(page)="pageChanged($event)"
+		[pageSizeOptions]="pageSizeOptions"
+		[length]="totalRows"
+		[pageIndex]="filters.page"
+		[pageSize]="filters.size"
+		[showFirstLastButtons]="true"
+		aria-label="Select page"
+	>
+	</mat-paginator>
 </div>
-<mat-divider></mat-divider>
-<mat-paginator
-	#paginator
-	style="margin-top: 0.5em"
-	(page)="pageChanged($event)"
-	[pageSizeOptions]="pageSizeOptions"
-	[length]="totalRows"
-	[pageIndex]="filters.page"
-	[pageSize]="filters.size"
-	[showFirstLastButtons]="true"
-	aria-label="Select page"
->
-</mat-paginator>

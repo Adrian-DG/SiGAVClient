@@ -54,28 +54,29 @@ export class AuthService extends GenericService {
 		const userId = sessionStorage.getItem('usuarioId');
 		const username = sessionStorage.getItem('usuario');
 		const esAdministrador = sessionStorage.getItem('esAdministrador');
-		const permisos = sessionStorage.getItem('permisos');
+		const userRol = sessionStorage.getItem('rolUsuario');
 
-		// console.log('session info', {
-		// 	userId,
-		// 	username,
-		// 	esAdministrador,
-		// 	permisos,
-		// });
+		console.log('session info', {
+			userId,
+			username,
+			esAdministrador,
+			userRol,
+		});
 
 		if (
 			userId != null &&
 			username != null &&
 			esAdministrador != null &&
-			permisos != null
+			userRol != null
 		) {
 			const userInfo: IUserData = {
 				usuarioId: parseInt(userId),
 				usuario: username,
 				esAdministrador: esAdministrador === 'true',
-				permisos: permisos.split(',').map((x) => parseInt(x)),
+				rolUsuario: parseInt(userRol),
 			};
-			console.log('userInfo ', userInfo);
+
+			console.log('UserInfo: ', userInfo);
 			this.userDataSource.next(userInfo);
 		}
 	}

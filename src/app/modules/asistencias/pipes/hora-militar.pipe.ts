@@ -9,8 +9,8 @@ export class HoraMilitarPipe implements PipeTransform {
 		let hours = date.getHours();
 		let minutes = date.getMinutes();
 
-		console.log(hours);
-		console.log(minutes);
+		// console.log(hours);
+		// console.log(minutes);
 
 		let formatedHours = '';
 		let formatedMinutes = '';

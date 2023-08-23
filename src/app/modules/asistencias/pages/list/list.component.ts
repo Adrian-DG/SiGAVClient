@@ -13,6 +13,7 @@ import { AsistenciaFilterByDateDialogComponent } from '../../components/asistenc
 import { ReasignarUnidadDialogComponent } from '../../components/reasignar-unidad-dialog/reasignar-unidad-dialog.component';
 import { HistoricoAsistenciaDialogComponent } from '../../components/historico-asistencia-dialog/historico-asistencia-dialog.component';
 import { IAsistenciaPaginationFilter } from '../../DTO/iasistencia-pagination-filter';
+import { AuthService } from 'src/app/modules/auth/services/auth/auth.service';
 
 // to validate dialog data
 export interface IDialogData {
@@ -29,7 +30,8 @@ export interface IDialogData {
 export class ListComponent implements OnInit, AfterViewInit {
 	constructor(
 		public _asistencias: AsistenciasService,
-		public dialog: MatDialog
+		public dialog: MatDialog,
+		public _auth: AuthService
 	) {}
 
 	displayedColumns: string[] = [
@@ -61,6 +63,10 @@ export class ListComponent implements OnInit, AfterViewInit {
 
 	ngAfterViewInit(): void {
 		this.dataSource.paginator = this.paginator;
+	}
+
+	hasValidStatus(rol: number): boolean {
+		return [1, 2, 3].includes(rol);
 	}
 
 	changeStatus(): void {

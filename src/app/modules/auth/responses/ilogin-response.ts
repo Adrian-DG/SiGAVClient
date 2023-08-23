@@ -5,5 +5,5 @@ export interface ILoginResponse extends IServerResponse {
 	usuario: string;
 	token: string;
 	esAdministrador: boolean;
-	permisos: number[];
+	rolUsuario: number;
 }

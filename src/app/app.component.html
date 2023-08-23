@@ -41,39 +41,39 @@
 				<a
 					mat-list-item
 					[routerLink]="['unidades/listado']"
-					*ngIf="user.esAdministrador"
+					*ngIf="user.esAdministrador || user.rolUsuario == 1"
 					>UNIDADES</a
 				>
 				<a
 					mat-list-item
 					[routerLink]="['tramos/listado']"
-					*ngIf="user.esAdministrador"
+					*ngIf="user.esAdministrador || user.rolUsuario == 1"
 					>TRAMOS</a
 				>
 				<a
 					mat-list-item
 					[routerLink]="['miembros/listado']"
-					*ngIf="user.esAdministrador"
+					*ngIf="user.esAdministrador || user.rolUsuario == 1"
 					>MIEMBROS</a
 				>
 				<a
 					mat-list-item
 					[routerLink]="['usuarios/listado']"
-					*ngIf="user.esAdministrador"
+					*ngIf="user.esAdministrador || user.rolUsuario == 1"
 					>USUARIOS</a
 				>
 
 				<a
 					mat-list-item
 					[routerLink]="['marcas/listado']"
-					*ngIf="user.esAdministrador"
+					*ngIf="user.esAdministrador || user.rolUsuario == 1"
 					>Vehículo Marcas</a
 				>
 
 				<a
 					mat-list-item
 					[routerLink]="['modelos/listado']"
-					*ngIf="user.esAdministrador"
+					*ngIf="user.esAdministrador || user.rolUsuario == 1"
 					>Vehículo Modelos</a
 				>
 
