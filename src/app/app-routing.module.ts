@@ -4,6 +4,13 @@ import { AuthGuard } from './guards/auth.guard';
 
 const routes: Routes = [
 	{
+		path: 'reportes',
+		loadChildren: () =>
+			import('./modules/reportes/reports.module').then(
+				(m) => m.ReportsModule
+			),
+	},
+	{
 		path: 'modelos',
 		loadChildren: () =>
 			import('./modules/modelos/modelos.module').then(
