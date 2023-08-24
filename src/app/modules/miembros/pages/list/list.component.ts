@@ -27,6 +27,7 @@ export class ListComponent implements OnInit, AfterViewInit {
 		'cedula',
 		'nombreCompleto',
 		'rango',
+		'departamento',
 		'institucion',
 		//'creacion',
 		'acciones',

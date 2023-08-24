@@ -8,4 +8,5 @@ export interface IMiembroViewModel {
 	autorizado: boolean;
 	fechaCreacion: Date;
 	usuarioId: number;
+	perteneceA: string;
 }

@@ -30,6 +30,15 @@
 				></mat-datepicker-toggle>
 				<mat-datepicker #picker></mat-datepicker>
 			</mat-form-field> -->
+
+			<mat-form-field appearance="fill">
+				<mat-label>Seleccione departamento</mat-label>
+				<mat-select formControlName="perteneceA">
+					<mat-option [value]="1">Asistencia Vial</mat-option>
+					<mat-option [value]="2">Gestión Operativa</mat-option>
+					<mat-option [value]="3">Calidad</mat-option>
+				</mat-select>
+			</mat-form-field>
 		</div>
 		<div class="row-start">
 			<fieldset style="margin-bottom: 1em">

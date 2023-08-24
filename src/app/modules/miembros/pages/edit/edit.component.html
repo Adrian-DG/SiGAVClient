@@ -38,6 +38,15 @@
                     ></mat-datepicker-toggle>
                     <mat-datepicker #picker></mat-datepicker>
                 </mat-form-field> -->
+
+				<mat-form-field appearance="fill" style="width: 100%">
+					<mat-label>Departamento</mat-label>
+					<mat-select [(ngModel)]="miembro.perteneceA">
+						<mat-option [value]="1">Asistencia Vial</mat-option>
+						<mat-option [value]="2">Gestión Operativa</mat-option>
+						<mat-option [value]="3">Calidad</mat-option>
+					</mat-select>
+				</mat-form-field>
 			</div>
 			<div class="row">
 				<fieldset style="margin-bottom: 1em; width: 30%">

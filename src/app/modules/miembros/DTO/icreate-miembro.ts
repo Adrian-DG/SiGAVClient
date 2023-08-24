@@ -6,4 +6,5 @@ export interface ICreateMiembro {
 	genero: number;
 	rangoId: number;
 	institucion: number;
+	perteneceA: number;
 }

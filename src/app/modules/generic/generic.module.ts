@@ -5,9 +5,10 @@ import { HttpClientModule } from '@angular/common/http';
 import { PageIntroComponent } from './components/page-intro/page-intro.component';
 import { MaterialModule } from '../material/material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RemoveUnderscorePipe } from './pipes/remove-underscore.pipe';
 
 @NgModule({
-	declarations: [PageIntroComponent],
+	declarations: [PageIntroComponent, RemoveUnderscorePipe],
 	imports: [
 		CommonModule,
 		HttpClientModule,
@@ -15,6 +16,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 		ReactiveFormsModule,
 		FormsModule,
 	],
-	exports: [PageIntroComponent],
+	exports: [PageIntroComponent, RemoveUnderscorePipe],
 })
 export class GenericModule {}

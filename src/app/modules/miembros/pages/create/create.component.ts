@@ -32,6 +32,7 @@ export class CreateComponent implements OnInit {
 		genero: [0],
 		rangoId: [0],
 		institucion: [0],
+		perteneceA: [0],
 	});
 
 	ngOnInit(): void {
@@ -47,6 +48,7 @@ export class CreateComponent implements OnInit {
 			genero,
 			rangoId,
 			institucion,
+			perteneceA,
 		} = this.miembroForm.value;
 
 		const fecha = Date.now();
@@ -59,6 +61,7 @@ export class CreateComponent implements OnInit {
 			genero: genero,
 			rangoId: rangoId,
 			institucion: institucion,
+			perteneceA: perteneceA,
 		};
 
 		this._miembros.createMiembro(miembro);
