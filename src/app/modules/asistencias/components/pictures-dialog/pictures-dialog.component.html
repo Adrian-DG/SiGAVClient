@@ -24,7 +24,11 @@
 			[gutterSize]="'5px'"
 		>
 			<mat-grid-tile *ngFor="let item of pictures">
-				<img [src]="item" class="pictures" style="object-fit: fill" />
+				<img
+					[src]="item"
+					class="pictures"
+					style="object-fit: scale-down"
+				/>
 			</mat-grid-tile>
 		</mat-grid-list>
 		<ng-template #empty>
