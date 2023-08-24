@@ -9,10 +9,9 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { JwtInterceptor } from './interceptors/jwt/jwt.interceptor';
 import { GenericModule } from './modules/generic/generic.module';
 import { LoadingInterceptor } from './interceptors/loading/loading.interceptor';
-import { IndexComponent } from './modules/reportes/pages/index/index.component';
 
 @NgModule({
-	declarations: [AppComponent, IndexComponent],
+	declarations: [AppComponent],
 	imports: [
 		BrowserModule,
 		AppRoutingModule,
