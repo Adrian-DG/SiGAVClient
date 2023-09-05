@@ -1,7 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Location } from '@angular/common';
 import { Injectable } from '@angular/core';
-import { Observable, finalize } from 'rxjs';
+import { Observable, filter, finalize } from 'rxjs';
 import { IPaginationFilters } from '../../generic/DTO/ipagination-filters';
 import { IPagedData } from '../../generic/Responses/ipaged-data';
 import { IServerResponse } from '../../generic/Responses/iserver-response';
@@ -119,5 +119,17 @@ export class AsistenciasService extends GenericService {
 			`${this.endPoint}/historial`,
 			{ params: new HttpParams().set('IdAsistencia', id) }
 		);
+	}
+
+	GetReporteEstadistico(filterType: number, dateFilter: IDateFilter) {
+		const params = new HttpParams()
+			.set('filter', filterType)
+			.set('initialDate', dateFilter.initialDate.toDateString())
+			.set('finalDate', dateFilter.finalDate.toDateString());
+		return this.$http.get(`${this.endPoint}/reporte/estadistico`, {
+			observe: 'response',
+			responseType: 'blob',
+			params: params,
+		});
 	}
 }

@@ -1,0 +1,61 @@
+<div class="dialog">
+	<h3 mat-dialog-title>Reporte Estadístico</h3>
+	<mat-divider></mat-divider>
+	<div class="content" mat-dialog-content>
+		<div class="row">
+			<mat-form-field>
+				<mat-label>Filtrar por</mat-label>
+				<mat-select [(ngModel)]="filterType">
+					<mat-option [value]="1">Región</mat-option>
+					<mat-option [value]="2">Tramo</mat-option>
+					<mat-option [value]="3">Provincia</mat-option>
+					<mat-option [value]="4">Tipo Vehículo</mat-option>
+					<mat-option [value]="5">Tipo Unidad</mat-option>
+					<mat-option [value]="6">Unidad</mat-option>
+				</mat-select>
+			</mat-form-field>
+
+			<mat-form-field>
+				<mat-label>Desde</mat-label>
+				<input
+					matInput
+					[matDatepicker]="picker1"
+					[(ngModel)]="dateFilter.initialDate"
+				/>
+				<mat-hint>MM/DD/YYYY</mat-hint>
+				<mat-datepicker-toggle
+					matIconSuffix
+					[for]="picker1"
+				></mat-datepicker-toggle>
+				<mat-datepicker #picker1></mat-datepicker>
+			</mat-form-field>
+
+			<mat-form-field>
+				<mat-label>Hasta</mat-label>
+				<input
+					matInput
+					[matDatepicker]="picker2"
+					[(ngModel)]="dateFilter.finalDate"
+				/>
+				<mat-hint>MM/DD/YYYY</mat-hint>
+				<mat-datepicker-toggle
+					matIconSuffix
+					[for]="picker2"
+				></mat-datepicker-toggle>
+				<mat-datepicker #picker2></mat-datepicker>
+			</mat-form-field>
+		</div>
+	</div>
+	<div class="actions" mat-dialog-actions>
+		<button mat-raised-button mat-dialog-close>Cancelar</button>
+		<button
+			mat-raised-button
+			[mat-dialog-close]="true"
+			cdkFocusInitial
+			color="accent"
+			(click)="generateReport()"
+		>
+			Generar Reporte
+		</button>
+	</div>
+</div>

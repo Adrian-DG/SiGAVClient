@@ -14,6 +14,7 @@ import { ReasignarUnidadDialogComponent } from '../../components/reasignar-unida
 import { HistoricoAsistenciaDialogComponent } from '../../components/historico-asistencia-dialog/historico-asistencia-dialog.component';
 import { IAsistenciaPaginationFilter } from '../../DTO/iasistencia-pagination-filter';
 import { AuthService } from 'src/app/modules/auth/services/auth/auth.service';
+import { ReporteEstadisticoDialogComponent } from '../../components/reporte-estadistico-dialog/reporte-estadistico-dialog.component';
 
 // to validate dialog data
 export interface IDialogData {
@@ -131,6 +132,10 @@ export class ListComponent implements OnInit, AfterViewInit {
 				break;
 			case 3:
 				this.dialog.open(AsistenciaFilterByDateDialogComponent);
+				break;
+			case 4:
+				this.openReporteEstadisticoModal();
+				break;
 		}
 	}
 
@@ -224,6 +229,12 @@ export class ListComponent implements OnInit, AfterViewInit {
 	openHistoricoModal(id: number): void {
 		this.dialog.open(HistoricoAsistenciaDialogComponent, {
 			data: { id: id },
+			...this.modalConfig,
+		});
+	}
+
+	openReporteEstadisticoModal(): void {
+		this.dialog.open(ReporteEstadisticoDialogComponent, {
 			...this.modalConfig,
 		});
 	}
