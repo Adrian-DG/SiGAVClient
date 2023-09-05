@@ -9,6 +9,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ChangePasswordDialogComponent } from '../../components/change-password-dialog/change-password-dialog.component';
 import { ChangePasswordDTO } from '../../DTO/change-password-dto';
 import { UserPasswordInfo } from '../../DTO/user-password-info';
+import { EditUserDialogComponent } from '../../components/edit-user-dialog/edit-user-dialog.component';
 
 @Component({
 	selector: 'app-list',
@@ -83,6 +84,17 @@ export class ListComponent implements OnInit, AfterViewInit {
 			maxWidth: '800px',
 			role: 'dialog',
 			data: model,
+		});
+	}
+
+	openEditDialog(item: IUsuarioViewModel): void {
+		this.dialog.open(EditUserDialogComponent, {
+			minHeight: '200px',
+			maxHeight: '400px',
+			minWidth: '500px',
+			maxWidth: '800px',
+			role: 'dialog',
+			data: item,
 		});
 	}
 }

@@ -73,12 +73,9 @@
 					>Autorizado:
 					{{ element.estatus ? 'Si' : 'No' }}</mat-slide-toggle
 				>
-				<!-- <button
-					mat-icon-button
-					[routerLink]="['/usuarios/editar', element.id]"
-				>
+				<button mat-icon-button (click)="openEditDialog(element)">
 					<mat-icon class="edit-icon">edit</mat-icon>
-				</button> -->
+				</button>
 				<button
 					style="
 						margin-left: 1em;

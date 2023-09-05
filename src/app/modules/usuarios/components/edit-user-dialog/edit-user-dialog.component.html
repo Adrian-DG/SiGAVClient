@@ -1,0 +1,44 @@
+<div mat-dialog-title>
+	<h2>Cambiar contraseña</h2>
+	<small>ID: {{ data.id }} | Usuario: {{ data.nombreUsuario }}</small>
+</div>
+<mat-divider></mat-divider>
+<div mat-dialog-content>
+	<mat-form-field appearance="fill" style="width: 50%">
+		<mat-label>Nombre Usuario</mat-label>
+		<input
+			matInput
+			placeholder="contraseña"
+			[(ngModel)]="data.nombreUsuario"
+		/>
+	</mat-form-field>
+	<mat-form-field appearance="fill" style="width: 50%">
+		<mat-label>Tipo Usuario</mat-label>
+		<input
+			matInput
+			placeholder="contraseña"
+			[(ngModel)]="data.tipoUsuario"
+			readonly
+		/>
+	</mat-form-field>
+</div>
+<div
+	mat-dialog-actions
+	style="
+		display: flex;
+		flex-direction: row;
+		justify-content: flex-end;
+		gap: 1em;
+	"
+>
+	<button mat-raised-button mat-dialog-close>Cerrar</button>
+	<button
+		mat-raised-button
+		color="accent"
+		cdkFocusInitial
+		(click)="saveChanges()"
+		mat-dialog-close
+	>
+		Guardar Cambios
+	</button>
+</div>
