@@ -1,8 +1,89 @@
-<div class="page-container">
-	<div id="graphics">
-		<div id="grid-1"></div>
-		<div id="grid-2"></div>
-		<div id="grid-3"></div>
-		<div id="grid-4"></div>
-	</div>
+<div id="stats-container">
+	<mat-card>
+		<mat-card-header class="header column">
+			<mat-card-title>Reportes Estadisticos</mat-card-title>
+			<mat-card-subtitle
+				>Estos graficos permitiran visualizar de manera
+				general.</mat-card-subtitle
+			>
+			<div class="row">
+				<mat-form-field>
+					<mat-label>Seleccionar Estatus</mat-label>
+					<mat-select
+						[(ngModel)]="filters.estatus"
+						(selectionChange)="onFilterChange()"
+					>
+						<mat-option [value]="1">Pendiente</mat-option>
+						<mat-option [value]="2">En Curso</mat-option>
+						<mat-option [value]="3">Completadas</mat-option>
+					</mat-select>
+				</mat-form-field>
+
+				<mat-form-field>
+					<mat-label>Desde</mat-label>
+					<input
+						matInput
+						[matDatepicker]="picker1"
+						[(ngModel)]="filters.initial"
+					/>
+					<mat-hint>MM/DD/YYYY</mat-hint>
+					<mat-datepicker-toggle
+						matIconSuffix
+						[for]="picker1"
+					></mat-datepicker-toggle>
+					<mat-datepicker #picker1></mat-datepicker>
+				</mat-form-field>
+
+				<mat-form-field>
+					<mat-label>Hasta</mat-label>
+					<input
+						matInput
+						[matDatepicker]="picker2"
+						[(ngModel)]="filters.final"
+						(dateChange)="onFilterChange()"
+					/>
+					<mat-hint>MM/DD/YYYY</mat-hint>
+					<mat-datepicker-toggle
+						matIconSuffix
+						[for]="picker2"
+					></mat-datepicker-toggle>
+					<mat-datepicker #picker2></mat-datepicker>
+				</mat-form-field>
+			</div>
+		</mat-card-header>
+		<mat-card-content id="stats-content">
+			<div id="canvas-1" class="canvas">
+				<canvas
+					baseChart
+					[datasets]="barChartData"
+					[labels]="barChartLabels"
+					[options]="barChartOptions"
+					[legend]="barChartLegend"
+					[type]="barChartType"
+				></canvas>
+			</div>
+
+			<div id="canvas-2" class="canvas">
+				<canvas
+					baseChart
+					[datasets]="barChartData"
+					[labels]="barChartLabels"
+					[options]="barChartOptions"
+					[legend]="barChartLegend"
+					[type]="barChartType"
+				></canvas>
+			</div>
+
+			<div id="canvas-3" class="canvas">
+				<canvas
+					baseChart
+					[datasets]="barChartData"
+					[labels]="barChartLabels"
+					[options]="barChartOptions"
+					[legend]="barChartLegend"
+					[type]="barChartType"
+				></canvas>
+			</div>
+		</mat-card-content>
+	</mat-card>
 </div>

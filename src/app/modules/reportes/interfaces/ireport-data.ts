@@ -1,4 +1,4 @@
 export interface IReportData {
-	label: string;
-	quatity: number;
+	nombre: string;
+	value: number;
 }
