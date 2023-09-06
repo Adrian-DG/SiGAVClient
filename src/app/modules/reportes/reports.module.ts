@@ -6,9 +6,10 @@ import { MaterialModule } from '../material/material.module';
 import { IndexComponent } from './pages/index/index.component';
 import { FormsModule } from '@angular/forms';
 import { NgChartsModule } from 'ng2-charts';
+import { DinamycChartComponent } from './components/dinamyc-chart/dinamyc-chart.component';
 
 @NgModule({
-	declarations: [IndexComponent],
+	declarations: [IndexComponent, DinamycChartComponent],
 	imports: [
 		CommonModule,
 		ReportsRoutingModule,

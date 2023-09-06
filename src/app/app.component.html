@@ -34,7 +34,12 @@
 				<!-- <a mat-list-item [routerLink]="item" *ngFor="let item of links">
 					{{ item | uppercase }}
 				</a> -->
-				<a mat-list-item [routerLink]="['reportes']">REPORTES</a>
+				<a
+					mat-list-item
+					[routerLink]="['reportes']"
+					*ngIf="user.esAdministrador || user.rolUsuario == 1"
+					>REPORTES</a
+				>
 				<a mat-list-item [routerLink]="['asistencias/listado']"
 					>ASISTENCIAS</a
 				>

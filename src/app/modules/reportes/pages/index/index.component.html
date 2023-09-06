@@ -53,36 +53,47 @@
 		</mat-card-header>
 		<mat-card-content id="stats-content">
 			<div id="canvas-1" class="canvas">
-				<canvas
-					baseChart
-					[datasets]="barChartData"
-					[labels]="barChartLabels"
-					[options]="barChartOptions"
-					[legend]="barChartLegend"
-					[type]="barChartType"
-				></canvas>
+				<h4 style="text-align: center; margin-top: 0.2em">
+					Asistencias Por Tramo
+				</h4>
+				<app-dinamyc-chart
+					[chartOptions]="tramosChartOptions$"
+					[chartType]="'doughnut'"
+					[chartData]="tramoChartData$"
+				></app-dinamyc-chart>
 			</div>
 
 			<div id="canvas-2" class="canvas">
-				<canvas
-					baseChart
-					[datasets]="barChartData"
-					[labels]="barChartLabels"
-					[options]="barChartOptions"
-					[legend]="barChartLegend"
-					[type]="barChartType"
-				></canvas>
+				<h4 style="text-align: center; margin-top: 0.2em">
+					Asistencias Por Tipo de Vehículo
+				</h4>
+				<app-dinamyc-chart
+					[chartOptions]="tipoVehiculosChartOptions$"
+					[chartType]="'pie'"
+					[chartData]="tipoVehiculoChartData$"
+				></app-dinamyc-chart>
 			</div>
 
 			<div id="canvas-3" class="canvas">
-				<canvas
-					baseChart
-					[datasets]="barChartData"
-					[labels]="barChartLabels"
-					[options]="barChartOptions"
-					[legend]="barChartLegend"
-					[type]="barChartType"
-				></canvas>
+				<h4 style="text-align: center; margin-top: 0.2em">
+					Asistencias Por Región
+				</h4>
+				<app-dinamyc-chart
+					[chartOptions]="regionChartOptions$"
+					[chartType]="'pie'"
+					[chartData]="regionChartData$"
+				></app-dinamyc-chart>
+			</div>
+
+			<div id="canvas-4" class="canvas">
+				<h4 style="text-align: center; margin-top: 0.2em">
+					Asistencias Por Provincia
+				</h4>
+				<app-dinamyc-chart
+					[chartOptions]="provinciasChartOptions$"
+					[chartType]="'doughnut'"
+					[chartData]="provinciaChartData$"
+				></app-dinamyc-chart>
 			</div>
 		</mat-card-content>
 	</mat-card>
