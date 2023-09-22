@@ -46,7 +46,15 @@
 		}
 		.pictures {
 			border-radius: 0.5em;
+			width: 100%;
+			height: auto;
 		}
+		// img:hover {
+		// 	transition: all 0.3s ease-in;
+		// 	transform: scale(1.25);
+		// 	width: 100%;
+		// 	height: auto;
+		// }
 	}
 
 	.actions {
