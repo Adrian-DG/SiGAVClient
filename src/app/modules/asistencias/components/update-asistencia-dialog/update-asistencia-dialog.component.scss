@@ -1,0 +1,17 @@
+.row {
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-start;
+	align-items: flex-start;
+	gap: 0.5em;
+	flex-wrap: wrap;
+	overflow-y: auto;
+}
+
+mat-form-field {
+	flex-grow: 1;
+}
+
+fieldset {
+	margin-top: -1.5em;
+}

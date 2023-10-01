@@ -17,9 +17,10 @@ import { ReasignarUnidadDialogComponent } from './components/reasignar-unidad-di
 import { HistoricoAsistenciaDialogComponent } from './components/historico-asistencia-dialog/historico-asistencia-dialog.component';
 import { HoraMilitarPipe } from './pipes/hora-militar.pipe';
 import { ReporteEstadisticoDialogComponent } from './components/reporte-estadistico-dialog/reporte-estadistico-dialog.component';
+import { UpdateAsistenciaDialogComponent } from './components/update-asistencia-dialog/update-asistencia-dialog.component';
 
 @NgModule({
-	declarations: [IndexComponent, ListComponent, CreateComponent, CedulaPipe, TelefonoPipe, PicturesDialogComponent, AsistenciaFilterByDateDialogComponent, ReasignarUnidadDialogComponent, HistoricoAsistenciaDialogComponent, HoraMilitarPipe, ReporteEstadisticoDialogComponent],
+	declarations: [IndexComponent, ListComponent, CreateComponent, CedulaPipe, TelefonoPipe, PicturesDialogComponent, AsistenciaFilterByDateDialogComponent, ReasignarUnidadDialogComponent, HistoricoAsistenciaDialogComponent, HoraMilitarPipe, ReporteEstadisticoDialogComponent, UpdateAsistenciaDialogComponent],
 	imports: [
 		CommonModule,
 		AsistenciasRoutingModule,

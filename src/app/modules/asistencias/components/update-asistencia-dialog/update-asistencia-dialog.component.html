@@ -1,0 +1,128 @@
+<div mat-dialog-title>
+	<h2>Editar Asistencia</h2>
+	<small>Se haran cambios a la asistencia con ID: {{ params.id }}</small>
+</div>
+<mat-divider></mat-divider>
+<div mat-dialog-content class="row" *ngIf="entity$ | async as data; else empty">
+	<mat-form-field>
+		<mat-label>Identificación</mat-label>
+		<input matInput [(ngModel)]="data.identificacion" />
+	</mat-form-field>
+	<mat-form-field>
+		<mat-label>Nombre</mat-label>
+		<input matInput [(ngModel)]="data.nombre" />
+	</mat-form-field>
+	<mat-form-field>
+		<mat-label>Apellido</mat-label>
+		<input matInput [(ngModel)]="data.apellido" />
+	</mat-form-field>
+	<mat-form-field>
+		<mat-label>Teléfono</mat-label>
+		<input matInput [(ngModel)]="data.telefono" />
+	</mat-form-field>
+	<fieldset>
+		<legend>Genero:</legend>
+		<mat-radio-group [(ngModel)]="data.genero">
+			<mat-radio-button value="1">Hombre</mat-radio-button>
+			<mat-radio-button value="2">Mujer</mat-radio-button>
+		</mat-radio-group>
+	</fieldset>
+	<mat-checkbox color="primary" [(ngModel)]="data.esExtranjero"
+		>Es extrajero: {{ data.esExtranjero ? 'Si' : 'No' }}</mat-checkbox
+	>
+	<mat-form-field>
+		<mat-label>Tipo Vehículo</mat-label>
+		<mat-select #tipo [(ngModel)]="data.vehiculoTipoId">
+			<mat-option
+				[value]="item.id"
+				*ngFor="let item of _cache.vehiculoTipos$ | async"
+				>{{ item.nombre }}</mat-option
+			>
+		</mat-select>
+	</mat-form-field>
+	<mat-form-field>
+		<mat-label>Color</mat-label>
+		<mat-select [(ngModel)]="data.vehiculoColorId">
+			<mat-option
+				[value]="item.id"
+				*ngFor="let item of _cache.vehiculoColor$ | async"
+				>{{ item.nombre }}</mat-option
+			>
+		</mat-select>
+	</mat-form-field>
+	<mat-form-field>
+		<mat-label>Marca</mat-label>
+		<mat-select #marca [(ngModel)]="data.vehiculoMarcaId">
+			<mat-option
+				[value]="item.id"
+				*ngFor="let item of _cache.vehiculoMarca$ | async"
+				>{{ item.nombre }}</mat-option
+			>
+		</mat-select>
+	</mat-form-field>
+	<mat-form-field>
+		<mat-label>Modelo</mat-label>
+		<mat-select
+			(click)="
+				_cache.getDataOnIdFilters(
+					'VehiculoModelo',
+					tipo.value,
+					marca.value
+				)
+			"
+			[(ngModel)]="data.vehiculoModeloId"
+		>
+			<mat-option
+				[value]="item.id"
+				*ngFor="let item of _cache.vehiculoModelo$ | async"
+				>{{ item.nombre }}</mat-option
+			>
+		</mat-select>
+	</mat-form-field>
+	<mat-form-field>
+		<mat-label>Provincia</mat-label>
+		<mat-select #provincia [(ngModel)]="data.provinciaId">
+			<mat-option
+				[value]="item.id"
+				*ngFor="let item of _cache.provincias$ | async"
+				>{{ item.nombre }}</mat-option
+			>
+		</mat-select>
+	</mat-form-field>
+	<mat-form-field>
+		<mat-label>Municipio</mat-label>
+		<mat-select
+			(click)="_cache.getDataOnId('municipios', provincia.value)"
+			[(ngModel)]="data.municipioId"
+		>
+			<mat-option
+				[value]="item.id"
+				*ngFor="let item of _cache.municipios$ | async"
+				>{{ item.nombre }}</mat-option
+			>
+		</mat-select>
+	</mat-form-field>
+	<mat-form-field>
+		<mat-label>Comentarios</mat-label>
+		<textarea matInput [(ngModel)]="data.comentarios"></textarea>
+	</mat-form-field>
+</div>
+
+<ng-template #empty>
+	<div style="padding: 2em">
+		<h2>Cargando...</h2>
+		<mat-progress-bar mode="indeterminate"></mat-progress-bar>
+	</div>
+</ng-template>
+
+<div mat-dialog-actions>
+	<button mat-raised-button mat-dialog-close>Cerrar</button>
+	<button
+		mat-raised-button
+		mat-dialog-close
+		color="accent"
+		(click)="saveChanges()"
+	>
+		Guardar Cambios
+	</button>
+</div>

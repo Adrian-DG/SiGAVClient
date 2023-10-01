@@ -15,6 +15,7 @@ import { HistoricoAsistenciaDialogComponent } from '../../components/historico-a
 import { IAsistenciaPaginationFilter } from '../../DTO/iasistencia-pagination-filter';
 import { AuthService } from 'src/app/modules/auth/services/auth/auth.service';
 import { ReporteEstadisticoDialogComponent } from '../../components/reporte-estadistico-dialog/reporte-estadistico-dialog.component';
+import { UpdateAsistenciaDialogComponent } from '../../components/update-asistencia-dialog/update-asistencia-dialog.component';
 
 // to validate dialog data
 export interface IDialogData {
@@ -36,11 +37,14 @@ export enum Roles {
 	styleUrls: ['./list.component.scss'],
 })
 export class ListComponent implements OnInit, AfterViewInit {
+	//[x: string]: any;
 	constructor(
 		public _asistencias: AsistenciasService,
 		public dialog: MatDialog,
 		public _auth: AuthService
-	) {}
+	) {
+		this.dialog.afterAllClosed.subscribe(() => this.loadData());
+	}
 
 	displayedColumns: string[] = [
 		'id',
@@ -235,6 +239,13 @@ export class ListComponent implements OnInit, AfterViewInit {
 
 	openReporteEstadisticoModal(): void {
 		this.dialog.open(ReporteEstadisticoDialogComponent, {
+			...this.modalConfig,
+		});
+	}
+
+	openEditAsistenciaModal(id: number): void {
+		this.dialog.open(UpdateAsistenciaDialogComponent, {
+			data: { id },
 			...this.modalConfig,
 		});
 	}

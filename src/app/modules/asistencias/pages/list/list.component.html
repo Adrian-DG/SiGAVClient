@@ -185,6 +185,16 @@
 					>
 						<mat-icon>history</mat-icon>
 					</button>
+					<!-- Editar -->
+					<button
+						title="Editar Asistencia"
+						mat-icon-button
+						style="color: rgb(73, 73, 73)"
+						(click)="openEditAsistenciaModal(element.id)"
+						*ngIf="user.rolUsuario === 1"
+					>
+						<mat-icon>edit</mat-icon>
+					</button>
 					<button
 						style="width: 80%"
 						title="Completar o Cerrar asistencia"
