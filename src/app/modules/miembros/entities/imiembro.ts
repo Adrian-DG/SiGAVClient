@@ -6,4 +6,5 @@ export interface IMiembro extends IPersonModelMetadata {
 	rangoId: number;
 	institucion: number;
 	perteneceA: number;
+	accesoTotal: boolean;
 }

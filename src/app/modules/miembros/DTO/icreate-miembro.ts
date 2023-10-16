@@ -7,4 +7,5 @@ export interface ICreateMiembro {
 	rangoId: number;
 	institucion: number;
 	perteneceA: number;
+	accesoTotal: boolean;
 }

@@ -31,6 +31,13 @@
 				<mat-datepicker #picker></mat-datepicker>
 			</mat-form-field> -->
 
+			<fieldset>
+				<legend>Acceso a todos los tramos</legend>
+				<mat-checkbox color="accent" formControlName="accesoTotal"
+					>Acceso Total</mat-checkbox
+				>
+			</fieldset>
+
 			<mat-form-field appearance="fill">
 				<mat-label>Seleccione departamento</mat-label>
 				<mat-select formControlName="perteneceA">
@@ -46,7 +53,7 @@
 				<mat-radio-group
 					formControlName="genero"
 					aria-label="Sexo"
-					style="margin-left: 3em; margin-top: 1em"
+					style="margin-top: 1em"
 				>
 					<mat-radio-button value="1">Hombre</mat-radio-button>
 					<mat-radio-button value="2">Mujer</mat-radio-button>

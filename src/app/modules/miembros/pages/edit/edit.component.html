@@ -60,6 +60,14 @@
 						<mat-radio-button value="2">Mujer</mat-radio-button>
 					</mat-radio-group>
 				</fieldset>
+				<fieldset>
+					<legend>Acceso a todos los tramos</legend>
+					<mat-checkbox
+						color="accent"
+						[(ngModel)]="miembro.accesoTotal"
+						>Acceso Total</mat-checkbox
+					>
+				</fieldset>
 				<mat-form-field appearance="fill" style="width: 30%">
 					<mat-label>Rango</mat-label>
 					<mat-select [(ngModel)]="miembro.rangoId">
