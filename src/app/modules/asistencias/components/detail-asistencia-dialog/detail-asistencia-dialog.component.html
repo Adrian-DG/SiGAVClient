@@ -1,0 +1,29 @@
+<div mat-dialog-title>
+	<h2>Detalles Asistencia</h2>
+	<small
+		>A continuación, se muestran los detalles de la asistencia
+		{{ data.id }}</small
+	>
+</div>
+<mat-divider></mat-divider>
+<div mat-dialog-content>
+	<mat-chip-listbox>
+		<mat-chip *ngFor="let item of data.types">{{ item }}</mat-chip>
+	</mat-chip-listbox>
+	<br />
+	<mat-form-field style="width: 100%">
+		<mat-label>Comentario</mat-label>
+		<textarea
+			matInput
+			[(ngModel)]="data.comment"
+			[readonly]="true"
+		></textarea>
+	</mat-form-field>
+</div>
+
+<div
+	mat-dialog-actions
+	style="display: flex; flex-direction: row; justify-content: flex-end"
+>
+	<button mat-raised-button mat-dialog-close>Cerrar</button>
+</div>

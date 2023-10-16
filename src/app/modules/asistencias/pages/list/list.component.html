@@ -119,11 +119,7 @@
 				<span style="font-weight: 500">{{
 					element.esEmergencia ? 'Accidente' : 'Asistencia'
 				}}</span>
-				<ul class="servicios">
-					<li *ngFor="let item of element.tipoAsistencias.reverse()">
-						{{ item.nombre }}
-					</li>
-				</ul>
+				<br />
 				<span>Reporta: {{ element.reportadaPor }}</span>
 				<br />
 				<span
@@ -195,20 +191,27 @@
 					>
 						<mat-icon>edit</mat-icon>
 					</button>
+
 					<button
-						style="width: 80%"
+						style="color: rgb(73, 73, 73)"
+						title="Detalles Asistencia"
+						mat-icon-button
+						(click)="openDetailsAsistenciaModal(element)"
+					>
+						<mat-icon>comment</mat-icon>
+					</button>
+
+					<button
+						style="color: rgb(21, 204, 21)"
 						title="Completar o Cerrar asistencia"
-						mat-raised-button
+						mat-icon-button
 						(click)="actualizarAsistencia(element.id, 3)"
 						*ngIf="
 							!enableCompleteBtn(element.estatusAsistencia) &&
 							hasValidStatus(user.rolUsuario)
 						"
 					>
-						<mat-icon style="color: rgb(21, 204, 21)"
-							>check_box</mat-icon
-						>
-						Completar
+						<mat-icon>check_box</mat-icon>
 					</button>
 				</div>
 			</td>

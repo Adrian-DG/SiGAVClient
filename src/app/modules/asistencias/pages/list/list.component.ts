@@ -16,6 +16,7 @@ import { IAsistenciaPaginationFilter } from '../../DTO/iasistencia-pagination-fi
 import { AuthService } from 'src/app/modules/auth/services/auth/auth.service';
 import { ReporteEstadisticoDialogComponent } from '../../components/reporte-estadistico-dialog/reporte-estadistico-dialog.component';
 import { UpdateAsistenciaDialogComponent } from '../../components/update-asistencia-dialog/update-asistencia-dialog.component';
+import { DetailAsistenciaDialogComponent } from '../../components/detail-asistencia-dialog/detail-asistencia-dialog.component';
 
 // to validate dialog data
 export interface IDialogData {
@@ -37,14 +38,11 @@ export enum Roles {
 	styleUrls: ['./list.component.scss'],
 })
 export class ListComponent implements OnInit, AfterViewInit {
-	//[x: string]: any;
 	constructor(
 		public _asistencias: AsistenciasService,
 		public dialog: MatDialog,
 		public _auth: AuthService
-	) {
-		this.dialog.afterAllClosed.subscribe(() => this.loadData());
-	}
+	) {}
 
 	displayedColumns: string[] = [
 		'id',
@@ -70,7 +68,7 @@ export class ListComponent implements OnInit, AfterViewInit {
 	dataSource = new MatTableDataSource<IAsistenciaViewModel>();
 
 	ngOnInit(): void {
-		this.loadData();
+		this.dialog.afterAllClosed.subscribe(() => this.loadData());
 	}
 
 	ngAfterViewInit(): void {
@@ -121,7 +119,9 @@ export class ListComponent implements OnInit, AfterViewInit {
 			};
 			this._asistencias
 				.updateAsistenciaCompletar(model)
-				.subscribe((response: IServerResponse) => this.loadData());
+				.subscribe((response: IServerResponse) =>
+					alert(response.message)
+				);
 		}
 	}
 
@@ -246,6 +246,15 @@ export class ListComponent implements OnInit, AfterViewInit {
 	openEditAsistenciaModal(id: number): void {
 		this.dialog.open(UpdateAsistenciaDialogComponent, {
 			data: { id },
+			...this.modalConfig,
+		});
+	}
+
+	openDetailsAsistenciaModal(model: IAsistenciaViewModel) {
+		const { id, comentario } = model;
+		const types = model.tipoAsistencias.map((x) => x.nombre);
+		this.dialog.open(DetailAsistenciaDialogComponent, {
+			data: { id, comment: comentario, types },
 			...this.modalConfig,
 		});
 	}
