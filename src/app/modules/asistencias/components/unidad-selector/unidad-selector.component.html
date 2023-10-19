@@ -1,0 +1,16 @@
+<div>
+	Den.: {{ item.denominacion }}
+	<br />
+	<div class="row-start">
+		<small>Tramo: {{ item.tramo }}</small>
+		<small>Ficha: {{ item.ficha }}</small>
+	</div>
+	<div class="row-start">
+		{{ item.estaDisponible ? 'Disponible' : 'No Disponible' }}:
+		<div
+			class="availability"
+			[ngClass]="item.estaDisponible ? 'free' : 'notFree'"
+		></div>
+	</div>
+</div>
+<mat-divider></mat-divider>

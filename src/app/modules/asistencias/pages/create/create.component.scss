@@ -30,20 +30,6 @@ fieldset {
 	align-items: flex-start;
 }
 
-.availability {
-	width: 1em;
-	height: 1em;
-	border-radius: 100%;
-}
-
-.free {
-	background-color: green;
-}
-
-.notFree {
-	background-color: red;
-}
-
 .hasDataAlert {
 	display: row;
 	flex-direction: row;

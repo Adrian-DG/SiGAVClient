@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
 	FormBuilder,
 	FormControl,
@@ -10,13 +10,14 @@ import { UnidadesService } from 'src/app/modules/unidades/services/unidades.serv
 import { IAsistenciaR5Create } from '../../DTO/iasistencia-r5-create';
 import { AsistenciasService } from '../../services/asistencias.service';
 import { IUnidadAutoComplete } from 'src/app/modules/unidades/viewModels/iunidad-auto-complete';
+import { Observable } from 'rxjs';
 
 @Component({
 	selector: 'app-create',
 	templateUrl: './create.component.html',
 	styleUrls: ['./create.component.scss'],
 })
-export class CreateComponent implements OnInit, AfterViewInit {
+export class CreateComponent implements OnInit {
 	constructor(
 		private $fb: FormBuilder,
 		private _asistencias: AsistenciasService,
@@ -88,23 +89,25 @@ export class CreateComponent implements OnInit, AfterViewInit {
 			municipioId: new FormControl(0),
 			provinciaId: new FormControl(0),
 			direccion: new FormControl(''),
-			unidadId: new FormControl(0),
 			tipoAsistenciaId: new FormControl(0),
 			comentarios: new FormControl(''),
 		});
 	}
 
+	unidadAsignadaId: FormControl = new FormControl('');
+
 	ngOnInit(): void {
 		this.initFormulary();
+		this.unidadAsignadaId.valueChanges.subscribe((value: string) => {
+			if (value.length > 3) {
+				this._unidades.getUnidadesAutoComplete(value);
+			}
+		});
 	}
 
-	ngAfterViewInit(): void {
-		this._unidades.getUnidadesAutoComplete('');
-	}
-
-	displayFn(unidad: IUnidadAutoComplete): string {
-		return unidad.ficha && unidad.denominacion
-			? `${unidad.ficha} - ${unidad.denominacion}`
+	displayFn(item: IUnidadAutoComplete): string {
+		return item && item.ficha && item.denominacion
+			? `${item.ficha} | ${item.denominacion}`
 			: '';
 	}
 
@@ -135,7 +138,7 @@ export class CreateComponent implements OnInit, AfterViewInit {
 			comentarios,
 		} = this.asistenciaForm!.value;
 
-		const unidadSelected: IUnidadAutoComplete = unidadId;
+		const unidadSelected: IUnidadAutoComplete = this.unidadAsignadaId.value;
 
 		const newAsistencia: IAsistenciaR5Create = {
 			// ciudadano

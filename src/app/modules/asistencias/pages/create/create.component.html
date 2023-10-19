@@ -191,107 +191,37 @@
 	<!-- Informacion asistencia -->
 
 	<mat-step [stepControl]="asistenciaForm" label="Información asistencia">
-		<form [formGroup]="asistenciaForm" (ngSubmit)="createAsistencia()">
-			<!-- <div class="row">
-				<mat-form-field
-					appearance="fill"
-					style="width: 50%"
-					(click)="_cache.getData('provincias')"
+		<div class="row">
+			<mat-form-field style="width: 100%">
+				<mat-label>Asignar Unidad</mat-label>
+				<input
+					type="text"
+					matInput
+					[formControl]="unidadAsignadaId"
+					[matAutocomplete]="auto"
+				/>
+				<mat-autocomplete
+					#auto="matAutocomplete"
+					[displayWith]="displayFn"
 				>
-					<mat-label>Provincia (opcional)</mat-label>
-					<mat-select #provinciaId formControlName="provinciaId">
-						<mat-option
-							[value]="item.id"
-							*ngFor="let item of _cache.provincias$ | async"
-							>{{ item.nombre }}</mat-option
-						>
-					</mat-select>
-				</mat-form-field>
-				<mat-form-field
-					appearance="fill"
-					style="width: 50%"
-					(click)="
-						_cache.getDataOnId('municipios', provinciaId.value)
-					"
-				>
-					<mat-label>Municipio (opcional)</mat-label>
-					<mat-select formControlName="municipioId">
-						<mat-option
-							[value]="item.id"
-							*ngFor="let item of _cache.municipios$ | async"
-							>{{ item.nombre }}</mat-option
-						>
-					</mat-select>
-				</mat-form-field>
-			</div>
-			<div class="row">
-				<mat-form-field style="width: 100%">
-					<mat-label>Dirección (opcional)</mat-label>
-					<input matInput formControlName="direccion" />
-				</mat-form-field>
-			</div> -->
-			<div class="row">
-				<!-- TODO: implement autocomplete -->
-				<mat-form-field
-					style="width: 50%"
-					class="example-full-width"
-					appearance="fill"
-				>
-					<mat-label>Asignar Unidad</mat-label>
-					<input
-						id="unidadAutoComplete"
-						type="text"
-						placeholder="Selecciona unidad"
-						aria-label="Unidad-Miembro"
-						matInput
-						formControlName="unidadId"
-						#unidad
-						(change)="
-							_unidades.getUnidadesAutoComplete(unidad.value)
+					<mat-option
+						[value]="item"
+						*ngFor="
+							let item of _unidades.unidadeAutocomplete$ | async
 						"
-						[matAutocomplete]="auto"
-					/>
-					<mat-autocomplete
-						autoActiveFirstOption
-						#auto="matAutocomplete"
-						[displayWith]="displayFn"
 					>
-						<mat-option
-							*ngFor="
-								let item of _unidades.unidadeAutocomplete$
-									| async
-							"
-							[value]="item"
-						>
-							<div>
-								Den.: {{ item.denominacion }}
-								<br />
-								<div class="row-start">
-									<small>Tramo: {{ item.tramo }}</small>
-									<small>Ficha: {{ item.ficha }}</small>
-								</div>
-								<div class="row-start">
-									{{
-										item.estaDisponible
-											? 'Disponible'
-											: 'No Disponible'
-									}}:
-									<div
-										class="availability"
-										[ngClass]="
-											item.estaDisponible
-												? 'free'
-												: 'notFree'
-										"
-									></div>
-								</div>
-							</div>
-							<mat-divider></mat-divider>
-						</mat-option>
-					</mat-autocomplete>
-				</mat-form-field>
+						<app-unidad-selector
+							[item]="item"
+						></app-unidad-selector>
+						<mat-divider></mat-divider>
+					</mat-option>
+				</mat-autocomplete>
+			</mat-form-field>
+		</div>
 
-				<mat-form-field appearance="fill" style="width: 20%">
+		<form [formGroup]="asistenciaForm" (ngSubmit)="createAsistencia()">
+			<div class="row">
+				<mat-form-field appearance="fill" style="width: 50%">
 					<mat-label>Categoria Asistencia</mat-label>
 					<mat-select #categoriaAsistencia>
 						<mat-option [value]="1">Accidente</mat-option>
@@ -301,7 +231,7 @@
 
 				<mat-form-field
 					appearance="fill"
-					style="width: 30%"
+					style="width: 50%"
 					(click)="
 						_cache.getDataOnId(
 							'TipoAsistencia',

@@ -61,7 +61,7 @@ export class ListComponent implements OnInit, AfterViewInit {
 		size: 5,
 		searchTerm: '',
 		status: false,
-		estatusAsistencia: 0,
+		estatusAsistencia: 2,
 	};
 
 	@ViewChild(MatPaginator) paginator!: MatPaginator;

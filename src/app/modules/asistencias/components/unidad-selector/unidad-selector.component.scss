@@ -1,0 +1,21 @@
+.row-start {
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-start;
+	align-items: center;
+	gap: 1em;
+}
+
+.availability {
+	width: 1em;
+	height: 1em;
+	border-radius: 100%;
+}
+
+.free {
+	background-color: green;
+}
+
+.notFree {
+	background-color: red;
+}
