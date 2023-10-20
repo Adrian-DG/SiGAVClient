@@ -119,9 +119,10 @@ export class ListComponent implements OnInit, AfterViewInit {
 			};
 			this._asistencias
 				.updateAsistenciaCompletar(model)
-				.subscribe((response: IServerResponse) =>
-					alert(response.message)
-				);
+				.subscribe((response: IServerResponse) => {
+					alert(response.message);
+					setTimeout(() => this.loadData(), 2000);
+				});
 		}
 	}
 

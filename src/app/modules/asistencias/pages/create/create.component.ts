@@ -27,38 +27,38 @@ export class CreateComponent implements OnInit {
 
 	hasPersonInformation: boolean = true;
 
-	setPersonInformationPermission(): void {
-		console.log('Permission: ', this.hasPersonInformation);
-		if (!this.hasPersonInformation) {
-			// ciudadano
-			this.ciudadanoForm!.clearValidators();
-			this.ciudadanoForm!.updateValueAndValidity();
-			// vehiculo
-			this.vehiculoForm!.clearValidators();
-			this.vehiculoForm!.updateValueAndValidity();
-		} else {
-			this.initFormulary();
-		}
-	}
+	// setPersonInformationPermission(): void {
+	// 	console.log('Permission: ', this.hasPersonInformation);
+	// 	if (!this.hasPersonInformation) {
+	// 		// ciudadano
+	// 		this.ciudadanoForm!.clearValidators();
+	// 		this.ciudadanoForm!.updateValueAndValidity();
+	// 		// vehiculo
+	// 		this.vehiculoForm!.clearValidators();
+	// 		this.vehiculoForm!.updateValueAndValidity();
+	// 	} else {
+	// 		this.initFormulary();
+	// 	}
+	// }
 
-	customizedValidator = {
-		identification: [
-			Validators.required,
-			Validators.pattern(/^[0-9]{11,15}$/),
-		],
-		fullname: [
-			Validators.required,
-			Validators.pattern(/^[A-Za-z0-9ñÑ ]{1,30}$/),
-		],
-		phonenumber: [
-			Validators.required,
-			Validators.pattern(/^[0-9]{10,15}$/),
-		],
-		placa: [
-			Validators.required,
-			Validators.pattern(/^[A-Za-z][A-Za-z0-9]{0,11}$/),
-		],
-	};
+	// customizedValidator = {
+	// 	identification: [
+	// 		Validators.required,
+	// 		Validators.pattern(/^[0-9]{11,15}$/),
+	// 	],
+	// 	fullname: [
+	// 		Validators.required,
+	// 		Validators.pattern(/^[A-Za-z0-9ñÑ ]{1,30}$/),
+	// 	],
+	// 	phonenumber: [
+	// 		Validators.required,
+	// 		Validators.pattern(/^[0-9]{10,15}$/),
+	// 	],
+	// 	placa: [
+	// 		Validators.required,
+	// 		Validators.pattern(/^[A-Za-z][A-Za-z0-9]{0,11}$/),
+	// 	],
+	// };
 
 	ciudadanoForm: FormGroup | undefined;
 	vehiculoForm: FormGroup | undefined;
@@ -66,14 +66,11 @@ export class CreateComponent implements OnInit {
 
 	initFormulary(): void {
 		this.ciudadanoForm = new FormGroup({
-			identificacion: new FormControl(
-				'',
-				this.customizedValidator.identification
-			),
-			nombre: new FormControl('', this.customizedValidator.fullname),
-			apellido: new FormControl('', this.customizedValidator.fullname),
+			identificacion: new FormControl(''),
+			nombre: new FormControl(''),
+			apellido: new FormControl(''),
 			genero: new FormControl(),
-			telefono: new FormControl('', this.customizedValidator.phonenumber),
+			telefono: new FormControl(''),
 			esExtranjero: new FormControl(false),
 		});
 
@@ -82,7 +79,7 @@ export class CreateComponent implements OnInit {
 			vehiculoColorId: new FormControl(0),
 			vehiculoModeloId: new FormControl(0),
 			vehiculoMarcaId: new FormControl(0),
-			placa: new FormControl('', this.customizedValidator.placa),
+			placa: new FormControl(''),
 		});
 
 		this.asistenciaForm = new FormGroup({
@@ -99,7 +96,7 @@ export class CreateComponent implements OnInit {
 	ngOnInit(): void {
 		this.initFormulary();
 		this.unidadAsignadaId.valueChanges.subscribe((value: string) => {
-			if (value.length > 3) {
+			if (value.length > 2) {
 				this._unidades.getUnidadesAutoComplete(value);
 			}
 		});
