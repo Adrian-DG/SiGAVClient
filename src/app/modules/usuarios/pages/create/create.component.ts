@@ -25,12 +25,20 @@ export class CreateComponent {
 
 	onSubmit(): void {
 		const fecha = Date.now();
-		const { username, password, genero, esAdministrador, rolUsuario } =
-			this.usuarioForm.value;
+		const {
+			cedula,
+			nombre,
+			apellido,
+			username,
+			password,
+			genero,
+			esAdministrador,
+			rolUsuario,
+		} = this.usuarioForm.value;
 		const usuario: IUsuario = {
-			cedula: '',
-			nombre: '',
-			apellido: '',
+			cedula: cedula === '' ? '' : cedula,
+			nombre: nombre === '' ? username : nombre,
+			apellido: apellido === '' ? username : apellido,
 			fechaNacimiento: new Date(fecha),
 			fechaCreacion: new Date(fecha),
 			fechaModificacion: new Date(fecha),
@@ -41,6 +49,8 @@ export class CreateComponent {
 			estatus: false,
 			rolUsuario: rolUsuario,
 		};
+
+		console.log(usuario);
 		this._usuarios.createUsuario(usuario);
 	}
 }
