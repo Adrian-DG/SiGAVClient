@@ -4,6 +4,7 @@ import { CacheService } from 'src/app/modules/generic/services/cache/cache.servi
 import { TramoService } from 'src/app/modules/tramos/services/tramo.service';
 import { ITramoViewModel } from 'src/app/modules/tramos/viewModels/itramo-view-model';
 import { UnidadesService } from '../../services/unidades.service';
+import { IUnidad } from '../../entities/iunidad';
 
 @Component({
 	selector: 'app-create',
@@ -50,6 +51,13 @@ export class CreateComponent implements OnInit {
 	}
 
 	createUnidad(): void {
-		this._unidad.PostConfirm(this.unidadForm.value);
+		const newUnidad: IUnidad = {
+			estaDisponible: true,
+			estatus: true,
+			...this.unidadForm.value,
+		};
+
+		console.log(newUnidad);
+		this._unidad.PostConfirm<IUnidad>(newUnidad);
 	}
 }
