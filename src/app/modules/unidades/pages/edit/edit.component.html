@@ -40,7 +40,11 @@
 					>
 						<mat-option
 							[value]="item.id"
-							*ngFor="let item of _cache.tipoUnidades$ | async"
+							*ngFor="
+								let item of (
+									_cache.tipoUnidades$ | async
+								)?.sort()
+							"
 						>
 							{{ item.nombre }}
 						</mat-option>
