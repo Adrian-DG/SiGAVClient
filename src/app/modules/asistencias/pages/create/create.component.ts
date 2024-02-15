@@ -62,6 +62,7 @@ export class CreateComponent implements OnInit {
 
 	ciudadanoForm: FormGroup | undefined;
 	vehiculoForm: FormGroup | undefined;
+	ubicacionForm!: FormGroup;
 	asistenciaForm: FormGroup | undefined;
 
 	initFormulary(): void {
@@ -82,10 +83,13 @@ export class CreateComponent implements OnInit {
 			placa: new FormControl(''),
 		});
 
-		this.asistenciaForm = new FormGroup({
-			municipioId: new FormControl(0),
+		this.ubicacionForm = new FormGroup({
 			provinciaId: new FormControl(0),
+			municipioId: new FormControl(0),
 			direccion: new FormControl(''),
+		});
+
+		this.asistenciaForm = new FormGroup({
 			tipoAsistenciaId: new FormControl(0),
 			comentarios: new FormControl(''),
 		});
@@ -126,14 +130,10 @@ export class CreateComponent implements OnInit {
 			placa,
 		} = this.vehiculoForm!.value;
 
-		const {
-			municipioId,
-			provinciaId,
-			direccion,
-			unidadId,
-			tipoAsistenciaId,
-			comentarios,
-		} = this.asistenciaForm!.value;
+		const { provinciaId, municipioId, direccion } =
+			this.ubicacionForm?.value;
+
+		const { tipoAsistenciaId, comentarios } = this.asistenciaForm!.value;
 
 		const unidadSelected: IUnidadAutoComplete = this.unidadAsignadaId.value;
 
@@ -161,6 +161,8 @@ export class CreateComponent implements OnInit {
 			usuarioId: this._asistencias.userId,
 		};
 
-		this._asistencias.createAsistencia(newAsistencia);
+		console.log(newAsistencia);
+
+		// this._asistencias.createAsistencia(newAsistencia);
 	}
 }

@@ -123,13 +123,9 @@
 						</mat-option>
 					</mat-select>
 				</mat-form-field>
-				<mat-form-field style="width: 20%">
-					<mat-label>Placa</mat-label>
-					<input matInput formControlName="placa" />
-				</mat-form-field>
 			</div>
 
-			<!-- <div class="row">
+			<div class="row">
 				<mat-form-field
 					appearance="fill"
 					style="width: 40%"
@@ -139,7 +135,11 @@
 					<mat-select #marcaId formControlName="vehiculoMarcaId">
 						<mat-option
 							[value]="item.id"
-							*ngFor="let item of _cache.vehiculoMarca$ | async"
+							*ngFor="
+								let item of (
+									_cache.vehiculoMarca$ | async
+								)?.sort()
+							"
 						>
 							{{ item.nombre }}
 						</mat-option>
@@ -160,7 +160,11 @@
 					<mat-select formControlName="vehiculoModeloId">
 						<mat-option
 							[value]="item.id"
-							*ngFor="let item of _cache.vehiculoModelo$ | async"
+							*ngFor="
+								let item of (
+									_cache.vehiculoModelo$ | async
+								)?.sort()
+							"
 						>
 							{{ item.nombre }}
 						</mat-option>
@@ -170,7 +174,67 @@
 					<mat-label>Placa</mat-label>
 					<input matInput formControlName="placa" />
 				</mat-form-field>
-			</div> -->
+			</div>
+
+			<div class="row">
+				<button style="width: 50%" mat-raised-button matStepperPrevious>
+					Atras
+				</button>
+				<button
+					style="width: 50%"
+					mat-raised-button
+					color="accent"
+					matStepperNext
+				>
+					Siguiente
+				</button>
+			</div>
+		</form>
+	</mat-step>
+
+	<!-- Informacion Ubicacion -->
+
+	<mat-step [stepControl]="ubicacionForm" label="Información Ubicación">
+		<form [formGroup]="ubicacionForm">
+			<div class="row">
+				<mat-form-field
+					appearance="fill"
+					style="width: 50%"
+					(click)="_cache.getData('provincias')"
+				>
+					<mat-label>Provincias (opcional)</mat-label>
+					<mat-select #provinciasId formControlName="provinciaId">
+						<mat-option
+							[value]="item.id"
+							*ngFor="
+								let item of (_cache.provincias$ | async)?.sort()
+							"
+						>
+							{{ item.nombre }}
+						</mat-option>
+					</mat-select>
+				</mat-form-field>
+
+				<mat-form-field
+					appearance="fill"
+					style="width: 50%"
+					(click)="
+						_cache.getDataOnId('municipios', provinciasId.value)
+					"
+				>
+					<mat-label>Municipio (opcional)</mat-label>
+					<mat-select formControlName="municipioId">
+						<mat-option
+							[value]="item.id"
+							*ngFor="
+								let item of (_cache.municipios$ | async)?.sort()
+							"
+						>
+							{{ item.nombre }}
+						</mat-option>
+					</mat-select>
+				</mat-form-field>
+			</div>
 			<div class="row">
 				<button style="width: 50%" mat-raised-button matStepperPrevious>
 					Atras
