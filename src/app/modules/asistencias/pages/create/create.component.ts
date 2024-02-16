@@ -163,6 +163,6 @@ export class CreateComponent implements OnInit {
 
 		console.log(newAsistencia);
 
-		// this._asistencias.createAsistencia(newAsistencia);
+		this._asistencias.createAsistencia(newAsistencia);
 	}
 }
