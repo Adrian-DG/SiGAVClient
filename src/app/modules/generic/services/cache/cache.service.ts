@@ -42,6 +42,9 @@ export class CacheService {
 	private rangosSource = new BehaviorSubject<IGenericData[]>([]);
 	public rangos$ = this.rangosSource.asObservable();
 
+	private denominacionesSource = new BehaviorSubject<IGenericData[]>([]);
+	public denominaciones$ = this.denominacionesSource.asObservable();
+
 	private readonly sources = {
 		VehiculoTipo: (value: IGenericData[]) =>
 			this.vehiculoTiposSource.next(value),
@@ -61,6 +64,8 @@ export class CacheService {
 		TipoUnidades: (value: IGenericData[]) =>
 			this.tipoUnidadesSource.next(value),
 		rangos: (value: IGenericData[]) => this.rangosSource.next(value),
+		Denominaciones: (value: IGenericData[]) =>
+			this.denominacionesSource.next(value),
 	};
 
 	constructor(private $http: HttpClient) {
@@ -107,6 +112,17 @@ export class CacheService {
 			.subscribe((data: IGenericData[]) => {
 				const key = sourcesKeys.findIndex((x) => x[0] == resource);
 				sourcesKeys[key][1](data);
+			});
+	}
+
+	getDenominaciones(searchTerm: string): void {
+		const params = new HttpParams().set('param', searchTerm);
+		this.$http
+			.get<IGenericData[]>(`${this.endPoint}/Denominaciones`, {
+				params: params,
+			})
+			.subscribe((data: IGenericData[]) => {
+				this.denominacionesSource.next(data);
 			});
 	}
 }

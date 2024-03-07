@@ -10,9 +10,10 @@ import { ListComponent } from './pages/list/list.component';
 import { CreateComponent } from './pages/create/create.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EditComponent } from './pages/edit/edit.component';
+import { ReassignUnidadDialogComponent } from './components/reassign-unidad-dialog/reassign-unidad-dialog.component';
 
 @NgModule({
-	declarations: [IndexComponent, ListComponent, CreateComponent, EditComponent],
+	declarations: [IndexComponent, ListComponent, CreateComponent, EditComponent, ReassignUnidadDialogComponent],
 	imports: [
 		CommonModule,
 		UnidadesRoutingModule,

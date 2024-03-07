@@ -1,0 +1,32 @@
+<h3 mat-dialog-title>Reasignar Unidad - Denominacion</h3>
+<mat-dialog-content>
+	<mat-form-field appearance="fill" style="width: 100%">
+		<mat-label>Unidad</mat-label>
+		<input matInput [disabled]="true" [value]="params.ficha" />
+	</mat-form-field>
+	<mat-form-field appearance="fill" style="width: 100%">
+		<mat-label>Denominacion</mat-label>
+		<input
+			type="text"
+			matInput
+			[formControl]="selectedDenominacion"
+			[matAutocomplete]="auto"
+		/>
+		<mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+			<mat-option
+				[value]="item"
+				*ngFor="let item of _cache.denominaciones$ | async"
+				>{{ item.nombre }}</mat-option
+			>
+		</mat-autocomplete>
+	</mat-form-field>
+	<button
+		mat-raised-button
+		color="accent"
+		style="width: 100%"
+		(click)="confirm()"
+		[disabled]="!selectedDenominacion"
+	>
+		Confirmar
+	</button>
+</mat-dialog-content>

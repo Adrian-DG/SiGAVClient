@@ -6,6 +6,8 @@ import { IPagedData } from 'src/app/modules/generic/Responses/ipaged-data';
 import { UnidadesService } from '../../services/unidades.service';
 import { IUnidadViewModel } from '../../viewModels/iunidad-view-model';
 import { IUnidad } from '../../entities/iunidad';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { ReassignUnidadDialogComponent } from '../../components/reassign-unidad-dialog/reassign-unidad-dialog.component';
 
 @Component({
 	selector: 'app-list',
@@ -13,7 +15,10 @@ import { IUnidad } from '../../entities/iunidad';
 	styleUrls: ['./list.component.scss'],
 })
 export class ListComponent implements OnInit, AfterViewInit {
-	constructor(private _unidades: UnidadesService) {}
+	constructor(
+		private _unidades: UnidadesService,
+		private dialog: MatDialog
+	) {}
 
 	displayedColumns: string[] = [
 		'id',
@@ -67,16 +72,18 @@ export class ListComponent implements OnInit, AfterViewInit {
 		this.loadData();
 	}
 
-	changeStatus(model: IUnidadViewModel): void {
-		if (confirm('¿Estas seguro de cambiar el estatus de esta unidad?')) {
-			this._unidades
-				.GetById<IUnidad>(model.id)
-				.subscribe((data: IUnidad) => {
-					data.estatus = !data.estatus;
-					data.estaDisponible = false;
-					this._unidades.Update<IUnidad>(data);
-				});
-		}
-		this.loadData();
+	private modalConfig: MatDialogConfig = {
+		minWidth: '500px',
+		minHeight: '150px',
+		maxWidth: '800px',
+		maxHeight: '600px',
+		autoFocus: true,
+	};
+
+	showReassignUnidadDialog(item: IUnidadViewModel): void {
+		this.dialog.open(ReassignUnidadDialogComponent, {
+			data: { unidadId: item.id, ficha: item.ficha },
+			...this.modalConfig,
+		});
 	}
 }

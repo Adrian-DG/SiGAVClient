@@ -62,4 +62,34 @@ export class UnidadesService extends GenericService {
 			params: params,
 		});
 	}
+
+	ReasignarUnidadDenominacion(obj: {
+		unidadId: number;
+		denominacionId: number;
+	}): void {
+		this.$http
+			.post<boolean>(
+				`${this.endPoint}/reasignar-unidad-denominacion`,
+				obj
+			)
+			.subscribe((response: boolean) =>
+				alert(
+					response ? 'Se guardaron los cambios' : 'Ocurrio un error'
+				)
+			);
+	}
+
+	createUnidad(unidad: IUnidad): void {
+		this.$http
+			.post<boolean>(
+				`${this.endPoint}/create-unidad-denominacion`,
+				unidad
+			)
+			.subscribe((response: boolean) => {
+				const message = response
+					? 'Se han guardado los cambios'
+					: 'Algo ha fallado';
+				alert(message);
+			});
+	}
 }

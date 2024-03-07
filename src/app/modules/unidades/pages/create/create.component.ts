@@ -58,6 +58,7 @@ export class CreateComponent implements OnInit {
 		};
 
 		console.log(newUnidad);
-		this._unidad.PostConfirm<IUnidad>(newUnidad);
+		// this._unidad.PostConfirm<IUnidad>(newUnidad);
+		this._unidad.createUnidad(newUnidad);
 	}
 }
