@@ -4,6 +4,22 @@ import { AuthGuard } from './guards/auth.guard';
 
 const routes: Routes = [
 	{
+		path: 'hospitales',
+		loadChildren: () =>
+			import('./modules/hospitales/hospitales.module').then(
+				(m) => m.HospitalesModule
+			),
+		canActivate: [AuthGuard],
+	},
+	{
+		path: 'preHospitalaria',
+		loadChildren: () =>
+			import('./modules/pre-hospitalaria/pre-hospitalaria.module').then(
+				(m) => m.PreHospitalariaModule
+			),
+		canActivate: [AuthGuard],
+	},
+	{
 		path: 'reportes',
 		loadChildren: () =>
 			import('./modules/reportes/reports.module').then(

@@ -1,0 +1,12 @@
+<div class="page-container">
+	<mat-card>
+		<app-page-intro
+			title="asistencias pre-hospitalaria"
+			description="Este módulo permitira el manejo de los casos de asistencias de pre-hospitalaria."
+			[childRoutes]="['listado', 'crear']"
+		></app-page-intro>
+		<mat-card-content class="content">
+			<router-outlet></router-outlet>
+		</mat-card-content>
+	</mat-card>
+</div>

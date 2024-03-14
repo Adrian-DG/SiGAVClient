@@ -11,7 +11,9 @@ import { SpinnerService } from './modules/generic/services/spinner/spinner.servi
 export class AppComponent implements OnInit {
 	title = 'SiGAVClient';
 	links: string[] = [
+		'preHospitalaria',
 		'asistencias',
+		'hospitales',
 		'unidades',
 		'tramos',
 		'miembros',

@@ -36,6 +36,20 @@
 				</a> -->
 				<a
 					mat-list-item
+					[routerLink]="['preHospitalaria']"
+					*ngIf="user.esAdministrador || user.rolUsuario == 1"
+					>Pre-Hospitalaria</a
+				>
+
+				<a
+					mat-list-item
+					[routerLink]="['hospitales']"
+					*ngIf="user.esAdministrador || user.rolUsuario == 1"
+					>Hospitales</a
+				>
+
+				<a
+					mat-list-item
 					[routerLink]="['reportes']"
 					*ngIf="user.esAdministrador || user.rolUsuario == 1"
 					>REPORTES</a

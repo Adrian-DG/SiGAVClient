@@ -22,7 +22,22 @@ import { DetailAsistenciaDialogComponent } from './components/detail-asistencia-
 import { UnidadSelectorComponent } from './components/unidad-selector/unidad-selector.component';
 
 @NgModule({
-	declarations: [IndexComponent, ListComponent, CreateComponent, CedulaPipe, TelefonoPipe, PicturesDialogComponent, AsistenciaFilterByDateDialogComponent, ReasignarUnidadDialogComponent, HistoricoAsistenciaDialogComponent, HoraMilitarPipe, ReporteEstadisticoDialogComponent, UpdateAsistenciaDialogComponent, DetailAsistenciaDialogComponent, UnidadSelectorComponent],
+	declarations: [
+		IndexComponent,
+		ListComponent,
+		CreateComponent,
+		CedulaPipe,
+		TelefonoPipe,
+		PicturesDialogComponent,
+		AsistenciaFilterByDateDialogComponent,
+		ReasignarUnidadDialogComponent,
+		HistoricoAsistenciaDialogComponent,
+		HoraMilitarPipe,
+		ReporteEstadisticoDialogComponent,
+		UpdateAsistenciaDialogComponent,
+		DetailAsistenciaDialogComponent,
+		UnidadSelectorComponent,
+	],
 	imports: [
 		CommonModule,
 		AsistenciasRoutingModule,
