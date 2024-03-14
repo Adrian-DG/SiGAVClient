@@ -59,6 +59,12 @@
 				>
 				<a
 					mat-list-item
+					[routerLink]="['denominaciones/listado']"
+					*ngIf="user.esAdministrador || user.rolUsuario == 1"
+					>DENOMINACIONES</a
+				>
+				<a
+					mat-list-item
 					[routerLink]="['unidades/listado']"
 					*ngIf="user.esAdministrador || user.rolUsuario == 1"
 					>UNIDADES</a
