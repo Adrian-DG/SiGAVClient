@@ -10,6 +10,6 @@ export class IndexComponent implements OnInit {
 	constructor(private $router: Router) {}
 
 	ngOnInit(): void {
-		this.$router.navigate(['listado']);
+		this.$router.navigate(['preHospitalaria/listado']);
 	}
 }

@@ -1,0 +1,96 @@
+<!-- filter -->
+
+<mat-form-field class="filter">
+	<mat-label>Filtrar</mat-label>
+	<input
+		matInput
+		(keyup)="loadData()"
+		placeholder="asistencias"
+		[(ngModel)]="filters.searchTerm"
+	/>
+</mat-form-field>
+
+<!-- Table -->
+
+<div class="table">
+	<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+		<!-- Table header -->
+		<ng-container matColumnDef="#">
+			<th mat-header-cell *matHeaderCellDef>#</th>
+			<td mat-cell *matCellDef="let element; let i = index">
+				{{ i + 1 }}
+			</td>
+		</ng-container>
+
+		<ng-container matColumnDef="ciudadano">
+			<th mat-header-cell *matHeaderCellDef>Datos Ciudadano</th>
+			<td mat-cell *matCellDef="let element">
+				<span>Identificacion: {{ element.identificacion }}</span>
+				<br />
+				<span>Nombre: {{ element.nombreCompleto }}</span>
+				<br />
+				<span>Sexo: {{ element.sexo }}</span>
+				<br />
+				<span>Edad: {{ element.edad }}</span>
+				<br />
+				<span>Nacionalidad: {{ element.nacionalidad }}</span>
+			</td>
+		</ng-container>
+
+		<ng-container matColumnDef="ubicacion">
+			<th mat-header-cell *matHeaderCellDef>Ubicacion</th>
+			<td mat-cell *matCellDef="let element">
+				<span>Zona: {{ element.zona }}</span>
+				<br />
+				<span>Provincia: {{ element.provincia }}</span>
+				<br />
+				<span>Municipio: {{ element.municipio }}</span>
+			</td>
+		</ng-container>
+
+		<ng-container matColumnDef="asistencia">
+			<th mat-header-cell *matHeaderCellDef>Asistencia</th>
+			<td mat-cell *matCellDef="let element">
+				<span>Apoyo: {{ element.apoyoBrindado }}</span>
+				<br />
+				<span>Traslado: {{ element.causaTraslado }}</span>
+				<br />
+				<span>Tipo Asist.: {{ element.tipoAsistencia }}</span>
+				<br />
+				<span>Tipo Causa: {{ element.tipoCausa }}</span>
+			</td>
+		</ng-container>
+
+		<ng-container matColumnDef="personal">
+			<th mat-header-cell *matHeaderCellDef>Asistencia</th>
+			<td mat-cell *matCellDef="let element">
+				<span>Ficha: {{ element.ficha }}</span>
+				<br />
+				<span>Den.: {{ element.denominacion }}</span>
+			</td>
+		</ng-container>
+
+		<ng-container matColumnDef="acciones">
+			<th mat-header-cell *matHeaderCellDef>Acciones</th>
+			<td mat-cell *matCellDef="let element; let i = index"></td>
+		</ng-container>
+
+		<tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+		<tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+
+		<!-- Row shown when there is no matching data. -->
+		<tr class="mat-row" *matNoDataRow>
+			<td class="mat-cell" colspan="4">No data matching the filter</td>
+		</tr>
+	</table>
+</div>
+<mat-divider></mat-divider>
+<mat-paginator
+	#paginator
+	[length]="totalRows"
+	[pageIndex]="filters.page"
+	[pageSize]="filters.size"
+	[pageSizeOptions]="pageSizeOptions"
+	(page)="pageChanged($event)"
+	aria-label="Select page"
+></mat-paginator>

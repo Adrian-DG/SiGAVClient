@@ -20,11 +20,11 @@ export class CreateComponent implements OnInit {
 	miembroForm: FormGroup = this.$fb.group({
 		cedula: [
 			'',
-			[
-				Validators.required,
-				Validators.minLength(11),
-				Validators.pattern(/^\d{11}$/),
-			],
+			// [
+			// 	Validators.required,
+			// 	Validators.minLength(11),
+			// 	Validators.pattern(/^\d{11}$/),
+			// ],
 		],
 		nombre: ['', [Validators.required]],
 		apellido: ['', [Validators.required]],

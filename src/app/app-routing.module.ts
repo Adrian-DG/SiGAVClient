@@ -22,7 +22,7 @@ const routes: Routes = [
 	{
 		path: 'preHospitalaria',
 		loadChildren: () =>
-			import('./modules/pre-hospitalaria/pre-hospitalaria.module').then(
+			import('./modules/preHospitalaria/pre-hospitalaria.module').then(
 				(m) => m.PreHospitalariaModule
 			),
 		canActivate: [AuthGuard],
