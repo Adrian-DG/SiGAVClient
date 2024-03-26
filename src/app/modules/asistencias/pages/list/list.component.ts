@@ -185,7 +185,7 @@ export class ListComponent implements OnInit, AfterViewInit {
 
 	getRowClass(row: any) {
 		return {
-			enCurso: row.estatusAsistencia == 'EN_CURSO',
+			enCurso: row.estatusAsistencia == 'EN CURSO',
 			pendiente: row.estatusAsistencia == 'PENDIENTE',
 			completada: row.estatusAsistencia == 'COMPLETADA',
 		};
