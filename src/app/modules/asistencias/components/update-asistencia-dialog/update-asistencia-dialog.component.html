@@ -23,8 +23,8 @@
 	<fieldset>
 		<legend>Genero:</legend>
 		<mat-radio-group [(ngModel)]="data.genero">
-			<mat-radio-button value="1">Hombre</mat-radio-button>
-			<mat-radio-button value="2">Mujer</mat-radio-button>
+			<mat-radio-button [value]="1">Hombre</mat-radio-button>
+			<mat-radio-button [value]="2">Mujer</mat-radio-button>
 		</mat-radio-group>
 	</fieldset>
 	<mat-checkbox color="primary" [(ngModel)]="data.esExtranjero"

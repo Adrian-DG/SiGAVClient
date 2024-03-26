@@ -15,6 +15,7 @@ import { SpinnerService } from '../../generic/services/spinner/spinner.service';
 import { IReassignUnit } from '../DTO/ireassign-unit';
 import { IHistoricoViewModel } from '../viewModels/ihistorico-view-model';
 import { IAsistenciaPaginationFilter } from '../DTO/iasistencia-pagination-filter';
+import { IAsistenciaEdit } from '../DTO/iasistencia-edit';
 
 @Injectable({
 	providedIn: 'root',
@@ -131,5 +132,13 @@ export class AsistenciasService extends GenericService {
 			responseType: 'blob',
 			params: params,
 		});
+	}
+
+	CompletarInformacionAsistencia(model: IAsistenciaEdit): void {
+		this.$http.put<boolean>(`${this.endPoint}/edit`, model).subscribe(
+			(response: boolean) => alert('Se han guardado los cambios'),
+			(error) =>
+				alert('Error: Algo salio mal al intentar guardar los cambios')
+		);
 	}
 }

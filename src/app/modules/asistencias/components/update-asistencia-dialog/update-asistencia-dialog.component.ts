@@ -4,6 +4,7 @@ import { AsistenciasService } from '../../services/asistencias.service';
 import { IAsistencia } from '../../entities/iasistencia';
 import { CacheService } from 'src/app/modules/generic/services/cache/cache.service';
 import { BehaviorSubject, Observable, firstValueFrom } from 'rxjs';
+import { IAsistenciaEdit } from '../../DTO/iasistencia-edit';
 
 @Component({
 	selector: 'app-update-asistencia-dialog',
@@ -55,6 +56,27 @@ export class UpdateAsistenciaDialogComponent implements AfterViewInit {
 
 	async saveChanges(): Promise<void> {
 		const entity: IAsistencia | null = await firstValueFrom(this.entity$);
-		if (entity) this._asistencias.Update<IAsistencia>(entity);
+		if (entity) {
+			this._asistencias.CompletarInformacionAsistencia({
+				id: entity.id as number,
+				identificacion: entity.identificacion,
+				nombre: entity.nombre,
+				apellido: entity.apellido,
+				telefono: entity.telefono,
+				genero: 0,
+				placa: '',
+				vehiculoTipoId: entity.vehiculoTipoId,
+				vehiculoMarcaId: entity.vehiculoMarcaId,
+				vehiculoColorId: entity.vehiculoColorId,
+				vehiculoModeloId: entity.vehiculoModeloId,
+				provinciaId: entity.provinciaId,
+				comentario: entity.comentarios,
+				direccion: '',
+				municipioId: entity.municipioId,
+				tipoAsistencias: [],
+			});
+		}
+
+		//if (entity) this._asistencias.Update<IAsistencia>(entity);
 	}
 }
