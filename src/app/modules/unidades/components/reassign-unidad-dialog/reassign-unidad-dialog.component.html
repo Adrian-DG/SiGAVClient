@@ -1,32 +1,81 @@
 <h3 mat-dialog-title>Reasignar Unidad - Denominacion</h3>
 <mat-dialog-content>
-	<mat-form-field appearance="fill" style="width: 100%">
-		<mat-label>Unidad</mat-label>
-		<input matInput [disabled]="true" [value]="params.ficha" />
-	</mat-form-field>
-	<mat-form-field appearance="fill" style="width: 100%">
-		<mat-label>Denominacion</mat-label>
-		<input
-			type="text"
-			matInput
-			[formControl]="selectedDenominacion"
-			[matAutocomplete]="auto"
-		/>
-		<mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
-			<mat-option
-				[value]="item"
-				*ngFor="let item of _cache.denominaciones$ | async"
-				>{{ item.nombre }}</mat-option
+	<mat-tab-group style="width: 95%">
+		<mat-tab [label]="'Nueva Asignacion a Tramo'">
+			<mat-form-field appearance="fill" style="width: 100%">
+				<mat-label>Ficha</mat-label>
+				<input matInput [disabled]="true" [value]="params.ficha" />
+			</mat-form-field>
+
+			<mat-form-field appearance="fill" style="width: 100%">
+				<mat-label>Nueva Denominacion</mat-label>
+				<input matInput [(ngModel)]="trasladoFicha.denominacion" />
+			</mat-form-field>
+
+			<mat-form-field appearance="fill" style="width: 100%">
+				<mat-label>Tramo</mat-label>
+				<input
+					type="text"
+					matInput
+					[formControl]="selectedTramo"
+					[matAutocomplete]="auto1"
+				/>
+				<mat-autocomplete
+					#auto1="matAutocomplete"
+					[displayWith]="displayFn"
+				>
+					<mat-option
+						[value]="item"
+						*ngFor="let item of _cache.tramos$ | async"
+						>{{ item.nombre }}</mat-option
+					>
+				</mat-autocomplete>
+			</mat-form-field>
+			<button
+				mat-raised-button
+				color="accent"
+				style="width: 100%"
+				(click)="ReasignarFichaTramo()"
+				[disabled]="!selectedTramo"
 			>
-		</mat-autocomplete>
-	</mat-form-field>
-	<button
-		mat-raised-button
-		color="accent"
-		style="width: 100%"
-		(click)="confirm()"
-		[disabled]="!selectedDenominacion"
-	>
-		Confirmar
-	</button>
+				Confirmar
+			</button>
+		</mat-tab>
+		<mat-tab [label]="'Cambiar Denominacion'">
+			<mat-form-field appearance="fill" style="width: 100%">
+				<mat-label>Ficha</mat-label>
+				<input matInput [disabled]="true" [value]="params.ficha" />
+			</mat-form-field>
+
+			<mat-form-field appearance="fill" style="width: 100%">
+				<mat-label>Denominacion</mat-label>
+				<input
+					type="text"
+					matInput
+					[formControl]="selectedDenominacion"
+					[matAutocomplete]="auto2"
+				/>
+				<mat-autocomplete
+					#auto2="matAutocomplete"
+					[displayWith]="displayFn"
+				>
+					<mat-option
+						[value]="item"
+						*ngFor="let item of _cache.denominaciones$ | async"
+						>{{ item.nombre }}</mat-option
+					>
+				</mat-autocomplete>
+			</mat-form-field>
+
+			<button
+				mat-raised-button
+				color="accent"
+				style="width: 100%"
+				(click)="ReasignarUnidadDenominacion()"
+				[disabled]="!selectedDenominacion"
+			>
+				Confirmar
+			</button>
+		</mat-tab>
+	</mat-tab-group>
 </mat-dialog-content>

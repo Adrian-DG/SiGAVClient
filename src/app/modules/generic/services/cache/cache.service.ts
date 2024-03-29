@@ -45,6 +45,9 @@ export class CacheService {
 	private denominacionesSource = new BehaviorSubject<IGenericData[]>([]);
 	public denominaciones$ = this.denominacionesSource.asObservable();
 
+	private tramosSource = new BehaviorSubject<IGenericData[]>([]);
+	public tramos$ = this.tramosSource.asObservable();
+
 	private readonly sources = {
 		VehiculoTipo: (value: IGenericData[]) =>
 			this.vehiculoTiposSource.next(value),
@@ -66,6 +69,7 @@ export class CacheService {
 		rangos: (value: IGenericData[]) => this.rangosSource.next(value),
 		Denominaciones: (value: IGenericData[]) =>
 			this.denominacionesSource.next(value),
+		Tramos: (value: IGenericData[]) => this.tramosSource.next(value),
 	};
 
 	constructor(private $http: HttpClient) {
@@ -123,6 +127,17 @@ export class CacheService {
 			})
 			.subscribe((data: IGenericData[]) => {
 				this.denominacionesSource.next(data);
+			});
+	}
+
+	getTramos(param: string): void {
+		const queryParams = new HttpParams().set('param', param);
+		this.$http
+			.get<IGenericData[]>(`${this.endPoint}/filter-tramos`, {
+				params: queryParams,
+			})
+			.subscribe((data: IGenericData[]) => {
+				this.tramosSource.next(data);
 			});
 	}
 }

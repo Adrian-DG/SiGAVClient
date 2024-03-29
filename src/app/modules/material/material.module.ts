@@ -30,6 +30,8 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatChipsModule } from '@angular/material/chips';
 
+import { MatTabsModule } from '@angular/material/tabs';
+
 @NgModule({
 	declarations: [],
 	imports: [CommonModule],
@@ -61,6 +63,7 @@ import { MatChipsModule } from '@angular/material/chips';
 		MatGridListModule,
 		MatProgressBarModule,
 		MatChipsModule,
+		MatTabsModule,
 	],
 	providers: [{ provide: MAT_DATE_LOCALE, useValue: 'en-GB' }],
 })

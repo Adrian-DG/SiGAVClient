@@ -63,22 +63,6 @@ export class UnidadesService extends GenericService {
 		});
 	}
 
-	ReasignarUnidadDenominacion(obj: {
-		unidadId: number;
-		denominacionId: number;
-	}): void {
-		this.$http
-			.post<boolean>(
-				`${this.endPoint}/reasignar-unidad-denominacion`,
-				obj
-			)
-			.subscribe((response: boolean) =>
-				alert(
-					response ? 'Se guardaron los cambios' : 'Ocurrio un error'
-				)
-			);
-	}
-
 	createUnidad(unidad: IUnidad): void {
 		this.$http
 			.post<boolean>(
@@ -91,5 +75,32 @@ export class UnidadesService extends GenericService {
 					: 'Algo ha fallado';
 				alert(message);
 			});
+	}
+
+	ReasignarUnidadDenominacion(obj: {
+		unidadId: number;
+		denominacionId: number;
+	}): void {
+		this.$http
+			.post<boolean>(`${this.endPoint}/cambiar-ficha-denominacion`, obj)
+			.subscribe((response: boolean) =>
+				alert(
+					response ? 'Se guardaron los cambios' : 'Ocurrio un error'
+				)
+			);
+	}
+
+	ReasignarFichaTramo(obj: {
+		unidadId: number;
+		denominacion: string;
+		tramoId: number;
+	}): void {
+		this.$http
+			.post<boolean>(`${this.endPoint}/cambiar-ficha-tramo`, obj)
+			.subscribe((response: boolean) =>
+				alert(
+					response ? 'Se guardaron los cambios' : 'Ocurrio un error'
+				)
+			);
 	}
 }
