@@ -244,9 +244,18 @@ export class ListComponent implements OnInit, AfterViewInit {
 		});
 	}
 
-	openEditAsistenciaModal(id: number): void {
+	openEditAsistenciaModal(item: IAsistenciaViewModel): void {
+		const types = item.tipoAsistencias.map((x) => x.nombre);
+		const categorias = item.tipoAsistencias.map(
+			(x) => x.categoriaAsistencia
+		)[0];
 		this.dialog.open(UpdateAsistenciaDialogComponent, {
-			data: { id },
+			data: {
+				id: item.id,
+				types: types,
+				categoria: categorias,
+				denominacion: item.denominacionUnidad,
+			},
 			...this.modalConfig,
 		});
 	}

@@ -1,8 +1,19 @@
 <div mat-dialog-title>
-	<h2>Editar Asistencia</h2>
+	<h2>
+		Editar Asistencia
+		<mat-chip>{{
+			params.categoria === '1' ? 'Emegencia' : 'Asistencia'
+		}}</mat-chip>
+	</h2>
 	<small>Se haran cambios a la asistencia con ID: {{ params.id }}</small>
 </div>
 <mat-divider></mat-divider>
+<div class="row">
+	<h3>Den.: {{ params.denominacion }}</h3>
+	<mat-chip-listbox>
+		<mat-chip *ngFor="let item of params.types">{{ item }}</mat-chip>
+	</mat-chip-listbox>
+</div>
 <div mat-dialog-content class="row" *ngIf="entity$ | async as data; else empty">
 	<mat-form-field>
 		<mat-label>Identificación</mat-label>
@@ -102,9 +113,52 @@
 			>
 		</mat-select>
 	</mat-form-field>
+
+	<fieldset>
+		<legend>Categoria</legend>
+		<mat-radio-group [(ngModel)]="categoriaAsistencia">
+			<mat-radio-button [value]="1">Emergencia</mat-radio-button>
+			<mat-radio-button [value]="2">Asistencia</mat-radio-button>
+		</mat-radio-group>
+	</fieldset>
+
+	<mat-form-field>
+		<mat-label>Tipo Asistencias</mat-label>
+		<mat-select
+			[(ngModel)]="tipoAsistencias"
+			[multiple]="true"
+			(click)="_cache.getDataOnId('TipoAsistencia', categoriaAsistencia)"
+		>
+			<mat-option
+				[value]="item.id"
+				*ngFor="let item of this._cache.tipoAsistencia$ | async"
+			>
+				{{ item.nombre }}
+			</mat-option>
+		</mat-select>
+	</mat-form-field>
+
+	<mat-form-field appearance="fill" style="width: 100%">
+		<mat-label>Unidad</mat-label>
+		<input
+			type="text"
+			matInput
+			[formControl]="unidadSelected"
+			[matAutocomplete]="auto"
+		/>
+		<mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+			<mat-option
+				*ngFor="let option of _cache.denominaciones$ | async"
+				[value]="option"
+			>
+				{{ option.nombre }}
+			</mat-option>
+		</mat-autocomplete>
+	</mat-form-field>
+
 	<mat-form-field>
 		<mat-label>Comentarios</mat-label>
-		<textarea matInput [(ngModel)]="data.comentarios"></textarea>
+		<textarea matInput [(ngModel)]="data.comentario"></textarea>
 	</mat-form-field>
 </div>
 

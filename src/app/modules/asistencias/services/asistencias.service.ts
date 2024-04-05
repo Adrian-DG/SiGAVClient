@@ -141,4 +141,8 @@ export class AsistenciasService extends GenericService {
 				alert('Error: Algo salio mal al intentar guardar los cambios')
 		);
 	}
+
+	GetAsistenciaEditViewModel(id: number): Observable<IAsistenciaEdit> {
+		return this.$http.get<IAsistenciaEdit>(`${this.endPoint}/edit/${id}`);
+	}
 }

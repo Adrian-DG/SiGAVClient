@@ -5,6 +5,7 @@ export interface IAsistenciaEdit {
 	apellido: string;
 	telefono: string;
 	genero: number;
+	esExtranjero: boolean;
 	placa: string;
 	vehiculoTipoId: number;
 	vehiculoColorId: number;
@@ -15,4 +16,6 @@ export interface IAsistenciaEdit {
 	direccion: string;
 	tipoAsistencias: number[];
 	comentario: string;
+	miembroId: number;
+	denominacionId: number;
 }
