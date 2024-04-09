@@ -50,6 +50,14 @@ export class ListComponent {
 		this.dataSource.paginator = this.paginator;
 	}
 
+	getRowClass(row: any) {
+		return {
+			pendiente: row.estatusAsistencia == 1,
+			enCurso: row.estatusAsistencia == 2,
+			completada: row.estatusAsistencia == 3,
+		};
+	}
+
 	loadData(): void {
 		this._asistenciaPreHospitalaria
 			.GetAsistenciaPreHospitalaria(this.filters)

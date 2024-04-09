@@ -16,4 +16,5 @@ export interface IAsisteciaPreHospitalariaViewModel {
 	tipoCausa: string;
 	causaTraslado: string;
 	apoyoBrindado: string;
+	estatusAsistencia: number;
 }
