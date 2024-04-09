@@ -1,14 +1,19 @@
 <!-- filter -->
 
-<mat-form-field class="filter">
-	<mat-label>Filtrar</mat-label>
-	<input
-		matInput
-		(keyup)="loadData()"
-		placeholder="asistencias"
-		[(ngModel)]="filters.searchTerm"
-	/>
-</mat-form-field>
+<div class="row">
+	<mat-form-field class="filter">
+		<mat-label>Filtrar</mat-label>
+		<input
+			matInput
+			(keyup)="loadData()"
+			placeholder="asistencias"
+			[(ngModel)]="filters.searchTerm"
+		/>
+	</mat-form-field>
+	<button mat-raised-button (click)="displayReportDialog()">
+		Opciones Reporteria
+	</button>
+</div>
 
 <!-- Table -->
 

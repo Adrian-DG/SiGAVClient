@@ -7,6 +7,7 @@ import { IAsisteciaPreHospitalariaViewModel } from '../interfaces/iasistecia-pre
 import { IPagedData } from '../../generic/Responses/ipaged-data';
 import { IAsistenciaViewModel } from '../../asistencias/viewModels/iasistencia-view-model';
 import { IAsistenciaPaginationFilter } from '../../asistencias/DTO/iasistencia-pagination-filter';
+import { IDateFilter } from '../../asistencias/DTO/idate-filter';
 
 @Injectable({
 	providedIn: 'root',
@@ -36,5 +37,17 @@ export class AsistenciPreHospitalariaService extends GenericService {
 			`${this.endPoint}/all`,
 			{ params: params }
 		);
+	}
+
+	GetListadoAsistenciaDetallesPorFecha(dateFilter: IDateFilter) {
+		const params = new HttpParams()
+			.set('initialDate', dateFilter.initialDate.toDateString())
+			.set('finalDate', dateFilter.finalDate.toDateString());
+
+		return this.$http.get(`${this.endPoint}/reporte-por-fecha`, {
+			observe: 'response',
+			responseType: 'blob',
+			params: params,
+		});
 	}
 }

@@ -1,0 +1,50 @@
+<div mat-dialog-title>
+	<h1>Opciones de Reporteria</h1>
+	<small
+		>Este modal permitira establecer un rango de fecha y el tipo de filtro
+		deseado para generar el reporte.</small
+	>
+</div>
+<div mat-dialog-content>
+	<div class="row">
+		<mat-form-field appearance="fill" style="width: 60%">
+			<mat-label>Rango de Fecha</mat-label>
+			<mat-date-range-input [rangePicker]="picker">
+				<input
+					matStartDate
+					placeholder="Desde"
+					[(ngModel)]="dateFilter.initialDate"
+				/>
+				<input
+					matEndDate
+					placeholder="Hasta"
+					[(ngModel)]="dateFilter.finalDate"
+				/>
+			</mat-date-range-input>
+			<mat-hint>MM/DD/YYYY - MM/DD/YYYY</mat-hint>
+			<mat-datepicker-toggle
+				matIconSuffix
+				[for]="picker"
+			></mat-datepicker-toggle>
+			<mat-date-range-picker #picker></mat-date-range-picker>
+		</mat-form-field>
+
+		<mat-form-field style="width: 40%">
+			<mat-label>Tipo Reporte</mat-label>
+			<mat-select [(ngModel)]="optionSelected">
+				<mat-option [value]="1">Reporte General</mat-option>
+				<!-- <mat-option [value]="2">Por Tramo</mat-option>
+				<mat-option [value]="3">Por Provincia</mat-option> -->
+			</mat-select>
+		</mat-form-field>
+	</div>
+</div>
+<div
+	mat-dialog-actions
+	style="display: flex; flex-direction: row; justify-content: flex-end"
+>
+	<button mat-raised-button mat-dialog-close>Cancelar</button>
+	<button mat-raised-button color="accent" (click)="onSelectionChange()">
+		Generar Reporte
+	</button>
+</div>

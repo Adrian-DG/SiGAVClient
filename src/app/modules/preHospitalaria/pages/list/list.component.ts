@@ -6,6 +6,8 @@ import { IPagedData } from 'src/app/modules/generic/Responses/ipaged-data';
 import { MatTableDataSource } from '@angular/material/table';
 import { AsistenciPreHospitalariaService } from '../../services/asistenci-pre-hospitalaria.service';
 import { IAsistenciaPaginationFilter } from 'src/app/modules/asistencias/DTO/iasistencia-pagination-filter';
+import { MatDialog } from '@angular/material/dialog';
+import { ReportModalComponent } from '../../components/report-modal/report-modal.component';
 
 @Component({
 	selector: 'app-list',
@@ -36,7 +38,8 @@ export class ListComponent {
 	dataSource = new MatTableDataSource<IAsisteciaPreHospitalariaViewModel>();
 
 	constructor(
-		private _asistenciaPreHospitalaria: AsistenciPreHospitalariaService
+		private _asistenciaPreHospitalaria: AsistenciPreHospitalariaService,
+		private dialog: MatDialog
 	) {}
 
 	ngOnInit(): void {
@@ -68,5 +71,15 @@ export class ListComponent {
 		this.filters.size = event.pageSize;
 		this.filters.page = event.pageIndex;
 		this.loadData();
+	}
+
+	displayReportDialog(): void {
+		this.dialog.open(ReportModalComponent, {
+			minWidth: '600px',
+			minHeight: '200px',
+			maxWidth: '800px',
+			maxHeight: '600px',
+			autoFocus: true,
+		});
 	}
 }

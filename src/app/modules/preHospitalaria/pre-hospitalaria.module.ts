@@ -8,9 +8,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { ListComponent } from './pages/list/list.component';
 import { CreateComponent } from './pages/create/create.component';
+import { ReportModalComponent } from './components/report-modal/report-modal.component';
 
 @NgModule({
-	declarations: [IndexComponent, ListComponent, CreateComponent],
+	declarations: [IndexComponent, ListComponent, CreateComponent, ReportModalComponent],
 	imports: [
 		CommonModule,
 		PreHospitalariaRoutingModule,
