@@ -1,0 +1,109 @@
+<div mat-dialog-title>Datos de Asistencia ID: {{ data.id }}</div>
+<div mat-dialog-content>
+	<div
+		style="display: flex; flex-direction: column"
+		*ngIf="asistencia; else empty"
+	>
+		<mat-form-field>
+			<mat-label>Detalles</mat-label>
+			<textarea
+				matInput
+				[(ngModel)]="asistencia.detalleAsistencia"
+				[readonly]="true"
+			></textarea>
+		</mat-form-field>
+
+		<fieldset>
+			<legend>Signos Vitales</legend>
+			<table>
+				<tr>
+					<td>Frecuencia Cardiaca</td>
+					<td>{{ asistencia.signosVitales.frecuenciaCardiaca }}</td>
+				</tr>
+				<tr>
+					<td>Frecuencia Respiratoria</td>
+					<td>
+						{{ asistencia.signosVitales.frecuenciaRespiratoria }}
+					</td>
+				</tr>
+				<tr>
+					<td>Tension Arterial Sistolica</td>
+					<td>
+						{{ asistencia.signosVitales.tensionArterialSistolica }}
+					</td>
+				</tr>
+				<tr>
+					<td>Tension Arterial Diastolica</td>
+					<td>
+						{{ asistencia.signosVitales.tensionArterialDiastolica }}
+					</td>
+				</tr>
+				<tr>
+					<td>Saturacion Parcial Oxigeno</td>
+					<td>
+						{{ asistencia.signosVitales.saturacionParcialOxigeno }}
+					</td>
+				</tr>
+				<tr>
+					<td>Temperatura</td>
+					<td>{{ asistencia.signosVitales.temperatura }}</td>
+				</tr>
+				<tr>
+					<td>Llenado Capilar</td>
+					<td>{{ asistencia.signosVitales.llenadoCapilar }}</td>
+				</tr>
+				<tr>
+					<td>Apertura Ocular</td>
+					<td>{{ asistencia.signosVitales.aperturaOcular }}</td>
+				</tr>
+				<tr>
+					<td>Respuesta Verbal</td>
+					<td>{{ asistencia.signosVitales.respuestaVerbal }}</td>
+				</tr>
+				<tr>
+					<td>Respuesta Motora</td>
+					<td>{{ asistencia.signosVitales.respuestaMotora }}</td>
+				</tr>
+			</table>
+		</fieldset>
+
+		<mat-form-field>
+			<mat-label>Hallazgo Positivo</mat-label>
+			<textarea
+				matInput
+				[(ngModel)]="asistencia.hallazgoPositivo"
+				[readonly]="true"
+			></textarea>
+		</mat-form-field>
+
+		<mat-form-field>
+			<mat-label>Diagnostico Presuntivo</mat-label>
+			<textarea
+				matInput
+				[(ngModel)]="asistencia.diagnosticoPresuntivo"
+				[readonly]="true"
+			></textarea>
+		</mat-form-field>
+
+		<mat-form-field>
+			<mat-label>Insumos Utilizados</mat-label>
+			<textarea
+				matInput
+				[(ngModel)]="asistencia.insumosUtilizados"
+				[readonly]="true"
+			></textarea>
+		</mat-form-field>
+
+		<mat-form-field>
+			<mat-label>Procedimientos Realizados</mat-label>
+			<textarea
+				matInput
+				[(ngModel)]="asistencia.procedimientosRealizados"
+				[readonly]="true"
+			></textarea>
+		</mat-form-field>
+	</div>
+	<ng-template #empty>
+		<h2>Cargando.....</h2>
+	</ng-template>
+</div>

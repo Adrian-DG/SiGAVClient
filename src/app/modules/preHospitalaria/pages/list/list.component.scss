@@ -6,6 +6,19 @@
 	gap: 1em;
 }
 
+td span {
+	font-size: 0.8rem;
+}
+
+.action-row {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: flex-start;
+	flex-wrap: wrap;
+	gap: 0.5em;
+}
+
 .enCurso {
 	background-color: rgb(240, 181, 181);
 }

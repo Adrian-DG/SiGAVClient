@@ -6,8 +6,11 @@ import { IPagedData } from 'src/app/modules/generic/Responses/ipaged-data';
 import { MatTableDataSource } from '@angular/material/table';
 import { AsistenciPreHospitalariaService } from '../../services/asistenci-pre-hospitalaria.service';
 import { IAsistenciaPaginationFilter } from 'src/app/modules/asistencias/DTO/iasistencia-pagination-filter';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ReportModalComponent } from '../../components/report-modal/report-modal.component';
+import { Roles } from 'src/app/modules/asistencias/pages/list/list.component';
+import { DetailsModalComponent } from '../../components/details-modal/details-modal.component';
+import { DialogConfig } from '@angular/cdk/dialog';
 
 @Component({
 	selector: 'app-list',
@@ -38,7 +41,7 @@ export class ListComponent {
 	dataSource = new MatTableDataSource<IAsisteciaPreHospitalariaViewModel>();
 
 	constructor(
-		private _asistenciaPreHospitalaria: AsistenciPreHospitalariaService,
+		public _asistenciaPreHospitalaria: AsistenciPreHospitalariaService,
 		private dialog: MatDialog
 	) {}
 
@@ -50,12 +53,24 @@ export class ListComponent {
 		this.dataSource.paginator = this.paginator;
 	}
 
+	dialogConfiguration: MatDialogConfig = {
+		minWidth: '600px',
+		minHeight: '200px',
+		maxWidth: '800px',
+		maxHeight: '600px',
+		autoFocus: true,
+	};
+
 	getRowClass(row: any) {
 		return {
 			pendiente: row.estatusAsistencia == 1,
 			enCurso: row.estatusAsistencia == 2,
 			completada: row.estatusAsistencia == 3,
 		};
+	}
+
+	hasValidStatus(rol: number): boolean {
+		return [Roles.Administrador].includes(rol);
 	}
 
 	loadData(): void {
@@ -82,12 +97,14 @@ export class ListComponent {
 	}
 
 	displayReportDialog(): void {
-		this.dialog.open(ReportModalComponent, {
-			minWidth: '600px',
-			minHeight: '200px',
-			maxWidth: '800px',
-			maxHeight: '600px',
-			autoFocus: true,
+		this.dialog.open(ReportModalComponent, this.dialogConfiguration);
+	}
+
+	showDetailsDialog(id: number): void {
+		console.log('Id: ', id);
+		this.dialog.open(DetailsModalComponent, {
+			...this.dialogConfiguration,
+			data: { id: id },
 		});
 	}
 }

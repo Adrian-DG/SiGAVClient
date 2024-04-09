@@ -8,6 +8,7 @@ import { IPagedData } from '../../generic/Responses/ipaged-data';
 import { IAsistenciaViewModel } from '../../asistencias/viewModels/iasistencia-view-model';
 import { IAsistenciaPaginationFilter } from '../../asistencias/DTO/iasistencia-pagination-filter';
 import { IDateFilter } from '../../asistencias/DTO/idate-filter';
+import { IAsistenciaPreHospitalariaDetails } from '../interfaces/iasistencia-pre-hospitalaria-details';
 
 @Injectable({
 	providedIn: 'root',
@@ -49,5 +50,25 @@ export class AsistenciPreHospitalariaService extends GenericService {
 			responseType: 'blob',
 			params: params,
 		});
+	}
+
+	CompletaAsistencia(id: number): void {
+		this.$http
+			.put<boolean>(`${this.endPoint}/${id}`, {})
+			.subscribe((response: boolean) => {
+				alert(
+					response
+						? 'Se han guardado los cambios'
+						: 'Error: no se pudieron guardar los cambios'
+				);
+			});
+	}
+
+	GetAsistenciaPreHospitalariaDetails(
+		id: number
+	): Observable<IAsistenciaPreHospitalariaDetails> {
+		return this.$http.get<IAsistenciaPreHospitalariaDetails>(
+			`${this.endPoint}/${id}/details`
+		);
 	}
 }

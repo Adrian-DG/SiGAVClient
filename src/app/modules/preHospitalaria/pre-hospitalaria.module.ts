@@ -9,9 +9,10 @@ import { HttpClientModule } from '@angular/common/http';
 import { ListComponent } from './pages/list/list.component';
 import { CreateComponent } from './pages/create/create.component';
 import { ReportModalComponent } from './components/report-modal/report-modal.component';
+import { DetailsModalComponent } from './components/details-modal/details-modal.component';
 
 @NgModule({
-	declarations: [IndexComponent, ListComponent, CreateComponent, ReportModalComponent],
+	declarations: [IndexComponent, ListComponent, CreateComponent, ReportModalComponent, DetailsModalComponent],
 	imports: [
 		CommonModule,
 		PreHospitalariaRoutingModule,
