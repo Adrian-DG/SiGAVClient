@@ -19,6 +19,7 @@ export class ReassignUnidadDialogComponent implements OnInit, AfterViewInit {
 	trasladoFicha = {
 		denominacion: '',
 		tramoId: 0,
+		tipoUnidadId: 0,
 	};
 
 	constructor(
@@ -61,6 +62,7 @@ export class ReassignUnidadDialogComponent implements OnInit, AfterViewInit {
 		const newReassign = {
 			unidadId: this.params.unidadId as number,
 			denominacion: this.trasladoFicha.denominacion,
+			tipoUnidadId: this.trasladoFicha.tipoUnidadId,
 			tramoId: this.selectedTramo.value as number,
 		};
 		this._unidades.ReasignarFichaTramo(newReassign);

@@ -81,9 +81,11 @@ export class ListComponent implements OnInit, AfterViewInit {
 	};
 
 	showReassignUnidadDialog(item: IUnidadViewModel): void {
-		this.dialog.open(ReassignUnidadDialogComponent, {
+		const dialog = this.dialog.open(ReassignUnidadDialogComponent, {
 			data: { unidadId: item.id, ficha: item.ficha },
 			...this.modalConfig,
 		});
+
+		dialog.afterClosed().subscribe(() => this.loadData());
 	}
 }
