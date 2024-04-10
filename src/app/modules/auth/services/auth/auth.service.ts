@@ -89,7 +89,19 @@ export class AuthService extends GenericService {
 					this.saveUserData(response);
 					this.isAuthenticatedSource.next(response.status);
 					// navigate to home
-					this.$router.navigateByUrl('/asistencias/listado');
+					switch (response.rolUsuario) {
+						case 1: // Analista Operaciones
+							this.$router.navigateByUrl('/asistencias/listado');
+							break;
+						case 5: // PreHospitalaria
+							this.$router.navigateByUrl(
+								'/preHospitalaria/listado'
+							);
+							break;
+						default:
+							this.$router.navigateByUrl('/asistencias/listado');
+							break;
+					}
 				}
 
 				const snackBarConfig: MatSnackBarConfig = { duration: 2000 };
