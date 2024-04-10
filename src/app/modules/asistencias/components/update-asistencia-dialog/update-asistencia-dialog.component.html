@@ -1,7 +1,7 @@
 <div mat-dialog-title>
 	<h2>
 		Editar Asistencia
-		<mat-chip>{{
+		<mat-chip style="margin-top: -0.5em">{{
 			params.categoria === '1' ? 'Emegencia' : 'Asistencia'
 		}}</mat-chip>
 	</h2>
@@ -9,8 +9,11 @@
 </div>
 <mat-divider></mat-divider>
 <div class="row">
-	<h3>Den.: {{ params.denominacion }}</h3>
-	<mat-chip-listbox>
+	<h3>
+		<b>Miembro:</b> {{ params.miembro }} - <b>Unidad:</b>
+		{{ params.denominacion }}
+	</h3>
+	<mat-chip-listbox style="margin-top: -0.5em">
 		<mat-chip *ngFor="let item of params.types">{{ item }}</mat-chip>
 	</mat-chip-listbox>
 </div>
@@ -151,7 +154,7 @@
 				gap: 0.5em;
 			"
 		>
-			<mat-form-field *ngIf="iskeepUnidad; else unidadAutoComplete">
+			<mat-form-field *ngIf="iskeepingUnidad; else unidadAutoComplete">
 				<mat-label>Unidad (Solo lectura)</mat-label>
 				<input
 					matInput
@@ -187,6 +190,55 @@
 
 			<button mat-raised-button (click)="changeUnidad()">
 				Cambiar Unidad
+			</button>
+		</div>
+	</fieldset>
+
+	<br />
+	<br />
+
+	<fieldset style="width: 100%">
+		<legend>Miembro Asistencia</legend>
+		<div
+			style="
+				display: flex;
+				flex-direction: row;
+				justify-content: space-between;
+				align-items: center;
+				flex-wrap: wrap;
+				gap: 0.5em;
+			"
+		>
+			<mat-form-field *ngIf="isKeepingMiembro; else miembroAutoComplete">
+				<mat-label>Miembro (Solo lectura)</mat-label>
+				<input matInput [value]="params.miembro" [readonly]="true" />
+			</mat-form-field>
+
+			<ng-template #miembroAutoComplete>
+				<mat-form-field appearance="fill">
+					<mat-label>Miembro</mat-label>
+					<input
+						type="text"
+						matInput
+						[formControl]="miembroSelected"
+						[matAutocomplete]="auto"
+					/>
+					<mat-autocomplete
+						#auto="matAutocomplete"
+						[displayWith]="displayFn"
+					>
+						<mat-option
+							*ngFor="let option of _cache.miembros$ | async"
+							[value]="option"
+						>
+							{{ option.nombre }}
+						</mat-option>
+					</mat-autocomplete>
+				</mat-form-field>
+			</ng-template>
+
+			<button mat-raised-button (click)="changeMiembro()">
+				Cambiar Miembro
 			</button>
 		</div>
 	</fieldset>

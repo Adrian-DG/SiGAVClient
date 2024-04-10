@@ -48,6 +48,9 @@ export class CacheService {
 	private tramosSource = new BehaviorSubject<IGenericData[]>([]);
 	public tramos$ = this.tramosSource.asObservable();
 
+	private miembrosSource = new BehaviorSubject<IGenericData[]>([]);
+	public miembros$ = this.miembrosSource.asObservable();
+
 	private readonly sources = {
 		VehiculoTipo: (value: IGenericData[]) =>
 			this.vehiculoTiposSource.next(value),
@@ -138,6 +141,17 @@ export class CacheService {
 			})
 			.subscribe((data: IGenericData[]) => {
 				this.tramosSource.next(data);
+			});
+	}
+
+	getFilterMiembros(param: string): void {
+		const queryParams = new HttpParams().set('param', param);
+		this.$http
+			.get<IGenericData[]>(`${this.endPoint}/filter-miembros`, {
+				params: queryParams,
+			})
+			.subscribe((data: IGenericData[]) => {
+				this.miembrosSource.next(data);
 			});
 	}
 }

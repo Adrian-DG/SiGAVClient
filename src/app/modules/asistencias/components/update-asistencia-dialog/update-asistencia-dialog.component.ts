@@ -22,7 +22,8 @@ export class UpdateAsistenciaDialogComponent implements OnInit, AfterViewInit {
 	categoriaAsistencia!: number;
 	unidadSelected: FormControl = new FormControl('');
 	miembroSelected: FormControl = new FormControl('');
-	iskeepUnidad: boolean = true;
+	iskeepingUnidad: boolean = true;
+	isKeepingMiembro: boolean = true;
 
 	constructor(
 		private _asistencias: AsistenciasService,
@@ -33,11 +34,15 @@ export class UpdateAsistenciaDialogComponent implements OnInit, AfterViewInit {
 			types: string[];
 			categoria: string;
 			denominacion: string;
+			miembro: string;
 		},
 		public _cache: CacheService
 	) {
 		this.unidadSelected.valueChanges.subscribe((value: string) => {
 			setTimeout(() => this._cache.getDenominaciones(value), 1000);
+		});
+		this.miembroSelected.valueChanges.subscribe((value: string) => {
+			setTimeout(() => this._cache.getFilterMiembros(value), 1000);
 		});
 	}
 
@@ -105,8 +110,10 @@ export class UpdateAsistenciaDialogComponent implements OnInit, AfterViewInit {
 				direccion: '',
 				municipioId: entity.municipioId,
 				tipoAsistencias: entity.tipoAsistencias,
-				miembroId: entity.miembroId,
-				denominacionId: this.iskeepUnidad
+				miembroId: this.isKeepingMiembro
+					? entity.miembroId
+					: this.miembroSelected.value.id,
+				denominacionId: this.iskeepingUnidad
 					? entity.denominacionId
 					: this.unidadSelected.value.id,
 			});
@@ -115,6 +122,10 @@ export class UpdateAsistenciaDialogComponent implements OnInit, AfterViewInit {
 	}
 
 	changeUnidad(): void {
-		this.iskeepUnidad = !this.iskeepUnidad;
+		this.iskeepingUnidad = !this.iskeepingUnidad;
+	}
+
+	changeMiembro(): void {
+		this.isKeepingMiembro = !this.isKeepingMiembro;
 	}
 }
