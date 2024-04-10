@@ -116,7 +116,12 @@
 
 	<fieldset>
 		<legend>Categoria</legend>
-		<mat-radio-group [(ngModel)]="categoriaAsistencia">
+		<mat-radio-group
+			[(ngModel)]="categoriaAsistencia"
+			(ngModelChange)="
+				_cache.getDataOnId('TipoAsistencia', categoriaAsistencia)
+			"
+		>
 			<mat-radio-button [value]="1">Emergencia</mat-radio-button>
 			<mat-radio-button [value]="2">Asistencia</mat-radio-button>
 		</mat-radio-group>
@@ -124,11 +129,7 @@
 
 	<mat-form-field>
 		<mat-label>Tipo Asistencias</mat-label>
-		<mat-select
-			[(ngModel)]="tipoAsistencias"
-			[multiple]="true"
-			(click)="_cache.getDataOnId('TipoAsistencia', categoriaAsistencia)"
-		>
+		<mat-select [(ngModel)]="data.tipoAsistencias" [multiple]="true">
 			<mat-option
 				[value]="item.id"
 				*ngFor="let item of this._cache.tipoAsistencia$ | async"
@@ -138,23 +139,57 @@
 		</mat-select>
 	</mat-form-field>
 
-	<mat-form-field appearance="fill" style="width: 100%">
-		<mat-label>Unidad</mat-label>
-		<input
-			type="text"
-			matInput
-			[formControl]="unidadSelected"
-			[matAutocomplete]="auto"
-		/>
-		<mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
-			<mat-option
-				*ngFor="let option of _cache.denominaciones$ | async"
-				[value]="option"
-			>
-				{{ option.nombre }}
-			</mat-option>
-		</mat-autocomplete>
-	</mat-form-field>
+	<fieldset style="width: 100%">
+		<legend>Unidad Asistencia</legend>
+		<div
+			style="
+				display: flex;
+				flex-direction: row;
+				justify-content: space-between;
+				align-items: center;
+				flex-wrap: wrap;
+				gap: 0.5em;
+			"
+		>
+			<mat-form-field *ngIf="iskeepUnidad; else unidadAutoComplete">
+				<mat-label>Unidad (Solo lectura)</mat-label>
+				<input
+					matInput
+					[value]="params.denominacion"
+					[readonly]="true"
+				/>
+			</mat-form-field>
+
+			<ng-template #unidadAutoComplete>
+				<mat-form-field appearance="fill">
+					<mat-label>Unidad</mat-label>
+					<input
+						type="text"
+						matInput
+						[formControl]="unidadSelected"
+						[matAutocomplete]="auto"
+					/>
+					<mat-autocomplete
+						#auto="matAutocomplete"
+						[displayWith]="displayFn"
+					>
+						<mat-option
+							*ngFor="
+								let option of _cache.denominaciones$ | async
+							"
+							[value]="option"
+						>
+							{{ option.nombre }}
+						</mat-option>
+					</mat-autocomplete>
+				</mat-form-field>
+			</ng-template>
+
+			<button mat-raised-button (click)="changeUnidad()">
+				Cambiar Unidad
+			</button>
+		</div>
+	</fieldset>
 
 	<mat-form-field>
 		<mat-label>Comentarios</mat-label>

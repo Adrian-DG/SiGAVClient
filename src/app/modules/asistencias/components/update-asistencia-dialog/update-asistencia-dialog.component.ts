@@ -13,16 +13,16 @@ import { FormControl } from '@angular/forms';
 	templateUrl: './update-asistencia-dialog.component.html',
 	styleUrls: ['./update-asistencia-dialog.component.scss'],
 })
-export class UpdateAsistenciaDialogComponent implements AfterViewInit {
+export class UpdateAsistenciaDialogComponent implements OnInit, AfterViewInit {
 	entitySource: BehaviorSubject<IAsistenciaEdit | null> =
 		new BehaviorSubject<IAsistenciaEdit | null>(null);
 	entity$: Observable<IAsistenciaEdit | null> =
 		this.entitySource.asObservable();
 
 	categoriaAsistencia!: number;
-	tipoAsistencias!: number[];
 	unidadSelected: FormControl = new FormControl('');
 	miembroSelected: FormControl = new FormControl('');
+	iskeepUnidad: boolean = true;
 
 	constructor(
 		private _asistencias: AsistenciasService,
@@ -39,6 +39,12 @@ export class UpdateAsistenciaDialogComponent implements AfterViewInit {
 		this.unidadSelected.valueChanges.subscribe((value: string) => {
 			setTimeout(() => this._cache.getDenominaciones(value), 1000);
 		});
+	}
+
+	ngOnInit(): void {
+		this.categoriaAsistencia =
+			this.params.categoria == 'Emergencia' ? 1 : 2;
+		this._cache.getDataOnId('TipoAsistencia', this.categoriaAsistencia);
 	}
 
 	ngAfterViewInit(): void {
@@ -87,9 +93,9 @@ export class UpdateAsistenciaDialogComponent implements AfterViewInit {
 				nombre: entity.nombre,
 				apellido: entity.apellido,
 				telefono: entity.telefono,
-				genero: 0,
+				genero: entity.genero,
 				esExtranjero: entity.esExtranjero,
-				placa: '',
+				placa: entity.placa,
 				vehiculoTipoId: entity.vehiculoTipoId,
 				vehiculoMarcaId: entity.vehiculoMarcaId,
 				vehiculoColorId: entity.vehiculoColorId,
@@ -98,12 +104,17 @@ export class UpdateAsistenciaDialogComponent implements AfterViewInit {
 				comentario: entity.comentario,
 				direccion: '',
 				municipioId: entity.municipioId,
-				tipoAsistencias: this.tipoAsistencias,
-				miembroId: 0,
-				denominacionId: this.unidadSelected.value.id,
+				tipoAsistencias: entity.tipoAsistencias,
+				miembroId: entity.miembroId,
+				denominacionId: this.iskeepUnidad
+					? entity.denominacionId
+					: this.unidadSelected.value.id,
 			});
 		}
-
 		//if (entity) this._asistencias.Update<IAsistencia>(entity);
+	}
+
+	changeUnidad(): void {
+		this.iskeepUnidad = !this.iskeepUnidad;
 	}
 }
