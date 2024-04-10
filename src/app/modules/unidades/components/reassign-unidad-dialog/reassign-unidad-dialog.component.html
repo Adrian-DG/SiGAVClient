@@ -2,6 +2,11 @@
 <mat-dialog-content>
 	<mat-tab-group style="width: 95%">
 		<mat-tab [label]="'Nueva Asignacion a Tramo'">
+			<P
+				>A continuación, se pasara la ficha
+				{{ params.ficha | uppercase }} al tramo escogido bajo una nueva
+				denominación.</P
+			>
 			<mat-form-field appearance="fill" style="width: 100%">
 				<mat-label>Ficha</mat-label>
 				<input matInput [disabled]="true" [value]="params.ficha" />
@@ -10,6 +15,21 @@
 			<mat-form-field appearance="fill" style="width: 100%">
 				<mat-label>Nueva Denominacion</mat-label>
 				<input matInput [(ngModel)]="trasladoFicha.denominacion" />
+			</mat-form-field>
+
+			<mat-form-field
+				appearance="fill"
+				style="width: 100%"
+				(click)="_cache.getData('TipoUnidades')"
+			>
+				<mat-label>Tipo Unidad</mat-label>
+				<mat-select [(ngModel)]="trasladoFicha.tipoUnidadId">
+					<mat-option
+						*ngFor="let item of _cache.tipoUnidades$ | async"
+						[value]="item.id"
+						>{{ item.nombre }}</mat-option
+					>
+				</mat-select>
 			</mat-form-field>
 
 			<mat-form-field appearance="fill" style="width: 100%">
@@ -42,7 +62,7 @@
 			</button>
 		</mat-tab>
 		<mat-tab [label]="'Cambiar Denominacion'">
-			<mat-form-field appearance="fill" style="width: 100%">
+			<!-- <mat-form-field appearance="fill" style="width: 100%">
 				<mat-label>Ficha</mat-label>
 				<input matInput [disabled]="true" [value]="params.ficha" />
 			</mat-form-field>
@@ -75,7 +95,7 @@
 				[disabled]="!selectedDenominacion"
 			>
 				Confirmar
-			</button>
+			</button> -->
 		</mat-tab>
 	</mat-tab-group>
 </mat-dialog-content>
