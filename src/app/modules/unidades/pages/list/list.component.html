@@ -21,42 +21,31 @@
 				{{ i + 1 }}
 			</td>
 		</ng-container>
+
+		<ng-container matColumnDef="ficha">
+			<th mat-header-cell *matHeaderCellDef>Ficha</th>
+			<td mat-cell *matCellDef="let element">{{ element.ficha }}</td>
+		</ng-container>
+
 		<ng-container matColumnDef="denominacion">
 			<th mat-header-cell *matHeaderCellDef>denominacion</th>
 			<td mat-cell *matCellDef="let element">
 				{{ element.denominacion }}
 			</td>
 		</ng-container>
+
 		<ng-container matColumnDef="tipoUnidad">
 			<th mat-header-cell *matHeaderCellDef>Tipo Unidad</th>
 			<td mat-cell *matCellDef="let element">
 				{{ element.tipoUnidad }}
 			</td>
 		</ng-container>
-		<ng-container matColumnDef="ficha">
-			<th mat-header-cell *matHeaderCellDef>Ficha</th>
-			<td mat-cell *matCellDef="let element">{{ element.ficha }}</td>
-		</ng-container>
-		<ng-container matColumnDef="placa">
-			<th mat-header-cell *matHeaderCellDef>Placa</th>
-			<td mat-cell *matCellDef="let element">{{ element.placa }}</td>
-		</ng-container>
+
 		<ng-container matColumnDef="tramo">
 			<th mat-header-cell *matHeaderCellDef>Tramo</th>
 			<td mat-cell *matCellDef="let element">{{ element.tramo }}</td>
 		</ng-container>
 		<!-- 
-		<ng-container matColumnDef="puntosAsignados">
-			<th mat-header-cell *matHeaderCellDef>Puntos Asignados</th>
-			<td mat-cell *matCellDef="let element">
-				{{ element.puntosAsignados }}
-			</td>
-		</ng-container> -->
-
-		<!-- <ng-container matColumnDef="cobertura">
-			<th mat-header-cell *matHeaderCellDef>Cobertura</th>
-			<td mat-cell *matCellDef="let element">{{ element.cobertura }}</td>
-		</ng-container> -->
 
 		<!-- TODO: Modulo: Unidades (implementar acciones)-->
 		<ng-container matColumnDef="acciones">
@@ -66,35 +55,12 @@
 				*matCellDef="let element; let i = index"
 				class="td-row"
 			>
-				<!-- <div
-					class="estatusIndicator"
-					[ngClass]="
-						element.estaDisponible ? 'disponible' : 'noDisponible'
-					"
-				></div> -->
-				<!-- <mat-checkbox
-					[(ngModel)]="element.estatus"
-					[checked]="element.estatus"
-					color="accent"
-					(change)="changeStatus(element)"
-					>{{ element.estatus ? 'Activa' : 'Inactiva' }}</mat-checkbox
-				> -->
-				<!-- <button
-					mat-icon-button
-					[routerLink]="['/unidades/edit', element.id]"
-				>
-					<mat-icon class="edit-icon">edit</mat-icon>
-				</button> -->
-
 				<button
 					mat-icon-button
 					(click)="showReassignUnidadDialog(element)"
 				>
 					<mat-icon><mat-icon>autorenew</mat-icon></mat-icon>
 				</button>
-				<!-- <button mat-icon-button (click)="changeEstatus(element)">
-					<mat-icon class="trash-icon">delete</mat-icon>
-				</button> -->
 			</td>
 		</ng-container>
 

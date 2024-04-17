@@ -22,13 +22,10 @@ export class ListComponent implements OnInit, AfterViewInit {
 
 	displayedColumns: string[] = [
 		'id',
-		'denominacion',
 		'ficha',
-		'placa',
+		'denominacion',
 		'tipoUnidad',
 		'tramo',
-		// 'puntosAsignados',
-		// 'cobertura',
 		'acciones',
 	];
 
