@@ -15,7 +15,7 @@ export class PageIntroComponent {
 	constructor(private $router: Router, public _auth: AuthService) {}
 
 	navToPage(page: string): void {
-		this.$router.navigateByUrl(`/${this.title}/${page}`);
+		this.$router.navigateByUrl(`/${this.title.toLowerCase()}/${page}`);
 	}
 
 	hasValidAccess(rol: number): boolean {

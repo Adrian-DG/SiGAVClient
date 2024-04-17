@@ -15,7 +15,8 @@ export class ListComponent {
 	displayedColumns = [
 		'#',
 		'nombre',
-		// 'region',
+		'tipo',
+		'tramo',
 		//'acciones',
 	];
 	pageSizeOptions = [5, 10, 25, 100];
@@ -28,7 +29,7 @@ export class ListComponent {
 	};
 
 	@ViewChild(MatPaginator) paginator!: MatPaginator;
-	dataSource = new MatTableDataSource<INombreModelMetadata>();
+	dataSource = new MatTableDataSource<any>();
 
 	constructor(private _denominaciones: DenominacionesService) {}
 
@@ -43,7 +44,7 @@ export class ListComponent {
 	loadData(): void {
 		this._denominaciones
 			.Get<INombreModelMetadata>(this.filters)
-			.subscribe((data: IPagedData<INombreModelMetadata>) => {
+			.subscribe((data: IPagedData<any>) => {
 				this.dataSource.data = data.items;
 				setTimeout(() => {
 					this.paginator.pageIndex = this.filters.page;

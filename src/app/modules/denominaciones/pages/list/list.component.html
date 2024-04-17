@@ -23,9 +23,23 @@
 		</ng-container>
 
 		<ng-container matColumnDef="nombre">
-			<th mat-header-cell *matHeaderCellDef>Hospital</th>
+			<th mat-header-cell *matHeaderCellDef>Denomicación</th>
 			<td mat-cell *matCellDef="let element">
 				{{ element.nombre }}
+			</td>
+		</ng-container>
+
+		<ng-container matColumnDef="tipo">
+			<th mat-header-cell *matHeaderCellDef>Tipo</th>
+			<td mat-cell *matCellDef="let element">
+				{{ element.tipoUnidad.nombre }}
+			</td>
+		</ng-container>
+
+		<ng-container matColumnDef="tramo">
+			<th mat-header-cell *matHeaderCellDef>Tramo</th>
+			<td mat-cell *matCellDef="let element">
+				{{ element.tramo.nombre }}
 			</td>
 		</ng-container>
 
