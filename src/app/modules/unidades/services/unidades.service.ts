@@ -11,6 +11,7 @@ import { IUnidadViewModel } from '../viewModels/iunidad-view-model';
 import { Router } from '@angular/router';
 import { SpinnerService } from '../../generic/services/spinner/spinner.service';
 import { IUnidad } from '../entities/iunidad';
+import { IServerResponse } from '../../generic/Responses/iserver-response';
 
 @Injectable({
 	providedIn: 'root',
@@ -63,17 +64,17 @@ export class UnidadesService extends GenericService {
 		});
 	}
 
-	createUnidad(unidad: IUnidad): void {
+	createUnidad(unidad: {
+		ficha: string;
+		denominacionId: number | null;
+	}): void {
 		this.$http
-			.post<boolean>(
+			.post<IServerResponse>(
 				`${this.endPoint}/create-unidad-denominacion`,
 				unidad
 			)
-			.subscribe((response: boolean) => {
-				const message = response
-					? 'Se han guardado los cambios'
-					: 'Algo ha fallado';
-				alert(message);
+			.subscribe((response: IServerResponse) => {
+				alert(response.message);
 			});
 	}
 

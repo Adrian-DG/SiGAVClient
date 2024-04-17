@@ -1,69 +1,34 @@
-<form [formGroup]="unidadForm" (ngSubmit)="createUnidad()" style="width: 100%">
-	<div class="column">
-		<mat-form-field appearance="fill" style="width: 100%">
-			<mat-label>Denominacion</mat-label>
-			<input matInput formControlName="denominacion" type="text" />
+<form style="width: 100%">
+	<div class="row">
+		<mat-form-field appearance="fill" style="width: 40%">
+			<mat-label>Ficha</mat-label>
+			<input matInput [formControl]="fichaControl" type="text" />
 		</mat-form-field>
 
-		<div class="row">
-			<mat-form-field appearance="fill" style="width: 50%">
-				<mat-label>Ficha</mat-label>
-				<input matInput formControlName="ficha" type="text" />
-			</mat-form-field>
-			<mat-form-field appearance="fill" style="width: 50%">
-				<mat-label>Placa</mat-label>
-				<input matInput formControlName="placa" />
-			</mat-form-field>
-		</div>
-
-		<div class="row">
-			<mat-form-field appearance="fill" style="width: 70%">
-				<mat-label>Puntos Asignados</mat-label>
-				<input matInput formControlName="puntosAsignados" type="text" />
-			</mat-form-field>
-			<mat-form-field appearance="fill" style="width: 30%">
-				<mat-label>Cobertura</mat-label>
-				<input matInput formControlName="cobertura" />
-			</mat-form-field>
-		</div>
-
-		<div class="row">
-			<mat-form-field appearance="fill" style="width: 50%">
-				<mat-label>Seleccionar Tipo Unidad</mat-label>
-				<mat-select
-					formControlName="tipoUnidadId"
-					(click)="_cache.getData('TipoUnidades')"
+		<mat-form-field appearance="fill" style="width: 50%">
+			<mat-label>Denominació</mat-label>
+			<input
+				type="text"
+				matInput
+				[formControl]="denominacionSelected"
+				[matAutocomplete]="auto"
+			/>
+			<mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+				<mat-option
+					*ngFor="let option of _cache.denominaciones$ | async"
+					[value]="option"
 				>
-					<mat-option
-						[value]="item.id"
-						*ngFor="
-							let item of (_cache.tipoUnidades$ | async)?.sort()
-						"
-					>
-						{{ item.nombre }}
-					</mat-option>
-				</mat-select>
-			</mat-form-field>
-
-			<mat-form-field appearance="fill" style="width: 50%">
-				<mat-label>Seleccionar Tramo</mat-label>
-				<mat-select formControlName="tramoId">
-					<mat-option
-						*ngFor="let item of tramosFilteredList"
-						[value]="item.id"
-					>
-						{{ item.nombre }}
-					</mat-option>
-				</mat-select>
-			</mat-form-field>
-		</div>
+					{{ option.nombre }}
+				</mat-option>
+			</mat-autocomplete>
+		</mat-form-field>
 
 		<button
-			type="submit"
 			mat-raised-button
 			color="accent"
-			[disabled]="!unidadForm.valid"
+			[disabled]="!fichaControl.valid"
 			style="width: 100%"
+			(click)="createUnidad()"
 		>
 			Crear Unidad
 		</button>
