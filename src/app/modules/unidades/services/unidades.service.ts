@@ -12,6 +12,7 @@ import { Router } from '@angular/router';
 import { SpinnerService } from '../../generic/services/spinner/spinner.service';
 import { IUnidad } from '../entities/iunidad';
 import { IServerResponse } from '../../generic/Responses/iserver-response';
+import { IUnidadEditDto } from '../dto/iunidad-edit-dto';
 
 @Injectable({
 	providedIn: 'root',
@@ -78,13 +79,20 @@ export class UnidadesService extends GenericService {
 			});
 	}
 
-	ReasignarUnidadDenominacion(obj: {
-		unidadId: number;
-		denominacionId: number;
-	}): Observable<boolean> {
-		return this.$http.post<boolean>(
-			`${this.endPoint}/cambiar-ficha-denominacion`,
-			obj
+	// ReasignarUnidadDenominacion(obj: {
+	// 	unidadId: number;
+	// 	denominacionId: number;
+	// }): Observable<boolean> {
+	// 	return this.$http.post<boolean>(
+	// 		`${this.endPoint}/cambiar-ficha-denominacion`,
+	// 		obj
+	// 	);
+	// }
+
+	editarUnidad(unidad: IUnidadEditDto): Observable<IServerResponse> {
+		return this.$http.post<IServerResponse>(
+			`${this.endPoint}/editar-unidad`,
+			unidad
 		);
 	}
 }

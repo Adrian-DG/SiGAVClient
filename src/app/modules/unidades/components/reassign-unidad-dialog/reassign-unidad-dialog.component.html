@@ -1,8 +1,16 @@
-<h3 mat-dialog-title>Reasignar Unidad - Denominacion</h3>
+<div mat-dialog-title>
+	<h3>Editar Unidad</h3>
+	<p>Den. Actual: {{ params.denominacion }}</p>
+</div>
 <mat-dialog-content>
-	<mat-form-field appearance="fill" style="width: 100%">
+	<mat-form-field appearance="fill" style="width: 50%">
 		<mat-label>Ficha</mat-label>
-		<input matInput [disabled]="true" [value]="params.ficha" />
+		<input matInput [value]="editUnidad.ficha" />
+	</mat-form-field>
+
+	<mat-form-field appearance="fill" style="width: 50%">
+		<mat-label>Placa</mat-label>
+		<input matInput [value]="editUnidad.placa" />
 	</mat-form-field>
 
 	<mat-form-field appearance="fill" style="width: 100%">
@@ -26,7 +34,7 @@
 		mat-raised-button
 		color="accent"
 		style="width: 100%"
-		(click)="ReasignarUnidadDenominacion()"
+		(click)="editarUnidad()"
 		[disabled]="!selectedDenominacion.valid"
 	>
 		Confirmar
