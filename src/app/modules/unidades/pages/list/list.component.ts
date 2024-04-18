@@ -8,6 +8,7 @@ import { IUnidadViewModel } from '../../viewModels/iunidad-view-model';
 import { IUnidad } from '../../entities/iunidad';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ReassignUnidadDialogComponent } from '../../components/reassign-unidad-dialog/reassign-unidad-dialog.component';
+import { IServerResponse } from 'src/app/modules/generic/Responses/iserver-response';
 
 @Component({
 	selector: 'app-list',
@@ -89,5 +90,18 @@ export class ListComponent implements OnInit, AfterViewInit {
 		});
 
 		dialog.afterClosed().subscribe(() => this.loadData());
+	}
+
+	desactivarUnidad(id: number): void {
+		if (confirm('Se desactivara la siguiente unidad, esta seguro ?')) {
+			this._unidades
+				.desactivarUnidad(id as number)
+				.subscribe((response: IServerResponse) => {
+					alert(response.message);
+					if (response.status) {
+						this.loadData();
+					}
+				});
+		}
 	}
 }

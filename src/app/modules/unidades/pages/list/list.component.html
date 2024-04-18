@@ -59,10 +59,12 @@
 					mat-icon-button
 					(click)="showReassignUnidadDialog(element)"
 				>
-					<mat-icon>edit</mat-icon>
+					<mat-icon style="color: rgb(48, 151, 48)">edit</mat-icon>
 				</button>
 
-				<button mat-icon-button><mat-icon>delete</mat-icon></button>
+				<button mat-icon-button (click)="desactivarUnidad(element.id)">
+					<mat-icon style="color: rgb(205, 85, 85)">delete</mat-icon>
+				</button>
 			</td>
 		</ng-container>
 

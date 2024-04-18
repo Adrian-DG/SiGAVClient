@@ -95,4 +95,11 @@ export class UnidadesService extends GenericService {
 			unidad
 		);
 	}
+
+	desactivarUnidad(id: number): Observable<IServerResponse> {
+		return this.$http.put<IServerResponse>(
+			`${this.endPoint}/desactivar-unidad`,
+			id
+		);
+	}
 }
