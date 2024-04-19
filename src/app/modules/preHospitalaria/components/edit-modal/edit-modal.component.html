@@ -1,0 +1,117 @@
+<div mat-dialog-title>
+	<h1>Editar Asistencia</h1>
+	<h3>ID: {{ params.id }}</h3>
+</div>
+<div mat-dialog-content>
+	<div class="row" *ngIf="editModel; else empty">
+		<mat-form-field appearance="fill">
+			<mat-label>Identificación</mat-label>
+			<input
+				matInput
+				type="text"
+				[(ngModel)]="editModel.identificacion"
+				[value]="editModel.identificacion"
+			/>
+		</mat-form-field>
+		<mat-form-field appearance="fill">
+			<mat-label>Nombre</mat-label>
+			<input
+				matInput
+				type="text"
+				[(ngModel)]="editModel.nombre"
+				[value]="editModel.nombre"
+			/>
+		</mat-form-field>
+		<mat-form-field appearance="fill">
+			<mat-label>Apellido</mat-label>
+			<input
+				matInput
+				type="text"
+				[(ngModel)]="editModel.apellido"
+				[value]="editModel.apellido"
+			/>
+		</mat-form-field>
+		<mat-form-field appearance="fill">
+			<mat-label>Edad</mat-label>
+			<input
+				matInput
+				type="number"
+				[(ngModel)]="editModel.edad"
+				[value]="editModel.edad"
+			/>
+		</mat-form-field>
+		<mat-form-field appearance="fill" style="width: 100%">
+			<mat-label
+				>Nacionalidad ({{
+					editModel.nacionalidad | uppercase
+				}})</mat-label
+			>
+			<mat-select [(ngModel)]="editModel.nacionalidadId">
+				<mat-option>nacionalidad 1</mat-option>
+			</mat-select>
+		</mat-form-field>
+
+		<fieldset>
+			<legend>Evento Especial</legend>
+			<mat-checkbox [checked]="editModel.esEventoEspecial"
+				>Evento Especial</mat-checkbox
+			>
+			<mat-form-field appearance="fill">
+				<mat-label>Nombre Evento Especial</mat-label>
+				<input
+					matInput
+					type="text"
+					[(ngModel)]="editModel.nombreEventoEspecial"
+					[value]="editModel.nombreEventoEspecial"
+				/>
+			</mat-form-field>
+		</fieldset>
+
+		<fieldset>
+			<legend>Traslado</legend>
+			<mat-checkbox [checked]="editModel.esTraslado"
+				>Es Traslado</mat-checkbox
+			>
+			<mat-radio-group
+				[(ngModel)]="editModel.tipoCausaTraslado"
+				labelPosition="after"
+			>
+				<mat-radio-button [value]="0"
+					>NO AMERITA TRASLADO</mat-radio-button
+				>
+				<mat-radio-button [value]="1">VICTIMA EN 911</mat-radio-button>
+				<mat-radio-button [value]="2"
+					>RECHAZO DE ASISTENCIA</mat-radio-button
+				>
+				<mat-radio-button [value]="3"
+					>RECHAZO DE TRASLADO</mat-radio-button
+				>
+				<mat-radio-button [value]="4"
+					>APOYO A OTRA UNIDAD ALFA MOPC</mat-radio-button
+				>
+				<mat-radio-button [value]="5">APOYO AL 911</mat-radio-button>
+			</mat-radio-group>
+		</fieldset>
+
+		<fieldset>
+			<legend>Despachada Por</legend>
+		</fieldset>
+
+		<fieldset>
+			<legend>Apoyo Brindado</legend>
+			<mat-radio-group [(ngModel)]="editModel.apoyoBrindado">
+				<mat-radio-button [value]="0">Ninguno</mat-radio-button>
+				<mat-radio-button [value]="1">Ambulancia MOPC</mat-radio-button>
+				<mat-radio-button [value]="2"
+					>Unidad Rescate MOPC</mat-radio-button
+				>
+			</mat-radio-group>
+		</fieldset>
+	</div>
+	<ng-template #empty>
+		<h3>...cargando</h3>
+	</ng-template>
+</div>
+<div mat-dialog-actions>
+	<button mat-raised-button color="accent">Guardar Cambios</button>
+</div>

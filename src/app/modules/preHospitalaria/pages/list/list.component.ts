@@ -11,6 +11,7 @@ import { ReportModalComponent } from '../../components/report-modal/report-modal
 import { Roles } from 'src/app/modules/asistencias/pages/list/list.component';
 import { DetailsModalComponent } from '../../components/details-modal/details-modal.component';
 import { DialogConfig } from '@angular/cdk/dialog';
+import { EditModalComponent } from '../../components/edit-modal/edit-modal.component';
 
 @Component({
 	selector: 'app-list',
@@ -103,6 +104,14 @@ export class ListComponent {
 	showDetailsDialog(id: number): void {
 		console.log('Id: ', id);
 		this.dialog.open(DetailsModalComponent, {
+			...this.dialogConfiguration,
+			data: { id: id },
+		});
+	}
+
+	showEditDialog(id: number): void {
+		console.log('Id: ', id);
+		this.dialog.open(EditModalComponent, {
 			...this.dialogConfiguration,
 			data: { id: id },
 		});

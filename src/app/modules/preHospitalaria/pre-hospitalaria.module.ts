@@ -10,9 +10,10 @@ import { ListComponent } from './pages/list/list.component';
 import { CreateComponent } from './pages/create/create.component';
 import { ReportModalComponent } from './components/report-modal/report-modal.component';
 import { DetailsModalComponent } from './components/details-modal/details-modal.component';
+import { EditModalComponent } from './components/edit-modal/edit-modal.component';
 
 @NgModule({
-	declarations: [IndexComponent, ListComponent, CreateComponent, ReportModalComponent, DetailsModalComponent],
+	declarations: [IndexComponent, ListComponent, CreateComponent, ReportModalComponent, DetailsModalComponent, EditModalComponent],
 	imports: [
 		CommonModule,
 		PreHospitalariaRoutingModule,

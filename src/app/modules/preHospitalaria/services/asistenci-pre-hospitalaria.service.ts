@@ -71,4 +71,8 @@ export class AsistenciPreHospitalariaService extends GenericService {
 			`${this.endPoint}/${id}/details`
 		);
 	}
+
+	GetAsistenciaPreHospitalariaById(id: number): Observable<any> {
+		return this.$http.get<any>(`${this.endPoint}/${id}/edit-details`);
+	}
 }
