@@ -23,19 +23,37 @@ export class ReporteEstadisticoDialogComponent {
 
 	generateReport(): void {
 		this.dialogRef.close();
-		this._asistencias
-			.GetReporteEstadistico(this.filterType, this.dateFilter)
-			.subscribe((response: any) => {
-				let filename = response.headers
-					.get('content-disposition')
-					?.split(';')[1]
-					.split('=')[1];
-				let blob: Blob = response.body as Blob;
-				let a = document.createElement('a');
 
-				a.download = filename ?? '';
-				a.href = window.URL.createObjectURL(blob);
-				a.click();
-			});
+		if (this.filterType == 10) {
+			this._asistencias
+				.GetReporteEstadisticoAsistenciaNewFormat(this.dateFilter)
+				.subscribe((response: any) => {
+					let filename = response.headers
+						.get('content-disposition')
+						?.split(';')[1]
+						.split('=')[1];
+					let blob: Blob = response.body as Blob;
+					let a = document.createElement('a');
+
+					a.download = filename ?? '';
+					a.href = window.URL.createObjectURL(blob);
+					a.click();
+				});
+		} else {
+			this._asistencias
+				.GetReporteEstadistico(this.filterType, this.dateFilter)
+				.subscribe((response: any) => {
+					let filename = response.headers
+						.get('content-disposition')
+						?.split(';')[1]
+						.split('=')[1];
+					let blob: Blob = response.body as Blob;
+					let a = document.createElement('a');
+
+					a.download = filename ?? '';
+					a.href = window.URL.createObjectURL(blob);
+					a.click();
+				});
+		}
 	}
 }

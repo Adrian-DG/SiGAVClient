@@ -6,6 +6,7 @@
 			<mat-form-field>
 				<mat-label>Filtrar por</mat-label>
 				<mat-select [(ngModel)]="filterType">
+					<mat-option [value]="10">Zona</mat-option>
 					<mat-option [value]="1">Región</mat-option>
 					<mat-option [value]="2">Tramo</mat-option>
 					<mat-option [value]="3">Provincia</mat-option>

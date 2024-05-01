@@ -141,6 +141,9 @@ export class ListComponent implements OnInit, AfterViewInit {
 			case 4:
 				this.openReporteEstadisticoModal();
 				break;
+			case 5:
+				this.openReporteEstadisticoModal();
+				break;
 		}
 	}
 
