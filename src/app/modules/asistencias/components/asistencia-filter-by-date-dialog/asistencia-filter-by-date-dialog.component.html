@@ -2,6 +2,16 @@
 <div mat-dialog-content>
 	<div class="row">
 		<mat-form-field>
+			<mat-label>Filtrar Por</mat-label>
+			<mat-select [(ngModel)]="filterType">
+				<mat-option [value]="0">Todas</mat-option>
+				<mat-option [value]="1">Call Center</mat-option>
+				<mat-option [value]="2">Agente Campo</mat-option>
+				<mat-option [value]="3">Agencia 911</mat-option>
+			</mat-select>
+		</mat-form-field>
+
+		<mat-form-field>
 			<mat-label>Desde</mat-label>
 			<input
 				matInput

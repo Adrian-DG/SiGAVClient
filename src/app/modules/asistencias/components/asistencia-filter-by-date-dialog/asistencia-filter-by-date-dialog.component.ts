@@ -11,6 +11,8 @@ import { IDateFilter } from '../../DTO/idate-filter';
 export class AsistenciaFilterByDateDialogComponent {
 	private currentDate = new Date();
 
+	filterType: number = 0;
+
 	dateFilter: IDateFilter = {
 		initialDate: this.currentDate,
 		finalDate: this.currentDate,
@@ -24,7 +26,7 @@ export class AsistenciaFilterByDateDialogComponent {
 	generateReport(): void {
 		this.dialogRef.close();
 		this._asistencias
-			.getReporteResumenAsistenciasPorFecha(this.dateFilter)
+			.GetAsistenciaFechaNewFormatsExcel(this.filterType, this.dateFilter)
 			.subscribe((response: any) => {
 				let filename = response.headers
 					.get('content-disposition')
@@ -38,4 +40,22 @@ export class AsistenciaFilterByDateDialogComponent {
 				a.click();
 			});
 	}
+
+	// generateReport(): void {
+	// 	this.dialogRef.close();
+	// 	this._asistencias
+	// 		.getReporteResumenAsistenciasPorFecha(this.dateFilter)
+	// 		.subscribe((response: any) => {
+	// 			let filename = response.headers
+	// 				.get('content-disposition')
+	// 				?.split(';')[1]
+	// 				.split('=')[1];
+	// 			let blob: Blob = response.body as Blob;
+	// 			let a = document.createElement('a');
+
+	// 			a.download = filename ?? '';
+	// 			a.href = window.URL.createObjectURL(blob);
+	// 			a.click();
+	// 		});
+	// }
 }

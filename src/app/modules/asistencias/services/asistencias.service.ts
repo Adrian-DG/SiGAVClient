@@ -145,4 +145,19 @@ export class AsistenciasService extends GenericService {
 	GetAsistenciaEditViewModel(id: number): Observable<IAsistenciaEdit> {
 		return this.$http.get<IAsistenciaEdit>(`${this.endPoint}/edit/${id}`);
 	}
+
+	GetAsistenciaFechaNewFormatsExcel(
+		filterType: number,
+		dateFilter: IDateFilter
+	) {
+		const params = new HttpParams()
+			.set('filterType', filterType)
+			.set('initialDate', dateFilter.initialDate.toDateString())
+			.set('finalDate', dateFilter.finalDate.toDateString());
+		return this.$http.get(`${this.endPoint}/reporte/resumen-new-format`, {
+			observe: 'response',
+			responseType: 'blob',
+			params: params,
+		});
+	}
 }
