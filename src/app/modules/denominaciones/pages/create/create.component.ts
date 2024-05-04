@@ -4,6 +4,8 @@ import { IDenominacionesCreate } from '../../interfaces/idenominaciones-create';
 import { CacheService } from 'src/app/modules/generic/services/cache/cache.service';
 import { FormControl, Validators } from '@angular/forms';
 import { IGenericData } from 'src/app/modules/generic/Responses/igeneric-data';
+import { IServerResponse } from 'src/app/modules/generic/Responses/iserver-response';
+import { IPaginationFilters } from 'src/app/modules/generic/DTO/ipagination-filters';
 
 @Component({
 	selector: 'app-create',
@@ -42,6 +44,10 @@ export class CreateComponent implements OnInit {
 
 	createDenominacion(): void {
 		this.newDenominacion.tramoId = this.tramosControl.value?.id as number;
-		this._denominaciones.Post<IDenominacionesCreate>(this.newDenominacion);
+		this._denominaciones
+			.CreateNewDenominacion(this.newDenominacion)
+			.subscribe((response: IServerResponse) => {
+				alert(response.message);
+			});
 	}
 }
