@@ -1,0 +1,28 @@
+<div mat-dialog-title>
+	<h2>Editar denomicación Id: {{ data.id }}</h2>
+</div>
+<div mat-dialog-content>
+	<mat-form-field>
+		<mat-label>Denomicación</mat-label>
+		<input matInput [value]="data.nombre" [(ngModel)]="data.nombre" />
+	</mat-form-field>
+</div>
+<div
+	mat-dialog-actions
+	style="
+		display: flex;
+		flex-direction: row;
+		justify-content: flex-end;
+		gap: 1em;
+	"
+>
+	<button mat-raised-button mat-dialog-close>Cerrar</button>
+	<button
+		mat-raised-button
+		color="accent"
+		cdkFocusInitial
+		(click)="saveChanges()"
+	>
+		Guardar Cambios
+	</button>
+</div>

@@ -9,9 +9,10 @@ import { GenericModule } from '../generic/generic.module';
 import { MaterialModule } from '../material/material.module';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { DenominacionesEditDialogComponent } from './components/denominaciones-edit-dialog/denominaciones-edit-dialog.component';
 
 @NgModule({
-	declarations: [IndexComponent, ListComponent, CreateComponent],
+	declarations: [IndexComponent, ListComponent, CreateComponent, DenominacionesEditDialogComponent],
 	imports: [
 		CommonModule,
 		DenominacionesRoutingModule,

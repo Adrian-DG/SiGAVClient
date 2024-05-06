@@ -5,6 +5,8 @@ import { IPaginationFilters } from 'src/app/modules/generic/DTO/ipagination-filt
 import { IPagedData } from 'src/app/modules/generic/Responses/ipaged-data';
 import { INombreModelMetadata } from 'src/app/modules/generic/abstraction/inombre-model-metadata';
 import { DenominacionesService } from '../../services/denominaciones.service';
+import { MatDialog } from '@angular/material/dialog';
+import { DenominacionesEditDialogComponent } from '../../components/denominaciones-edit-dialog/denominaciones-edit-dialog.component';
 
 @Component({
 	selector: 'app-list',
@@ -12,13 +14,7 @@ import { DenominacionesService } from '../../services/denominaciones.service';
 	styleUrls: ['./list.component.scss'],
 })
 export class ListComponent {
-	displayedColumns = [
-		'#',
-		'nombre',
-		'tipo',
-		'tramo',
-		//'acciones',
-	];
+	displayedColumns = ['#', 'nombre', 'tipo', 'tramo', 'acciones'];
 	pageSizeOptions = [5, 10, 25, 100];
 	totalRows: number = 0;
 	filters: IPaginationFilters = {
@@ -31,7 +27,10 @@ export class ListComponent {
 	@ViewChild(MatPaginator) paginator!: MatPaginator;
 	dataSource = new MatTableDataSource<any>();
 
-	constructor(private _denominaciones: DenominacionesService) {}
+	constructor(
+		private _denominaciones: DenominacionesService,
+		private _dialog: MatDialog
+	) {}
 
 	ngOnInit(): void {
 		this.loadData();
@@ -59,5 +58,16 @@ export class ListComponent {
 		this.filters.size = event.pageSize;
 		this.filters.page = event.pageIndex;
 		this.loadData();
+	}
+
+	openEditDialog(item: any): void {
+		this._dialog.open(DenominacionesEditDialogComponent, {
+			minHeight: '200px',
+			maxHeight: '400px',
+			minWidth: '500px',
+			maxWidth: '800px',
+			role: 'dialog',
+			data: { id: item.id, nombre: item.nombre },
+		});
 	}
 }
