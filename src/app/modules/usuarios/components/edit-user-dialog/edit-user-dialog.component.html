@@ -1,27 +1,60 @@
 <div mat-dialog-title>
-	<h2>Cambiar contraseña</h2>
-	<small>ID: {{ data.id }} | Usuario: {{ data.nombreUsuario }}</small>
+	<h2>Editar Usuario</h2>
 </div>
+
 <mat-divider></mat-divider>
-<div mat-dialog-content>
-	<mat-form-field appearance="fill" style="width: 50%">
-		<mat-label>Nombre Usuario</mat-label>
-		<input
-			matInput
-			placeholder="contraseña"
-			[(ngModel)]="data.nombreUsuario"
-		/>
+
+<div
+	mat-dialog-content
+	style="display: flex; flex-direction: row; flex-wrap: wrap"
+	*ngIf="usuario$ | async as data"
+>
+	<mat-form-field style="width: 50%">
+		<mat-label>Cédula</mat-label>
+		<input matInput [value]="data.cedula" [(ngModel)]="data.cedula" />
 	</mat-form-field>
-	<mat-form-field appearance="fill" style="width: 50%">
-		<mat-label>Tipo Usuario</mat-label>
-		<input
-			matInput
-			placeholder="contraseña"
-			[(ngModel)]="data.tipoUsuario"
-			readonly
-		/>
+
+	<mat-form-field style="width: 50%">
+		<mat-label>Nombre</mat-label>
+		<input matInput [value]="data.nombre" [(ngModel)]="data.nombre" />
+	</mat-form-field>
+
+	<mat-form-field style="width: 50%">
+		<mat-label>Apellido</mat-label>
+		<input matInput [value]="data.apellido" [(ngModel)]="data.apellido" />
+	</mat-form-field>
+
+	<!-- <fieldset>
+		<legend>Genero</legend>
+		<mat-radio-group [value]="data.genero" [(ngModel)]="data.genero">
+			<mat-radio-button [value]="1">Masculino</mat-radio-button>
+			<mat-radio-button [value]="2">Femenino</mat-radio-button>
+		</mat-radio-group>
+	</fieldset> -->
+
+	<mat-form-field style="width: 50%">
+		<mat-label>Usuario</mat-label>
+		<input matInput [value]="data.username" [(ngModel)]="data.username" />
+	</mat-form-field>
+
+	<mat-checkbox
+		[checked]="data.esAdministrador"
+		[(ngModel)]="data.esAdministrador"
+		>Es Administrador</mat-checkbox
+	>
+
+	<mat-form-field style="width: 100%">
+		<mat-label>Departamento</mat-label>
+		<mat-select [value]="data.rolUsuario" [(ngModel)]="data.rolUsuario">
+			<mat-option [value]="1">Análisis S-3</mat-option>
+			<mat-option [value]="2">Call Center R-5</mat-option>
+			<mat-option [value]="3">Gestión Operativa</mat-option>
+			<mat-option [value]="4">Calidad</mat-option>
+			<mat-option [value]="5">Pre-Hospitalaria</mat-option>
+		</mat-select>
 	</mat-form-field>
 </div>
+
 <div
 	mat-dialog-actions
 	style="
@@ -37,7 +70,6 @@
 		color="accent"
 		cdkFocusInitial
 		(click)="saveChanges()"
-		mat-dialog-close
 	>
 		Guardar Cambios
 	</button>

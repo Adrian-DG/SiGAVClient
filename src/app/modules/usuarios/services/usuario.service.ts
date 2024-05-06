@@ -12,6 +12,8 @@ import { IUsuarioViewModel } from '../viewModels/iusuario-view-model';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { ChangePasswordDTO } from '../DTO/change-password-dto';
+import { EditUserDto } from '../DTO/edit-user-dto';
+import { IUsuarioEditViewModel } from '../viewModels/iusuario-edit-view-model';
 
 @Injectable({
 	providedIn: 'root',
@@ -66,5 +68,18 @@ export class UsuarioService extends GenericService {
 			.subscribe((response: IServerResponse) =>
 				this._snackbar.open(response.message, 'Ok')
 			);
+	}
+
+	GetEditUsuarioViewModel(id: number): Observable<IUsuarioEditViewModel> {
+		return this.$http.get<IUsuarioEditViewModel>(
+			`${this.endPoint}/${id}/user-edit-details`
+		);
+	}
+
+	EditUser(model: EditUserDto): Observable<IServerResponse> {
+		return this.$http.put<IServerResponse>(
+			`${this.endPoint}/edit-information`,
+			model
+		);
 	}
 }
