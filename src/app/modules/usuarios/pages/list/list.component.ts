@@ -96,5 +96,7 @@ export class ListComponent implements OnInit, AfterViewInit {
 			role: 'dialog',
 			data: item,
 		});
+
+		this.dialog.afterAllClosed.subscribe(() => this.loadData());
 	}
 }

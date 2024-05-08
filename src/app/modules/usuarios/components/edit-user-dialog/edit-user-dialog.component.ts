@@ -48,6 +48,7 @@ export class EditUserDialogComponent implements OnInit, AfterViewInit {
 				nombre: model?.nombre ?? '',
 				apellido: model?.apellido ?? '',
 				cedula: model?.cedula ?? '',
+				username: model.username,
 				genero: model?.genero ?? 0,
 				esAdministrador: model?.esAdministrador ?? false,
 				rolUsuario: model?.rolUsuario ?? 2,
@@ -56,10 +57,10 @@ export class EditUserDialogComponent implements OnInit, AfterViewInit {
 			this._usuarios
 				.EditUser(editUserDto)
 				.subscribe((response: IServerResponse) => {
+					alert(response.message);
 					if (response.status) {
 						this._dialogRef.close();
 					}
-					alert(response.message);
 				});
 		}
 	}
