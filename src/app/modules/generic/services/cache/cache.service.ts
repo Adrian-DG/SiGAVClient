@@ -51,6 +51,12 @@ export class CacheService {
 	private miembrosSource = new BehaviorSubject<IGenericData[]>([]);
 	public miembros$ = this.miembrosSource.asObservable();
 
+	private nacionalidadesSource = new BehaviorSubject<IGenericData[]>([]);
+	public nacionalidades$ = this.nacionalidadesSource.asObservable();
+
+	private hospitalesSource = new BehaviorSubject<IGenericData[]>([]);
+	public hospitales$ = this.hospitalesSource.asObservable();
+
 	private readonly sources = {
 		VehiculoTipo: (value: IGenericData[]) =>
 			this.vehiculoTiposSource.next(value),
@@ -73,6 +79,12 @@ export class CacheService {
 		Denominaciones: (value: IGenericData[]) =>
 			this.denominacionesSource.next(value),
 		Tramos: (value: IGenericData[]) => this.tramosSource.next(value),
+		nacionalidades: (value: IGenericData[]) =>
+			this.nacionalidadesSource.next(value),
+		hospitales: (value: IGenericData[]) =>
+			this.hospitalesSource.next(value),
+		filter_provicias: (value: IGenericData[]) =>
+			this.provinciaSource.next(value),
 	};
 
 	constructor(private $http: HttpClient) {
@@ -150,6 +162,20 @@ export class CacheService {
 			.get<IGenericData[]>(`${this.endPoint}/filter-miembros`, {
 				params: queryParams,
 			})
+			.subscribe((data: IGenericData[]) => {
+				this.miembrosSource.next(data);
+			});
+	}
+
+	getFilterMiembrosPreHospitalaria(param: string): void {
+		const queryParams = new HttpParams().set('param', param);
+		this.$http
+			.get<IGenericData[]>(
+				`${this.endPoint}/filter-miembros-pre-hospitalaria`,
+				{
+					params: queryParams,
+				}
+			)
 			.subscribe((data: IGenericData[]) => {
 				this.miembrosSource.next(data);
 			});

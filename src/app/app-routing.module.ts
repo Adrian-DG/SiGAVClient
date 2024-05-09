@@ -20,7 +20,7 @@ const routes: Routes = [
 		canActivate: [AuthGuard],
 	},
 	{
-		path: 'preHospitalaria',
+		path: 'pre-hospitalaria',
 		loadChildren: () =>
 			import('./modules/preHospitalaria/pre-hospitalaria.module').then(
 				(m) => m.PreHospitalariaModule

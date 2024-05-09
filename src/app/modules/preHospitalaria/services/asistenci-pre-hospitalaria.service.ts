@@ -9,6 +9,8 @@ import { IAsistenciaViewModel } from '../../asistencias/viewModels/iasistencia-v
 import { IAsistenciaPaginationFilter } from '../../asistencias/DTO/iasistencia-pagination-filter';
 import { IDateFilter } from '../../asistencias/DTO/idate-filter';
 import { IAsistenciaPreHospitalariaDetails } from '../interfaces/iasistencia-pre-hospitalaria-details';
+import { IAsistenciaCreatePreHospitalariaDto } from '../interfaces/iasistencia-create-pre-hospitalaria.dto';
+import { IServerResponse } from '../../generic/Responses/iserver-response';
 
 @Injectable({
 	providedIn: 'root',
@@ -74,5 +76,22 @@ export class AsistenciPreHospitalariaService extends GenericService {
 
 	GetAsistenciaPreHospitalariaById(id: number): Observable<any> {
 		return this.$http.get<any>(`${this.endPoint}/${id}/edit-details`);
+	}
+
+	createAsisteciaPreHospitalaria(
+		asistencia: IAsistenciaCreatePreHospitalariaDto
+	): void {
+		asistencia.reguladorEmergenciaId = this.userId;
+		this.$http
+			.post<IServerResponse>(
+				`${this.endPoint}/create-asistencia-centro`,
+				asistencia
+			)
+			.subscribe((response: IServerResponse) => {
+				alert(response.message);
+				if (response.status) {
+					this.$router.navigate(['listado']);
+				}
+			});
 	}
 }
