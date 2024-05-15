@@ -423,6 +423,34 @@
 				</mat-form-field>
 			</fieldset>
 
+			<fieldset>
+				<legend>Unidad Asiste</legend>
+				<mat-form-field style="width: 100%">
+					<mat-label>Asignar Unidad</mat-label>
+					<input
+						type="text"
+						matInput
+						[formControl]="unidadControl"
+						[matAutocomplete]="auto2"
+					/>
+					<mat-autocomplete
+						autoActiveFirstOption
+						[displayWith]="displayFn2"
+						#auto2="matAutocomplete"
+					>
+						<mat-option
+							*ngFor="
+								let item of _unidades.unidadeAutocomplete$
+									| async
+							"
+							[value]="item"
+						>
+							{{ item.denominacion }}
+						</mat-option>
+					</mat-autocomplete>
+				</mat-form-field>
+			</fieldset>
+
 			<div class="row-btn">
 				<button mat-raised-button matStepperPrevious>Atras</button>
 				<button mat-raised-button color="accent" (click)="create()">

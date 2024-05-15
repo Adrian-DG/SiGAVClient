@@ -47,8 +47,10 @@ export class UnidadesService extends GenericService {
 		);
 	}
 
-	getUnidadesAutoComplete(param: string): void {
-		const params = new HttpParams().set('param', param);
+	getUnidadesAutoComplete(param: string, cond: boolean): void {
+		const params = new HttpParams()
+			.append('param', param)
+			.append('esAmbulancia', cond);
 		this.$http
 			.get<IUnidadAutoComplete[]>(`${this.endPoint}/autocomplete`, {
 				params: params,

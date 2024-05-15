@@ -53,6 +53,8 @@ export interface IAsistenciaCreatePreHospitalariaDto {
 	insumosUtilizados: string;
 
 	medicoId: number;
+	denominacionId: number;
+	unidadId: number;
 	componente1Id: number;
 	componente2Id: number;
 	reguladorEmergenciaId: number;

@@ -6,6 +6,8 @@ import { CacheService } from 'src/app/modules/generic/services/cache/cache.servi
 import { MatCheckbox, MatCheckboxChange } from '@angular/material/checkbox';
 import { AuthService } from 'src/app/modules/auth/services/auth/auth.service';
 import { IGenericData } from 'src/app/modules/generic/Responses/igeneric-data';
+import { UnidadesService } from 'src/app/modules/unidades/services/unidades.service';
+import { IUnidadAutoComplete } from 'src/app/modules/unidades/viewModels/iunidad-auto-complete';
 
 @Component({
 	selector: 'app-create',
@@ -64,6 +66,7 @@ export class CreateComponent implements OnInit, AfterViewInit {
 	});
 
 	medicoControl: FormControl = new FormControl('');
+	unidadControl: FormControl = new FormControl('');
 
 	detallesForm: FormGroup = new FormGroup({
 		hallazgoPositivo: new FormControl(''),
@@ -75,15 +78,27 @@ export class CreateComponent implements OnInit, AfterViewInit {
 	constructor(
 		private service: AsistenciPreHospitalariaService,
 		public _cache: CacheService,
-		private _auth: AuthService
+		private _auth: AuthService,
+		public _unidades: UnidadesService
 	) {}
 
 	ngOnInit(): void {
 		this.medicoControl.valueChanges.subscribe((value: string) => {
-			setTimeout(
-				() => this._cache.getFilterMiembrosPreHospitalaria(value),
-				2000
-			);
+			if (value.length > 2) {
+				setTimeout(
+					() => this._cache.getFilterMiembrosPreHospitalaria(value),
+					2000
+				);
+			}
+		});
+
+		this.unidadControl.valueChanges.subscribe((value: string) => {
+			if (value.length > 2) {
+				setTimeout(
+					() => this._unidades.getUnidadesAutoComplete(value, true),
+					2000
+				);
+			}
 		});
 	}
 
@@ -93,6 +108,12 @@ export class CreateComponent implements OnInit, AfterViewInit {
 
 	displayFn(item: IGenericData): string {
 		return item.nombre;
+	}
+
+	displayFn2(item: IUnidadAutoComplete): string {
+		return item.denominacion == undefined || item.ficha == undefined
+			? ''
+			: `${item.ficha} | ${item.denominacion}`;
 	}
 
 	onCheckboxTrasladoChange(event: any): void {
@@ -127,6 +148,8 @@ export class CreateComponent implements OnInit, AfterViewInit {
 			...signosVitalesFormData,
 			...detallesFormData,
 			medicoId: this.medicoControl.value.id,
+			denominacionId: 0,
+			unidadId: this.unidadControl.value.unidadId,
 			reguladorEmergenciaId: 0,
 		};
 
