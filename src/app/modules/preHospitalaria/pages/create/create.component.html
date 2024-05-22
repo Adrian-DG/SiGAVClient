@@ -7,7 +7,7 @@
 
 			<div class="alert">
 				<mat-checkbox [checked]="hasPersonInformation"
-					>Se desconoce al ciudadano ?
+					>El ciudadano porta documentos ?
 					<b>{{
 						hasPersonInformation ? 'Si' : 'No'
 					}}</b></mat-checkbox
@@ -121,7 +121,29 @@
 					</mat-select>
 				</mat-form-field>
 
-				<mat-form-field style="width: 40%">
+				<mat-form-field style="width: 100%">
+					<mat-label>Hospital</mat-label>
+					<input
+						type="text"
+						matInput
+						[formControl]="hospitalControl"
+						[matAutocomplete]="auto3"
+					/>
+					<mat-autocomplete
+						autoActiveFirstOption
+						[displayWith]="displayFn"
+						#auto3="matAutocomplete"
+					>
+						<mat-option
+							*ngFor="let item of _cache.hospitales$ | async"
+							[value]="item"
+						>
+							{{ item.nombre }}
+						</mat-option>
+					</mat-autocomplete>
+				</mat-form-field>
+
+				<!-- <mat-form-field style="width: 40%">
 					<mat-label>Hospital</mat-label>
 					<mat-select formControlName="hospitalId">
 						<mat-option
@@ -130,7 +152,7 @@
 							>{{ item.nombre }}</mat-option
 						>
 					</mat-select>
-				</mat-form-field>
+				</mat-form-field> -->
 
 				<mat-form-field style="width: 40%">
 					<mat-label>Persona Recibio Paciente</mat-label>
@@ -177,10 +199,10 @@
 					formControlName="esTraslado"
 					style="margin-top: 1em"
 					(ngModelChange)="onCheckboxTrasladoChange($event)"
-					>Es Traslado</mat-checkbox
+					>Traslado</mat-checkbox
 				>
 
-				<mat-form-field style="width: 30%" *ngIf="esTraslado">
+				<mat-form-field style="width: 30%">
 					<mat-label>Causa Traslado</mat-label>
 					<mat-select formControlName="causaTraslado">
 						<mat-option [value]="0">NO AMERITA TRASLADO</mat-option>
@@ -232,7 +254,7 @@
 					>Es Evento Especial</mat-checkbox
 				>
 
-				<mat-form-field style="width: 90%" *ngIf="esEventoEspecial">
+				<mat-form-field style="width: 90%">
 					<mat-label>Nombre Evento Especial</mat-label>
 					<input matInput formControlName="nombreEventoEspecial" />
 				</mat-form-field>
@@ -342,6 +364,7 @@
 						<mat-radio-button [value]="2">2</mat-radio-button>
 						<mat-radio-button [value]="3">3</mat-radio-button>
 						<mat-radio-button [value]="4">4</mat-radio-button>
+						<mat-radio-button [value]="5">5</mat-radio-button>
 					</mat-radio-group>
 				</fieldset>
 
@@ -352,6 +375,8 @@
 						<mat-radio-button [value]="2">2</mat-radio-button>
 						<mat-radio-button [value]="3">3</mat-radio-button>
 						<mat-radio-button [value]="4">4</mat-radio-button>
+						<mat-radio-button [value]="5">5</mat-radio-button>
+						<mat-radio-button [value]="6">6</mat-radio-button>
 					</mat-radio-group>
 				</fieldset>
 			</div>
@@ -398,7 +423,7 @@
 				</mat-form-field>
 			</div>
 
-			<fieldset style="width: 100%; margin-bottom: 1rem">
+			<fieldset style="width: 90%; margin-bottom: 1rem">
 				<legend>Personal Que Asiste</legend>
 				<mat-form-field style="width: 100%">
 					<mat-label>Médico</mat-label>

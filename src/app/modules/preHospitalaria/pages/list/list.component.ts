@@ -70,9 +70,11 @@ export class ListComponent {
 		};
 	}
 
-	hasValidStatus(rol: number): boolean {
-		return [Roles.Administrador].includes(rol);
-	}
+	// hasValidStatus(rol: number): boolean {
+	// 	return [Roles.AnalistaOperaciones, Roles.GestionOperativa].includes(
+	// 		rol
+	// 	);
+	// }
 
 	loadData(): void {
 		this._asistenciaPreHospitalaria

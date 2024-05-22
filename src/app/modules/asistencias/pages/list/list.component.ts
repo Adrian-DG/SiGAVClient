@@ -26,10 +26,10 @@ export interface IDialogData {
 }
 
 export enum Roles {
-	Administrador = 1,
+	AnalistaOperaciones = 1,
 	CallCenterR5,
 	GestionOperativa,
-	Supervisor,
+	Calidad,
 }
 
 @Component({
@@ -77,7 +77,7 @@ export class ListComponent implements OnInit, AfterViewInit {
 
 	hasValidStatus(rol: number): boolean {
 		return [
-			Roles.Administrador,
+			Roles.AnalistaOperaciones,
 			Roles.CallCenterR5,
 			Roles.GestionOperativa,
 		].includes(rol);

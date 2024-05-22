@@ -180,4 +180,15 @@ export class CacheService {
 				this.miembrosSource.next(data);
 			});
 	}
+
+	getFilterHospitales(param: string): void {
+		const queryParams = new HttpParams().set('param', param);
+		this.$http
+			.get<IGenericData[]>(`${this.endPoint}/filter-hospitales`, {
+				params: queryParams,
+			})
+			.subscribe((data: IGenericData[]) => {
+				this.hospitalesSource.next(data);
+			});
+	}
 }

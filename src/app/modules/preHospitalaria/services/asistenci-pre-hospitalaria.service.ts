@@ -90,7 +90,7 @@ export class AsistenciPreHospitalariaService extends GenericService {
 			.subscribe((response: IServerResponse) => {
 				alert(response.message);
 				if (response.status) {
-					this.$router.navigate(['listado']);
+					this.$router.navigate(['pre-hospitalaria/listado']);
 				}
 			});
 	}

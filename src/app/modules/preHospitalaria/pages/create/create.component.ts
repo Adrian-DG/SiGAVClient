@@ -46,7 +46,6 @@ export class CreateComponent implements OnInit, AfterViewInit {
 		zona: new FormControl(0, [Validators.required]),
 		provinciaId: new FormControl(0),
 		municipioId: new FormControl(0),
-		hospitalId: new FormControl(0),
 		personaRecibioEnHospital: new FormControl(''),
 	});
 
@@ -65,6 +64,7 @@ export class CreateComponent implements OnInit, AfterViewInit {
 		respuestaMotora: new FormControl(0),
 	});
 
+	hospitalControl: FormControl = new FormControl('');
 	medicoControl: FormControl = new FormControl('');
 	unidadControl: FormControl = new FormControl('');
 
@@ -100,6 +100,12 @@ export class CreateComponent implements OnInit, AfterViewInit {
 				);
 			}
 		});
+
+		this.hospitalControl.valueChanges.subscribe((value: string) => {
+			if (value.length > 2) {
+				setTimeout(() => this._cache.getFilterHospitales(value), 2000);
+			}
+		});
 	}
 
 	ngAfterViewInit(): void {
@@ -127,7 +133,7 @@ export class CreateComponent implements OnInit, AfterViewInit {
 	onZonaSelectionChange(): void {
 		const { zona } = this.ubicacionForm.value;
 		this._cache.getDataOnId('filter_provicias', zona);
-		this._cache.getDataOnId('hospitales', zona);
+		// this._cache.getDataOnId('hospitales', zona);
 	}
 
 	onProvinciaSelectionChange(id: number): void {
@@ -147,6 +153,7 @@ export class CreateComponent implements OnInit, AfterViewInit {
 			...ubicacionFormData,
 			...signosVitalesFormData,
 			...detallesFormData,
+			hospitalId: this.hospitalControl.value.id,
 			medicoId: this.medicoControl.value.id,
 			denominacionId: 0,
 			unidadId: this.unidadControl.value.unidadId,
