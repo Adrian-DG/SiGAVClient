@@ -17,6 +17,7 @@ import { AuthService } from 'src/app/modules/auth/services/auth/auth.service';
 import { ReporteEstadisticoDialogComponent } from '../../components/reporte-estadistico-dialog/reporte-estadistico-dialog.component';
 import { UpdateAsistenciaDialogComponent } from '../../components/update-asistencia-dialog/update-asistencia-dialog.component';
 import { DetailAsistenciaDialogComponent } from '../../components/detail-asistencia-dialog/detail-asistencia-dialog.component';
+import { AsistenciaCalidadDialogComponent } from '../../components/asistencia-calidad-dialog/asistencia-calidad-dialog.component';
 
 // to validate dialog data
 export interface IDialogData {
@@ -269,6 +270,13 @@ export class ListComponent implements OnInit, AfterViewInit {
 		const types = model.tipoAsistencias.map((x) => x.nombre);
 		this.dialog.open(DetailAsistenciaDialogComponent, {
 			data: { id, comment: comentario, types },
+			...this.modalConfig,
+		});
+	}
+
+	openAsistenciaCalidadModal(id: number): void {
+		this.dialog.open(AsistenciaCalidadDialogComponent, {
+			data: { id },
 			...this.modalConfig,
 		});
 	}

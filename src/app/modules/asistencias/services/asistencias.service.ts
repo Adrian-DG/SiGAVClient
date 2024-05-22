@@ -16,6 +16,8 @@ import { IReassignUnit } from '../DTO/ireassign-unit';
 import { IHistoricoViewModel } from '../viewModels/ihistorico-view-model';
 import { IAsistenciaPaginationFilter } from '../DTO/iasistencia-pagination-filter';
 import { IAsistenciaEdit } from '../DTO/iasistencia-edit';
+import { IAsistenciaCalidadCreate } from '../DTO/iasistencia-calidad-create';
+import { IAsistenciaCalidadViewModel } from '../DTO/iasistencia-calidad-view-model';
 
 @Injectable({
 	providedIn: 'root',
@@ -172,6 +174,23 @@ export class AsistenciasService extends GenericService {
 				responseType: 'blob',
 				params: params,
 			}
+		);
+	}
+
+	GetRegistroCalidadAsistencia(
+		id: number
+	): Observable<IAsistenciaCalidadViewModel> {
+		return this.$http.get<IAsistenciaCalidadViewModel>(
+			`${this.endPoint}/${id}/registro-calidad`
+		);
+	}
+
+	CreateRegistroCalidadAsistencia(
+		model: IAsistenciaCalidadCreate
+	): Observable<IServerResponse> {
+		return this.$http.post<IServerResponse>(
+			`${this.endPoint}/create-registro-calidad`,
+			model
 		);
 	}
 }

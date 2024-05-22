@@ -1,0 +1,36 @@
+<div mat-dialog-title>
+	<h3>Evaluación de Calidad (ID: {{ data.id }})</h3>
+	<small
+		>A continuación, se evaluara la calidad de la asistencia
+		brindada.</small
+	>
+</div>
+<div mat-dialog-content>
+	<div *ngIf="asistencia$ | async as asistencia; else form">
+		{{ asistencia | json }}
+	</div>
+	<ng-template #form>
+		<mat-checkbox [checked]="true" color="accent"
+			>Fue Contactado</mat-checkbox
+		>
+		<fieldset>
+			<legend>Valoración</legend>
+			<mat-radio-group>
+				<mat-radio-button [value]="0">Muy Malo</mat-radio-button>
+				<mat-radio-button [value]="1">Malo</mat-radio-button>
+				<mat-radio-button [value]="2">Regular</mat-radio-button>
+				<mat-radio-button [value]="3">Bueno</mat-radio-button>
+				<mat-radio-button [value]="3">Excelente</mat-radio-button>
+			</mat-radio-group>
+		</fieldset>
+
+		<mat-form-field style="width: 100%">
+			<mat-label>Comentarios</mat-label>
+			<textarea matInput></textarea>
+		</mat-form-field>
+	</ng-template>
+</div>
+<div mat-dialog-actions>
+	<button mat-raised-button mat-dialog-close>Cerrar</button>
+	<button mat-raised-button color="accent">Guardar Cambios</button>
+</div>
