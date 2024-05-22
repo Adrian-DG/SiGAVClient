@@ -1,36 +1,141 @@
 <div mat-dialog-title>
-	<h3>Evaluación de Calidad (ID: {{ data.id }})</h3>
-	<small
-		>A continuación, se evaluara la calidad de la asistencia
-		brindada.</small
-	>
+	<h2>Evaluación de Calidad (ID: {{ data.id }})</h2>
 </div>
 <div mat-dialog-content>
-	<div *ngIf="asistencia$ | async as asistencia; else form">
-		{{ asistencia | json }}
-	</div>
-	<ng-template #form>
-		<mat-checkbox [checked]="true" color="accent"
-			>Fue Contactado</mat-checkbox
-		>
-		<fieldset>
-			<legend>Valoración</legend>
-			<mat-radio-group>
-				<mat-radio-button [value]="0">Muy Malo</mat-radio-button>
-				<mat-radio-button [value]="1">Malo</mat-radio-button>
-				<mat-radio-button [value]="2">Regular</mat-radio-button>
-				<mat-radio-button [value]="3">Bueno</mat-radio-button>
-				<mat-radio-button [value]="3">Excelente</mat-radio-button>
-			</mat-radio-group>
-		</fieldset>
+	<mat-progress-bar
+		mode="indeterminate"
+		*ngIf="isLoading; else finish"
+	></mat-progress-bar>
 
-		<mat-form-field style="width: 100%">
-			<mat-label>Comentarios</mat-label>
-			<textarea matInput></textarea>
-		</mat-form-field>
+	<ng-template #finish>
+		<div *ngIf="asistencia$ | async as asistencia; else form">
+			<small
+				>A continuación, se muestra la valoración dada por el
+				ciudadano.<b style="color: rgb(57, 138, 68)"
+					>Evaluación Existente</b
+				></small
+			>
+			<div
+				style="
+					display: flex;
+					flex-direction: column;
+					justify-content: space-evenly;
+				"
+			>
+				<mat-checkbox
+					[checked]="asistencia.fueContactado"
+					color="accent"
+					[(ngModel)]="asistencia.fueContactado"
+					>Fue Contactado</mat-checkbox
+				>
+				<mat-form-field style="width: 100%">
+					<mat-label
+						>¿Que le parecio el servicio brindado por nuestros
+						soldados?</mat-label
+					>
+					<textarea
+						matInput
+						[value]="asistencia.comentario"
+						[(ngModel)]="asistencia.comentario"
+					></textarea>
+				</mat-form-field>
+				<fieldset>
+					<legend>Valoración</legend>
+					<mat-radio-group
+						[value]="asistencia.valoracion"
+						[(ngModel)]="asistencia.valoracion"
+						[required]="true"
+					>
+						<mat-radio-button [value]="0"
+							>Muy Malo</mat-radio-button
+						>
+						<mat-radio-button [value]="1">Malo</mat-radio-button>
+						<mat-radio-button [value]="2">Regular</mat-radio-button>
+						<mat-radio-button [value]="3"
+							>Aceptable</mat-radio-button
+						>
+						<mat-radio-button [value]="4">Bueno</mat-radio-button>
+						<mat-radio-button [value]="5"
+							>Excelente</mat-radio-button
+						>
+					</mat-radio-group>
+				</fieldset>
+			</div>
+		</div>
+		<ng-template #form>
+			<small
+				>A continuación, se evaluara la calidad de la asistencia
+				brindada.<b style="color: rgb(202, 85, 85)"
+					>Pendiente de Evaluación</b
+				></small
+			>
+			<div
+				style="
+					display: flex;
+					flex-direction: column;
+					justify-content: space-evenly;
+				"
+			>
+				<mat-checkbox
+					[checked]="asistenciaDto.fueContactado"
+					color="accent"
+					[(ngModel)]="asistenciaDto.fueContactado"
+					>Fue Contactado</mat-checkbox
+				>
+				<mat-form-field style="width: 100%">
+					<mat-label
+						>¿Que le parecio el servicio brindado por nuestros
+						soldados?</mat-label
+					>
+					<textarea
+						matInput
+						[(ngModel)]="asistenciaDto.comentario"
+					></textarea>
+				</mat-form-field>
+				<fieldset>
+					<legend>Valoración</legend>
+					<mat-radio-group
+						[(ngModel)]="asistenciaDto.valoracion"
+						[required]="true"
+					>
+						<mat-radio-button [value]="0"
+							>Muy Malo</mat-radio-button
+						>
+						<mat-radio-button [value]="1">Malo</mat-radio-button>
+						<mat-radio-button [value]="2">Regular</mat-radio-button>
+						<mat-radio-button [value]="3"
+							>Aceptable</mat-radio-button
+						>
+						<mat-radio-button [value]="4">Bueno</mat-radio-button>
+						<mat-radio-button [value]="5"
+							>Excelente</mat-radio-button
+						>
+					</mat-radio-group>
+				</fieldset>
+			</div>
+		</ng-template>
 	</ng-template>
 </div>
-<div mat-dialog-actions>
+<div
+	mat-dialog-actions
+	style="display: flex; flex-direction: row; justify-content: flex-end"
+>
 	<button mat-raised-button mat-dialog-close>Cerrar</button>
-	<button mat-raised-button color="accent">Guardar Cambios</button>
+	<button
+		mat-raised-button
+		color="accent"
+		(click)="create()"
+		*ngIf="isCreating"
+		[disabled]="!areFieldsValid"
+	>
+		Crear Registro
+	</button>
+	<button
+		mat-raised-button
+		color="accent"
+		*ngIf="!isCreating"
+		(click)="edit()"
+	>
+		Guardar Cambios
+	</button>
 </div>

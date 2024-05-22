@@ -2,6 +2,6 @@ export interface IAsistenciaCalidadCreate {
 	asistenciaId: number;
 	usuarioId: number;
 	valoracion: number;
-	comentario: number;
+	comentario: string;
 	fueContactado: boolean;
 }

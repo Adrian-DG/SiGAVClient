@@ -18,6 +18,7 @@ import { IAsistenciaPaginationFilter } from '../DTO/iasistencia-pagination-filte
 import { IAsistenciaEdit } from '../DTO/iasistencia-edit';
 import { IAsistenciaCalidadCreate } from '../DTO/iasistencia-calidad-create';
 import { IAsistenciaCalidadViewModel } from '../DTO/iasistencia-calidad-view-model';
+import { IAsistenciaCalidadEdit } from '../DTO/iasistencia-calidad-edit';
 
 @Injectable({
 	providedIn: 'root',
@@ -188,8 +189,19 @@ export class AsistenciasService extends GenericService {
 	CreateRegistroCalidadAsistencia(
 		model: IAsistenciaCalidadCreate
 	): Observable<IServerResponse> {
+		model.usuarioId = this.userId;
 		return this.$http.post<IServerResponse>(
 			`${this.endPoint}/create-registro-calidad`,
+			model
+		);
+	}
+
+	EditRegistroCalidadAsistencia(
+		id: number,
+		model: IAsistenciaCalidadEdit
+	): Observable<IServerResponse> {
+		return this.$http.put<IServerResponse>(
+			`${this.endPoint}/${id}/registro-calidad`,
 			model
 		);
 	}

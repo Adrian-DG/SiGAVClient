@@ -18,6 +18,7 @@ import { ReporteEstadisticoDialogComponent } from '../../components/reporte-esta
 import { UpdateAsistenciaDialogComponent } from '../../components/update-asistencia-dialog/update-asistencia-dialog.component';
 import { DetailAsistenciaDialogComponent } from '../../components/detail-asistencia-dialog/detail-asistencia-dialog.component';
 import { AsistenciaCalidadDialogComponent } from '../../components/asistencia-calidad-dialog/asistencia-calidad-dialog.component';
+import { IUserData } from 'src/app/modules/auth/interfaces/iuser-data';
 
 // to validate dialog data
 export interface IDialogData {
@@ -64,6 +65,10 @@ export class ListComponent implements OnInit, AfterViewInit {
 		status: false,
 		estatusAsistencia: 2,
 	};
+
+	get Roles() {
+		return Roles;
+	}
 
 	@ViewChild(MatPaginator) paginator!: MatPaginator;
 	dataSource = new MatTableDataSource<IAsistenciaViewModel>();
@@ -193,6 +198,17 @@ export class ListComponent implements OnInit, AfterViewInit {
 			pendiente: row.estatusAsistencia == 'PENDIENTE',
 			completada: row.estatusAsistencia == 'COMPLETADA',
 		};
+	}
+
+	isAvailableForQualityEvaluation(
+		user: IUserData,
+		item: IAsistenciaViewModel
+	): boolean {
+		return (
+			[Roles.AnalistaOperaciones, Roles.Calidad].includes(
+				user.rolUsuario
+			) && item.estatusAsistencia == 'COMPLETADA'
+		);
 	}
 
 	private modalConfig: MatDialogConfig = {

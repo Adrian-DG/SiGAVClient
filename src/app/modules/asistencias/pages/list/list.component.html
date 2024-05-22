@@ -200,11 +200,13 @@
 					</button>
 
 					<button
-						title="Evaluar Asistencia"
+						style="color: rgb(73, 73, 73)"
+						title="Evaluar Calidad Asistencia"
 						mat-icon-button
 						(click)="openAsistenciaCalidadModal(element.id)"
+						*ngIf="isAvailableForQualityEvaluation(user, element)"
 					>
-						<mat-icon>feedback</mat-icon>
+						<mat-icon>perm_phone_msg</mat-icon>
 					</button>
 
 					<button
