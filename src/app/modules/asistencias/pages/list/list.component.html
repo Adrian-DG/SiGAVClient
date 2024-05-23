@@ -200,6 +200,11 @@
 					</button>
 
 					<button
+						[ngStyle]="{
+							color: element.fueEvaluada
+								? 'rgb(73, 73, 73)'
+								: 'rgb(212, 89, 89)'
+						}"
 						style="color: rgb(73, 73, 73)"
 						title="Evaluar Calidad Asistencia"
 						mat-icon-button
