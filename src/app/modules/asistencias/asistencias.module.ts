@@ -21,6 +21,7 @@ import { UpdateAsistenciaDialogComponent } from './components/update-asistencia-
 import { DetailAsistenciaDialogComponent } from './components/detail-asistencia-dialog/detail-asistencia-dialog.component';
 import { UnidadSelectorComponent } from './components/unidad-selector/unidad-selector.component';
 import { AsistenciaCalidadDialogComponent } from './components/asistencia-calidad-dialog/asistencia-calidad-dialog.component';
+import { ReportDialogCalidadComponent } from './components/report-dialog-calidad/report-dialog-calidad.component';
 
 @NgModule({
 	declarations: [
@@ -39,6 +40,7 @@ import { AsistenciaCalidadDialogComponent } from './components/asistencia-calida
 		DetailAsistenciaDialogComponent,
 		UnidadSelectorComponent,
   AsistenciaCalidadDialogComponent,
+  ReportDialogCalidadComponent,
 	],
 	imports: [
 		CommonModule,

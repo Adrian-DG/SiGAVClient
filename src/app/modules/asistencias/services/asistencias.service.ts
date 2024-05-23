@@ -205,4 +205,15 @@ export class AsistenciasService extends GenericService {
 			model
 		);
 	}
+
+	GetReporteAsistenciaCalidadPorFecha(filter: IDateFilter) {
+		const params = new HttpParams()
+			.set('initialDate', filter.initialDate.toDateString())
+			.set('finalDate', filter.finalDate.toDateString());
+		return this.$http.get(`${this.endPoint}/reporte/asistencias-calidad`, {
+			observe: 'response',
+			responseType: 'blob',
+			params: params,
+		});
+	}
 }

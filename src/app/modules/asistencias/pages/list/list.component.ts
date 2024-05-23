@@ -19,6 +19,7 @@ import { UpdateAsistenciaDialogComponent } from '../../components/update-asisten
 import { DetailAsistenciaDialogComponent } from '../../components/detail-asistencia-dialog/detail-asistencia-dialog.component';
 import { AsistenciaCalidadDialogComponent } from '../../components/asistencia-calidad-dialog/asistencia-calidad-dialog.component';
 import { IUserData } from 'src/app/modules/auth/interfaces/iuser-data';
+import { ReportDialogCalidadComponent } from '../../components/report-dialog-calidad/report-dialog-calidad.component';
 
 // to validate dialog data
 export interface IDialogData {
@@ -148,7 +149,7 @@ export class ListComponent implements OnInit, AfterViewInit {
 				this.openReporteEstadisticoModal();
 				break;
 			case 5:
-				this.openReporteEstadisticoModal();
+				this.openAsistenciaCalidadReportModal();
 				break;
 		}
 	}
@@ -298,6 +299,12 @@ export class ListComponent implements OnInit, AfterViewInit {
 				nombre: item.nombreCiudadano,
 				telefono: item.telefono,
 			},
+			...this.modalConfig,
+		});
+	}
+
+	openAsistenciaCalidadReportModal(): void {
+		this.dialog.open(ReportDialogCalidadComponent, {
 			...this.modalConfig,
 		});
 	}

@@ -1,0 +1,45 @@
+<div>
+	<h2 mat-dialog-title>Reporte Calidad</h2>
+</div>
+<div mat-dialog-content>
+	<mat-form-field>
+		<mat-label>Desde</mat-label>
+		<input
+			matInput
+			[matDatepicker]="picker1"
+			[(ngModel)]="dateFilter.initialDate"
+		/>
+		<mat-hint>MM/DD/YYYY</mat-hint>
+		<mat-datepicker-toggle
+			matIconSuffix
+			[for]="picker1"
+		></mat-datepicker-toggle>
+		<mat-datepicker #picker1></mat-datepicker>
+	</mat-form-field>
+
+	<mat-form-field>
+		<mat-label>Hasta</mat-label>
+		<input
+			matInput
+			[matDatepicker]="picker2"
+			[(ngModel)]="dateFilter.finalDate"
+		/>
+		<mat-hint>MM/DD/YYYY</mat-hint>
+		<mat-datepicker-toggle
+			matIconSuffix
+			[for]="picker2"
+		></mat-datepicker-toggle>
+		<mat-datepicker #picker2></mat-datepicker>
+	</mat-form-field>
+</div>
+<div mat-dialog-actions>
+	<button mat-raised-button mat-dialog-close>Cancelar</button>
+	<button
+		mat-raised-button
+		cdkFocusInitial
+		color="accent"
+		(click)="generateReport()"
+	>
+		Generar Reporte
+	</button>
+</div>
