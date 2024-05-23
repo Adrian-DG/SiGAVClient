@@ -19,6 +19,7 @@ import { IAsistenciaEdit } from '../DTO/iasistencia-edit';
 import { IAsistenciaCalidadCreate } from '../DTO/iasistencia-calidad-create';
 import { IAsistenciaCalidadViewModel } from '../DTO/iasistencia-calidad-view-model';
 import { IAsistenciaCalidadEdit } from '../DTO/iasistencia-calidad-edit';
+import { IAsistenciaPaginationDateFilter } from '../DTO/iasistencia-pagination-date-filter';
 
 @Injectable({
 	providedIn: 'root',
@@ -41,18 +42,21 @@ export class AsistenciasService extends GenericService {
 	}
 
 	getAsistenciaPaginationParams(
-		filters: IAsistenciaPaginationFilter
+		filters: IAsistenciaPaginationDateFilter
 	): HttpParams {
 		return new HttpParams()
 			.set('page', filters.page)
 			.set('size', filters.size)
 			.set('searchTerm', filters.searchTerm)
 			.set('status', filters.status)
-			.set('estatusAsistencia', filters.estatusAsistencia);
+			.set('estatusAsistencia', filters.estatusAsistencia)
+			.set('isDateFilter', filters.isDateFilter)
+			.set('initialDate', filters.initialDate.toDateString())
+			.set('finalDate', filters.finalDate.toDateString());
 	}
 
 	getAllAsistencias(
-		filters: IAsistenciaPaginationFilter
+		filters: IAsistenciaPaginationDateFilter
 	): Observable<IPagedData<IAsistenciaViewModel>> {
 		return this.$http.get<IPagedData<IAsistenciaViewModel>>(
 			`${this.endPoint}/all`,

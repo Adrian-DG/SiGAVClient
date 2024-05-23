@@ -20,6 +20,7 @@ import { DetailAsistenciaDialogComponent } from '../../components/detail-asisten
 import { AsistenciaCalidadDialogComponent } from '../../components/asistencia-calidad-dialog/asistencia-calidad-dialog.component';
 import { IUserData } from 'src/app/modules/auth/interfaces/iuser-data';
 import { ReportDialogCalidadComponent } from '../../components/report-dialog-calidad/report-dialog-calidad.component';
+import { IAsistenciaPaginationDateFilter } from '../../DTO/iasistencia-pagination-date-filter';
 
 // to validate dialog data
 export interface IDialogData {
@@ -59,12 +60,15 @@ export class ListComponent implements OnInit, AfterViewInit {
 
 	pageSizeOptions = [5, 10, 25, 100];
 	totalRows: number = 0;
-	filters: IAsistenciaPaginationFilter = {
+	filters: IAsistenciaPaginationDateFilter = {
 		page: 0,
 		size: 5,
 		searchTerm: '',
 		status: false,
 		estatusAsistencia: 2,
+		isDateFilter: false,
+		initialDate: new Date(),
+		finalDate: new Date(),
 	};
 
 	get Roles() {

@@ -1,5 +1,5 @@
 <div class="row">
-	<div class="col" style="width: 40%">
+	<div class="col" style="width: 30%">
 		<mat-form-field class="filter">
 			<mat-label>Filtrar</mat-label>
 			<input
@@ -25,7 +25,41 @@
 		</mat-form-field>
 	</div>
 
-	<div class="col" style="width: 20%" *ngIf="_auth.userData$ | async as user">
+	<div>
+		<mat-checkbox
+			style="margin-top: 2em"
+			[checked]="filters.isDateFilter"
+			[(ngModel)]="filters.isDateFilter"
+			>Filtrar por fecha</mat-checkbox
+		>
+	</div>
+
+	<div class="col" *ngIf="filters.isDateFilter">
+		<mat-form-field>
+			<mat-label>Rango de fecha</mat-label>
+			<mat-date-range-input [rangePicker]="picker">
+				<input
+					matStartDate
+					placeholder="Fecha Inicial"
+					[(ngModel)]="filters.initialDate"
+				/>
+				<input
+					matEndDate
+					placeholder="Fecha Final"
+					[(ngModel)]="filters.finalDate"
+					(ngModelChange)="loadData()"
+				/>
+			</mat-date-range-input>
+			<mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
+			<mat-datepicker-toggle
+				matIconSuffix
+				[for]="picker"
+			></mat-datepicker-toggle>
+			<mat-date-range-picker #picker></mat-date-range-picker>
+		</mat-form-field>
+	</div>
+
+	<div class="col" style="width: 30%" *ngIf="_auth.userData$ | async as user">
 		<mat-form-field style="width: 100%">
 			<mat-label>Reportes</mat-label>
 			<mat-select
