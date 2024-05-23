@@ -19,34 +19,66 @@ export class CreateComponent implements OnInit, AfterViewInit {
 	esTraslado = false;
 	esEventoEspecial = false;
 
-	ciudadanoForm: FormGroup = new FormGroup({
-		personaDesconocida: new FormControl(this.hasPersonInformation),
-		identificacion: new FormControl(''),
-		nombre: new FormControl(''),
-		apellido: new FormControl(''),
-		sexo: new FormControl(0),
-		edad: new FormControl(0),
-		telefono: new FormControl(''),
-		nacionalidadId: new FormControl(''),
+	// Informacion general
+
+	generalForm: FormGroup = new FormGroup({
+		despachadaPor: new FormControl(0, [Validators.required]), // Enum
+		apoyoBrindado: new FormControl(0, [Validators.required]),
 	});
 
-	asistenciaForm: FormGroup = new FormGroup({
-		tipoAsistencia: new FormControl(0),
-		tipoCausa: new FormControl(0),
-		esTraslado: new FormControl(false),
-		causaTraslado: new FormControl(0),
-		despachadaPor: new FormControl(0),
-		apoyoBrindado: new FormControl(0),
-		esEventoCampo: new FormControl(false),
-		esEventoEspecial: new FormControl(false),
-		nombreEventoEspecial: new FormControl(''),
-	});
-
-	ubicacionForm: FormGroup = new FormGroup({
+	ubicacionUnidadForm: FormGroup = new FormGroup({
 		zona: new FormControl(0, [Validators.required]),
-		provinciaId: new FormControl(0),
-		municipioId: new FormControl(0),
-		personaRecibioEnHospital: new FormControl(''),
+		provinciaId: new FormControl(0, [Validators.required]),
+		municipioId: new FormControl(0, [Validators.required]),
+		unidadId: new FormControl(0, [Validators.required]),
+	});
+
+	cronogramaForm: FormGroup = new FormGroup({
+		horaLlamadaRecibida: new FormControl('', [Validators.required]),
+		horaLlegadaAlEvento: new FormControl('', [Validators.required]),
+		horaAbordajePaciente: new FormControl(''),
+		horaSalidaHospital: new FormControl(''),
+		horaEntregaPaciente: new FormControl(''),
+		horaUnidadDisponible: new FormControl('', [Validators.required]),
+	});
+
+	detalleForm: FormGroup = new FormGroup({
+		detalle: new FormControl('', [Validators.required]),
+		tipoAsistencia: new FormControl(0, [Validators.required]), // Enum
+		nombreEvento: new FormControl(''),
+	});
+
+	datosPacienteForm: FormGroup = new FormGroup({
+		esDesconocida: new FormControl(false),
+		identificacion: new FormControl('', [
+			Validators.required,
+			Validators.minLength(11),
+		]),
+		nombre: new FormControl('', [Validators.required]),
+		apellido: new FormControl('', [Validators.required]),
+		sexo: new FormControl(0, [Validators.required]),
+		edad: new FormControl(0, [Validators.required]),
+		telefono: new FormControl('', [
+			Validators.required,
+			Validators.minLength(10),
+		]),
+		nacionalidadId: new FormControl(0, [Validators.required]),
+	});
+
+	datosTrasladoForm: FormGroup = new FormGroup({
+		esTraslado: new FormControl(false),
+		causaTraslado: new FormControl(0), // enum
+	});
+
+	datosCentroSaludForm: FormGroup = new FormGroup({
+		zona: new FormControl(0, [Validators.required]),
+		hospitalId: new FormControl(0, [Validators.required]),
+		personaRecibio: new FormControl('', [Validators.required]),
+	});
+
+	datosAntecedentesForm: FormGroup = new FormGroup({
+		tieneAntecedentesMorbidos: new FormControl(false),
+		antecedetesMorbidos: new FormControl(''),
 	});
 
 	signosVitalesForm: FormGroup = new FormGroup({
@@ -64,16 +96,29 @@ export class CreateComponent implements OnInit, AfterViewInit {
 		respuestaMotora: new FormControl(0),
 	});
 
+	examenFisicoForm: FormGroup = new FormGroup({
+		hallazgosPositivos: new FormControl('', [Validators.required]),
+	});
+
+	diagnosticoPresuntivoForm: FormGroup = new FormGroup({
+		diagnosticosPresuntivos: new FormControl('', [Validators.required]),
+		procedimientosRealizados: new FormControl('', [Validators.required]),
+	});
+
+	insumosUtilizadosForm: FormGroup = new FormGroup({
+		insumos: new FormControl(''),
+	});
+
+	personalAsisteForm: FormGroup = new FormGroup({
+		medicoId: new FormControl(0),
+		componente1Id: new FormControl(0),
+		componente2Id: new FormControl(0),
+		reguladorId: new FormControl(0),
+	});
+
 	hospitalControl: FormControl = new FormControl('');
 	medicoControl: FormControl = new FormControl('');
 	unidadControl: FormControl = new FormControl('');
-
-	detallesForm: FormGroup = new FormGroup({
-		hallazgoPositivo: new FormControl(''),
-		diagnosticoPresuntivo: new FormControl(''),
-		procedimientosRealizados: new FormControl(''),
-		insumosUtilizados: new FormControl(''),
-	});
 
 	constructor(
 		private service: AsistenciPreHospitalariaService,
@@ -131,7 +176,7 @@ export class CreateComponent implements OnInit, AfterViewInit {
 	}
 
 	onZonaSelectionChange(): void {
-		const { zona } = this.ubicacionForm.value;
+		const { zona } = this.ubicacionUnidadForm.value;
 		this._cache.getDataOnId('filter_provicias', zona);
 		// this._cache.getDataOnId('hospitales', zona);
 	}
@@ -140,26 +185,5 @@ export class CreateComponent implements OnInit, AfterViewInit {
 		this._cache.getDataOnId('municipios', id);
 	}
 
-	create(): void {
-		const ciudadanoFormData = this.ciudadanoForm.value;
-		const asistenciaFormData = this.asistenciaForm.value;
-		const ubicacionFormData = this.ubicacionForm.value;
-		const signosVitalesFormData = this.signosVitalesForm.value;
-		const detallesFormData = this.detallesForm.value;
-
-		const newAsistencia: IAsistenciaCreatePreHospitalariaDto = {
-			...ciudadanoFormData,
-			...asistenciaFormData,
-			...ubicacionFormData,
-			...signosVitalesFormData,
-			...detallesFormData,
-			hospitalId: this.hospitalControl.value.id,
-			medicoId: this.medicoControl.value.id,
-			denominacionId: 0,
-			unidadId: this.unidadControl.value.unidadId,
-			reguladorEmergenciaId: 0,
-		};
-
-		this.service.createAsisteciaPreHospitalaria(newAsistencia);
-	}
+	create(): void {}
 }
