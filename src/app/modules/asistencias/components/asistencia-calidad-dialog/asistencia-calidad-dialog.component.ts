@@ -31,7 +31,13 @@ export class AsistenciaCalidadDialogComponent implements OnInit, AfterViewInit {
 	constructor(
 		public dialogRef: MatDialogRef<AsistenciaCalidadDialogComponent>,
 		private _asistencias: AsistenciasService,
-		@Inject(MAT_DIALOG_DATA) public data: { id: number }
+		@Inject(MAT_DIALOG_DATA)
+		public data: {
+			id: number;
+			identificacion: string;
+			nombre: string;
+			telefono: string;
+		}
 	) {}
 
 	ngOnInit(): void {

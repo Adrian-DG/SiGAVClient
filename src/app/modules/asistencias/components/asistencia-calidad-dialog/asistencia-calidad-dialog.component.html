@@ -1,5 +1,10 @@
 <div mat-dialog-title>
 	<h2>Evaluación de Calidad (ID: {{ data.id }})</h2>
+	<p>
+		Identificación: {{ data.identificacion | cedula }} | Ciudadano:
+		{{ data.nombre }}
+	</p>
+	<p>Teléfono: {{ data.telefono | telefono }}</p>
 </div>
 <div mat-dialog-content>
 	<mat-progress-bar

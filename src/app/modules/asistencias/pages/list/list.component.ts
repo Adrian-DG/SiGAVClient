@@ -214,7 +214,7 @@ export class ListComponent implements OnInit, AfterViewInit {
 	private modalConfig: MatDialogConfig = {
 		minWidth: '500px',
 		minHeight: '150px',
-		maxWidth: '800px',
+		maxWidth: '900px',
 		maxHeight: '600px',
 		autoFocus: true,
 	};
@@ -290,9 +290,14 @@ export class ListComponent implements OnInit, AfterViewInit {
 		});
 	}
 
-	openAsistenciaCalidadModal(id: number): void {
+	openAsistenciaCalidadModal(item: IAsistenciaViewModel): void {
 		this.dialog.open(AsistenciaCalidadDialogComponent, {
-			data: { id },
+			data: {
+				id: item.id,
+				identificacion: item.identificacion,
+				nombre: item.nombreCiudadano,
+				telefono: item.telefono,
+			},
 			...this.modalConfig,
 		});
 	}
