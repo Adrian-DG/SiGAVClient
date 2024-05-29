@@ -27,6 +27,7 @@ export class ListComponent implements OnInit, AfterViewInit {
 		'denominacion',
 		'tipoUnidad',
 		'tramo',
+		'disponibilidad',
 		'acciones',
 	];
 

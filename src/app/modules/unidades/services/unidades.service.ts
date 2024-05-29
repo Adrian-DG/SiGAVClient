@@ -67,7 +67,7 @@ export class UnidadesService extends GenericService {
 		});
 	}
 
-	createUnidad(unidad: {
+	CreateUnidadToExistingDenomincion(unidad: {
 		ficha: string;
 		denominacionId: number | null;
 	}): void {
@@ -81,15 +81,21 @@ export class UnidadesService extends GenericService {
 			});
 	}
 
-	// ReasignarUnidadDenominacion(obj: {
-	// 	unidadId: number;
-	// 	denominacionId: number;
-	// }): Observable<boolean> {
-	// 	return this.$http.post<boolean>(
-	// 		`${this.endPoint}/cambiar-ficha-denominacion`,
-	// 		obj
-	// 	);
-	// }
+	CreateUnidadToNewDenomincion(obj: {
+		ficha: string;
+		tramoId: number;
+		tipoUnidadId: number;
+		denominacion: number;
+	}): void {
+		this.$http
+			.post<IServerResponse>(
+				`${this.endPoint}/cambiar-ficha-denominacion`,
+				obj
+			)
+			.subscribe((response: IServerResponse) => {
+				alert(response.message);
+			});
+	}
 
 	editarUnidad(unidad: IUnidadEditDto): Observable<IServerResponse> {
 		return this.$http.post<IServerResponse>(

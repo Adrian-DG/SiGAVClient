@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import {
 	FormBuilder,
 	FormControl,
@@ -17,8 +17,14 @@ import { IGenericData } from 'src/app/modules/generic/Responses/igeneric-data';
 	templateUrl: './create.component.html',
 	styleUrls: ['./create.component.scss'],
 })
-export class CreateComponent implements OnInit {
+export class CreateComponent implements OnInit, AfterViewInit {
+	isDenominacionAlreadyExist: boolean = true;
+
 	fichaControl: FormControl = new FormControl('', [Validators.required]);
+	denominacionTextControl: FormControl = new FormControl('');
+	tipoUnidadIdControl: FormControl = new FormControl(0);
+	tramoIdControl: FormControl = new FormControl(0);
+
 	denominacionSelected: FormControl = new FormControl('');
 
 	constructor(
@@ -32,14 +38,30 @@ export class CreateComponent implements OnInit {
 		});
 	}
 
+	ngAfterViewInit(): void {
+		this._cache.getData('Tramos');
+		this._cache.getData('TipoUnidades');
+	}
+
+	onIsDenominacionAlreadyExist(): void {
+		this.isDenominacionAlreadyExist = !this.isDenominacionAlreadyExist;
+	}
+
 	displayFn(item: IGenericData): string {
 		return item.nombre;
 	}
 
 	createUnidad(): void {
-		this._unidad.createUnidad({
-			ficha: this.fichaControl.value,
-			denominacionId: this.denominacionSelected.value.id,
-		});
+		this.isDenominacionAlreadyExist
+			? this._unidad.CreateUnidadToExistingDenomincion({
+					ficha: this.fichaControl.value,
+					denominacionId: this.denominacionSelected.value.id,
+			  })
+			: this._unidad.CreateUnidadToNewDenomincion({
+					ficha: this.fichaControl.value,
+					tramoId: this.tramoIdControl.value,
+					tipoUnidadId: this.tipoUnidadIdControl.value,
+					denominacion: this.denominacionTextControl.value,
+			  });
 	}
 }

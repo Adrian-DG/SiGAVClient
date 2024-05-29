@@ -1,32 +1,120 @@
 <form style="width: 100%">
 	<div class="row">
-		<mat-form-field appearance="fill" style="width: 40%">
+		<mat-form-field
+			appearance="fill"
+			[ngStyle]="{ width: isDenominacionAlreadyExist ? '100%' : '30%' }"
+		>
 			<mat-label>Ficha</mat-label>
 			<input matInput [formControl]="fichaControl" type="text" />
 		</mat-form-field>
 
-		<mat-form-field appearance="fill" style="width: 50%">
-			<mat-label>Denominación</mat-label>
-			<input
-				type="text"
-				matInput
-				[formControl]="denominacionSelected"
-				[matAutocomplete]="auto"
-			/>
-			<mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+		<mat-form-field style="width: 30%" *ngIf="!isDenominacionAlreadyExist">
+			<mat-label>Tramo</mat-label>
+			<mat-select
+				[formControl]="tramoIdControl"
+				[required]="!isDenominacionAlreadyExist"
+			>
 				<mat-option
-					*ngFor="let option of _cache.denominaciones$ | async"
-					[value]="option"
+					*ngFor="let tramo of _cache.tramos$ | async"
+					[value]="tramo.id"
+					>{{ tramo.nombre }}</mat-option
 				>
-					{{ option.nombre }}
-				</mat-option>
-			</mat-autocomplete>
+			</mat-select>
 		</mat-form-field>
 
+		<mat-form-field style="width: 30%" *ngIf="!isDenominacionAlreadyExist">
+			<mat-label>Tipo Unidad</mat-label>
+			<mat-select
+				[formControl]="tipoUnidadIdControl"
+				[required]="!isDenominacionAlreadyExist"
+			>
+				<mat-option
+					*ngFor="let tipo of _cache.tipoUnidades$ | async"
+					[value]="tipo.id"
+					>{{ tipo.nombre }}</mat-option
+				>
+			</mat-select>
+		</mat-form-field>
+
+		<fieldset style="width: 100%">
+			<legend>Asignar Denominación</legend>
+			<div>
+				<mat-checkbox
+					[checked]="isDenominacionAlreadyExist"
+					[(ngModel)]="isDenominacionAlreadyExist"
+					(change)="onIsDenominacionAlreadyExist()"
+					><b>La denominación ya existe ? </b
+					>{{
+						isDenominacionAlreadyExist ? 'Si' : 'No'
+					}}</mat-checkbox
+				>
+
+				<mat-form-field
+					style="width: 100%"
+					appearance="fill"
+					*ngIf="isDenominacionAlreadyExist; else newDenominacion"
+				>
+					<mat-label>Denominación</mat-label>
+					<input
+						type="text"
+						matInput
+						[formControl]="denominacionSelected"
+						[matAutocomplete]="auto"
+						placeholder="Buscar denominación existente"
+					/>
+					<mat-autocomplete
+						#auto="matAutocomplete"
+						[displayWith]="displayFn"
+					>
+						<mat-option
+							*ngFor="
+								let option of _cache.denominaciones$ | async
+							"
+							[value]="option"
+						>
+							{{ option.nombre }}
+						</mat-option>
+					</mat-autocomplete>
+				</mat-form-field>
+
+				<ng-template #newDenominacion>
+					<mat-form-field appearance="fill" style="width: 100%">
+						<mat-label>Denominación</mat-label>
+						<input
+							matInput
+							type="text"
+							[formControl]="denominacionTextControl"
+							placeholder="Escribir nombre la nueva de denominación"
+						/>
+					</mat-form-field>
+				</ng-template>
+			</div>
+		</fieldset>
+
 		<button
+			*ngIf="isDenominacionAlreadyExist"
 			mat-raised-button
 			color="accent"
 			[disabled]="!fichaControl.valid"
+			style="width: 100%"
+			(click)="createUnidad()"
+		>
+			Crear Unidad
+		</button>
+
+		<button
+			*ngIf="!isDenominacionAlreadyExist"
+			mat-raised-button
+			color="accent"
+			[disabled]="
+				!(
+					fichaControl.valid &&
+					tramoIdControl.valid &&
+					tramoIdControl.value > 0 &&
+					tipoUnidadIdControl.valid &&
+					tipoUnidadIdControl.value > 0
+				)
+			"
 			style="width: 100%"
 			(click)="createUnidad()"
 		>

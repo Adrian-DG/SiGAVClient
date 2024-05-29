@@ -30,21 +30,58 @@
 		<ng-container matColumnDef="denominacion">
 			<th mat-header-cell *matHeaderCellDef>denominacion</th>
 			<td mat-cell *matCellDef="let element">
-				{{ element.denominacion }}
+				<span *ngIf="element.estaDisponible; else noDisponible">
+					{{ element.denominacion }}
+				</span>
+				<ng-template #noDisponible>
+					<span style="color: rgb(199, 31, 31)">
+						<strong>Sin denominación</strong>
+					</span>
+				</ng-template>
 			</td>
 		</ng-container>
 
 		<ng-container matColumnDef="tipoUnidad">
 			<th mat-header-cell *matHeaderCellDef>Tipo Unidad</th>
 			<td mat-cell *matCellDef="let element">
-				{{ element.tipoUnidad }}
+				<span *ngIf="element.estaDisponible; else noDisponible">
+					{{ element.tipoUnidad }}
+				</span>
+				<ng-template #noDisponible>
+					<span style="color: rgb(199, 31, 31)">
+						<strong>No Disponible</strong>
+					</span>
+				</ng-template>
 			</td>
 		</ng-container>
 
 		<ng-container matColumnDef="tramo">
 			<th mat-header-cell *matHeaderCellDef>Tramo</th>
-			<td mat-cell *matCellDef="let element">{{ element.tramo }}</td>
+			<td mat-cell *matCellDef="let element">
+				<span *ngIf="element.estaDisponible; else noDisponible">
+					{{ element.tramo }}
+				</span>
+				<ng-template #noDisponible>
+					<span style="color: rgb(199, 31, 31)">
+						<strong>No Disponible</strong>
+					</span>
+				</ng-template>
+			</td>
 		</ng-container>
+
+		<ng-container matColumnDef="disponibilidad">
+			<th mat-header-cell *matHeaderCellDef>Disponibilidad</th>
+			<td mat-cell *matCellDef="let element">
+				<div
+					style="margin: auto 70% auto auto"
+					class="estatusIndicator"
+					[ngClass]="
+						element.estaDisponible ? 'disponible' : 'noDisponible'
+					"
+				></div>
+			</td>
+		</ng-container>
+
 		<!-- 
 
 		<!-- TODO: Modulo: Unidades (implementar acciones)-->
@@ -62,9 +99,12 @@
 					<mat-icon style="color: rgb(48, 151, 48)">edit</mat-icon>
 				</button>
 
-				<button mat-icon-button (click)="desactivarUnidad(element.id)">
-					<mat-icon style="color: rgb(205, 85, 85)">delete</mat-icon>
-				</button>
+				<mat-checkbox
+					[title]="'Esta Activa ?'"
+					[checked]="element.estatus"
+					color="accent"
+					(change)="desactivarUnidad(element.id)"
+				></mat-checkbox>
 			</td>
 		</ng-container>
 
