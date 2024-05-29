@@ -33,10 +33,12 @@
 				"
 			>
 				<mat-checkbox
+					style="width: 100%"
 					[checked]="asistencia.fueContactado"
 					color="accent"
 					[(ngModel)]="asistencia.fueContactado"
-					>Fue Contactado</mat-checkbox
+					><b>El ciudadano fue contactado, tomo la llamada ? </b>
+					{{ asistencia.fueContactado ? 'Si' : 'No' }}</mat-checkbox
 				>
 				<mat-form-field style="width: 100%">
 					<mat-label
@@ -86,12 +88,32 @@
 					justify-content: space-evenly;
 				"
 			>
-				<mat-checkbox
-					[checked]="asistenciaDto.fueContactado"
-					color="accent"
-					[(ngModel)]="asistenciaDto.fueContactado"
-					>Fue Contactado</mat-checkbox
+				<div
+					style="
+						width: 100%;
+						display: flex;
+						flex-direction: row;
+						gap: 1em;
+					"
 				>
+					<mat-checkbox
+						[checked]="asistenciaDto.fueContactado"
+						color="accent"
+						[(ngModel)]="asistenciaDto.fueContactado"
+						><b>El ciudadano fue contactado, tomo la llamada ?</b>
+						{{
+							asistenciaDto.fueContactado ? 'Si' : 'No'
+						}}</mat-checkbox
+					>
+					<button
+						mat-stroked-button
+						(click)="markAsNotContacted()"
+						color="warn"
+					>
+						Marcar como no contactado
+					</button>
+				</div>
+
 				<mat-form-field style="width: 100%">
 					<mat-label
 						>¿Que le parecio el servicio brindado por nuestros
