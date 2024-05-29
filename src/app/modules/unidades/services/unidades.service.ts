@@ -89,7 +89,7 @@ export class UnidadesService extends GenericService {
 	}): void {
 		this.$http
 			.post<IServerResponse>(
-				`${this.endPoint}/cambiar-ficha-denominacion`,
+				`${this.endPoint}/create-unidad-new-denominacion`,
 				obj
 			)
 			.subscribe((response: IServerResponse) => {
