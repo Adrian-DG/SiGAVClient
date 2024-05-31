@@ -66,6 +66,7 @@ export class AsistenciaCalidadDialogComponent implements OnInit, AfterViewInit {
 		this.asistenciaDto.comentario +=
 			'\n- El ciudadano no pudo ser contacto por el personal de calidad.';
 		this.asistenciaDto.fueContactado = false;
+		this.asistenciaDto.valoracion = 0;
 	}
 
 	create(): void {
