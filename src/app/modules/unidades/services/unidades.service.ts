@@ -60,9 +60,9 @@ export class UnidadesService extends GenericService {
 			);
 	}
 
-	GetUnidadesPorTramo(tramoId: number): Observable<IUnidad[]> {
+	GetUnidadesPorTramo(tramoId: number): Observable<any[]> {
 		const params = new HttpParams().set('tramoId', tramoId);
-		return this.$http.get<IUnidad[]>(`${this.endPoint}/filteredByTramo`, {
+		return this.$http.get<any[]>(`${this.endPoint}/filteredByTramo`, {
 			params: params,
 		});
 	}

@@ -22,7 +22,7 @@ export class ReasignarUnidadDialogComponent implements OnInit {
 	};
 
 	public tramosList!: ITramoViewModel[];
-	public unidadesList!: IUnidad[];
+	public unidadesList!: any[];
 
 	constructor(
 		private _tramos: TramoService,
@@ -47,7 +47,7 @@ export class ReasignarUnidadDialogComponent implements OnInit {
 	onTramoSelectionChange(): void {
 		this._unidades
 			.GetUnidadesPorTramo(this.selectedTramoId)
-			.subscribe((data: IUnidad[]) => (this.unidadesList = data));
+			.subscribe((data: any[]) => (this.unidadesList = data));
 	}
 
 	confirmNewAssignment(): void {
