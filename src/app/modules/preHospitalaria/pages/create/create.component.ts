@@ -15,7 +15,7 @@ import { IUnidadAutoComplete } from 'src/app/modules/unidades/viewModels/iunidad
 	styleUrls: ['./create.component.scss'],
 })
 export class CreateComponent implements OnInit, AfterViewInit {
-	hasPersonInformation = false;
+	hasPersonInformation = true;
 	esTraslado = false;
 	esEventoEspecial = false;
 
@@ -28,18 +28,10 @@ export class CreateComponent implements OnInit, AfterViewInit {
 
 	ubicacionUnidadForm: FormGroup = new FormGroup({
 		zona: new FormControl(0, [Validators.required]),
+		esEventoCampo: new FormControl(false),
 		provinciaId: new FormControl(0, [Validators.required]),
 		municipioId: new FormControl(0, [Validators.required]),
 		unidadId: new FormControl(0, [Validators.required]),
-	});
-
-	cronogramaForm: FormGroup = new FormGroup({
-		horaLlamadaRecibida: new FormControl('', [Validators.required]),
-		horaLlegadaAlEvento: new FormControl('', [Validators.required]),
-		horaAbordajePaciente: new FormControl(''),
-		horaSalidaHospital: new FormControl(''),
-		horaEntregaPaciente: new FormControl(''),
-		horaUnidadDisponible: new FormControl('', [Validators.required]),
 	});
 
 	detalleForm: FormGroup = new FormGroup({
@@ -120,6 +112,29 @@ export class CreateComponent implements OnInit, AfterViewInit {
 	medicoControl: FormControl = new FormControl('');
 	unidadControl: FormControl = new FormControl('');
 
+	tiposDespacho = [
+		{ id: 1, nombre: 'SISTEMA NACIONAL DE EMERGENCIAS' },
+		{ id: 2, nombre: 'MOPC' },
+	];
+
+	tiposApoyo = [
+		{ id: 1, nombre: 'NINGUNA' },
+		{ id: 2, nombre: 'UNIDAD DE AMBULANCIA MOPC' },
+		{ id: 3, nombre: 'UNIDAD DE RESCATE MOPC' },
+	];
+
+	listadoZonas = [
+		{ id: 1, nombre: 'NORTE' },
+		{ id: 3, nombre: 'SUR' },
+		{ id: 2, nombre: 'ESTE' },
+	];
+
+	tiposAsistencias = [
+		{ id: 1, nombre: 'ASISTENCIA MÉDICA' },
+		{ id: 2, nombre: 'MOVIMIENTO' },
+		{ id: 3, nombre: 'EVENTO ESPECIAL' },
+	];
+
 	constructor(
 		private service: AsistenciPreHospitalariaService,
 		public _cache: CacheService,
@@ -127,62 +142,21 @@ export class CreateComponent implements OnInit, AfterViewInit {
 		public _unidades: UnidadesService
 	) {}
 
-	ngOnInit(): void {
-		this.medicoControl.valueChanges.subscribe((value: string) => {
-			if (value.length > 2) {
-				setTimeout(
-					() => this._cache.getFilterMiembrosPreHospitalaria(value),
-					2000
-				);
-			}
-		});
-
-		this.unidadControl.valueChanges.subscribe((value: string) => {
-			if (value.length > 2) {
-				setTimeout(
-					() => this._unidades.getUnidadesAutoComplete(value, true),
-					2000
-				);
-			}
-		});
-
-		this.hospitalControl.valueChanges.subscribe((value: string) => {
-			if (value.length > 2) {
-				setTimeout(() => this._cache.getFilterHospitales(value), 2000);
-			}
-		});
-	}
+	ngOnInit(): void {}
 
 	ngAfterViewInit(): void {
 		this._cache.getData('nacionalidades');
 	}
 
-	displayFn(item: IGenericData): string {
-		return item.nombre;
-	}
-
-	displayFn2(item: IUnidadAutoComplete): string {
-		return item.denominacion == undefined || item.ficha == undefined
-			? ''
-			: `${item.ficha} | ${item.denominacion}`;
-	}
-
-	onCheckboxTrasladoChange(event: any): void {
-		this.esTraslado = event;
-	}
-
-	onChecboxEventoEspecial(event: any): void {
-		this.esEventoEspecial = event;
-	}
-
 	onZonaSelectionChange(): void {
 		const { zona } = this.ubicacionUnidadForm.value;
-		this._cache.getDataOnId('filter_provicias', zona);
-		// this._cache.getDataOnId('hospitales', zona);
+		this._cache.getDataOnId('filter_provicias', parseInt(zona));
+		this._cache.getFilterUnidadesPreHospitalariaByRegion(parseInt(zona));
 	}
 
-	onProvinciaSelectionChange(id: number): void {
-		this._cache.getDataOnId('municipios', id);
+	onProvinciaSelectionChange(): void {
+		const { provinciaId } = this.ubicacionUnidadForm.value;
+		this._cache.getDataOnId('municipios', provinciaId);
 	}
 
 	create(): void {}

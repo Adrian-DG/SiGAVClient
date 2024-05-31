@@ -57,6 +57,9 @@ export class CacheService {
 	private hospitalesSource = new BehaviorSubject<IGenericData[]>([]);
 	public hospitales$ = this.hospitalesSource.asObservable();
 
+	private unidadesSource = new BehaviorSubject<IGenericData[]>([]);
+	public unidades$ = this.unidadesSource.asObservable();
+
 	private readonly sources = {
 		VehiculoTipo: (value: IGenericData[]) =>
 			this.vehiculoTiposSource.next(value),
@@ -189,6 +192,20 @@ export class CacheService {
 			})
 			.subscribe((data: IGenericData[]) => {
 				this.hospitalesSource.next(data);
+			});
+	}
+
+	getFilterUnidadesPreHospitalariaByRegion(region: number): void {
+		const queryParams = new HttpParams().set('region', region);
+		this.$http
+			.get<IGenericData[]>(
+				`${this.endPoint}/filter-unidades-preHospitalaria-by-region`,
+				{
+					params: queryParams,
+				}
+			)
+			.subscribe((data: IGenericData[]) => {
+				this.unidadesSource.next(data);
 			});
 	}
 }
