@@ -1,0 +1,10 @@
+.encuesta {
+	margin-top: 1em;
+	.pregunta {
+		margin: 0.5em auto;
+		mat-form-field {
+			width: 100%;
+			margin-top: 0.5em;
+		}
+	}
+}

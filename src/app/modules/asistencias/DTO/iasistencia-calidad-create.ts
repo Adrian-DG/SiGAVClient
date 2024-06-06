@@ -1,7 +1,8 @@
+import { IEncuestaCalidad } from './iencuesta-calidad';
+
 export interface IAsistenciaCalidadCreate {
 	asistenciaId: number;
 	usuarioId: number;
-	valoracion: number;
-	comentario: string;
+	encuesta: IEncuestaCalidad;
 	fueContactado: boolean;
 }

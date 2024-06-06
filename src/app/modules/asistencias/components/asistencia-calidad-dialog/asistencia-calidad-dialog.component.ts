@@ -6,6 +6,8 @@ import { IAsistenciaCalidadViewModel } from '../../DTO/iasistencia-calidad-view-
 import { IAsistenciaCalidadCreate } from '../../DTO/iasistencia-calidad-create';
 import { IServerResponse } from 'src/app/modules/generic/Responses/iserver-response';
 import { IAsistenciaCalidadEdit } from '../../DTO/iasistencia-calidad-edit';
+import { IEncuestaCalidad } from '../../DTO/iencuesta-calidad';
+import { IPreguntaEncuestaCalidad } from '../../DTO/ipregunta-encuesta-calidad';
 
 @Component({
 	selector: 'app-asistencia-calidad-dialog',
@@ -22,10 +24,17 @@ export class AsistenciaCalidadDialogComponent implements OnInit, AfterViewInit {
 
 	asistenciaDto: IAsistenciaCalidadCreate = {
 		fueContactado: false,
-		comentario: '',
-		valoracion: -1,
 		usuarioId: 0,
 		asistenciaId: 0,
+		encuesta: {
+			pregunta1: { valoracion: 0, comentario: '' },
+			pregunta2: { valoracion: 0, comentario: '' },
+			pregunta3: { valoracion: 0, comentario: '' },
+			pregunta4: { valoracion: 0, comentario: '' },
+			pregunta5: { valoracion: 0, comentario: '' },
+			pregunta6: { valoracion: 0, comentario: '' },
+			pregunta7: { valoracion: 0, comentario: '' },
+		},
 	};
 
 	constructor(
@@ -58,15 +67,21 @@ export class AsistenciaCalidadDialogComponent implements OnInit, AfterViewInit {
 			});
 	}
 
-	get areFieldsValid() {
-		return this.asistenciaDto.valoracion > -1;
-	}
+	// get areFieldsValid() {
+
+	// }
 
 	markAsNotContacted(): void {
-		this.asistenciaDto.comentario +=
-			'\n- El ciudadano no pudo ser contacto por el personal de calidad.';
 		this.asistenciaDto.fueContactado = false;
-		this.asistenciaDto.valoracion = 0;
+		let encuestaArray = Object.entries(this.asistenciaDto.encuesta);
+		encuestaArray.forEach((item) => {
+			let pregunta = item[1] as IPreguntaEncuestaCalidad;
+			pregunta.valoracion = 0;
+			pregunta.comentario =
+				'El ciudadano no fue contactado, sin valoración.';
+		});
+
+		this.create();
 	}
 
 	create(): void {
@@ -78,8 +93,7 @@ export class AsistenciaCalidadDialogComponent implements OnInit, AfterViewInit {
 			this._asistencias
 				.CreateRegistroCalidadAsistencia({
 					asistenciaId: this.data.id,
-					valoracion: this.asistenciaDto.valoracion,
-					comentario: this.asistenciaDto.comentario,
+					encuesta: this.asistenciaDto.encuesta,
 					fueContactado: this.asistenciaDto.fueContactado,
 					usuarioId: 0,
 				})
@@ -103,8 +117,7 @@ export class AsistenciaCalidadDialogComponent implements OnInit, AfterViewInit {
 				this._asistencias
 					.EditRegistroCalidadAsistencia(asistencia?.id, {
 						fueContactado: asistencia?.fueContactado,
-						comentario: asistencia?.comentario,
-						valoracion: asistencia?.valoracion,
+						encuesta: asistencia?.encuesta,
 						asistenciaId: 0,
 						usuarioId: 0,
 					})

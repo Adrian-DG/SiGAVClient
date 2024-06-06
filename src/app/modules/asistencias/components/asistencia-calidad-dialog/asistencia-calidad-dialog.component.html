@@ -40,40 +40,395 @@
 					><b>El ciudadano fue contactado, tomo la llamada ? </b>
 					{{ asistencia.fueContactado ? 'Si' : 'No' }}</mat-checkbox
 				>
-				<mat-form-field style="width: 100%">
-					<mat-label
-						>¿Que le parecio el servicio brindado por nuestros
-						soldados?</mat-label
-					>
-					<textarea
-						matInput
-						[value]="asistencia.comentario"
-						[(ngModel)]="asistencia.comentario"
-					></textarea>
-				</mat-form-field>
-				<fieldset>
-					<legend>Valoración</legend>
-					<mat-radio-group
-						[value]="asistencia.valoracion"
-						[(ngModel)]="asistencia.valoracion"
-						[required]="true"
-					>
-						<mat-radio-button [value]="0"
-							>Muy Malo</mat-radio-button
+
+				<mat-card class="encuesta">
+					<mat-card-header>
+						<mat-card-title>Encuesta de servicio</mat-card-title>
+						<mat-card-subtitle
+							>A continuación, se tomaran las valoraciones y
+							comentarios hehos por el
+							ciudadano.</mat-card-subtitle
 						>
-						<mat-radio-button [value]="1">Malo</mat-radio-button>
-						<mat-radio-button [value]="2">Regular</mat-radio-button>
-						<mat-radio-button [value]="3"
-							>Aceptable</mat-radio-button
-						>
-						<mat-radio-button [value]="4">Bueno</mat-radio-button>
-						<mat-radio-button [value]="5"
-							>Excelente</mat-radio-button
-						>
-					</mat-radio-group>
-				</fieldset>
+					</mat-card-header>
+					<mat-card-content>
+						<!-- Pregunta  #1 -->
+
+						<div class="pregunta">
+							<fieldset>
+								<legend>
+									¿Que le parecio el servicio brindado por
+									nuestros soldados?
+								</legend>
+								<mat-radio-group
+									[value]="
+										asistencia.encuesta.pregunta1.valoracion
+									"
+									[(ngModel)]="
+										asistencia.encuesta.pregunta1.valoracion
+									"
+									[required]="true"
+								>
+									<mat-radio-button [value]="0"
+										>Sin Valoración</mat-radio-button
+									>
+									<mat-radio-button [value]="1"
+										>Muy Malo</mat-radio-button
+									>
+									<mat-radio-button [value]="2"
+										>Malo</mat-radio-button
+									>
+									<mat-radio-button [value]="3"
+										>Regular</mat-radio-button
+									>
+									<mat-radio-button [value]="4"
+										>Aceptable</mat-radio-button
+									>
+									<mat-radio-button [value]="5"
+										>Bueno</mat-radio-button
+									>
+									<mat-radio-button [value]="6"
+										>Excelente</mat-radio-button
+									>
+								</mat-radio-group>
+							</fieldset>
+							<mat-form-field>
+								<mat-label>Comentarios</mat-label>
+								<textarea
+									matInput
+									[value]="
+										asistencia.encuesta.pregunta1.comentario
+									"
+									[(ngModel)]="
+										asistencia.encuesta.pregunta1.comentario
+									"
+								></textarea>
+							</mat-form-field>
+						</div>
+
+						<!-- Pregunta 2 -->
+
+						<div class="pregunta">
+							<fieldset>
+								<legend>
+									¿Como describirias nuestro servicio?
+								</legend>
+								<mat-radio-group
+									[value]="
+										asistencia.encuesta.pregunta2.valoracion
+									"
+									[(ngModel)]="
+										asistencia.encuesta.pregunta2.valoracion
+									"
+									[required]="true"
+								>
+									<mat-radio-button [value]="0"
+										>Sin Valoración</mat-radio-button
+									>
+									<mat-radio-button [value]="1"
+										>Muy Malo</mat-radio-button
+									>
+									<mat-radio-button [value]="2"
+										>Malo</mat-radio-button
+									>
+									<mat-radio-button [value]="3"
+										>Regular</mat-radio-button
+									>
+									<mat-radio-button [value]="4"
+										>Aceptable</mat-radio-button
+									>
+									<mat-radio-button [value]="5"
+										>Bueno</mat-radio-button
+									>
+									<mat-radio-button [value]="6"
+										>Excelente</mat-radio-button
+									>
+								</mat-radio-group>
+							</fieldset>
+							<mat-form-field>
+								<mat-label>Comentarios</mat-label>
+								<textarea
+									matInput
+									[value]="
+										asistencia.encuesta.pregunta2.comentario
+									"
+									[(ngModel)]="
+										asistencia.encuesta.pregunta2.comentario
+									"
+								></textarea>
+							</mat-form-field>
+						</div>
+
+						<!-- Pregunta 3 -->
+
+						<div class="pregunta">
+							<fieldset>
+								<legend>
+									¿Le comunicaron que el servicio es gratuito?
+								</legend>
+								<mat-radio-group
+									[value]="
+										asistencia.encuesta.pregunta3.valoracion
+									"
+									[(ngModel)]="
+										asistencia.encuesta.pregunta3.valoracion
+									"
+									[required]="true"
+								>
+									<mat-radio-button [value]="0"
+										>Sin Valoración</mat-radio-button
+									>
+									<mat-radio-button [value]="1"
+										>Muy Malo</mat-radio-button
+									>
+									<mat-radio-button [value]="2"
+										>Malo</mat-radio-button
+									>
+									<mat-radio-button [value]="3"
+										>Regular</mat-radio-button
+									>
+									<mat-radio-button [value]="4"
+										>Aceptable</mat-radio-button
+									>
+									<mat-radio-button [value]="5"
+										>Bueno</mat-radio-button
+									>
+									<mat-radio-button [value]="6"
+										>Excelente</mat-radio-button
+									>
+								</mat-radio-group>
+							</fieldset>
+							<mat-form-field>
+								<mat-label>Comentarios</mat-label>
+								<textarea
+									matInput
+									[value]="
+										asistencia.encuesta.pregunta3.comentario
+									"
+									[(ngModel)]="
+										asistencia.encuesta.pregunta3.comentario
+									"
+								></textarea>
+							</mat-form-field>
+						</div>
+
+						<!-- Pregunta 4 -->
+
+						<div class="pregunta">
+							<fieldset>
+								<legend>
+									¿Nuestro servicio supero sus expectativas?
+								</legend>
+								<mat-radio-group
+									[value]="
+										asistencia.encuesta.pregunta4.valoracion
+									"
+									[(ngModel)]="
+										asistencia.encuesta.pregunta4.valoracion
+									"
+									[required]="true"
+								>
+									<mat-radio-button [value]="0"
+										>Sin Valoración</mat-radio-button
+									>
+									<mat-radio-button [value]="1"
+										>Muy Malo</mat-radio-button
+									>
+									<mat-radio-button [value]="2"
+										>Malo</mat-radio-button
+									>
+									<mat-radio-button [value]="3"
+										>Regular</mat-radio-button
+									>
+									<mat-radio-button [value]="4"
+										>Aceptable</mat-radio-button
+									>
+									<mat-radio-button [value]="5"
+										>Bueno</mat-radio-button
+									>
+									<mat-radio-button [value]="6"
+										>Excelente</mat-radio-button
+									>
+								</mat-radio-group>
+							</fieldset>
+							<mat-form-field>
+								<mat-label>Comentarios</mat-label>
+								<textarea
+									matInput
+									[value]="
+										asistencia.encuesta.pregunta4.comentario
+									"
+									[(ngModel)]="
+										asistencia.encuesta.pregunta4.comentario
+									"
+								></textarea>
+							</mat-form-field>
+						</div>
+
+						<!-- Pregunta 5 -->
+
+						<div class="pregunta">
+							<fieldset>
+								<legend>
+									¿Sabia de la existencia de nuestro servicio?
+								</legend>
+								<mat-radio-group
+									[value]="
+										asistencia.encuesta.pregunta5.valoracion
+									"
+									[(ngModel)]="
+										asistencia.encuesta.pregunta5.valoracion
+									"
+									[required]="true"
+								>
+									<mat-radio-button [value]="0"
+										>Sin Valoración</mat-radio-button
+									>
+									<mat-radio-button [value]="1"
+										>Muy Malo</mat-radio-button
+									>
+									<mat-radio-button [value]="2"
+										>Malo</mat-radio-button
+									>
+									<mat-radio-button [value]="3"
+										>Regular</mat-radio-button
+									>
+									<mat-radio-button [value]="4"
+										>Aceptable</mat-radio-button
+									>
+									<mat-radio-button [value]="5"
+										>Bueno</mat-radio-button
+									>
+									<mat-radio-button [value]="6"
+										>Excelente</mat-radio-button
+									>
+								</mat-radio-group>
+							</fieldset>
+							<mat-form-field>
+								<mat-label>Comentarios</mat-label>
+								<textarea
+									matInput
+									[value]="
+										asistencia.encuesta.pregunta5.comentario
+									"
+									[(ngModel)]="
+										asistencia.encuesta.pregunta5.comentario
+									"
+								></textarea>
+							</mat-form-field>
+						</div>
+
+						<!-- Pregunta 6 -->
+
+						<div class="pregunta">
+							<fieldset>
+								<legend>
+									¿Que usted recomienda para la mejora del
+									servicio brindado?
+								</legend>
+								<mat-radio-group
+									[value]="
+										asistencia.encuesta.pregunta6.valoracion
+									"
+									[(ngModel)]="
+										asistencia.encuesta.pregunta6.valoracion
+									"
+									[required]="true"
+								>
+									<mat-radio-button [value]="0"
+										>Sin Valoración</mat-radio-button
+									>
+									<mat-radio-button [value]="1"
+										>Muy Malo</mat-radio-button
+									>
+									<mat-radio-button [value]="2"
+										>Malo</mat-radio-button
+									>
+									<mat-radio-button [value]="3"
+										>Regular</mat-radio-button
+									>
+									<mat-radio-button [value]="4"
+										>Aceptable</mat-radio-button
+									>
+									<mat-radio-button [value]="5"
+										>Bueno</mat-radio-button
+									>
+									<mat-radio-button [value]="6"
+										>Excelente</mat-radio-button
+									>
+								</mat-radio-group>
+							</fieldset>
+							<mat-form-field>
+								<mat-label>Comentarios</mat-label>
+								<textarea
+									matInput
+									[value]="
+										asistencia.encuesta.pregunta6.comentario
+									"
+									[(ngModel)]="
+										asistencia.encuesta.pregunta6.comentario
+									"
+								></textarea>
+							</mat-form-field>
+						</div>
+
+						<!-- Pregunta 7 -->
+
+						<div class="pregunta">
+							<fieldset>
+								<legend>
+									¿Quejas y recomendaciones obtenidas de los
+									usuarios?
+								</legend>
+								<mat-radio-group
+									[value]="
+										asistencia.encuesta.pregunta7.valoracion
+									"
+									[(ngModel)]="
+										asistencia.encuesta.pregunta7.valoracion
+									"
+									[required]="true"
+								>
+									<mat-radio-button [value]="0"
+										>Sin Valoración</mat-radio-button
+									>
+									<mat-radio-button [value]="1"
+										>Muy Malo</mat-radio-button
+									>
+									<mat-radio-button [value]="2"
+										>Malo</mat-radio-button
+									>
+									<mat-radio-button [value]="3"
+										>Regular</mat-radio-button
+									>
+									<mat-radio-button [value]="4"
+										>Aceptable</mat-radio-button
+									>
+									<mat-radio-button [value]="5"
+										>Bueno</mat-radio-button
+									>
+									<mat-radio-button [value]="6"
+										>Excelente</mat-radio-button
+									>
+								</mat-radio-group>
+							</fieldset>
+							<mat-form-field>
+								<mat-label>Comentarios</mat-label>
+								<textarea
+									matInput
+									[value]="
+										asistencia.encuesta.pregunta7.comentario
+									"
+									[(ngModel)]="
+										asistencia.encuesta.pregunta7.comentario
+									"
+								></textarea>
+							</mat-form-field>
+						</div>
+					</mat-card-content>
+				</mat-card>
 			</div>
 		</div>
+
 		<ng-template #form>
 			<small
 				>A continuación, se evaluara la calidad de la asistencia
@@ -90,6 +445,7 @@
 			>
 				<div
 					style="
+						margin: 0.5em auto;
 						width: 100%;
 						display: flex;
 						flex-direction: row;
@@ -114,40 +470,363 @@
 					</button>
 				</div>
 
-				<mat-form-field style="width: 100%">
-					<mat-label
-						>¿Que le parecio el servicio brindado por nuestros
-						soldados?</mat-label
-					>
-					<textarea
-						matInput
-						[(ngModel)]="asistenciaDto.comentario"
-					></textarea>
-				</mat-form-field>
-				<fieldset>
-					<legend>Valoración</legend>
-					<mat-radio-group
-						[(ngModel)]="asistenciaDto.valoracion"
-						[required]="true"
-					>
-						<mat-radio-button [value]="0"
-							>Sin Valoración</mat-radio-button
+				<mat-card class="encuesta">
+					<mat-card-header>
+						<mat-card-title>Encuesta de servicio</mat-card-title>
+						<mat-card-subtitle
+							>A continuación, se tomaran las valoraciones y
+							comentarios hehos por el
+							ciudadano.</mat-card-subtitle
 						>
-						>
-						<mat-radio-button [value]="1"
-							>Muy Malo</mat-radio-button
-						>
-						<mat-radio-button [value]="2">Malo</mat-radio-button>
-						<mat-radio-button [value]="3">Regular</mat-radio-button>
-						<mat-radio-button [value]="4"
-							>Aceptable</mat-radio-button
-						>
-						<mat-radio-button [value]="5">Bueno</mat-radio-button>
-						<mat-radio-button [value]="6"
-							>Excelente</mat-radio-button
-						>
-					</mat-radio-group>
-				</fieldset>
+					</mat-card-header>
+					<mat-card-content>
+						<!-- Pregunta  #1 -->
+
+						<div class="pregunta">
+							<fieldset>
+								<legend>
+									¿Que le parecio el servicio brindado por
+									nuestros soldados?
+								</legend>
+								<mat-radio-group
+									[(ngModel)]="
+										asistenciaDto.encuesta.pregunta1
+											.valoracion
+									"
+									[required]="true"
+								>
+									<mat-radio-button [value]="0"
+										>Sin Valoración</mat-radio-button
+									>
+									<mat-radio-button [value]="1"
+										>Muy Malo</mat-radio-button
+									>
+									<mat-radio-button [value]="2"
+										>Malo</mat-radio-button
+									>
+									<mat-radio-button [value]="3"
+										>Regular</mat-radio-button
+									>
+									<mat-radio-button [value]="4"
+										>Aceptable</mat-radio-button
+									>
+									<mat-radio-button [value]="5"
+										>Bueno</mat-radio-button
+									>
+									<mat-radio-button [value]="6"
+										>Excelente</mat-radio-button
+									>
+								</mat-radio-group>
+							</fieldset>
+							<mat-form-field>
+								<mat-label>Comentarios</mat-label>
+								<textarea
+									matInput
+									[(ngModel)]="
+										asistenciaDto.encuesta.pregunta1
+											.comentario
+									"
+								></textarea>
+							</mat-form-field>
+						</div>
+
+						<!-- Pregunta 2 -->
+
+						<div class="pregunta">
+							<fieldset>
+								<legend>
+									¿Como describirias nuestro servicio?
+								</legend>
+								<mat-radio-group
+									[(ngModel)]="
+										asistenciaDto.encuesta.pregunta2
+											.valoracion
+									"
+									[required]="true"
+								>
+									<mat-radio-button [value]="0"
+										>Sin Valoración</mat-radio-button
+									>
+									<mat-radio-button [value]="1"
+										>Muy Malo</mat-radio-button
+									>
+									<mat-radio-button [value]="2"
+										>Malo</mat-radio-button
+									>
+									<mat-radio-button [value]="3"
+										>Regular</mat-radio-button
+									>
+									<mat-radio-button [value]="4"
+										>Aceptable</mat-radio-button
+									>
+									<mat-radio-button [value]="5"
+										>Bueno</mat-radio-button
+									>
+									<mat-radio-button [value]="6"
+										>Excelente</mat-radio-button
+									>
+								</mat-radio-group>
+							</fieldset>
+							<mat-form-field>
+								<mat-label>Comentarios</mat-label>
+								<textarea
+									matInput
+									[(ngModel)]="
+										asistenciaDto.encuesta.pregunta2
+											.comentario
+									"
+								></textarea>
+							</mat-form-field>
+						</div>
+
+						<!-- Pregunta 3 -->
+
+						<div class="pregunta">
+							<fieldset>
+								<legend>
+									¿Le comunicaron que el servicio es gratuito?
+								</legend>
+								<mat-radio-group
+									[(ngModel)]="
+										asistenciaDto.encuesta.pregunta3
+											.valoracion
+									"
+									[required]="true"
+								>
+									<mat-radio-button [value]="0"
+										>Sin Valoración</mat-radio-button
+									>
+									<mat-radio-button [value]="1"
+										>Muy Malo</mat-radio-button
+									>
+									<mat-radio-button [value]="2"
+										>Malo</mat-radio-button
+									>
+									<mat-radio-button [value]="3"
+										>Regular</mat-radio-button
+									>
+									<mat-radio-button [value]="4"
+										>Aceptable</mat-radio-button
+									>
+									<mat-radio-button [value]="5"
+										>Bueno</mat-radio-button
+									>
+									<mat-radio-button [value]="6"
+										>Excelente</mat-radio-button
+									>
+								</mat-radio-group>
+							</fieldset>
+							<mat-form-field>
+								<mat-label>Comentarios</mat-label>
+								<textarea
+									matInput
+									[(ngModel)]="
+										asistenciaDto.encuesta.pregunta3
+											.comentario
+									"
+								></textarea>
+							</mat-form-field>
+						</div>
+
+						<!-- Pregunta 4 -->
+
+						<div class="pregunta">
+							<fieldset>
+								<legend>
+									¿Nuestro servicio supero sus expectativas?
+								</legend>
+								<mat-radio-group
+									[(ngModel)]="
+										asistenciaDto.encuesta.pregunta4
+											.valoracion
+									"
+									[required]="true"
+								>
+									<mat-radio-button [value]="0"
+										>Sin Valoración</mat-radio-button
+									>
+									<mat-radio-button [value]="1"
+										>Muy Malo</mat-radio-button
+									>
+									<mat-radio-button [value]="2"
+										>Malo</mat-radio-button
+									>
+									<mat-radio-button [value]="3"
+										>Regular</mat-radio-button
+									>
+									<mat-radio-button [value]="4"
+										>Aceptable</mat-radio-button
+									>
+									<mat-radio-button [value]="5"
+										>Bueno</mat-radio-button
+									>
+									<mat-radio-button [value]="6"
+										>Excelente</mat-radio-button
+									>
+								</mat-radio-group>
+							</fieldset>
+							<mat-form-field>
+								<mat-label>Comentarios</mat-label>
+								<textarea
+									matInput
+									[(ngModel)]="
+										asistenciaDto.encuesta.pregunta4
+											.comentario
+									"
+								></textarea>
+							</mat-form-field>
+						</div>
+
+						<!-- Pregunta 5 -->
+
+						<div class="pregunta">
+							<fieldset>
+								<legend>
+									¿Sabia de la existencia de nuestro servicio?
+								</legend>
+								<mat-radio-group
+									[(ngModel)]="
+										asistenciaDto.encuesta.pregunta5
+											.valoracion
+									"
+									[required]="true"
+								>
+									<mat-radio-button [value]="0"
+										>Sin Valoración</mat-radio-button
+									>
+									<mat-radio-button [value]="1"
+										>Muy Malo</mat-radio-button
+									>
+									<mat-radio-button [value]="2"
+										>Malo</mat-radio-button
+									>
+									<mat-radio-button [value]="3"
+										>Regular</mat-radio-button
+									>
+									<mat-radio-button [value]="4"
+										>Aceptable</mat-radio-button
+									>
+									<mat-radio-button [value]="5"
+										>Bueno</mat-radio-button
+									>
+									<mat-radio-button [value]="6"
+										>Excelente</mat-radio-button
+									>
+								</mat-radio-group>
+							</fieldset>
+							<mat-form-field>
+								<mat-label>Comentarios</mat-label>
+								<textarea
+									matInput
+									[(ngModel)]="
+										asistenciaDto.encuesta.pregunta5
+											.comentario
+									"
+								></textarea>
+							</mat-form-field>
+						</div>
+
+						<!-- Pregunta 6 -->
+
+						<div class="pregunta">
+							<fieldset>
+								<legend>
+									¿Que usted recomienda para la mejora del
+									servicio brindado?
+								</legend>
+								<mat-radio-group
+									[(ngModel)]="
+										asistenciaDto.encuesta.pregunta6
+											.valoracion
+									"
+									[required]="true"
+								>
+									<mat-radio-button [value]="0"
+										>Sin Valoración</mat-radio-button
+									>
+									<mat-radio-button [value]="1"
+										>Muy Malo</mat-radio-button
+									>
+									<mat-radio-button [value]="2"
+										>Malo</mat-radio-button
+									>
+									<mat-radio-button [value]="3"
+										>Regular</mat-radio-button
+									>
+									<mat-radio-button [value]="4"
+										>Aceptable</mat-radio-button
+									>
+									<mat-radio-button [value]="5"
+										>Bueno</mat-radio-button
+									>
+									<mat-radio-button [value]="6"
+										>Excelente</mat-radio-button
+									>
+								</mat-radio-group>
+							</fieldset>
+							<mat-form-field>
+								<mat-label>Comentarios</mat-label>
+								<textarea
+									matInput
+									[(ngModel)]="
+										asistenciaDto.encuesta.pregunta6
+											.comentario
+									"
+								></textarea>
+							</mat-form-field>
+						</div>
+
+						<!-- Pregunta 7 -->
+
+						<div class="pregunta">
+							<fieldset>
+								<legend>
+									¿Quejas y recomendaciones obtenidas de los
+									usuarios?
+								</legend>
+								<mat-radio-group
+									[(ngModel)]="
+										asistenciaDto.encuesta.pregunta7
+											.valoracion
+									"
+									[required]="true"
+								>
+									<mat-radio-button [value]="0"
+										>Sin Valoración</mat-radio-button
+									>
+									<mat-radio-button [value]="1"
+										>Muy Malo</mat-radio-button
+									>
+									<mat-radio-button [value]="2"
+										>Malo</mat-radio-button
+									>
+									<mat-radio-button [value]="3"
+										>Regular</mat-radio-button
+									>
+									<mat-radio-button [value]="4"
+										>Aceptable</mat-radio-button
+									>
+									<mat-radio-button [value]="5"
+										>Bueno</mat-radio-button
+									>
+									<mat-radio-button [value]="6"
+										>Excelente</mat-radio-button
+									>
+								</mat-radio-group>
+							</fieldset>
+							<mat-form-field>
+								<mat-label>Comentarios</mat-label>
+								<textarea
+									matInput
+									[(ngModel)]="
+										asistenciaDto.encuesta.pregunta7
+											.comentario
+									"
+								></textarea>
+							</mat-form-field>
+						</div>
+					</mat-card-content>
+				</mat-card>
 			</div>
 		</ng-template>
 	</ng-template>
@@ -160,8 +839,8 @@
 	<button
 		mat-raised-button
 		color="accent"
-		(click)="create()"
 		*ngIf="isCreating"
+		(click)="create()"
 	>
 		Crear Registro
 	</button>
