@@ -29,11 +29,10 @@ export class AsistenciaCalidadDialogComponent implements OnInit, AfterViewInit {
 		encuesta: {
 			pregunta1: { valoracion: 0, comentario: '' },
 			pregunta2: { valoracion: 0, comentario: '' },
-			pregunta3: { valoracion: 0, comentario: '' },
-			pregunta4: { valoracion: 0, comentario: '' },
-			pregunta5: { valoracion: 0, comentario: '' },
-			pregunta6: { valoracion: 0, comentario: '' },
-			pregunta7: { valoracion: 0, comentario: '' },
+			pregunta3: false,
+			pregunta4: false,
+			pregunta5: false,
+			pregunta6: '',
 		},
 	};
 
@@ -73,13 +72,29 @@ export class AsistenciaCalidadDialogComponent implements OnInit, AfterViewInit {
 
 	markAsNotContacted(): void {
 		this.asistenciaDto.fueContactado = false;
-		let encuestaArray = Object.entries(this.asistenciaDto.encuesta);
-		encuestaArray.forEach((item) => {
-			let pregunta = item[1] as IPreguntaEncuestaCalidad;
-			pregunta.valoracion = 0;
-			pregunta.comentario =
-				'El ciudadano no fue contactado, sin valoración.';
-		});
+		this.asistenciaDto.encuesta.pregunta1 = {
+			valoracion: 0,
+			comentario: 'El ciudadano no fue contactado, sin valoración.',
+		};
+		this.asistenciaDto.encuesta.pregunta2 = {
+			valoracion: 0,
+			comentario: 'El ciudadano no fue contactado, sin valoración.',
+		};
+
+		this.asistenciaDto.encuesta.pregunta3 = false;
+		this.asistenciaDto.encuesta.pregunta4 = false;
+		this.asistenciaDto.encuesta.pregunta5 = false;
+
+		this.asistenciaDto.encuesta.pregunta6 =
+			'El ciudadano no fue contactado, sin valoración.';
+
+		// let encuestaArray = Object.entries(this.asistenciaDto.encuesta);
+		// encuestaArray.forEach((item) => {
+		// 	let pregunta = item[1] as IPreguntaEncuestaCalidad;
+		// 	pregunta.valoracion = 0;
+		// 	pregunta.comentario =
+		// 		'El ciudadano no fue contactado, sin valoración.';
+		// });
 
 		this.create();
 	}
