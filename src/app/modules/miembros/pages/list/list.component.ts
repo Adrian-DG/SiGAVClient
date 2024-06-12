@@ -78,7 +78,6 @@ export class ListComponent implements OnInit, AfterViewInit {
 			this._miembros
 				.UpdateEstatusMiembro(id, type)
 				.subscribe((response: IServerResponse) => {
-					this.filters.status = !this.filters.status;
 					this.loadData();
 					alert(response.message);
 				});
