@@ -1,1 +1,31 @@
-<p>create works!</p>
+<div
+	style="
+		display: flex;
+		flex-direction: row;
+		justify-content: flex-start;
+		align-items: center;
+		gap: 1em;
+	"
+>
+	<mat-form-field style="width: 30%">
+		<mat-label>Nombre Hospital</mat-label>
+		<input matInput [(ngModel)]="hospitalObj.nombre" required />
+	</mat-form-field>
+	<mat-form-field style="width: 30%">
+		<mat-label>Region</mat-label>
+		<mat-select [(ngModel)]="hospitalObj.region" required>
+			<mat-option [value]="1">Norte</mat-option>
+			<mat-option [value]="2">Este</mat-option>
+			<mat-option [value]="3">Sur</mat-option>
+		</mat-select>
+	</mat-form-field>
+	<button
+		mat-raised-button
+		color="accent"
+		(click)="create()"
+		[disabled]="!isHospitalValid"
+		style="width: 30%"
+	>
+		Crear Hospital
+	</button>
+</div>

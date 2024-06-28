@@ -16,7 +16,7 @@ export class ListComponent {
 	displayedColumns = [
 		'#',
 		'nombre',
-		// 'region',
+		'region',
 		//'acciones',
 	];
 	pageSizeOptions = [5, 10, 25, 100];
@@ -43,7 +43,7 @@ export class ListComponent {
 
 	loadData(): void {
 		this._hospitales
-			.Get<IHospital>(this.filters)
+			.getAllHospitales(this.filters)
 			.subscribe((data: IPagedData<IHospital>) => {
 				this.dataSource.data = data.items;
 				setTimeout(() => {
