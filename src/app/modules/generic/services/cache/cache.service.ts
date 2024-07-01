@@ -170,14 +170,10 @@ export class CacheService {
 			});
 	}
 
-	getFilterMiembrosPreHospitalaria(param: string): void {
-		const queryParams = new HttpParams().set('param', param);
+	getFilterMiembrosPreHospitalaria(): void {
 		this.$http
 			.get<IGenericData[]>(
-				`${this.endPoint}/filter-miembros-pre-hospitalaria`,
-				{
-					params: queryParams,
-				}
+				`${this.endPoint}/filter-miembros-pre-hospitalaria`
 			)
 			.subscribe((data: IGenericData[]) => {
 				this.miembrosSource.next(data);
@@ -190,6 +186,20 @@ export class CacheService {
 			.get<IGenericData[]>(`${this.endPoint}/filter-hospitales`, {
 				params: queryParams,
 			})
+			.subscribe((data: IGenericData[]) => {
+				this.hospitalesSource.next(data);
+			});
+	}
+
+	GetHospitalesPorRegion(region: number): void {
+		const queryParams = new HttpParams().set('region', region);
+		this.$http
+			.get<IGenericData[]>(
+				`${this.endPoint}/filter-hospitales-by-region`,
+				{
+					params: queryParams,
+				}
+			)
 			.subscribe((data: IGenericData[]) => {
 				this.hospitalesSource.next(data);
 			});

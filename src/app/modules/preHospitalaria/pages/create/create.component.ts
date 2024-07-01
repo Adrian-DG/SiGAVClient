@@ -18,6 +18,8 @@ export class CreateComponent implements OnInit, AfterViewInit {
 	hasPersonInformation = true;
 	esTraslado = false;
 	esEventoEspecial = false;
+	zonaSelected = 0;
+	tipoAsistenciaSelected: number = 0;
 
 	// Informacion general
 
@@ -29,15 +31,19 @@ export class CreateComponent implements OnInit, AfterViewInit {
 	ubicacionUnidadForm: FormGroup = new FormGroup({
 		zona: new FormControl(0, [Validators.required]),
 		esEventoCampo: new FormControl(false),
-		provinciaId: new FormControl(0, [Validators.required]),
-		municipioId: new FormControl(0, [Validators.required]),
-		unidadId: new FormControl(0, [Validators.required]),
+		provinciaId: new FormControl(0),
+		municipioId: new FormControl(0),
+		unidadId: new FormControl(0),
 	});
 
+	cronogramaForm: FormGroup = new FormGroup({});
+
 	detalleForm: FormGroup = new FormGroup({
-		detalle: new FormControl('', [Validators.required]),
-		tipoAsistencia: new FormControl(0, [Validators.required]), // Enum
-		nombreEvento: new FormControl(''),
+		esEventoCampo: new FormControl(false),
+		esEventoEspecial: new FormControl(false),
+		detalleAsistencia: new FormControl(''),
+		tipoAsistencia: new FormControl(0), // Enum
+		nombreEventoEspecial: new FormControl(''),
 	});
 
 	datosPacienteForm: FormGroup = new FormGroup({
@@ -46,15 +52,15 @@ export class CreateComponent implements OnInit, AfterViewInit {
 			Validators.required,
 			Validators.minLength(11),
 		]),
-		nombre: new FormControl('', [Validators.required]),
-		apellido: new FormControl('', [Validators.required]),
-		sexo: new FormControl(0, [Validators.required]),
-		edad: new FormControl(0, [Validators.required]),
+		nombre: new FormControl(''),
+		apellido: new FormControl(''),
+		sexo: new FormControl(0),
+		edad: new FormControl(0),
 		telefono: new FormControl('', [
 			Validators.required,
 			Validators.minLength(10),
 		]),
-		nacionalidadId: new FormControl(0, [Validators.required]),
+		nacionalidadId: new FormControl(0),
 	});
 
 	datosTrasladoForm: FormGroup = new FormGroup({
@@ -63,9 +69,8 @@ export class CreateComponent implements OnInit, AfterViewInit {
 	});
 
 	datosCentroSaludForm: FormGroup = new FormGroup({
-		zona: new FormControl(0, [Validators.required]),
-		hospitalId: new FormControl(0, [Validators.required]),
-		personaRecibio: new FormControl('', [Validators.required]),
+		hospitalId: new FormControl(0),
+		personaRecibioEnHospital: new FormControl(''),
 	});
 
 	datosAntecedentesForm: FormGroup = new FormGroup({
@@ -74,14 +79,15 @@ export class CreateComponent implements OnInit, AfterViewInit {
 	});
 
 	signosVitalesForm: FormGroup = new FormGroup({
-		antecedentesMorbidos: new FormControl(''),
-		detalleAsistencia: new FormControl(''),
 		frecuenciaCardiaca: new FormControl(0),
 		frecuenciaRespiratoria: new FormControl(0),
 		tensionArterialSistolica: new FormControl(0),
 		tensionArterialDiastolica: new FormControl(0),
 		saturacionParcialOxigeno: new FormControl(0),
 		temperatura: new FormControl(0),
+	});
+
+	respuestaForm: FormGroup = new FormGroup({
 		llenadoCapilar: new FormControl(0),
 		aperturaOcular: new FormControl(0),
 		respuestaVerbal: new FormControl(0),
@@ -89,12 +95,12 @@ export class CreateComponent implements OnInit, AfterViewInit {
 	});
 
 	examenFisicoForm: FormGroup = new FormGroup({
-		hallazgosPositivos: new FormControl('', [Validators.required]),
+		hallazgosPositivos: new FormControl(''),
 	});
 
 	diagnosticoPresuntivoForm: FormGroup = new FormGroup({
-		diagnosticosPresuntivos: new FormControl('', [Validators.required]),
-		procedimientosRealizados: new FormControl('', [Validators.required]),
+		diagnosticosPresuntivos: new FormControl(''),
+		procedimientosRealizados: new FormControl(''),
 	});
 
 	insumosUtilizadosForm: FormGroup = new FormGroup({
@@ -146,12 +152,15 @@ export class CreateComponent implements OnInit, AfterViewInit {
 
 	ngAfterViewInit(): void {
 		this._cache.getData('nacionalidades');
+		this._cache.getFilterMiembrosPreHospitalaria();
 	}
 
 	onZonaSelectionChange(): void {
 		const { zona } = this.ubicacionUnidadForm.value;
+		this.zonaSelected = parseInt(zona);
 		this._cache.getDataOnId('filter_provicias', parseInt(zona));
 		this._cache.getFilterUnidadesPreHospitalariaByRegion(parseInt(zona));
+		this._cache.GetHospitalesPorRegion(parseInt(zona));
 	}
 
 	onProvinciaSelectionChange(): void {
@@ -159,5 +168,43 @@ export class CreateComponent implements OnInit, AfterViewInit {
 		this._cache.getDataOnId('municipios', provinciaId);
 	}
 
-	create(): void {}
+	onTipoAsistenciaSelectionChange(): void {
+		const { tipoAsistencia } = this.detalleForm.value;
+		this.tipoAsistenciaSelected = tipoAsistencia;
+	}
+
+	onEventoEspecialChange(): void {
+		this.esEventoEspecial = !this.esEventoEspecial;
+		this.detalleForm.controls['tipoAsistencia'].setValue(
+			this.esEventoEspecial ? 3 : 0
+		);
+	}
+
+	create(): void {
+		if (
+			confirm(
+				'Se creara la asistecia y guardaran los cambios, esta seguro de seguir adelante ?'
+			)
+		) {
+			const asistencia: IAsistenciaCreatePreHospitalariaDto = {
+				...this.generalForm.value,
+				...this.ubicacionUnidadForm.value,
+				...this.detalleForm.value,
+				...this.datosPacienteForm.value,
+				...this.datosTrasladoForm.value,
+				...this.datosCentroSaludForm.value,
+				...this.datosAntecedentesForm.value,
+				...this.signosVitalesForm.value,
+				...this.respuestaForm.value,
+				...this.examenFisicoForm.value,
+				...this.diagnosticoPresuntivoForm.value,
+				...this.insumosUtilizadosForm.value,
+				...this.personalAsisteForm.value,
+			};
+
+			console.log(asistencia);
+
+			this.service.createAsisteciaPreHospitalaria(asistencia);
+		}
+	}
 }

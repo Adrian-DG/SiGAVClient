@@ -1,183 +1,606 @@
-<mat-stepper [linear]="!hasPersonInformation" #stepper>
+<mat-stepper orientation="vertical" [linear]="!hasPersonInformation" #stepper>
 	<!-- Informacion general -->
-	<mat-step [stepControl]="generalForm">
-		<form [formGroup]="generalForm">
-			<ng-template matStepLabel>Información General</ng-template>
-			<mat-form-field>
-				<mat-label>Despacho</mat-label>
-				<mat-select formControlName="despachadaPor">
-					<mat-option
-						*ngFor="let item of tiposDespacho"
-						[value]="item.id"
-						>{{ item.nombre }}</mat-option
-					>
-				</mat-select>
-			</mat-form-field>
 
-			<fieldset>
-				<legend>
-					Otra unidad lo apoyo al momento de la asistencia
-				</legend>
-				<mat-radio-group formControlName="apoyoBrindado">
-					<mat-radio-button
-						*ngFor="let item of tiposApoyo"
-						[value]="item.id"
-						>{{ item.nombre }}</mat-radio-button
-					>
-				</mat-radio-group>
-			</fieldset>
+	<mat-step [stepControl]="generalForm" orientation="vertical">
+		<form [formGroup]="generalForm">
+			<ng-template matStepLabel>INFORMACIÓN GENERAL</ng-template>
 			<div class="row">
-				<button mat-button matStepperNext>Siguiente</button>
+				<fieldset>
+					<legend>Despacho</legend>
+					<mat-radio-group formControlName="despachadaPor">
+						<mat-radio-button [value]="1"
+							>Sistema Nacional de Emergencias
+							911</mat-radio-button
+						>
+						<mat-radio-button [value]="2">MOPC</mat-radio-button>
+					</mat-radio-group>
+				</fieldset>
+				<mat-form-field style="flex-grow: 1; margin-top: 1em">
+					<mat-label>Apoyo Recibido</mat-label>
+					<mat-select formControlName="apoyoBrindado">
+						<mat-option [value]="0">Ninguna</mat-option>
+						<mat-option [value]="1"
+							>Unidad de Ambulancia MOPC</mat-option
+						>
+						<mat-option [value]="2"
+							>Unidad de Rescate MOPC</mat-option
+						>
+					</mat-select>
+				</mat-form-field>
+				<div class="row-btn">
+					<button mat-raised-button matStepperNext color="accent">
+						Siguiente
+					</button>
+				</div>
 			</div>
 		</form>
 	</mat-step>
+
+	<!-- Ubicacion -->
 
 	<mat-step [stepControl]="ubicacionUnidadForm">
-		<ng-template matStepLabel>Información Ubicación</ng-template>
 		<form [formGroup]="ubicacionUnidadForm">
-			<fieldset>
-				<legend>Zona</legend>
-				<mat-radio-group formControlName="zona">
-					<mat-radio-button
-						(change)="onZonaSelectionChange()"
-						*ngFor="let item of listadoZonas"
-						[value]="item.id"
-						>{{ item.nombre }}</mat-radio-button
-					>
-				</mat-radio-group>
-			</fieldset>
-
-			<mat-checkbox
-				[checked]="esEventoEspecial"
-				formControlName="esEventoCampo"
-				>Es evento campo ?</mat-checkbox
-			>
-
-			<mat-form-field>
-				<mat-label>Provincias</mat-label>
-				<mat-select
-					formControlName="provinciaId"
-					(selectionChange)="onProvinciaSelectionChange()"
-				>
-					<mat-option
-						*ngFor="let item of _cache.provincias$ | async"
-						[value]="item.id"
-						>{{ item.nombre }}</mat-option
-					>
-				</mat-select>
-			</mat-form-field>
-
-			<mat-form-field>
-				<mat-label>Municipios</mat-label>
-				<mat-select formControlName="municipioId">
-					<mat-option
-						*ngFor="let item of _cache.municipios$ | async"
-						[value]="item.id"
-						>{{ item.nombre }}</mat-option
-					>
-				</mat-select>
-			</mat-form-field>
-
-			<mat-form-field>
-				<mat-label>Unidad</mat-label>
-				<mat-select
-					formControlName="unidadId"
-					placeholder="Seleccionar unidad"
-				>
-					<mat-option
-						*ngFor="let item of _cache.unidades$ | async"
-						[value]="item.id"
-						>{{ item.nombre }}</mat-option
-					>
-				</mat-select>
-			</mat-form-field>
-
+			<ng-template matStepLabel>INFORMACIÓN UNIDAD</ng-template>
 			<div class="row">
-				<button mat-button matStepperPrevious>Anterior</button>
-				<button mat-button matStepperNext>Siguiente</button>
+				<fieldset style="width: 30%">
+					<legend>Zona o Region</legend>
+					<mat-radio-group
+						formControlName="zona"
+						(change)="onZonaSelectionChange()"
+					>
+						<mat-radio-button [value]="1">Norte</mat-radio-button>
+						<mat-radio-button [value]="2">Este</mat-radio-button>
+						<mat-radio-button [value]="3">Sur</mat-radio-button>
+					</mat-radio-group>
+				</fieldset>
+				<mat-form-field>
+					<mat-label>Provincia</mat-label>
+					<mat-select
+						formControlName="provinciaId"
+						(selectionChange)="onProvinciaSelectionChange()"
+					>
+						<mat-option
+							*ngFor="let item of _cache.provincias$ | async"
+							[value]="item.id"
+							>{{ item.nombre }}</mat-option
+						>
+					</mat-select>
+				</mat-form-field>
+				<mat-form-field>
+					<mat-label>Municipio</mat-label>
+					<mat-select formControlName="municipioId">
+						<mat-option
+							*ngFor="let item of _cache.municipios$ | async"
+							[value]="item.id"
+							>{{ item.nombre }}</mat-option
+						>
+					</mat-select>
+				</mat-form-field>
+
+				<mat-form-field>
+					<mat-label>Unidad</mat-label>
+					<mat-select
+						formControlName="unidadId"
+						placeholder="Seleccionar unidad"
+					>
+						<mat-option
+							*ngFor="let item of _cache.unidades$ | async"
+							[value]="item.id"
+							>{{ item.nombre }}</mat-option
+						>
+					</mat-select>
+				</mat-form-field>
+
+				<div class="row-btn">
+					<button mat-raised-button matStepperPrevious>Atras</button>
+					<button mat-raised-button matStepperNext color="accent">
+						Siguiente
+					</button>
+				</div>
 			</div>
 		</form>
 	</mat-step>
+
+	<!--- detalles -->
+
+	<mat-step [stepControl]="cronogramaForm">
+		<form [formGroup]="cronogramaForm">
+			<ng-template matStepLabel>CRONOGRAMA DE HORAS</ng-template>
+			<div class="row">
+				<div class="row-btn">
+					<button mat-raised-button matStepperPrevious>Atras</button>
+					<button mat-raised-button matStepperNext color="accent">
+						Siguiente
+					</button>
+				</div>
+			</div>
+		</form>
+	</mat-step>
+
+	<!-- Datos de la asistencia -->
 
 	<mat-step [stepControl]="detalleForm">
-		<ng-template matStepLabel>Detalle de la situcación</ng-template>
 		<form [formGroup]="detalleForm">
-			<mat-form-field>
-				<mat-label>Detalle situcación</mat-label>
-				<textarea matInput formControlName="detalle"></textarea>
-			</mat-form-field>
-			<fieldset>
-				<legend>Tipo Asistencia</legend>
-				<mat-radio-group formControlName="tipoAsistencia">
-					<mat-radio-button
-						*ngFor="let item of tiposAsistencias"
-						[value]="item.id"
-						>{{ item.nombre }}</mat-radio-button
-					>
-				</mat-radio-group>
-			</fieldset>
-			<mat-form-field>
-				<mat-label>Nombre Evento</mat-label>
-				<input matInput formControlName="nombreEvento" />
-			</mat-form-field>
+			<ng-template matStepLabel
+				>DETALLE E HISTORIA DE LA SITUACIÓN</ng-template
+			>
 			<div class="row">
-				<button mat-button matStepperPrevious>Anterior</button>
-				<button mat-button matStepperNext>Siguiente</button>
+				<div class="row">
+					<mat-checkbox formControlName="esEventoCampo"
+						>Es evento campo</mat-checkbox
+					>
+					<mat-checkbox
+						formControlName="esEventoEspecial"
+						(change)="onEventoEspecialChange()"
+						>Es evento especial</mat-checkbox
+					>
+				</div>
+				<mat-form-field style="width: 100%">
+					<mat-label>Detalle de la situación</mat-label>
+					<textarea
+						matInput
+						formControlName="detalleAsistencia"
+					></textarea>
+				</mat-form-field>
+				<mat-form-field>
+					<mat-label>Tipo Asistencia</mat-label>
+					<mat-select
+						formControlName="tipoAsistencia"
+						(selectionChange)="onTipoAsistenciaSelectionChange()"
+					>
+						<mat-option
+							*ngFor="let item of tiposAsistencias"
+							[value]="item.id"
+							>{{ item.nombre }}</mat-option
+						>
+					</mat-select>
+				</mat-form-field>
+				<mat-form-field>
+					<mat-label>Nombre Evento</mat-label>
+					<input
+						matInput
+						formControlName="nombreEventoEspecial"
+						[required]="esEventoEspecial"
+					/>
+				</mat-form-field>
+				<div class="row-btn">
+					<button mat-raised-button matStepperPrevious>Atras</button>
+					<button mat-raised-button matStepperNext color="accent">
+						Siguiente
+					</button>
+				</div>
 			</div>
 		</form>
 	</mat-step>
 
+	<!-- Informacion paciente -->
+
 	<mat-step [stepControl]="datosPacienteForm">
-		<ng-template matStepLabel>Datos del Paciente</ng-template>
+		<ng-template matStepLabel>INFORMACIÓN DEL PACIENTE</ng-template>
 		<mat-checkbox
 			[checked]="hasPersonInformation"
 			[(ngModel)]="hasPersonInformation"
+			style="
+				width: 100%;
+				margin-top: 1em;
+				background-color: rgb(247, 247, 165);
+				border: 4px solid rgb(183, 183, 58);
+				border-radius: 0.5em;
+				padding: 0.5em;
+			"
 			><b>Se tienen los datos del ciudadano:</b>
 			{{ hasPersonInformation ? 'Si' : 'No' }}</mat-checkbox
 		>
 		<form [formGroup]="datosPacienteForm">
-			<mat-form-field>
-				<mat-label>Identificación</mat-label>
-				<input matInput formControlName="identificacion" />
-			</mat-form-field>
-			<mat-form-field>
-				<mat-label>Nombre</mat-label>
-				<input matInput formControlName="nombre" />
-			</mat-form-field>
-			<mat-form-field>
-				<mat-label>Apellido</mat-label>
-				<input matInput formControlName="apellido" />
-			</mat-form-field>
-
-            <fieldset>
-                <legend>Sexo</legend>
-                <mat-radio-group formControlName="sexo">
-                    <mat-radio-button [value]="1">Masculino</mat-radio-button>
-                    <mat-radio-button [value]="2">Femenino</mat-radio-button>
-                </mat-radio-group>
-            </fieldset>
-
-			<mat-form-field>
-				<mat-label>Edad</mat-label>
-				<input matInput type="number" formControlName="edad" />
-			</mat-form-field>
-			<mat-form-field>
-				<mat-label>Teléfono</mat-label>
-				<input matInput type="tel" formControlName="telefono" />
-			</mat-form-field>
-			<mat-form-field>
-				<mat-label>Nacionalidad</mat-label>
-				<mat-select formControlName="nacionalidadId">
-					<mat-option
-						*ngFor="let item of _cache.nacionalidades$ | async"
-						[value]="item.id"
-						>{{ item.nombre }}</mat-option
-					>
-				</mat-select>
-			</mat-form-field>
 			<div class="row">
-				<button mat-button matStepperPrevious>Anterior</button>
-				<button mat-button matStepperNext>Siguiente</button>
+				<mat-form-field>
+					<mat-label>Identificación</mat-label>
+					<input
+						matInput
+						formControlName="identificacion"
+						[required]="hasPersonInformation"
+					/>
+					<mat-hint
+						>Cédula o pasaportes (no incluir guiones)</mat-hint
+					>
+				</mat-form-field>
+				<mat-form-field>
+					<mat-label>Nombre</mat-label>
+					<input
+						matInput
+						formControlName="nombre"
+						[required]="hasPersonInformation"
+					/>
+				</mat-form-field>
+				<mat-form-field>
+					<mat-label>Apellido</mat-label>
+					<input
+						matInput
+						formControlName="apellido"
+						[required]="hasPersonInformation"
+					/>
+				</mat-form-field>
+
+				<fieldset>
+					<legend>Sexo</legend>
+					<mat-radio-group
+						formControlName="sexo"
+						[required]="hasPersonInformation"
+					>
+						<mat-radio-button [value]="1"
+							>Masculino</mat-radio-button
+						>
+						<mat-radio-button [value]="2"
+							>Femenino</mat-radio-button
+						>
+					</mat-radio-group>
+				</fieldset>
+
+				<mat-form-field>
+					<mat-label>Edad</mat-label>
+					<input
+						matInput
+						type="number"
+						formControlName="edad"
+						[required]="hasPersonInformation"
+					/>
+				</mat-form-field>
+				<mat-form-field>
+					<mat-label>Teléfono</mat-label>
+					<input
+						matInput
+						type="tel"
+						formControlName="telefono"
+						[required]="hasPersonInformation"
+					/>
+				</mat-form-field>
+				<mat-form-field>
+					<mat-label>Nacionalidad</mat-label>
+					<mat-select
+						formControlName="nacionalidadId"
+						[required]="hasPersonInformation"
+					>
+						<mat-option
+							*ngFor="let item of _cache.nacionalidades$ | async"
+							[value]="item.id"
+							>{{ item.nombre }}</mat-option
+						>
+					</mat-select>
+				</mat-form-field>
+				<div class="row-btn">
+					<button mat-raised-button matStepperPrevious>
+						Anterior
+					</button>
+					<button mat-raised-button matStepperNext color="accent">
+						Siguiente
+					</button>
+				</div>
+			</div>
+		</form>
+	</mat-step>
+
+	<mat-step [stepControl]="datosTrasladoForm">
+		<form [formGroup]="datosTrasladoForm">
+			<ng-template matStepLabel>ACERCA DEL TRASLADO</ng-template>
+			<div class="row">
+				<fieldset style="width: 20%">
+					<legend>Es Traslado ?</legend>
+					<mat-radio-group formControlName="esTraslado" #trasladoOpt>
+						<mat-radio-button [value]="true">Si</mat-radio-button>
+						<mat-radio-button [value]="false">No</mat-radio-button>
+					</mat-radio-group>
+				</fieldset>
+				<mat-form-field>
+					<mat-label>Causas de Traslado</mat-label>
+					<mat-select formControlName="causaTraslado">
+						<mat-option [value]="0">NO AMERITA TRASLADO</mat-option>
+						<mat-option [value]="1">VICTIMA EN 1-29 </mat-option>
+						<mat-option [value]="2"
+							>RECHAZO DE ASISTENCIA</mat-option
+						>
+						<mat-option [value]="3">RECHAZO DE TRASLADO</mat-option>
+						<mat-option [value]="4"
+							>APOYO A OTRA UNIDAD ALFA MOPC</mat-option
+						>
+						<mat-option [value]="5">APOYO AL 911</mat-option>
+					</mat-select>
+				</mat-form-field>
+				<div class="row-btn">
+					<button mat-raised-button matStepperPrevious>Atras</button>
+					<button mat-raised-button matStepperNext color="accent">
+						Siguiente
+					</button>
+				</div>
+			</div>
+		</form>
+	</mat-step>
+
+	<!-- Centro de salud -->
+
+	<mat-step [stepControl]="datosCentroSaludForm">
+		<form [formGroup]="datosCentroSaludForm">
+			<ng-template matStepLabel>ACERCA DEL CENTRO DE SALUD</ng-template>
+			<div class="row">
+				<mat-form-field>
+					<mat-label>Centro de salud</mat-label>
+					<mat-select formControlName="hospitalId">
+						<mat-option
+							*ngFor="let item of _cache.hospitales$ | async"
+							[value]="item.id"
+							>{{ item.nombre }}</mat-option
+						>
+					</mat-select>
+				</mat-form-field>
+				<mat-form-field>
+					<mat-label>Persona Recibio en hospital</mat-label>
+					<input matInput formControlName="personaRecibio" />
+				</mat-form-field>
+				<div class="row-btn">
+					<button mat-raised-button matStepperPrevious>Atras</button>
+					<button mat-raised-button matStepperNext color="accent">
+						Siguiente
+					</button>
+				</div>
+			</div>
+		</form>
+	</mat-step>
+
+	<!-- Antecedentes morbidos -->
+
+	<mat-step [stepControl]="datosAntecedentesForm">
+		<form [formGroup]="datosAntecedentesForm">
+			<ng-template matStepLabel>ANTECEDENTES</ng-template>
+			<div class="row">
+				<fieldset style="width: 20%">
+					<legend>Antecedestes Morbidos</legend>
+					<mat-radio-group
+						formControlName="tieneAntecedentesMorbidos"
+					>
+						<mat-radio-button [value]="false"
+							>Desconocido</mat-radio-button
+						>
+						<mat-radio-button [value]="true">Otro</mat-radio-button>
+					</mat-radio-group>
+				</fieldset>
+				<mat-form-field style="margin-top: -0.5em">
+					<mat-label>Detallar antecedentes</mat-label>
+					<textarea
+						matInput
+						formControlName="antecedetesMorbidos"
+					></textarea>
+				</mat-form-field>
+				<div class="row-btn">
+					<button mat-raised-button matStepperPrevious>Atras</button>
+					<button mat-raised-button matStepperNext color="accent">
+						Siguiente
+					</button>
+				</div>
+			</div>
+		</form>
+	</mat-step>
+
+	<!-- Signos Vitales -->
+
+	<mat-step [stepControl]="signosVitalesForm">
+		<form [formGroup]="signosVitalesForm">
+			<ng-template matStepLabel>SIGNOS VITALES</ng-template>
+			<div class="row">
+				<mat-form-field>
+					<mat-label>FRECUENCIA CARDIACA (FC)</mat-label>
+					<input matInput formControlName="frecuenciaCardiaca" />
+				</mat-form-field>
+
+				<mat-form-field>
+					<mat-label>FRECUENCIA RESPIRATORIA (FR)</mat-label>
+					<input matInput formControlName="frecuenciaRespiratoria" />
+				</mat-form-field>
+
+				<mat-form-field>
+					<mat-label>TENSIÓN ARTERIAL SISTOLICA</mat-label>
+					<input
+						matInput
+						formControlName="tensionArterialSistolica"
+					/>
+				</mat-form-field>
+
+				<mat-form-field>
+					<mat-label>TENSIÓN ARTERIAL DIASTOLICA</mat-label>
+					<input
+						matInput
+						formControlName="tensionArterialDiastolica"
+					/>
+				</mat-form-field>
+
+				<mat-form-field>
+					<mat-label>SATURACIÓN PARCIAL DE OXIGENO (SPO2)</mat-label>
+					<input
+						matInput
+						formControlName="saturacionParcialOxigeno"
+					/>
+				</mat-form-field>
+
+				<mat-form-field>
+					<mat-label>TEMPERATURA</mat-label>
+					<input matInput formControlName="temperatura" />
+				</mat-form-field>
+
+				<div class="row-btn">
+					<button mat-raised-button matStepperPrevious>Atras</button>
+					<button mat-raised-button matStepperNext color="accent">
+						Siguiente
+					</button>
+				</div>
+			</div>
+		</form>
+	</mat-step>
+
+	<!-- Repuesta -->
+
+	<mat-step [stepControl]="respuestaForm">
+		<form [formGroup]="respuestaForm">
+			<ng-template matStepLabel>SIGNOS VITALES II</ng-template>
+			<div class="row">
+				<fieldset>
+					<legend>LLENADO CAPILAR</legend>
+					<mat-radio-group formControlName="llenadoCapilar">
+						<mat-radio-button [value]="1"
+							>NORMAL - MENOR A 2 SEG.</mat-radio-button
+						>
+						<mat-radio-button [value]="1"
+							>RETRASADO - MAYOR A 2 SEG.</mat-radio-button
+						>
+					</mat-radio-group>
+				</fieldset>
+				<fieldset>
+					<legend>ECG - APERTURA OCULAR</legend>
+					<mat-radio-group formControlName="aperturaOcular">
+						<mat-radio-button
+							*ngFor="let item of [1, 2, 3, 4]"
+							[value]="item"
+							><span>{{ item }}</span></mat-radio-button
+						>
+					</mat-radio-group>
+				</fieldset>
+				<fieldset>
+					<legend>ECG - RESPUESTA VERBAL</legend>
+					<mat-radio-group formControlName="respuestaVerbal">
+						<mat-radio-button
+							*ngFor="let item of [1, 2, 3, 4, 5]"
+							[value]="item"
+							><span>{{ item }}</span></mat-radio-button
+						>
+					</mat-radio-group>
+				</fieldset>
+				<fieldset>
+					<legend>ECG - RESPUESTA MOTORA</legend>
+					<mat-radio-group formControlName="respuestaMotora">
+						<mat-radio-button
+							*ngFor="let item of [1, 2, 3, 4, 5, 6]"
+							[value]="item"
+							><span>{{ item }}</span></mat-radio-button
+						>
+					</mat-radio-group>
+				</fieldset>
+				<div class="row-btn">
+					<button mat-raised-button matStepperPrevious>Atras</button>
+					<button mat-raised-button matStepperNext color="accent">
+						Siguiente
+					</button>
+				</div>
+			</div>
+		</form>
+	</mat-step>
+
+	<!-- Examen fisico -->
+
+	<mat-step [stepControl]="examenFisicoForm">
+		<form [formGroup]="examenFisicoForm">
+			<ng-template matStepLabel>EXAMEN FÍSICO</ng-template>
+			<div class="row">
+				<mat-form-field>
+					<mat-label>HALLAZGOS POSITIVOS</mat-label>
+					<textarea
+						matInput
+						formControlName="hallazgosPositivos"
+					></textarea>
+				</mat-form-field>
+				<div class="row-btn">
+					<button mat-raised-button matStepperPrevious>Atras</button>
+					<button mat-raised-button matStepperNext color="accent">
+						Siguiente
+					</button>
+				</div>
+			</div>
+		</form>
+	</mat-step>
+
+	<!-- DIAGNOSTICOS PRESUNTIVOS -->
+
+	<mat-step [stepControl]="diagnosticoPresuntivoForm">
+		<form [formGroup]="diagnosticoPresuntivoForm">
+			<ng-template matStepLabel>DIAGNOSTICOS PRESUNTIVOS</ng-template>
+			<div class="row">
+				<mat-form-field>
+					<mat-label>DIAGNOSTICOS PRESUNTIVOS</mat-label>
+					<textarea
+						matInput
+						formControlName="diagnosticosPresuntivos"
+					></textarea>
+				</mat-form-field>
+				<mat-form-field>
+					<mat-label>procedimientosRealizados</mat-label>
+					<textarea
+						matInput
+						formControlName="procedimientosRealizados"
+					></textarea>
+				</mat-form-field>
+				<div class="row-btn">
+					<button mat-raised-button matStepperPrevious>Atras</button>
+					<button mat-raised-button matStepperNext color="accent">
+						Siguiente
+					</button>
+				</div>
+			</div>
+		</form>
+	</mat-step>
+
+	<!-- Insumos utilizados -->
+
+	<mat-step [stepControl]="insumosUtilizadosForm">
+		<form [formGroup]="insumosUtilizadosForm">
+			<ng-template matStepLabel>INSUMOS UTILIZADOS</ng-template>
+			<div class="row">
+				<mat-form-field>
+					<mat-label>INSUMOS/MEDICAMENTOS</mat-label>
+					<textarea matInput formControlName="insumos"></textarea>
+				</mat-form-field>
+				<div class="row-btn">
+					<button mat-raised-button matStepperPrevious>Atras</button>
+					<button mat-raised-button matStepperNext color="accent">
+						Siguiente
+					</button>
+				</div>
+			</div>
+		</form>
+	</mat-step>
+
+	<!-- Personal Asistio -->
+
+	<mat-step [stepControl]="personalAsisteForm">
+		<form [formGroup]="personalAsisteForm">
+			<ng-template matStepLabel>PERSONAL QUE ASISTE</ng-template>
+			<div class="row">
+				<mat-form-field>
+					<mat-label>Médico</mat-label>
+					<mat-select formControlName="medicoId">
+						<mat-option
+							*ngFor="let item of _cache.miembros$ | async"
+							[value]="item.id"
+							>{{ item.nombre }}</mat-option
+						>
+					</mat-select>
+				</mat-form-field>
+				<mat-form-field>
+					<mat-label>Regulador</mat-label>
+					<mat-select formControlName="reguladorId">
+						<mat-option
+							*ngFor="let item of _cache.miembros$ | async"
+							[value]="item.id"
+							>{{ item.nombre }}</mat-option
+						>
+					</mat-select>
+				</mat-form-field>
+				<div class="row-btn">
+					<button mat-raised-button matStepperPrevious>Atras</button>
+					<button
+						mat-raised-button
+						matStepperNext
+						color="accent"
+						(click)="create()"
+					>
+						Crear Asistencia
+					</button>
+				</div>
 			</div>
 		</form>
 	</mat-step>

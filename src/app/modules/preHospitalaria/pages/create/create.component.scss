@@ -8,6 +8,7 @@
 }
 
 .row {
+	width: 100%;
 	padding-top: 1em;
 	display: flex;
 	flex-direction: row;
@@ -15,19 +16,26 @@
 	align-items: flex-start;
 	flex-wrap: wrap;
 	gap: 0.5em;
-	.textField {
+	mat-form-field {
+		min-width: 30%;
+		flex-grow: 1;
+		margin-top: 1em;
+	}
+	button {
 		width: 30%;
 	}
 }
 
 .row-btn {
+	width: 100%;
 	margin-top: 1em;
 	display: flex;
 	flex-direction: row;
-	justify-content: space-evenly;
+	justify-content: flex-end;
 	align-items: center;
 	gap: 1em;
 	button {
+		margin-top: 1.5em;
 		flex-grow: 1;
 	}
 }
