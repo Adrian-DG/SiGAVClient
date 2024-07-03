@@ -103,7 +103,7 @@
 
 	<!--- detalles -->
 
-	<mat-step [stepControl]="cronogramaForm">
+	<!-- <mat-step [stepControl]="cronogramaForm">
 		<form [formGroup]="cronogramaForm">
 			<ng-template matStepLabel>CRONOGRAMA DE HORAS</ng-template>
 			<div class="row">
@@ -115,7 +115,7 @@
 				</div>
 			</div>
 		</form>
-	</mat-step>
+	</mat-step> -->
 
 	<!-- Datos de la asistencia -->
 
@@ -333,7 +333,10 @@
 				</mat-form-field>
 				<mat-form-field>
 					<mat-label>Persona Recibio en hospital</mat-label>
-					<input matInput formControlName="personaRecibio" />
+					<input
+						matInput
+						formControlName="personaRecibioEnHospital"
+					/>
 				</mat-form-field>
 				<div class="row-btn">
 					<button mat-raised-button matStepperPrevious>Atras</button>
@@ -366,7 +369,7 @@
 					<mat-label>Detallar antecedentes</mat-label>
 					<textarea
 						matInput
-						formControlName="antecedetesMorbidos"
+						formControlName="antecedentesMorbidos"
 					></textarea>
 				</mat-form-field>
 				<div class="row-btn">
@@ -501,7 +504,7 @@
 					<mat-label>HALLAZGOS POSITIVOS</mat-label>
 					<textarea
 						matInput
-						formControlName="hallazgosPositivos"
+						formControlName="hallazgoPositivo"
 					></textarea>
 				</mat-form-field>
 				<div class="row-btn">
@@ -524,7 +527,7 @@
 					<mat-label>DIAGNOSTICOS PRESUNTIVOS</mat-label>
 					<textarea
 						matInput
-						formControlName="diagnosticosPresuntivos"
+						formControlName="diagnosticoPresuntivo"
 					></textarea>
 				</mat-form-field>
 				<mat-form-field>
@@ -552,7 +555,10 @@
 			<div class="row">
 				<mat-form-field>
 					<mat-label>INSUMOS/MEDICAMENTOS</mat-label>
-					<textarea matInput formControlName="insumos"></textarea>
+					<textarea
+						matInput
+						formControlName="insumosUtilizados"
+					></textarea>
 				</mat-form-field>
 				<div class="row-btn">
 					<button mat-raised-button matStepperPrevious>Atras</button>

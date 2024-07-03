@@ -75,7 +75,7 @@ export class CreateComponent implements OnInit, AfterViewInit {
 
 	datosAntecedentesForm: FormGroup = new FormGroup({
 		tieneAntecedentesMorbidos: new FormControl(false),
-		antecedetesMorbidos: new FormControl(''),
+		antecedentesMorbidos: new FormControl(''),
 	});
 
 	signosVitalesForm: FormGroup = new FormGroup({
@@ -95,16 +95,16 @@ export class CreateComponent implements OnInit, AfterViewInit {
 	});
 
 	examenFisicoForm: FormGroup = new FormGroup({
-		hallazgosPositivos: new FormControl(''),
+		hallazgoPositivo: new FormControl(''),
 	});
 
 	diagnosticoPresuntivoForm: FormGroup = new FormGroup({
-		diagnosticosPresuntivos: new FormControl(''),
+		diagnosticoPresuntivo: new FormControl(''),
 		procedimientosRealizados: new FormControl(''),
 	});
 
 	insumosUtilizadosForm: FormGroup = new FormGroup({
-		insumos: new FormControl(''),
+		insumosUtilizados: new FormControl(''),
 	});
 
 	personalAsisteForm: FormGroup = new FormGroup({
