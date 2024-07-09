@@ -77,6 +77,8 @@
 				<span>Tipo Asist.: {{ element.tipoAsistencia }}</span>
 				<br />
 				<span>Tipo Causa: {{ element.tipoCausa }}</span>
+				<br />
+				<span>Fecha: {{ element.fechaCreacion | date : 'short' }}</span>
 			</td>
 		</ng-container>
 
@@ -109,14 +111,14 @@
 						<mat-icon>check_box</mat-icon>
 					</button>
 
-					<button
+					<!-- <button
 						title="Editar Asistencia"
 						mat-icon-button
 						style="color: rgb(73, 73, 73)"
 						(click)="showEditDialog(element.id)"
 					>
 						<mat-icon>edit</mat-icon>
-					</button>
+					</button> -->
 
 					<button
 						style="color: rgb(73, 73, 73)"
