@@ -91,7 +91,21 @@ export class UpdateAsistenciaDialogComponent implements OnInit, AfterViewInit {
 		const entity: IAsistenciaEdit | null = await firstValueFrom(
 			this.entity$
 		);
+
 		if (entity) {
+			let miembro = this.isKeepingMiembro
+				? entity.miembroId
+				: this.miembroSelected.value.id;
+			let denominacion = this.iskeepingUnidad
+				? entity.denominacionId
+				: this.unidadSelected.value.id;
+			console.log(
+				`IsKeepingMiembro: ${this.isKeepingMiembro} Miembro: ${miembro}`
+			);
+			console.log(
+				`IsKeepingUnidad: ${this.iskeepingUnidad} Denominacion: ${denominacion}`
+			);
+
 			this._asistencias.CompletarInformacionAsistencia({
 				id: entity.id as number,
 				identificacion: entity.identificacion,
@@ -110,12 +124,8 @@ export class UpdateAsistenciaDialogComponent implements OnInit, AfterViewInit {
 				direccion: '',
 				municipioId: entity.municipioId,
 				tipoAsistencias: entity.tipoAsistencias,
-				miembroId: this.isKeepingMiembro
-					? entity.miembroId
-					: this.miembroSelected.value.id,
-				denominacionId: this.iskeepingUnidad
-					? entity.denominacionId
-					: this.unidadSelected.value.id,
+				miembroId: miembro,
+				denominacionId: denominacion,
 			});
 		}
 		//if (entity) this._asistencias.Update<IAsistencia>(entity);
