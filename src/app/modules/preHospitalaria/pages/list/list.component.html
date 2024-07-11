@@ -78,7 +78,12 @@
 				<br />
 				<span>Tipo Causa: {{ element.tipoCausa }}</span>
 				<br />
-				<span>Fecha: {{ element.fechaCreacion | date : 'short' }}</span>
+				<span
+					>Fecha:
+					{{
+						element.fechaCreacion | date : 'dd/MM/yyyy HH:mm'
+					}}</span
+				>
 			</td>
 		</ng-container>
 
@@ -89,7 +94,9 @@
 				<br />
 				<span>Den.: {{ element.denominacion }}</span>
 				<br />
-				<span>Médico: {{ element.nombreMedico }}</span>
+				<span>Médico: {{ element.medico }}</span>
+				<br />
+				<span>Regulador: {{ element.regulador }}</span>
 			</td>
 		</ng-container>
 
@@ -111,14 +118,14 @@
 						<mat-icon>check_box</mat-icon>
 					</button>
 
-					<!-- <button
+					<button
 						title="Editar Asistencia"
 						mat-icon-button
 						style="color: rgb(73, 73, 73)"
 						(click)="showEditDialog(element.id)"
 					>
 						<mat-icon>edit</mat-icon>
-					</button> -->
+					</button>
 
 					<button
 						style="color: rgb(73, 73, 73)"

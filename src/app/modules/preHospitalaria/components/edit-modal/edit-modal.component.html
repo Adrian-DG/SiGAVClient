@@ -32,6 +32,15 @@
 			/>
 		</mat-form-field>
 		<mat-form-field appearance="fill">
+			<mat-label>Telefono</mat-label>
+			<input
+				matInput
+				type="text"
+				[(ngModel)]="editModel.telefono"
+				[value]="editModel.telefono"
+			/>
+		</mat-form-field>
+		<mat-form-field appearance="fill">
 			<mat-label>Edad</mat-label>
 			<input
 				matInput
@@ -40,32 +49,12 @@
 				[value]="editModel.edad"
 			/>
 		</mat-form-field>
-		<mat-form-field appearance="fill" style="width: 100%">
-			<mat-label
-				>Nacionalidad ({{
-					editModel.nacionalidad | uppercase
-				}})</mat-label
-			>
+		<mat-form-field appearance="fill">
+			<mat-label>Nacionalidad</mat-label>
 			<mat-select [(ngModel)]="editModel.nacionalidadId">
 				<mat-option>nacionalidad 1</mat-option>
 			</mat-select>
 		</mat-form-field>
-
-		<fieldset>
-			<legend>Evento Especial</legend>
-			<mat-checkbox [checked]="editModel.esEventoEspecial"
-				>Evento Especial</mat-checkbox
-			>
-			<mat-form-field appearance="fill">
-				<mat-label>Nombre Evento Especial</mat-label>
-				<input
-					matInput
-					type="text"
-					[(ngModel)]="editModel.nombreEventoEspecial"
-					[value]="editModel.nombreEventoEspecial"
-				/>
-			</mat-form-field>
-		</fieldset>
 
 		<fieldset>
 			<legend>Traslado</legend>

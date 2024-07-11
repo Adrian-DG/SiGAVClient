@@ -5,4 +5,10 @@
 	align-items: flex-start;
 	gap: 0.5em;
 	flex-wrap: wrap;
+	mat-form-field {
+		flex-grow: 1;
+	}
+	fieldset {
+		flex-grow: 1;
+	}
 }

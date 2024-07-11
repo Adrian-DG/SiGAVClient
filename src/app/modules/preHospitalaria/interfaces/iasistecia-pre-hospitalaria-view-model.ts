@@ -17,4 +17,6 @@ export interface IAsisteciaPreHospitalariaViewModel {
 	causaTraslado: string;
 	apoyoBrindado: string;
 	estatusAsistencia: number;
+	medico: string;
+	regulador: string;
 }

@@ -1,6 +1,7 @@
 import { AfterViewInit, Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { AsistenciPreHospitalariaService } from '../../services/asistenci-pre-hospitalaria.service';
+import { IAsistenciaPreHospitalariaDetails } from '../../interfaces/iasistencia-pre-hospitalaria-details';
 
 @Component({
 	selector: 'app-edit-modal',
@@ -8,7 +9,7 @@ import { AsistenciPreHospitalariaService } from '../../services/asistenci-pre-ho
 	styleUrls: ['./edit-modal.component.scss'],
 })
 export class EditModalComponent implements OnInit, AfterViewInit {
-	editModel: any = null;
+	editModel!: IAsistenciaPreHospitalariaDetails;
 
 	constructor(
 		public dialogRef: MatDialogRef<EditModalComponent>,
