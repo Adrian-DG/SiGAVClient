@@ -93,11 +93,7 @@
 	<mat-step [stepControl]="vehiculoForm" label="Información vehiculo">
 		<form [formGroup]="vehiculoForm">
 			<div class="row-start">
-				<mat-form-field
-					appearance="fill"
-					style="width: 40%"
-					(click)="_cache.getData('VehiculoTipo')"
-				>
+				<mat-form-field appearance="fill" style="width: 40%">
 					<mat-label>Tipo vehiculo (opcional)</mat-label>
 					<mat-select formControlName="vehiculoTipoId" #tipoId>
 						<mat-option
@@ -108,11 +104,7 @@
 						</mat-option>
 					</mat-select>
 				</mat-form-field>
-				<mat-form-field
-					appearance="fill"
-					style="width: 40%"
-					(click)="_cache.getData('VehiculoColores')"
-				>
+				<mat-form-field appearance="fill" style="width: 40%">
 					<mat-label>Color (opcional)</mat-label>
 					<mat-select formControlName="vehiculoColorId">
 						<mat-option
@@ -126,13 +118,19 @@
 			</div>
 
 			<div class="row">
-				<mat-form-field
-					appearance="fill"
-					style="width: 40%"
-					(click)="_cache.getData('VehiculoMarca')"
-				>
+				<mat-form-field appearance="fill" style="width: 40%">
 					<mat-label>Marca (opcional)</mat-label>
-					<mat-select #marcaId formControlName="vehiculoMarcaId">
+					<mat-select
+						#marcaId
+						formControlName="vehiculoMarcaId"
+						(selectionChange)="
+							_cache.getDataOnIdFilters(
+								'VehiculoModelo',
+								tipoId.value,
+								marcaId.value
+							)
+						"
+					>
 						<mat-option
 							[value]="item.id"
 							*ngFor="
@@ -145,17 +143,7 @@
 						</mat-option>
 					</mat-select>
 				</mat-form-field>
-				<mat-form-field
-					appearance="fill"
-					style="width: 40%"
-					(click)="
-						_cache.getDataOnIdFilters(
-							'VehiculoModelo',
-							tipoId.value,
-							marcaId.value
-						)
-					"
-				>
+				<mat-form-field appearance="fill" style="width: 40%">
 					<mat-label>Modelo (opcional)</mat-label>
 					<mat-select formControlName="vehiculoModeloId">
 						<mat-option

@@ -93,6 +93,10 @@ export class CreateComponent implements OnInit {
 			tipoAsistenciaId: new FormControl(0),
 			comentarios: new FormControl(''),
 		});
+
+		this._cache.getData('VehiculoTipo');
+		this._cache.getData('VehiculoColores');
+		this._cache.getData('VehiculoMarca');
 	}
 
 	unidadAsignadaId: FormControl = new FormControl('');
