@@ -6,10 +6,4 @@ import { Router } from '@angular/router';
 	templateUrl: './index.component.html',
 	styleUrls: ['./index.component.scss'],
 })
-export class IndexComponent implements OnInit {
-	constructor(private $router: Router) {}
-
-	ngOnInit(): void {
-		this.$router.navigate(['listado']);
-	}
-}
+export class IndexComponent {}
