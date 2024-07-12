@@ -5,6 +5,7 @@ export interface IUnidadViewModel {
 	denominacion: string;
 	tramo: string;
 	cobertura: string;
+	tipoUnidadId: number;
 	tipoUnidad: string;
 	puntosAsignados: string;
 	estaDisponible: boolean;

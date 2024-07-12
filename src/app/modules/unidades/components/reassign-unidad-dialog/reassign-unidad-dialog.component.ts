@@ -19,6 +19,7 @@ export class ReassignUnidadDialogComponent implements OnInit, AfterViewInit {
 		unidadId: 0,
 		ficha: '',
 		placa: '',
+		tipoUnidadId: 0,
 		denominacion: '',
 		denominacionId: 0,
 	};
@@ -35,6 +36,7 @@ export class ReassignUnidadDialogComponent implements OnInit, AfterViewInit {
 			ficha: string;
 			denominacion: string;
 			placa: string;
+			tipoUnidadId: number;
 		},
 		public _cache: CacheService,
 		private _unidades: UnidadesService
@@ -44,6 +46,8 @@ export class ReassignUnidadDialogComponent implements OnInit, AfterViewInit {
 		this.selectedDenominacion.valueChanges.subscribe((value: string) => {
 			setTimeout(() => this._cache.getDenominaciones(value), 2000);
 		});
+
+		this._cache.getData('TipoUnidades');
 	}
 
 	ngAfterViewInit(): void {
@@ -53,6 +57,7 @@ export class ReassignUnidadDialogComponent implements OnInit, AfterViewInit {
 			placa: this.params.placa,
 			denominacion: this.params.denominacion,
 			denominacionId: 0,
+			tipoUnidadId: this.params.tipoUnidadId,
 		};
 	}
 

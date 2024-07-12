@@ -1,16 +1,44 @@
 <div mat-dialog-title>
 	<h3>Editar Unidad</h3>
 	<p>Den. Actual: {{ params.denominacion }}</p>
+	<small
+		>A continuación, tendras acceso a modificar informaciones de las
+		unidades y asignar una nueva denomincación a la ficha:
+		{{ editUnidad.ficha }}</small
+	>
 </div>
+<hr />
 <mat-dialog-content>
 	<mat-form-field appearance="fill" style="width: 50%">
 		<mat-label>Ficha</mat-label>
-		<input matInput [value]="editUnidad.ficha" [readonly]="true" />
+		<input
+			matInput
+			[value]="editUnidad.ficha"
+			[(ngModel)]="editUnidad.ficha"
+		/>
 	</mat-form-field>
 
 	<mat-form-field appearance="fill" style="width: 50%">
 		<mat-label>Placa</mat-label>
-		<input matInput [value]="editUnidad.placa" />
+		<input
+			matInput
+			[value]="editUnidad.placa"
+			[(ngModel)]="editUnidad.placa"
+		/>
+	</mat-form-field>
+
+	<mat-form-field appearance="fill" style="width: 100%">
+		<mat-label>Tipo unidad</mat-label>
+		<mat-select
+			[value]="editUnidad.tipoUnidadId"
+			[(ngModel)]="editUnidad.tipoUnidadId"
+		>
+			<mat-option
+				*ngFor="let item of _cache.tipoUnidades$ | async"
+				[value]="item.id"
+				>{{ item.nombre }}</mat-option
+			>
+		</mat-select>
 	</mat-form-field>
 
 	<mat-form-field appearance="fill" style="width: 100%">
