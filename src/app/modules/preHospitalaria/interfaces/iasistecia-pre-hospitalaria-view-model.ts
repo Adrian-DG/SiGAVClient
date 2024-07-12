@@ -19,4 +19,5 @@ export interface IAsisteciaPreHospitalariaViewModel {
 	estatusAsistencia: number;
 	medico: string;
 	regulador: string;
+	personaDesconocida: boolean;
 }
