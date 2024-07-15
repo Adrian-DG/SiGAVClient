@@ -101,6 +101,10 @@ export class ListComponent implements OnInit, AfterViewInit {
 
 	stateSelection: number = 1;
 
+	onSearchFiltering(): void {
+		setTimeout(() => this.loadData(), 2000);
+	}
+
 	loadData(): void {
 		this._asistencias
 			.getAllAsistencias(this.filters)

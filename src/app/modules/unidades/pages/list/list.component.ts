@@ -51,6 +51,10 @@ export class ListComponent implements OnInit, AfterViewInit {
 		this.dataSource.paginator = this.paginator;
 	}
 
+	onSearchFiltering(): void {
+		setTimeout(() => this.loadData(), 2000);
+	}
+
 	loadData(): void {
 		this._unidades
 			.getAllUnidades(this.filters)

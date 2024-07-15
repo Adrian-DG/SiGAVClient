@@ -5,7 +5,7 @@
 		<mat-label>Filtrar por nombre o cédula</mat-label>
 		<input
 			matInput
-			(keyup)="loadData()"
+			(keyup)="onSearchFiltering()"
 			placeholder="Nombre o Cédula"
 			[(ngModel)]="filters.searchTerm"
 		/>

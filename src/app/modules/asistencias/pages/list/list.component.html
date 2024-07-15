@@ -4,7 +4,7 @@
 			<mat-label>Filtrar</mat-label>
 			<input
 				matInput
-				(keyup)="loadData()"
+				(keyup)="onSearchFiltering()"
 				placeholder="Nombre o Identificación"
 				[(ngModel)]="filters.searchTerm"
 			/>
