@@ -59,34 +59,36 @@
 		<ng-container matColumnDef="estatus">
 			<th mat-header-cell *matHeaderCellDef>Esta Activo</th>
 			<td mat-cell *matCellDef="let element">
-				{{ element.estatus ? 'Si' : 'No' }}
+				<b>{{ element.estatus ? 'Si' : 'No' }}</b>
 			</td>
 		</ng-container>
 
 		<ng-container matColumnDef="acciones">
 			<th mat-header-cell *matHeaderCellDef>Acciones</th>
 			<td mat-cell *matCellDef="let element; let i = index">
-				<mat-slide-toggle
-					color="accent"
+				<mat-checkbox
+					[checked]="element.estatus"
 					[(ngModel)]="element.estatus"
-					(change)="UpdateUsuarioEstatus(element.id)"
+					(ngModelChange)="UpdateUsuarioEstatus(element.id)"
+					title="Cambiar estatus del usuario"
 					>Autorizado:
-					{{ element.estatus ? 'Si' : 'No' }}</mat-slide-toggle
+					<b>{{ element.estatus ? 'Si' : 'No' }}</b></mat-checkbox
 				>
-				<button mat-icon-button (click)="openEditDialog(element)">
+
+				<button
+					mat-icon-button
+					(click)="openEditDialog(element)"
+					title="Editar usuario"
+				>
 					<mat-icon class="edit-icon">edit</mat-icon>
 				</button>
+
 				<button
-					style="
-						margin-left: 1em;
-						background-color: grey;
-						color: white;
-						font-weight: 500;
-					"
-					mat-raised-button
+					mat-icon-button
 					(click)="openDialog(element)"
+					title="Cambiar contraseña"
 				>
-					<mat-icon>autorenew</mat-icon> Cambiar clave
+					<mat-icon>lock</mat-icon>
 				</button>
 			</td>
 		</ng-container>
