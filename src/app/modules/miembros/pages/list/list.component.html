@@ -45,14 +45,17 @@
 		<ng-container matColumnDef="rango">
 			<th mat-header-cell *matHeaderCellDef>Rango</th>
 			<td mat-cell *matCellDef="let element">
-				<small>{{ element.rango }}</small>
+				<small
+					>{{ element.rango }}
+					<b>{{ showEspecialidad(element) | uppercase }}</b></small
+				>
 			</td>
 		</ng-container>
 
 		<ng-container matColumnDef="departamento">
 			<th mat-header-cell *matHeaderCellDef>Departamento</th>
 			<td mat-cell *matCellDef="let element">
-				<small>{{ element.perteneceA | removeUnderscore }}</small>
+				{{ element.perteneceA | removeUnderscore }}
 			</td>
 		</ng-container>
 

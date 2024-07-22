@@ -88,4 +88,9 @@ export class ListComponent implements OnInit, AfterViewInit {
 		}
 		this.loadData();
 	}
+
+	showEspecialidad(item: IMiembroViewModel) {
+		let especialidad = item.especialidad ?? '';
+		return especialidad !== '' ? ' | '.concat(especialidad) : especialidad;
+	}
 }

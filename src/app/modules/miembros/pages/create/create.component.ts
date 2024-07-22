@@ -34,6 +34,7 @@ export class CreateComponent implements OnInit {
 		institucion: [0],
 		perteneceA: [0],
 		accesoTotal: [false],
+		especialidad: [''],
 	});
 
 	ngOnInit(): void {
@@ -65,6 +66,7 @@ export class CreateComponent implements OnInit {
 			institucion: institucion,
 			perteneceA: perteneceA,
 			accesoTotal: accesoTotal,
+			especialidad: '',
 		};
 
 		this._miembros.createMiembro(miembro);

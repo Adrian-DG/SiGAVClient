@@ -9,4 +9,5 @@ export interface IMiembroViewModel {
 	fechaCreacion: Date;
 	usuarioId: number;
 	perteneceA: string;
+	especialidad: string;
 }

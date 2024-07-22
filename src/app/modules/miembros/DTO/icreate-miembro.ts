@@ -8,4 +8,5 @@ export interface ICreateMiembro {
 	institucion: number;
 	perteneceA: number;
 	accesoTotal: boolean;
+	especialidad: string;
 }
