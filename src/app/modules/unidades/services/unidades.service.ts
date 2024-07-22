@@ -13,6 +13,7 @@ import { SpinnerService } from '../../generic/services/spinner/spinner.service';
 import { IUnidad } from '../entities/iunidad';
 import { IServerResponse } from '../../generic/Responses/iserver-response';
 import { IUnidadEditDto } from '../dto/iunidad-edit-dto';
+import { IGenericData } from '../../generic/Responses/igeneric-data';
 
 @Injectable({
 	providedIn: 'root',
@@ -108,6 +109,12 @@ export class UnidadesService extends GenericService {
 		return this.$http.put<IServerResponse>(
 			`${this.endPoint}/desactivar-unidad`,
 			id
+		);
+	}
+
+	getDenominacionActual(id: number): Observable<IGenericData> {
+		return this.$http.get<IGenericData>(
+			`${this.endPoint}/${id}/denominacion-actual`
 		);
 	}
 }

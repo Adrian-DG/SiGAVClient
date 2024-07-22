@@ -2,6 +2,7 @@ export interface IUnidadViewModel {
 	id: number;
 	placa: string;
 	ficha: string;
+	denominacionId: number;
 	denominacion: string;
 	tramo: string;
 	cobertura: string;

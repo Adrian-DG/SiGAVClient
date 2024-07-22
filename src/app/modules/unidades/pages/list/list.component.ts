@@ -91,6 +91,7 @@ export class ListComponent implements OnInit, AfterViewInit {
 				denominacion: item.denominacion,
 				placa: item.placa,
 				tipoUnidadId: item.tipoUnidadId,
+				denominacionId: item.denominacionId,
 			},
 			...this.modalConfig,
 		});

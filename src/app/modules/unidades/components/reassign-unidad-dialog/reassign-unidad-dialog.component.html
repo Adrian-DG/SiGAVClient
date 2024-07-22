@@ -4,7 +4,7 @@
 	<small
 		>A continuación, tendras acceso a modificar informaciones de las
 		unidades y asignar una nueva denomincación a la ficha:
-		{{ editUnidad.ficha }}</small
+		{{ params.ficha }}</small
 	>
 </div>
 <hr />
@@ -41,29 +41,49 @@
 		</mat-select>
 	</mat-form-field>
 
-	<mat-form-field appearance="fill" style="width: 100%">
-		<mat-label>Denominación</mat-label>
-		<input
-			type="text"
-			matInput
-			[formControl]="selectedDenominacion"
-			[matAutocomplete]="auto2"
-		/>
-		<mat-autocomplete #auto2="matAutocomplete" [displayWith]="displayFn">
-			<mat-option
-				[value]="item"
-				*ngFor="let item of _cache.denominaciones$ | async"
-				>{{ item.nombre }}</mat-option
+	<fieldset style="width: 95%; margin-bottom: 1em">
+		<legend>
+			Denominación actual: <b>{{ params.denominacion }}</b>
+		</legend>
+		<mat-checkbox
+			[checked]="isChangingDenominacion"
+			[(ngModel)]="isChangingDenominacion"
+			><b
+				>Desea cambiar denominación ?
+				{{ isChangingDenominacion ? 'Si' : 'No' }}</b
+			></mat-checkbox
+		>
+
+		<mat-form-field
+			appearance="fill"
+			style="width: 100%"
+			*ngIf="isChangingDenominacion"
+		>
+			<mat-label>Buscar denominación</mat-label>
+			<input
+				type="text"
+				matInput
+				[formControl]="selectedDenominacion"
+				[matAutocomplete]="auto2"
+			/>
+			<mat-autocomplete
+				#auto2="matAutocomplete"
+				[displayWith]="displayFn"
 			>
-		</mat-autocomplete>
-	</mat-form-field>
+				<mat-option
+					[value]="item"
+					*ngFor="let item of _cache.denominaciones$ | async"
+					>{{ item.nombre }}</mat-option
+				>
+			</mat-autocomplete>
+		</mat-form-field>
+	</fieldset>
 
 	<button
 		mat-raised-button
 		color="accent"
 		style="width: 100%"
 		(click)="editarUnidad()"
-		[disabled]="!selectedDenominacion.valid"
 	>
 		Confirmar
 	</button>

@@ -15,6 +15,7 @@ import { IServerResponse } from 'src/app/modules/generic/Responses/iserver-respo
 	styleUrls: ['./reassign-unidad-dialog.component.scss'],
 })
 export class ReassignUnidadDialogComponent implements OnInit, AfterViewInit {
+	isChangingDenominacion = false;
 	editUnidad: IUnidadEditDto = {
 		unidadId: 0,
 		ficha: '',
@@ -37,6 +38,7 @@ export class ReassignUnidadDialogComponent implements OnInit, AfterViewInit {
 			denominacion: string;
 			placa: string;
 			tipoUnidadId: number;
+			denominacionId: number;
 		},
 		public _cache: CacheService,
 		private _unidades: UnidadesService
@@ -65,29 +67,15 @@ export class ReassignUnidadDialogComponent implements OnInit, AfterViewInit {
 		return item.nombre;
 	}
 
-	// ReasignarUnidadDenominacion(): void {
-	// 	this._unidades
-	// 		.ReasignarUnidadDenominacion({
-	// 			unidadId: this.params.unidadId,
-	// 			denominacionId: this.selectedDenominacion.value.id,
-	// 		})
-	// 		.subscribe((response: boolean) => {
-	// 			alert(
-	// 				response
-	// 					? 'Se guardaron los cambios correctamente'
-	// 					: 'Error: hubo un error durante el proceso'
-	// 			);
-	// 			this.dialogRef.close();
-	// 		});
-	// }
-
 	editarUnidad(): void {
 		const model: IUnidadEditDto = this.editUnidad;
-		model.denominacionId = this.selectedDenominacion.value.id;
+		model.denominacionId = this.isChangingDenominacion
+			? this.selectedDenominacion.value.id
+			: this.params.denominacionId;
 		this._unidades
 			.editarUnidad(model)
 			.subscribe((response: IServerResponse) => {
-				alert(response.message);
+				alert(response);
 				if (response.status) {
 					this.dialogRef.close();
 				}
