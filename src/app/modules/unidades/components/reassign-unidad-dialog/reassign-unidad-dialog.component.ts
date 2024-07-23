@@ -75,7 +75,7 @@ export class ReassignUnidadDialogComponent implements OnInit, AfterViewInit {
 		this._unidades
 			.editarUnidad(model)
 			.subscribe((response: IServerResponse) => {
-				alert(response);
+				alert(response.message);
 				if (response.status) {
 					this.dialogRef.close();
 				}
