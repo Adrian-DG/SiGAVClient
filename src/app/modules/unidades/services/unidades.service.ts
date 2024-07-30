@@ -78,6 +78,7 @@ export class UnidadesService extends GenericService {
 				unidad
 			)
 			.subscribe((response: IServerResponse) => {
+				this.$router.navigateByUrl('unidades/listado');
 				alert(response.message);
 			});
 	}
@@ -94,6 +95,7 @@ export class UnidadesService extends GenericService {
 				obj
 			)
 			.subscribe((response: IServerResponse) => {
+				this.$router.navigateByUrl('unidades/listado');
 				alert(response.message);
 			});
 	}

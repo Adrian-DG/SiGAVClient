@@ -58,7 +58,7 @@ export class ReassignUnidadDialogComponent implements OnInit, AfterViewInit {
 			ficha: this.params.ficha,
 			placa: this.params.placa,
 			denominacion: this.params.denominacion,
-			denominacionId: 0,
+			denominacionId: this.params.denominacionId,
 			tipoUnidadId: this.params.tipoUnidadId,
 		};
 	}
