@@ -159,6 +159,22 @@
 					>{{ element.fechaCreacion | date : 'dd/MM/YYYY' }}
 					{{ element.fechaCreacion | horaMilitar }}</span
 				>
+				<br />
+				<p *ngIf="element.solicitoApoyo">
+					Apoyo:
+					<span
+						style="
+							font-weight: bold;
+							background-color: rgb(194, 49, 49);
+							color: rgb(255, 255, 255);
+							padding: 0.1em 0.3em;
+							border-radius: 0.2em;
+							text-align: center;
+						"
+					>
+						{{ element.unidadAlfa | uppercase }}
+					</span>
+				</p>
 			</td>
 		</ng-container>
 

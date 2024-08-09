@@ -32,4 +32,6 @@ export interface IAsistenciaViewModel {
 	esEmergencia: boolean;
 	perteneceA: string;
 	fueEvaluada: boolean;
+	solicitoApoyo: boolean;
+	unidadAlfa: string;
 }
