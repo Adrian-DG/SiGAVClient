@@ -162,6 +162,7 @@
 				<br />
 				<p *ngIf="element.solicitoApoyo">
 					Apoyo:
+					<br />
 					<span
 						style="
 							font-weight: bold;
@@ -174,6 +175,20 @@
 					>
 						{{ element.unidadAlfa | uppercase }}
 					</span>
+					<button
+						mat-icon-button
+						style="
+							padding: 0 !important;
+							border: none;
+							width: auto;
+							height: auto;
+						"
+						(click)="openAsistenciaApoyoAlfa(element)"
+					>
+						<mat-icon style="vertical-align: bottom"
+							>search</mat-icon
+						>
+					</button>
 				</p>
 			</td>
 		</ng-container>

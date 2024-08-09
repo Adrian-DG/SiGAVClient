@@ -21,6 +21,7 @@ import { AsistenciaCalidadDialogComponent } from '../../components/asistencia-ca
 import { IUserData } from 'src/app/modules/auth/interfaces/iuser-data';
 import { ReportDialogCalidadComponent } from '../../components/report-dialog-calidad/report-dialog-calidad.component';
 import { IAsistenciaPaginationDateFilter } from '../../DTO/iasistencia-pagination-date-filter';
+import { HistoricoAsistenciaAlfaComponent } from '../../components/historico-asistencia-alfa/historico-asistencia-alfa.component';
 
 // to validate dialog data
 export interface IDialogData {
@@ -313,6 +314,13 @@ export class ListComponent implements OnInit, AfterViewInit {
 
 	openAsistenciaCalidadReportModal(): void {
 		this.dialog.open(ReportDialogCalidadComponent, {
+			...this.modalConfig,
+		});
+	}
+
+	openAsistenciaApoyoAlfa(element: IAsistenciaViewModel): void {
+		this.dialog.open(HistoricoAsistenciaAlfaComponent, {
+			data: { id: element.alfaId, unidadAlfa: element.unidadAlfa },
 			...this.modalConfig,
 		});
 	}

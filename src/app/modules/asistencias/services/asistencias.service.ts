@@ -20,6 +20,7 @@ import { IAsistenciaCalidadCreate } from '../DTO/iasistencia-calidad-create';
 import { IAsistenciaCalidadViewModel } from '../DTO/iasistencia-calidad-view-model';
 import { IAsistenciaCalidadEdit } from '../DTO/iasistencia-calidad-edit';
 import { IAsistenciaPaginationDateFilter } from '../DTO/iasistencia-pagination-date-filter';
+import { IAsistenciaPreHospitalariaMinorDetailsViewModel } from '../viewModels/iasistencia-pre-hospitalaria-minor-details-view-model';
 
 @Injectable({
 	providedIn: 'root',
@@ -219,5 +220,20 @@ export class AsistenciasService extends GenericService {
 			responseType: 'blob',
 			params: params,
 		});
+	}
+
+	GetHistorialAsistenciaPorAlfa(
+		alfaId: number
+	): Observable<IAsistenciaPreHospitalariaMinorDetailsViewModel[]> {
+		const params = new HttpParams().set('Id', alfaId);
+		return this.$http.get<
+			IAsistenciaPreHospitalariaMinorDetailsViewModel[]
+		>(
+			`${this.endPoint.replace(
+				'asistencias',
+				'pre-hospitalaria'
+			)}/historial`,
+			{ params: params }
+		);
 	}
 }
