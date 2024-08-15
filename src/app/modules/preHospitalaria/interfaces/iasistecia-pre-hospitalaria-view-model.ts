@@ -1,7 +1,7 @@
 export interface IAsisteciaPreHospitalariaViewModel {
 	id: number;
-	identificacion: string;
-	nombreCompleto: string;
+	identificacionCiudadano: string;
+	nombreCiudadano: string;
 	edad: number;
 	sexo: string;
 	telefono: string;
