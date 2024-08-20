@@ -131,6 +131,7 @@
 					>
 					<mat-checkbox
 						formControlName="esEventoEspecial"
+						#esEventoEsp
 						(change)="onEventoEspecialChange()"
 						>Es evento especial</mat-checkbox
 					>
@@ -155,7 +156,7 @@
 						>
 					</mat-select>
 				</mat-form-field>
-				<mat-form-field>
+				<mat-form-field *ngIf="esEventoEspecial">
 					<mat-label>Nombre Evento</mat-label>
 					<input
 						matInput
@@ -283,16 +284,22 @@
 		<form [formGroup]="datosTrasladoForm">
 			<ng-template matStepLabel>ACERCA DEL TRASLADO</ng-template>
 			<div class="row">
-				<fieldset style="width: 20%">
+				<fieldset [style.width]="esTraslado ? '100%' : '20%'">
 					<legend>Es Traslado ?</legend>
-					<mat-radio-group formControlName="esTraslado" #trasladoOpt>
+					<mat-radio-group
+						formControlName="esTraslado"
+						(change)="onEstrasladoChange()"
+					>
 						<mat-radio-button [value]="true">Si</mat-radio-button>
 						<mat-radio-button [value]="false">No</mat-radio-button>
 					</mat-radio-group>
 				</fieldset>
-				<mat-form-field>
+				<mat-form-field *ngIf="!esTraslado">
 					<mat-label>Causas de Traslado</mat-label>
-					<mat-select formControlName="causaTraslado">
+					<mat-select
+						formControlName="causaTraslado"
+						[required]="!esTraslado"
+					>
 						<mat-option [value]="0">NO AMERITA TRASLADO</mat-option>
 						<mat-option [value]="1">VICTIMA EN 1-29 </mat-option>
 						<mat-option [value]="2"

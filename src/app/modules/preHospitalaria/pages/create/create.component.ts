@@ -16,8 +16,8 @@ import { IUnidadAutoComplete } from 'src/app/modules/unidades/viewModels/iunidad
 })
 export class CreateComponent implements OnInit, AfterViewInit {
 	hasPersonInformation = true;
-	esTraslado = false;
-	esEventoEspecial = false;
+	esTraslado!: boolean;
+	esEventoEspecial!: boolean;
 	zonaSelected = 0;
 	tipoAsistenciaSelected: number = 0;
 
@@ -40,7 +40,7 @@ export class CreateComponent implements OnInit, AfterViewInit {
 
 	detalleForm: FormGroup = new FormGroup({
 		esEventoCampo: new FormControl(false),
-		esEventoEspecial: new FormControl(false),
+		esEventoEspecial: new FormControl(this.esEventoEspecial),
 		detalleAsistencia: new FormControl(''),
 		tipoAsistencia: new FormControl(0), // Enum
 		nombreEventoEspecial: new FormControl(''),
@@ -64,7 +64,7 @@ export class CreateComponent implements OnInit, AfterViewInit {
 	});
 
 	datosTrasladoForm: FormGroup = new FormGroup({
-		esTraslado: new FormControl(false),
+		esTraslado: new FormControl(this.esTraslado),
 		causaTraslado: new FormControl(0), // enum
 	});
 
@@ -148,7 +148,14 @@ export class CreateComponent implements OnInit, AfterViewInit {
 		public _unidades: UnidadesService
 	) {}
 
-	ngOnInit(): void {}
+	ngOnInit(): void {
+		this.esTraslado = true;
+		this.esEventoEspecial = false;
+		this.datosTrasladoForm.controls['esTraslado'].setValue(this.esTraslado);
+		this.detalleForm.controls['esEventoEspecial'].setValue(
+			this.esEventoEspecial
+		);
+	}
 
 	ngAfterViewInit(): void {
 		this._cache.getData('nacionalidades');
@@ -178,6 +185,10 @@ export class CreateComponent implements OnInit, AfterViewInit {
 		this.detalleForm.controls['tipoAsistencia'].setValue(
 			this.esEventoEspecial ? 3 : 0
 		);
+	}
+
+	onEstrasladoChange(): void {
+		this.esTraslado = !this.esTraslado;
 	}
 
 	create(): void {
