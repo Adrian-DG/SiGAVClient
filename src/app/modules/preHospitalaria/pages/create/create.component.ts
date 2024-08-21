@@ -79,12 +79,30 @@ export class CreateComponent implements OnInit, AfterViewInit {
 	});
 
 	signosVitalesForm: FormGroup = new FormGroup({
-		frecuenciaCardiaca: new FormControl(0),
-		frecuenciaRespiratoria: new FormControl(0),
-		tensionArterialSistolica: new FormControl(0),
-		tensionArterialDiastolica: new FormControl(0),
-		saturacionParcialOxigeno: new FormControl(0),
-		temperatura: new FormControl(0),
+		frecuenciaCardiaca: new FormControl(0, [
+			Validators.required,
+			Validators.min(0),
+		]),
+		frecuenciaRespiratoria: new FormControl(0, [
+			Validators.required,
+			Validators.min(0),
+		]),
+		tensionArterialSistolica: new FormControl(0, [
+			Validators.required,
+			Validators.min(0),
+		]),
+		tensionArterialDiastolica: new FormControl(0, [
+			Validators.required,
+			Validators.min(0),
+		]),
+		saturacionParcialOxigeno: new FormControl(0, [
+			Validators.required,
+			Validators.min(0),
+		]),
+		temperatura: new FormControl(0, [
+			Validators.required,
+			Validators.min(0),
+		]),
 	});
 
 	respuestaForm: FormGroup = new FormGroup({

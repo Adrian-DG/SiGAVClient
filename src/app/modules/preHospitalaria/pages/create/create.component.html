@@ -397,41 +397,254 @@
 			<div class="row">
 				<mat-form-field>
 					<mat-label>FRECUENCIA CARDIACA (FC)</mat-label>
-					<input matInput formControlName="frecuenciaCardiaca" />
+					<input
+						type="number"
+						matInput
+						formControlName="frecuenciaCardiaca"
+					/>
+					<mat-hint
+						class="help-text good"
+						*ngIf="
+							signosVitalesForm.controls['frecuenciaCardiaca']
+								.value >= 60 &&
+							signosVitalesForm.controls['frecuenciaCardiaca']
+								.value <= 100 &&
+							signosVitalesForm.controls['frecuenciaCardiaca']
+								.dirty
+						"
+						>Rango Normal: 60 a 100
+					</mat-hint>
+					<mat-hint
+						*ngIf="
+							signosVitalesForm.controls['frecuenciaCardiaca']
+								.value < 60 &&
+							signosVitalesForm.controls['frecuenciaCardiaca']
+								.dirty
+						"
+						class="help-text bad"
+						>Posible caso de Bradicardia</mat-hint
+					>
+					<mat-hint
+						*ngIf="
+							signosVitalesForm.controls['frecuenciaCardiaca']
+								.value > 100 &&
+							signosVitalesForm.controls['frecuenciaCardiaca']
+								.dirty
+						"
+						class="help-text bad"
+						>Posible caso de Taquicardia</mat-hint
+					>
 				</mat-form-field>
 
 				<mat-form-field>
 					<mat-label>FRECUENCIA RESPIRATORIA (FR)</mat-label>
-					<input matInput formControlName="frecuenciaRespiratoria" />
+					<input
+						type="number"
+						matInput
+						formControlName="frecuenciaRespiratoria"
+					/>
+					<mat-hint
+						class="help-text good"
+						*ngIf="
+							signosVitalesForm.controls['frecuenciaRespiratoria']
+								.value >= 12 &&
+							signosVitalesForm.controls['frecuenciaRespiratoria']
+								.value <= 20 &&
+							signosVitalesForm.controls['frecuenciaRespiratoria']
+								.dirty
+						"
+						>Rango Normal: 12 a 20</mat-hint
+					>
+					<mat-hint
+						*ngIf="
+							signosVitalesForm.controls['frecuenciaRespiratoria']
+								.value < 12 &&
+							signosVitalesForm.controls['frecuenciaRespiratoria']
+								.dirty
+						"
+						class="help-text bad"
+						>Posible caso de Bradipnea</mat-hint
+					>
+					<mat-hint
+						*ngIf="
+							signosVitalesForm.controls['frecuenciaRespiratoria']
+								.value > 20 &&
+							signosVitalesForm.controls['frecuenciaRespiratoria']
+								.dirty
+						"
+						class="help-text bad"
+						>Posible caso de Taquipnea</mat-hint
+					>
 				</mat-form-field>
 
 				<mat-form-field>
 					<mat-label>TENSIÓN ARTERIAL SISTOLICA</mat-label>
 					<input
+						type="number"
 						matInput
 						formControlName="tensionArterialSistolica"
 					/>
+					<mat-hint
+						class="help-text good"
+						*ngIf="
+							signosVitalesForm.controls[
+								'tensionArterialSistolica'
+							].value >= 90 &&
+							signosVitalesForm.controls[
+								'tensionArterialSistolica'
+							].value <= 129 &&
+							signosVitalesForm.controls[
+								'tensionArterialSistolica'
+							].dirty
+						"
+						>Rango Normal: 90 a 129
+					</mat-hint>
+					<mat-hint
+						*ngIf="
+							signosVitalesForm.controls[
+								'tensionArterialSistolica'
+							].value < 90 &&
+							signosVitalesForm.controls[
+								'tensionArterialSistolica'
+							].dirty
+						"
+						class="help-text bad"
+						>Posible caso de Hipotensión</mat-hint
+					>
+					<mat-hint
+						*ngIf="
+							signosVitalesForm.controls[
+								'tensionArterialSistolica'
+							].value > 129 &&
+							signosVitalesForm.controls[
+								'tensionArterialSistolica'
+							].dirty
+						"
+						class="help-text bad"
+						>Posible caso de Hipertensión</mat-hint
+					>
 				</mat-form-field>
 
 				<mat-form-field>
 					<mat-label>TENSIÓN ARTERIAL DIASTOLICA</mat-label>
 					<input
+						type="number"
 						matInput
 						formControlName="tensionArterialDiastolica"
 					/>
+					<mat-hint
+						class="help-text good"
+						*ngIf="
+							signosVitalesForm.controls[
+								'tensionArterialDiastolica'
+							].value >= 60 &&
+							signosVitalesForm.controls[
+								'tensionArterialDiastolica'
+							].value <= 84 &&
+							signosVitalesForm.controls[
+								'tensionArterialDiastolica'
+							].dirty
+						"
+						>Rango Normal: 60 a 84
+					</mat-hint>
+					<mat-hint
+						*ngIf="
+							signosVitalesForm.controls[
+								'tensionArterialDiastolica'
+							].value < 60 &&
+							signosVitalesForm.controls[
+								'tensionArterialDiastolica'
+							].dirty
+						"
+						class="help-text bad"
+						>Posible caso de Hipotensión</mat-hint
+					>
+					<mat-hint
+						*ngIf="
+							signosVitalesForm.controls[
+								'tensionArterialDiastolica'
+							].value > 84 &&
+							signosVitalesForm.controls[
+								'tensionArterialDiastolica'
+							].dirty
+						"
+						class="help-text bad"
+						>Posible caso de Hipertensión</mat-hint
+					>
 				</mat-form-field>
 
 				<mat-form-field>
 					<mat-label>SATURACIÓN PARCIAL DE OXIGENO (SPO2)</mat-label>
 					<input
+						type="number"
 						matInput
 						formControlName="saturacionParcialOxigeno"
 					/>
+					<mat-hint
+						class="help-text good"
+						*ngIf="
+							signosVitalesForm.controls[
+								'saturacionParcialOxigeno'
+							].value >= 95 &&
+							signosVitalesForm.controls[
+								'saturacionParcialOxigeno'
+							].value <= 100 &&
+							signosVitalesForm.controls[
+								'saturacionParcialOxigeno'
+							].dirty
+						"
+						>Rango Normal: 95% a 100%</mat-hint
+					>
+					<mat-hint
+						*ngIf="
+							signosVitalesForm.controls[
+								'saturacionParcialOxigeno'
+							].value < 95 &&
+							signosVitalesForm.controls[
+								'saturacionParcialOxigeno'
+							].dirty
+						"
+						class="help-text bad"
+						>Posible caso de Hipoxemia</mat-hint
+					>
 				</mat-form-field>
 
 				<mat-form-field>
 					<mat-label>TEMPERATURA</mat-label>
-					<input matInput formControlName="temperatura" />
+					<input
+						type="number"
+						matInput
+						formControlName="temperatura"
+					/>
+					<mat-hint
+						class="help-text good"
+						*ngIf="
+							signosVitalesForm.controls['temperatura'].value >=
+								36 &&
+							signosVitalesForm.controls['temperatura'].value <=
+								37 &&
+							signosVitalesForm.controls['temperatura'].dirty
+						"
+						>Rango Normal: 36.5ºC a 37.2ºC</mat-hint
+					>
+					<mat-hint
+						*ngIf="
+							signosVitalesForm.controls['temperatura'].value <
+								36 &&
+							signosVitalesForm.controls['temperatura'].dirty
+						"
+						class="help-text bad"
+						>Posible caso de Hipotermia</mat-hint
+					>
+					<mat-hint
+						*ngIf="
+							signosVitalesForm.controls['temperatura'].value >
+								37 &&
+							signosVitalesForm.controls['temperatura'].dirty
+						"
+						class="help-text bad"
+						>Posible caso de Fiebre</mat-hint
+					>
 				</mat-form-field>
 
 				<div class="row-btn">
