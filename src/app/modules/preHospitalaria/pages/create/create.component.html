@@ -361,9 +361,10 @@
 		<form [formGroup]="datosAntecedentesForm">
 			<ng-template matStepLabel>ANTECEDENTES</ng-template>
 			<div class="row">
-				<fieldset style="width: 20%">
+				<fieldset [style.width]="tieneAntecedentes ? '20%' : '100%'">
 					<legend>Antecedestes Morbidos</legend>
 					<mat-radio-group
+						(change)="onAntecedentesChange()"
 						formControlName="tieneAntecedentesMorbidos"
 					>
 						<mat-radio-button [value]="false"
@@ -372,7 +373,10 @@
 						<mat-radio-button [value]="true">Otro</mat-radio-button>
 					</mat-radio-group>
 				</fieldset>
-				<mat-form-field style="margin-top: -0.5em">
+				<mat-form-field
+					style="margin-top: -0.5em"
+					*ngIf="tieneAntecedentes"
+				>
 					<mat-label>Detallar antecedentes</mat-label>
 					<textarea
 						matInput

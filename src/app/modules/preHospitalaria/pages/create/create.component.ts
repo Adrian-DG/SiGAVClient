@@ -20,6 +20,7 @@ export class CreateComponent implements OnInit, AfterViewInit {
 	esEventoEspecial!: boolean;
 	zonaSelected = 0;
 	tipoAsistenciaSelected: number = 0;
+	tieneAntecedentes = false;
 
 	// Informacion general
 
@@ -31,9 +32,9 @@ export class CreateComponent implements OnInit, AfterViewInit {
 	ubicacionUnidadForm: FormGroup = new FormGroup({
 		zona: new FormControl(0, [Validators.required]),
 		esEventoCampo: new FormControl(false),
-		provinciaId: new FormControl(0),
-		municipioId: new FormControl(0),
-		unidadId: new FormControl(0),
+		provinciaId: new FormControl(0, [Validators.required]),
+		municipioId: new FormControl(0, [Validators.required]),
+		unidadId: new FormControl(0, [Validators.required]),
 	});
 
 	cronogramaForm: FormGroup = new FormGroup({});
@@ -74,7 +75,7 @@ export class CreateComponent implements OnInit, AfterViewInit {
 	});
 
 	datosAntecedentesForm: FormGroup = new FormGroup({
-		tieneAntecedentesMorbidos: new FormControl(false),
+		tieneAntecedentesMorbidos: new FormControl(this.tieneAntecedentes),
 		antecedentesMorbidos: new FormControl(''),
 	});
 
@@ -126,10 +127,10 @@ export class CreateComponent implements OnInit, AfterViewInit {
 	});
 
 	personalAsisteForm: FormGroup = new FormGroup({
-		medicoId: new FormControl(0),
+		medicoId: new FormControl(0, [Validators.required]),
 		componente1Id: new FormControl(0),
 		componente2Id: new FormControl(0),
-		reguladorId: new FormControl(0),
+		reguladorId: new FormControl(0, [Validators.required]),
 	});
 
 	hospitalControl: FormControl = new FormControl('');
@@ -207,6 +208,10 @@ export class CreateComponent implements OnInit, AfterViewInit {
 
 	onEstrasladoChange(): void {
 		this.esTraslado = !this.esTraslado;
+	}
+
+	onAntecedentesChange(): void {
+		this.tieneAntecedentes = !this.tieneAntecedentes;
 	}
 
 	create(): void {
