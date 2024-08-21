@@ -39,70 +39,103 @@
 					[routerLink]="['pre-hospitalaria/listado']"
 					*ngIf="
 						user.esAdministrador ||
-						user.rolUsuario == 5 ||
-						user.rolUsuario == 1
+						user.rolUsuario == Roles.ANALISTA_OPERACIONES ||
+						user.rolUsuario == Roles.PREHOSPITALARIA
 					"
 					>Pre-Hospitalaria</a
 				>
 
 				<a
 					mat-list-item
-					[routerLink]="['hospitales']"
-					*ngIf="user.esAdministrador || user.rolUsuario == 5"
+					[routerLink]="['hospitales/listado']"
+					*ngIf="
+						user.esAdministrador ||
+						user.rolUsuario == Roles.PREHOSPITALARIA
+					"
 					>Hospitales</a
 				>
 
 				<a
 					mat-list-item
 					[routerLink]="['reportes']"
-					*ngIf="user.esAdministrador || user.rolUsuario == 1"
+					*ngIf="
+						user.esAdministrador ||
+						user.rolUsuario == Roles.ANALISTA_OPERACIONES
+					"
 					>REPORTES</a
 				>
-				<a mat-list-item [routerLink]="['asistencias/listado']"
+				<a
+					mat-list-item
+					[routerLink]="['asistencias/listado']"
+					*ngIf="
+						user.esAdministrador ||
+						user.rolUsuario == Roles.ANALISTA_OPERACIONES
+					"
 					>ASISTENCIAS</a
 				>
 				<a
 					mat-list-item
 					[routerLink]="['denominaciones/listado']"
-					*ngIf="user.esAdministrador || user.rolUsuario == 1"
+					*ngIf="
+						user.esAdministrador ||
+						user.rolUsuario == Roles.ANALISTA_OPERACIONES
+					"
 					>DENOMINACIONES</a
 				>
 				<a
 					mat-list-item
 					[routerLink]="['unidades/listado']"
-					*ngIf="user.esAdministrador || user.rolUsuario == 1"
+					*ngIf="
+						user.esAdministrador ||
+						user.rolUsuario == Roles.ANALISTA_OPERACIONES
+					"
 					>UNIDADES</a
 				>
 				<a
 					mat-list-item
 					[routerLink]="['tramos/listado']"
-					*ngIf="user.esAdministrador || user.rolUsuario == 1"
+					*ngIf="
+						user.esAdministrador ||
+						user.rolUsuario == Roles.ANALISTA_OPERACIONES
+					"
 					>TRAMOS</a
 				>
 				<a
 					mat-list-item
 					[routerLink]="['miembros/listado']"
-					*ngIf="user.esAdministrador || user.rolUsuario == 1"
+					*ngIf="
+						user.esAdministrador ||
+						user.rolUsuario == Roles.ANALISTA_OPERACIONES
+					"
 					>MIEMBROS</a
 				>
 				<a
 					mat-list-item
 					[routerLink]="['usuarios/listado']"
-					*ngIf="user.esAdministrador || user.rolUsuario == 1"
+					*ngIf="
+						user.esAdministrador ||
+						user.rolUsuario == Roles.ANALISTA_OPERACIONES
+					"
 					>USUARIOS</a
 				>
 
 				<a
 					mat-list-item
 					[routerLink]="['marcas/listado']"
-					*ngIf="user.esAdministrador || user.rolUsuario == 1"
+					*ngIf="
+						user.esAdministrador ||
+						user.rolUsuario == Roles.ANALISTA_OPERACIONES
+					"
 					>Vehículo Marcas</a
 				>
 
 				<a
 					mat-list-item
 					[routerLink]="['modelos/listado']"
-					*ngIf="user.esAdministrador || user.rolUsuario == 1"
+					*ngIf="
+						user.esAdministrador ||
+						user.rolUsuario == Roles.ANALISTA_OPERACIONES
+					"
 					>Vehículo Modelos</a
 				>
 
