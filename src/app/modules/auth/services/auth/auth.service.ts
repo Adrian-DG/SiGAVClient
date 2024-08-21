@@ -9,6 +9,7 @@ import { ILoginResponse } from '../../responses/ilogin-response';
 import { JwtTokenService } from '../jwt/jwt.service';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { SpinnerService } from 'src/app/modules/generic/services/spinner/spinner.service';
+import { RolUser } from 'src/app/app.component';
 
 @Injectable({
 	providedIn: 'root',
@@ -90,12 +91,12 @@ export class AuthService extends GenericService {
 					this.isAuthenticatedSource.next(response.status);
 					// navigate to home
 					switch (response.rolUsuario) {
-						case 1: // Analista Operaciones
+						case RolUser.ANALISTA_OPERACIONES: // Analista Operaciones
 							this.$router.navigateByUrl('/asistencias/listado');
 							break;
-						case 5: // PreHospitalaria
+						case RolUser.PREHOSPITALARIA: // PreHospitalaria
 							this.$router.navigateByUrl(
-								'/preHospitalaria/listado'
+								'/pre-hospitalaria/listado'
 							);
 							break;
 						default:
