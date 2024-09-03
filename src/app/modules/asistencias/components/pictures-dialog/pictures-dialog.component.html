@@ -21,9 +21,12 @@
 			*ngIf="hasPictures; else empty"
 			cols="2"
 			rowHeight="2:2"
-			[gutterSize]="'5px'"
+			[gutterSize]="'10px'"
 		>
-			<mat-grid-tile *ngFor="let item of pictures">
+			<mat-grid-tile
+				*ngFor="let item of pictures"
+				style="border: 2px solid gainsboro"
+			>
 				<img
 					[src]="item"
 					class="pictures"
