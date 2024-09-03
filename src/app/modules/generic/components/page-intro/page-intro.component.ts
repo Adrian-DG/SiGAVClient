@@ -19,6 +19,6 @@ export class PageIntroComponent {
 	}
 
 	hasValidAccess(rol: number): boolean {
-		return [1, 2, 3].includes(rol);
+		return [1, 2, 3, 5].includes(rol);
 	}
 }
