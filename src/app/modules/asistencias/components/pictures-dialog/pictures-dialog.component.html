@@ -24,7 +24,7 @@
 			[gutterSize]="'10px'"
 		>
 			<mat-grid-tile
-				*ngFor="let item of pictures"
+				*ngFor="let item of pictures; index as i"
 				style="border: 2px solid gainsboro"
 			>
 				<img
