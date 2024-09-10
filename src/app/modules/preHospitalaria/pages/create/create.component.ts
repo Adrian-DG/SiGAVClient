@@ -179,6 +179,7 @@ export class CreateComponent implements OnInit, AfterViewInit {
 	ngAfterViewInit(): void {
 		this._cache.getData('nacionalidades');
 		this._cache.getFilterMiembrosPreHospitalaria();
+		this._cache.getFilterUsuariosPreHospitalaria();
 	}
 
 	onZonaSelectionChange(): void {

@@ -60,6 +60,9 @@ export class CacheService {
 	private unidadesSource = new BehaviorSubject<IGenericData[]>([]);
 	public unidades$ = this.unidadesSource.asObservable();
 
+	private usuariosSource = new BehaviorSubject<IGenericData[]>([]);
+	public usuarios$ = this.usuariosSource.asObservable();
+
 	private readonly sources = {
 		VehiculoTipo: (value: IGenericData[]) =>
 			this.vehiculoTiposSource.next(value),
@@ -216,6 +219,16 @@ export class CacheService {
 			)
 			.subscribe((data: IGenericData[]) => {
 				this.unidadesSource.next(data);
+			});
+	}
+
+	getFilterUsuariosPreHospitalaria(): void {
+		this.$http
+			.get<IGenericData[]>(
+				`${this.endPoint}/filter-usuarios-pre-hospitalaria`
+			)
+			.subscribe((data: IGenericData[]) => {
+				this.usuariosSource.next(data);
 			});
 	}
 }

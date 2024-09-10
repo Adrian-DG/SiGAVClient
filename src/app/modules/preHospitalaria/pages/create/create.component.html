@@ -806,15 +806,16 @@
 						<mat-option
 							*ngFor="let item of _cache.miembros$ | async"
 							[value]="item.id"
-							>{{ item.nombre }}</mat-option
 						>
+							{{ item.nombre }}
+						</mat-option>
 					</mat-select>
 				</mat-form-field>
 				<mat-form-field>
 					<mat-label>Regulador</mat-label>
 					<mat-select formControlName="reguladorId">
 						<mat-option
-							*ngFor="let item of _cache.miembros$ | async"
+							*ngFor="let item of _cache.usuarios$ | async"
 							[value]="item.id"
 							>{{ item.nombre }}</mat-option
 						>
