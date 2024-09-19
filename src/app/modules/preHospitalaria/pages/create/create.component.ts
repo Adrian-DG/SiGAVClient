@@ -178,17 +178,20 @@ export class CreateComponent implements OnInit, AfterViewInit {
 
 	ngAfterViewInit(): void {
 		this._cache.getData('nacionalidades');
+		this._cache.getData('provincias');
+		this._cache.GetHospitales();
 		this._cache.getFilterMiembrosPreHospitalaria();
 		this._cache.getFilterUsuariosPreHospitalaria();
+		this._cache.getFilterUnidadesPreHospitalariaByRegion();
 	}
 
-	onZonaSelectionChange(): void {
-		const { zona } = this.ubicacionUnidadForm.value;
-		this.zonaSelected = parseInt(zona);
-		this._cache.getDataOnId('filter_provicias', parseInt(zona));
-		this._cache.getFilterUnidadesPreHospitalariaByRegion(parseInt(zona));
-		this._cache.GetHospitalesPorRegion(parseInt(zona));
-	}
+	// onZonaSelectionChange(): void {
+	// 	const { zona } = this.ubicacionUnidadForm.value;
+	// 	this.zonaSelected = parseInt(zona);
+	// 	this._cache.getDataOnId('filter_provicias', parseInt(zona));
+	// 	this._cache.getFilterUnidadesPreHospitalariaByRegion(parseInt(zona));
+	// 	this._cache.GetHospitalesPorRegion(parseInt(zona));
+	// }
 
 	onProvinciaSelectionChange(): void {
 		const { provinciaId } = this.ubicacionUnidadForm.value;

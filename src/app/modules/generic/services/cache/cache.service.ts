@@ -194,28 +194,18 @@ export class CacheService {
 			});
 	}
 
-	GetHospitalesPorRegion(region: number): void {
-		const queryParams = new HttpParams().set('region', region);
+	GetHospitales(): void {
 		this.$http
-			.get<IGenericData[]>(
-				`${this.endPoint}/filter-hospitales-by-region`,
-				{
-					params: queryParams,
-				}
-			)
+			.get<IGenericData[]>(`${this.endPoint}/filter-hospitales-by-region`)
 			.subscribe((data: IGenericData[]) => {
 				this.hospitalesSource.next(data);
 			});
 	}
 
-	getFilterUnidadesPreHospitalariaByRegion(region: number): void {
-		const queryParams = new HttpParams().set('region', region);
+	getFilterUnidadesPreHospitalariaByRegion(): void {
 		this.$http
 			.get<IGenericData[]>(
-				`${this.endPoint}/filter-unidades-preHospitalaria-by-region`,
-				{
-					params: queryParams,
-				}
+				`${this.endPoint}/filter-unidades-preHospitalaria`
 			)
 			.subscribe((data: IGenericData[]) => {
 				this.unidadesSource.next(data);
