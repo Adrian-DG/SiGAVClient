@@ -25,7 +25,7 @@ export class CreateComponent implements OnInit, AfterViewInit {
 	// Informacion general
 
 	generalForm: FormGroup = new FormGroup({
-		despachadaPor: new FormControl(0, [Validators.required]), // Enum
+		despachadaPor: new FormControl(2, [Validators.required]), // Enum
 		apoyoBrindado: new FormControl(0, [Validators.required]),
 	});
 
