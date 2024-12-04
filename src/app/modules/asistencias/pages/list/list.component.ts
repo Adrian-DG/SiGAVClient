@@ -87,6 +87,10 @@ export class ListComponent implements OnInit, AfterViewInit {
 		this.dataSource.paginator = this.paginator;
 	}
 
+	hasAnalystRole(role: number): boolean {
+		return Roles.AnalistaOperaciones === role;
+	}
+
 	hasValidStatus(rol: number): boolean {
 		return [
 			Roles.AnalistaOperaciones,
@@ -323,5 +327,16 @@ export class ListComponent implements OnInit, AfterViewInit {
 			data: { id: element.alfaId, unidadAlfa: element.unidadAlfa },
 			...this.modalConfig,
 		});
+	}
+
+	removeAsistencia(id: number): void {
+		if (confirm('Esta seguro de eliminar la siguiente asistencia ?')) {
+			this._asistencias
+				.RemoveAsistencia(id)
+				.subscribe((response: IServerResponse) => {
+					alert(response.message);
+					setTimeout(() => this.loadData(), 2000);
+				});
+		}
 	}
 }

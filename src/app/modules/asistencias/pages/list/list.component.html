@@ -292,6 +292,15 @@
 					>
 						<mat-icon>check_box</mat-icon>
 					</button>
+					<button
+						style="color: rgb(230, 89, 96)"
+						title="Completar o Cerrar asistencia"
+						mat-icon-button
+						(click)="removeAsistencia(element.id)"
+						*ngIf="hasAnalystRole(user.rolUsuario)"
+					>
+						<mat-icon>delete</mat-icon>
+					</button>
 				</div>
 			</td>
 		</ng-container>

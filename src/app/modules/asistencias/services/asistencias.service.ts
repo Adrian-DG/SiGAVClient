@@ -236,4 +236,8 @@ export class AsistenciasService extends GenericService {
 			{ params: params }
 		);
 	}
+
+	RemoveAsistencia(id: number): Observable<IServerResponse> {
+		return this.$http.put<IServerResponse>(`${this.endPoint}/remove`, id);
+	}
 }
