@@ -95,11 +95,11 @@
 		<ng-container matColumnDef="ciudadano">
 			<th mat-header-cell *matHeaderCellDef>Ciudadano</th>
 			<td mat-cell *matCellDef="let element" class="personDataCell">
-				<span>{{ element.identificacion | cedula }}</span>
+				<span>{{ element.identificacion }}</span>
 				<br />
 				<span>{{ element.nombreCiudadano | titlecase }}</span>
 				<br />
-				<span>{{ element.telefono | telefono }}</span>
+				<span>{{ element.telefono }}</span>
 			</td>
 		</ng-container>
 
