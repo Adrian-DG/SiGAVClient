@@ -1,9 +1,10 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { MiembroService } from '../../services/miembro.service';
 import { CacheService } from 'src/app/modules/generic/services/cache/cache.service';
 import { IMiembro } from '../../entities/imiembro';
+import { IServerResponse } from 'src/app/modules/generic/Responses/iserver-response';
 
 @Component({
 	selector: 'app-edit',
@@ -17,7 +18,8 @@ export class EditComponent implements OnInit, AfterViewInit {
 		private $location: Location,
 		private $activeRoute: ActivatedRoute,
 		private _miembros: MiembroService,
-		public _cache: CacheService
+		public _cache: CacheService,
+		public $router: Router
 	) {}
 
 	ngOnInit(): void {
@@ -37,6 +39,12 @@ export class EditComponent implements OnInit, AfterViewInit {
 
 	saveChanges(): void {
 		this._miembros.showSpinner();
-		this._miembros.Update(this.miembro);
+		this._miembros
+			.UpdateMiembro(this.id, this.miembro)
+			.subscribe((response: IServerResponse) => {
+				if (response.status) {
+					alert('Se han guardado los cambios');
+				}
+			});
 	}
 }

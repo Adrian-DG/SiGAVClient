@@ -11,6 +11,7 @@ import { IMiembroViewModel } from '../viewModels/imiembro-view-model';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { SpinnerService } from '../../generic/services/spinner/spinner.service';
+import { IMiembro } from '../entities/imiembro';
 
 @Injectable({
 	providedIn: 'root',
@@ -63,5 +64,12 @@ export class MiembroService extends GenericService {
 			id: id,
 			type: type,
 		});
+	}
+
+	UpdateMiembro(id: number, miembro: IMiembro) {
+		return this.$http.put<IServerResponse>(
+			`${this.endPoint}/${id}/editar`,
+			miembro
+		);
 	}
 }
