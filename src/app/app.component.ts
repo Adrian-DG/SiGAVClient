@@ -26,6 +26,7 @@ export class AppComponent implements OnInit {
 		'tramos',
 		'miembros',
 		'usuarios',
+		'actividades',
 	];
 
 	constructor(public _auth: AuthService, public _spinner: SpinnerService) {}

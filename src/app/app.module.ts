@@ -9,6 +9,8 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { JwtInterceptor } from './interceptors/jwt/jwt.interceptor';
 import { GenericModule } from './modules/generic/generic.module';
 import { LoadingInterceptor } from './interceptors/loading/loading.interceptor';
+import { CalendarModule, DateAdapter } from 'angular-calendar';
+import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 
 @NgModule({
 	declarations: [AppComponent],
@@ -19,6 +21,7 @@ import { LoadingInterceptor } from './interceptors/loading/loading.interceptor';
 		HttpClientModule,
 		MaterialModule,
 		GenericModule,
+  CalendarModule.forRoot({ provide: DateAdapter, useFactory: adapterFactory }),
 	],
 	providers: [
 		{ provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
