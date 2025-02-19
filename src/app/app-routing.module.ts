@@ -4,6 +4,14 @@ import { AuthGuard } from './guards/auth.guard';
 
 const routes: Routes = [
 	{
+		path: 'busqueda-avanzada',
+		loadChildren: () =>
+			import('./modules/busqueda-avanzada/busqueda-avanzada.module').then(
+				(m) => m.BusquedaAvanzadaModule
+			),
+		canActivate: [AuthGuard],
+	},
+	{
 		path: 'denominaciones',
 		loadChildren: () =>
 			import('./modules/denominaciones/denominaciones.module').then(

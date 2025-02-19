@@ -75,6 +75,15 @@
 				>
 				<a
 					mat-list-item
+					[routerLink]="['busqueda-avanzada']"
+					*ngIf="
+						user.esAdministrador ||
+						user.rolUsuario == Roles.ANALISTA_OPERACIONES
+					"
+					>BUSQUEDA AVANZADA</a
+				>
+				<a
+					mat-list-item
 					[routerLink]="['denominaciones/listado']"
 					*ngIf="
 						user.esAdministrador ||
