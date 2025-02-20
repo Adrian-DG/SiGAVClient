@@ -35,6 +35,7 @@ export class IndexComponent {
 	};
 
 	displayedColumns: string[] = [
+		'id',
 		'ciudadano',
 		'vehiculo',
 		'patrulla',

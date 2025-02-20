@@ -167,6 +167,13 @@
 							[dataSource]="dataSource"
 							[fixedLayout]="false"
 						>
+							<ng-container matColumnDef="id">
+								<th mat-header-cell *matHeaderCellDef>ID</th>
+								<td mat-cell *matCellDef="let element">
+									{{ element.noAsistencia }}
+								</td>
+							</ng-container>
+
 							<ng-container matColumnDef="ciudadano">
 								<th mat-header-cell *matHeaderCellDef>
 									Ciudadano
