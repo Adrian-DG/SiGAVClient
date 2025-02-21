@@ -1,0 +1,257 @@
+<div class="container">
+	<div class="row">
+		<mat-card style="width: 60%">
+			<mat-card-header class="header">
+				<mat-card-title>Busqueda Avanzada</mat-card-title>
+				<mat-card-subtitle
+					>Filtrar asistencias de forma más
+					detallada</mat-card-subtitle
+				>
+			</mat-card-header>
+			<mat-card-content class="content">
+				<mat-accordion>
+					<!--- Filtros de busqueda -->
+
+					<mat-expansion-panel>
+						<mat-expansion-panel-header>
+							<mat-panel-title>
+								Filtros de busqueda
+							</mat-panel-title>
+							<mat-panel-description>
+								Ingrese los datos del ciudadano, vehiculo y
+								patrullera
+							</mat-panel-description>
+						</mat-expansion-panel-header>
+
+						<div class="column">
+							<fieldset>
+								<legend>Datos del ciudadano</legend>
+								<div class="row">
+									<mat-form-field>
+										<mat-label
+											>Cédula o Identicación</mat-label
+										>
+										<input
+											matInput
+											[(ngModel)]="
+												parameters.identificacion
+											"
+										/>
+									</mat-form-field>
+									<mat-form-field>
+										<mat-label>Nombre</mat-label>
+										<input
+											matInput
+											[(ngModel)]="parameters.nombre"
+										/>
+									</mat-form-field>
+									<mat-form-field>
+										<mat-label>Apellido</mat-label>
+										<input
+											matInput
+											[(ngModel)]="parameters.apellido"
+										/>
+									</mat-form-field>
+									<mat-form-field>
+										<mat-label>Telefono</mat-label>
+										<input
+											matInput
+											[(ngModel)]="parameters.telefono"
+										/>
+									</mat-form-field>
+								</div>
+							</fieldset>
+
+							<fieldset>
+								<legend>Datos Vehiculo</legend>
+								<div class="row">
+									<mat-form-field>
+										<mat-label>Marca</mat-label>
+										<input
+											matInput
+											[(ngModel)]="parameters.marca"
+										/>
+									</mat-form-field>
+									<mat-form-field>
+										<mat-label>Modelo</mat-label>
+										<input
+											matInput
+											[(ngModel)]="parameters.modelo"
+										/>
+									</mat-form-field>
+									<mat-form-field>
+										<mat-label>Tipo</mat-label>
+										<input
+											matInput
+											[(ngModel)]="parameters.tipo"
+										/>
+									</mat-form-field>
+									<mat-form-field>
+										<mat-label>Color</mat-label>
+										<input
+											matInput
+											[(ngModel)]="parameters.color"
+										/>
+									</mat-form-field>
+									<mat-form-field>
+										<mat-label>Placa</mat-label>
+										<input
+											matInput
+											[(ngModel)]="parameters.placa"
+										/>
+									</mat-form-field>
+								</div>
+							</fieldset>
+
+							<fieldset>
+								<legend>Datos Patrullera</legend>
+								<div class="row">
+									<mat-form-field>
+										<mat-label>Denominación</mat-label>
+										<input
+											matInput
+											[(ngModel)]="
+												parameters.denominacion
+											"
+										/>
+									</mat-form-field>
+									<mat-form-field>
+										<mat-label>Ficha</mat-label>
+										<input
+											matInput
+											[(ngModel)]="parameters.ficha"
+										/>
+									</mat-form-field>
+									<mat-form-field>
+										<mat-label>Tramo</mat-label>
+										<input
+											matInput
+											[(ngModel)]="parameters.tramo"
+										/>
+									</mat-form-field>
+									<mat-form-field>
+										<mat-label>Agente</mat-label>
+										<input
+											matInput
+											[(ngModel)]="parameters.agente"
+										/>
+									</mat-form-field>
+								</div>
+							</fieldset>
+						</div>
+						<button
+							mat-raised-button
+							color="primary"
+							style="width: 100%; margin-top: 1em"
+							(click)="search()"
+							[disabled]="!hasValidParameter"
+						>
+							Filtrar asistencias
+						</button>
+					</mat-expansion-panel>
+
+					<!-- Listado filtrado -->
+
+					<mat-expansion-panel>
+						<mat-expansion-panel-header>
+							<mat-panel-title>
+								Listado filtrado
+							</mat-panel-title>
+							<mat-panel-description>
+								Resultados de la busqueda
+							</mat-panel-description>
+						</mat-expansion-panel-header>
+
+						<table
+							mat-table
+							[dataSource]="dataSource"
+							[fixedLayout]="false"
+						>
+							<ng-container matColumnDef="id">
+								<th mat-header-cell *matHeaderCellDef>ID</th>
+								<td mat-cell *matCellDef="let element">
+									{{ element.noAsistencia }}
+								</td>
+							</ng-container>
+
+							<ng-container matColumnDef="ciudadano">
+								<th mat-header-cell *matHeaderCellDef>
+									Ciudadano
+								</th>
+								<td mat-cell *matCellDef="let element">
+									<span
+										>Identificación:
+										{{ element.identificacion }}</span
+									>
+									<br />
+									<span
+										>Nombre: {{ element.Nombre }}
+										{{ element.apellido }}</span
+									>
+									<br />
+									<span
+										>Teléfono: {{ element.telefono }}</span
+									>
+									<br />
+								</td>
+							</ng-container>
+
+							<ng-container matColumnDef="vehiculo">
+								<th mat-header-cell *matHeaderCellDef>
+									Vehiculo
+								</th>
+								<td mat-cell *matCellDef="let element">
+									<span>Marca: {{ element.marca }}</span>
+									<br />
+									<span>Modelo: {{ element.modelo }}</span>
+									<br />
+								</td>
+							</ng-container>
+
+							<ng-container matColumnDef="patrulla">
+								<th mat-header-cell *matHeaderCellDef>
+									Patrulla
+								</th>
+								<td mat-cell *matCellDef="let element">
+									<span
+										>Den.: {{ element.denominacion }}</span
+									>
+									<br />
+									<span>Ficha: {{ element.ficha }}</span>
+									<br />
+								</td>
+							</ng-container>
+
+							<ng-container matColumnDef="acciones">
+								<th mat-header-cell *matHeaderCellDef>
+									Acciones
+								</th>
+								<td mat-cell *matCellDef="let element">
+									<button
+										mat-raised-button
+										color="primary"
+										(click)="
+											generateReport(element.noAsistencia)
+										"
+									>
+										<mat-icon>print</mat-icon>
+									</button>
+								</td>
+							</ng-container>
+
+							<tr
+								mat-header-row
+								*matHeaderRowDef="displayedColumns"
+							></tr>
+							<tr
+								mat-row
+								*matRowDef="let row; columns: displayedColumns"
+							></tr>
+						</table>
+					</mat-expansion-panel>
+				</mat-accordion>
+			</mat-card-content>
+		</mat-card>
+		<iframe id="pdfViewer" frameborder="0"></iframe>
+	</div>
+</div>

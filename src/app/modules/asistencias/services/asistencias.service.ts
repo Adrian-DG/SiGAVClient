@@ -53,7 +53,8 @@ export class AsistenciasService extends GenericService {
 			.set('estatusAsistencia', filters.estatusAsistencia)
 			.set('isDateFilter', filters.isDateFilter)
 			.set('initialDate', filters.initialDate.toDateString())
-			.set('finalDate', filters.finalDate.toDateString());
+			.set('finalDate', filters.finalDate.toDateString())
+			.set('tipoBusqueda', filters.tipoBusqueda);
 	}
 
 	getAllAsistencias(
@@ -239,5 +240,37 @@ export class AsistenciasService extends GenericService {
 
 	RemoveAsistencia(id: number): Observable<IServerResponse> {
 		return this.$http.put<IServerResponse>(`${this.endPoint}/remove`, id);
+	}
+
+	filtrarAsistenciasAvanzada(
+		filters: IPaginationFilters,
+		parameters: { [key: string]: any }
+	): Observable<any[]> {
+		let params = new HttpParams();
+
+		Object.keys(parameters).forEach((key) => {
+			if (parameters[key] !== '') {
+				params = params.set(key, parameters[key]);
+			}
+		});
+
+		return this.$http.post<any[]>(
+			`${this.endPoint}/reporte/estadistico-avanzado`,
+			filters,
+			{
+				params: params,
+			}
+		);
+	}
+
+	generarReporteAsistenciaPDF(id: number) {
+		return this.$http.get(
+			`${this.endPoint}/reporte/estadistico-avanzado/${id}`,
+			{
+				observe: 'response',
+				responseType: 'blob',
+				reportProgress: true,
+			}
+		);
 	}
 }

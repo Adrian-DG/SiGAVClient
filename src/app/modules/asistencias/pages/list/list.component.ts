@@ -70,6 +70,7 @@ export class ListComponent implements OnInit, AfterViewInit {
 		isDateFilter: false,
 		initialDate: new Date(),
 		finalDate: new Date(),
+		tipoBusqueda: 1,
 	};
 
 	get Roles() {
