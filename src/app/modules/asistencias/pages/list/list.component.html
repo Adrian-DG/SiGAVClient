@@ -10,7 +10,22 @@
 			/>
 		</mat-form-field>
 	</div>
+
 	<div class="col" style="width: 20%">
+		<mat-form-field style="width: 100%">
+			<mat-label>Tipo Busqueda</mat-label>
+			<mat-select [(ngModel)]="filters.tipoBusqueda">
+				<mat-option [value]="1">Cédula/Pasaporte o Nombre</mat-option>
+				<mat-option [value]="2">Placa</mat-option>
+				<mat-option [value]="3">Marca</mat-option>
+				<mat-option [value]="4">Modelo</mat-option>
+				<mat-option [value]="5">Ficha</mat-option>
+				<mat-option [value]="6">Tramo</mat-option>
+			</mat-select>
+		</mat-form-field>
+	</div>
+
+	<div class="col" style="width: 10%">
 		<mat-form-field style="width: 100%">
 			<mat-label>Estatus</mat-label>
 			<mat-select
@@ -59,7 +74,11 @@
 		</mat-form-field>
 	</div>
 
-	<div class="col" style="width: 30%" *ngIf="_auth.userData$ | async as user">
+	<div
+		class="col"
+		[ngStyle]="{ width: filters.isDateFilter ? '30%' : '20%' }"
+		*ngIf="_auth.userData$ | async as user"
+	>
 		<mat-form-field style="width: 100%">
 			<mat-label>Reportes</mat-label>
 			<mat-select

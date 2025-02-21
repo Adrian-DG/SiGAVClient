@@ -53,7 +53,8 @@ export class AsistenciasService extends GenericService {
 			.set('estatusAsistencia', filters.estatusAsistencia)
 			.set('isDateFilter', filters.isDateFilter)
 			.set('initialDate', filters.initialDate.toDateString())
-			.set('finalDate', filters.finalDate.toDateString());
+			.set('finalDate', filters.finalDate.toDateString())
+			.set('tipoBusqueda', filters.tipoBusqueda);
 	}
 
 	getAllAsistencias(

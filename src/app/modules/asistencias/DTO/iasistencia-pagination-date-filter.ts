@@ -5,4 +5,5 @@ export interface IAsistenciaPaginationDateFilter
 	isDateFilter: boolean;
 	initialDate: Date;
 	finalDate: Date;
+	tipoBusqueda: number;
 }
