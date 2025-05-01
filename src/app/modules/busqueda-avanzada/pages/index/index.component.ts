@@ -19,6 +19,7 @@ export class IndexComponent {
 	};
 
 	parameters = {
+		noAsistencia: 0,
 		identificacion: '',
 		nombre: '',
 		apellido: '',

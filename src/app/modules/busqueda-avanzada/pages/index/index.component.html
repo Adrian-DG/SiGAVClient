@@ -28,6 +28,16 @@
 								<legend>Datos del ciudadano</legend>
 								<div class="row">
 									<mat-form-field>
+										<mat-label>No Asistencia</mat-label>
+										<input
+											matInput
+											[(ngModel)]="
+												parameters.noAsistencia
+											"
+										/>
+									</mat-form-field>
+
+									<mat-form-field>
 										<mat-label
 											>Cédula o Identicación</mat-label
 										>
