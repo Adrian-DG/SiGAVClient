@@ -232,6 +232,13 @@
 						<mat-icon> pin_drop</mat-icon>
 					</button>
 					<button
+						title="Confirmar llegada"
+						mat-icon-button
+						(click)="ConfirmarTiempoLlegada(element.id)"
+					>
+						<mat-icon>access_alarm</mat-icon>
+					</button>
+					<button
 						title="Reasignar Asistencia"
 						*ngIf="
 							element.estatusAsistencia != 'COMPLETADA' &&

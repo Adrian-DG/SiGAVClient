@@ -273,4 +273,11 @@ export class AsistenciasService extends GenericService {
 			}
 		);
 	}
+
+	ConfirmarTiempoLlegada(id: number) {
+		return this.$http.put<IServerResponse>(
+			`${this.endPoint}/confirmar-tiempo-llegada/${id}`,
+			{}
+		);
+	}
 }
