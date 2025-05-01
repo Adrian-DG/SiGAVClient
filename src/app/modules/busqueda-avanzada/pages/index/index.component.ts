@@ -19,7 +19,7 @@ export class IndexComponent {
 	};
 
 	parameters = {
-		noAsistencia: 0,
+		noAsistencia: '',
 		identificacion: '',
 		nombre: '',
 		apellido: '',
