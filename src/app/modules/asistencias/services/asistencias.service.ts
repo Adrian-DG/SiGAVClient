@@ -294,4 +294,14 @@ export class AsistenciasService extends GenericService {
 			}
 		);
 	}
+
+	getReporteAsistenciasSolicitadasR5(
+		filter: IAsistenciaPaginationDateFilter
+	) {
+		return this.$http.get(`${this.endPoint}/reporte/excel-r5`, {
+			observe: 'response',
+			responseType: 'blob',
+			params: this.getAsistenciaPaginationParams(filter),
+		});
+	}
 }

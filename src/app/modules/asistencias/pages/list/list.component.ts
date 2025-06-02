@@ -181,6 +181,9 @@ export class ListComponent implements OnInit, AfterViewInit {
 			case 6:
 				this.generarReporteHistoricoAsistenciasR5();
 				break;
+			case 7:
+				this.getReporteAsistenciasSolicitadasR5();
+				break;
 		}
 	}
 
@@ -232,6 +235,22 @@ export class ListComponent implements OnInit, AfterViewInit {
 				let blob: Blob = response.body as Blob;
 				let a = document.createElement('a');
 
+				a.download = filename ?? '';
+				a.href = window.URL.createObjectURL(blob);
+				a.click();
+			});
+	}
+
+	getReporteAsistenciasSolicitadasR5(): void {
+		this._asistencias
+			.getReporteAsistenciasSolicitadasR5(this.filters)
+			.subscribe((response) => {
+				let filename = response.headers
+					.get('content-disposition')
+					?.split(';')[1]
+					.split('=')[1];
+				let blob: Blob = response.body as Blob;
+				let a = document.createElement('a');
 				a.download = filename ?? '';
 				a.href = window.URL.createObjectURL(blob);
 				a.click();
