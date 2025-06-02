@@ -40,9 +40,9 @@ import { HistoricoAsistenciaAlfaComponent } from './components/historico-asisten
 		UpdateAsistenciaDialogComponent,
 		DetailAsistenciaDialogComponent,
 		UnidadSelectorComponent,
-  AsistenciaCalidadDialogComponent,
-  ReportDialogCalidadComponent,
-  HistoricoAsistenciaAlfaComponent,
+		AsistenciaCalidadDialogComponent,
+		ReportDialogCalidadComponent,
+		HistoricoAsistenciaAlfaComponent,
 	],
 	imports: [
 		CommonModule,

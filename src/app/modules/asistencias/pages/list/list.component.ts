@@ -22,6 +22,9 @@ import { IUserData } from 'src/app/modules/auth/interfaces/iuser-data';
 import { ReportDialogCalidadComponent } from '../../components/report-dialog-calidad/report-dialog-calidad.component';
 import { IAsistenciaPaginationDateFilter } from '../../DTO/iasistencia-pagination-date-filter';
 import { HistoricoAsistenciaAlfaComponent } from '../../components/historico-asistencia-alfa/historico-asistencia-alfa.component';
+import { FormControl } from '@angular/forms';
+import { debounceTime, distinctUntilChanged } from 'rxjs';
+import { ReportViewerDialogComponent } from '../../components/report-viewer-dialog/report-viewer-dialog.component';
 
 // to validate dialog data
 export interface IDialogData {
@@ -80,6 +83,8 @@ export class ListComponent implements OnInit, AfterViewInit {
 	@ViewChild(MatPaginator) paginator!: MatPaginator;
 	dataSource = new MatTableDataSource<IAsistenciaViewModel>();
 
+	searchBarControl = new FormControl('');
+
 	ngOnInit(): void {
 		this.dialog.afterAllClosed.subscribe(() => this.loadData());
 	}
@@ -108,7 +113,15 @@ export class ListComponent implements OnInit, AfterViewInit {
 	stateSelection: number = 1;
 
 	onSearchFiltering(): void {
-		setTimeout(() => this.loadData(), 2000);
+		this.searchBarControl.valueChanges
+			.pipe(debounceTime(500), distinctUntilChanged())
+			.subscribe((value: string | null) => {
+				if (value) {
+					this.filters.searchTerm = value ?? '';
+					this.filters.page = 0; // Reset to first page on search
+					this.loadData();
+				}
+			});
 	}
 
 	loadData(): void {
@@ -165,7 +178,30 @@ export class ListComponent implements OnInit, AfterViewInit {
 			case 5:
 				this.openAsistenciaCalidadReportModal();
 				break;
+			case 6:
+				this.generarReporteHistoricoAsistenciasR5();
+				break;
 		}
+	}
+
+	generarReporteHistoricoAsistenciasR5(): void {
+		this._asistencias
+			.generarReporteHistoricoAsistenciasR5(this.filters)
+			.subscribe((response) => {
+				if (response.body) {
+					const blob = new Blob([response.body], {
+						type: 'application/pdf',
+					});
+					const url = window.URL.createObjectURL(blob);
+
+					this.dialog.open(ReportViewerDialogComponent, {
+						data: { url: url },
+						...this.modalConfig,
+						width: '1000px',
+						height: '800px',
+					});
+				}
+			});
 	}
 
 	getReporteAsistenciasDetalles(): void {

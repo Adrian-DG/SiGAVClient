@@ -273,4 +273,18 @@ export class AsistenciasService extends GenericService {
 			}
 		);
 	}
+
+	generarReporteHistoricoAsistenciasR5(
+		filters: IAsistenciaPaginationDateFilter
+	) {
+		return this.$http.get(
+			`${this.endPoint}/reporte/historico-asistencias-r5`,
+			{
+				observe: 'response',
+				responseType: 'blob',
+				reportProgress: true,
+				params: this.getAsistenciaPaginationParams(filters),
+			}
+		);
+	}
 }

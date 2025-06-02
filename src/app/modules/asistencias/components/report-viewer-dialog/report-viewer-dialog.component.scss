@@ -1,0 +1,13 @@
+:host {
+	display: block;
+}
+
+.report-viewer-content {
+	width: 100%;
+	height: 100%;
+	.document {
+		width: 800px !important;
+		height: 700px !important;
+		overflow: auto;
+	}
+}
