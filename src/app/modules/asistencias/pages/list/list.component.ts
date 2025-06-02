@@ -376,4 +376,15 @@ export class ListComponent implements OnInit, AfterViewInit {
 				});
 		}
 	}
+
+	ConfirmarTiempoLlegada(id: number): void {
+		if (confirm('Esta seguro de confirmar el tiempo de llegada ?')) {
+			this._asistencias
+				.ConfirmarTiempoLlegada(id)
+				.subscribe((response: IServerResponse) => {
+					alert(response.message);
+					setTimeout(() => this.loadData(), 2000);
+				});
+		}
+	}
 }
