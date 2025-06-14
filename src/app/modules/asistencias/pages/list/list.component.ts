@@ -335,6 +335,7 @@ export class ListComponent implements OnInit, AfterViewInit {
 	}
 
 	openEditAsistenciaModal(item: IAsistenciaViewModel): void {
+		console.log('item: ', item);
 		const types = item.tipoAsistencias.map((x) => x.nombre);
 		const categorias = item.tipoAsistencias.map(
 			(x) => x.categoriaAsistencia

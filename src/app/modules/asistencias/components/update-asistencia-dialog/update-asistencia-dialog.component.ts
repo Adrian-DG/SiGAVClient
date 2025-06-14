@@ -35,6 +35,9 @@ export class UpdateAsistenciaDialogComponent implements OnInit, AfterViewInit {
 			categoria: string;
 			denominacion: string;
 			miembro: string;
+			fecha: Date;
+			tiempoLlegada: Date;
+			tiempoCompoletada: Date;
 		},
 		public _cache: CacheService
 	) {
