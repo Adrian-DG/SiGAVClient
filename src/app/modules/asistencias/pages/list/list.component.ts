@@ -347,6 +347,9 @@ export class ListComponent implements OnInit, AfterViewInit {
 				categoria: categorias,
 				denominacion: item.denominacionUnidad,
 				miembro: `${item.rangoAgente} | ${item.nombreAgente}`,
+				fechaCreacion: item.fechaCreacion,
+				tiempoLlegada: item.tiempoLlegada,
+				tiempoCompletada: item.tiempoCompletada,
 			},
 			...this.modalConfig,
 		});

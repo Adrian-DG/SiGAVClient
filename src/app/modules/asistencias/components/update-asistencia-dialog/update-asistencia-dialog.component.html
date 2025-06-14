@@ -249,6 +249,99 @@
 		</div>
 	</fieldset>
 
+	<fieldset>
+		<legend>Fecha y Hora</legend>
+		<div class="row">
+			<mat-form-field>
+				<mat-label
+					>Fecha de Creación ({{ fechaCreacionString }})</mat-label
+				>
+				<input
+					matInput
+					[matDatepicker]="picker"
+					[(ngModel)]="fechaCreacionModel"
+					[placeholder]="fechaCreacionString"
+				/>
+				<mat-datepicker-toggle
+					matSuffix
+					[for]="picker"
+				></mat-datepicker-toggle>
+				<mat-datepicker #picker></mat-datepicker>
+			</mat-form-field>
+
+			<mat-form-field>
+				<mat-label
+					>Hora de Creación ({{ horaCreacionString }})</mat-label
+				>
+				<input
+					matInput
+					type="time"
+					[(ngModel)]="horaCreacionModel"
+					[ngModelOptions]="{ standalone: true }"
+					[placeholder]="horaCreacionString"
+				/>
+			</mat-form-field>
+
+			<mat-form-field>
+				<mat-label>Fecha Llegada ({{ fechaLlegadaString }})</mat-label>
+				<input
+					matInput
+					[matDatepicker]="picker"
+					[(ngModel)]="fechaLlegadaModel"
+					[placeholder]="fechaLlegadaString"
+				/>
+				<mat-datepicker-toggle
+					matSuffix
+					[for]="picker"
+				></mat-datepicker-toggle>
+				<mat-datepicker #picker></mat-datepicker>
+			</mat-form-field>
+
+			<mat-form-field>
+				<mat-label
+					>Tiempo de Llegada ({{ horaLlegadaString }})</mat-label
+				>
+				<input
+					matInput
+					type="time"
+					[(ngModel)]="horaLlegadaModel"
+					[ngModelOptions]="{ standalone: true }"
+					[placeholder]="horaLlegadaString"
+				/>
+			</mat-form-field>
+
+			<mat-form-field>
+				<mat-label
+					>Fecha Completada ({{ fechaCompletadaString }})</mat-label
+				>
+				<input
+					matInput
+					[matDatepicker]="picker"
+					[(ngModel)]="fechaCompletadaModel"
+					[placeholder]="fechaCompletadaString"
+				/>
+				<mat-datepicker-toggle
+					matSuffix
+					[for]="picker"
+				></mat-datepicker-toggle>
+				<mat-datepicker #picker></mat-datepicker>
+			</mat-form-field>
+
+			<mat-form-field>
+				<mat-label
+					>Tiempo Completada ({{ horaCompletadaString }})</mat-label
+				>
+				<input
+					matInput
+					type="time"
+					[(ngModel)]="horaCompletadaModel"
+					[ngModelOptions]="{ standalone: true }"
+					[placeholder]="horaCompletadaString"
+				/>
+			</mat-form-field>
+		</div>
+	</fieldset>
+
 	<mat-form-field>
 		<mat-label>Comentarios</mat-label>
 		<textarea matInput [(ngModel)]="data.comentario"></textarea>

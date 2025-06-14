@@ -26,6 +26,8 @@ export interface IAsistenciaViewModel {
 	tipoAsistencias: ITipoAsistenciaViewModel[];
 	comentario: string;
 	fechaCreacion: Date;
+	tiempoLlegada: Date | null;
+	tiempoCompletada: Date | null;
 	estatusAsistencia: string;
 	reportadaPor: string;
 	tieneDatosCompletados: boolean;

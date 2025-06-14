@@ -25,6 +25,58 @@ export class UpdateAsistenciaDialogComponent implements OnInit, AfterViewInit {
 	iskeepingUnidad: boolean = true;
 	isKeepingMiembro: boolean = true;
 
+	fechaCreacionModel: Date | null = null;
+	horaCreacionModel: Date | null = null;
+	fechaLlegadaModel: Date | null = null;
+	horaLlegadaModel: Date | null = null;
+	fechaCompletadaModel: Date | null = null;
+	horaCompletadaModel: Date | null = null;
+
+	get fechaCreacionString(): string {
+		return this.params.fechaCreacion
+			? this.params.fechaCreacion.toLocaleDateString('es-ES')
+			: '';
+	}
+
+	get horaCreacionString(): string {
+		return this.params.fechaCreacion
+			? this.params.fechaCreacion.toLocaleTimeString('es-ES', {
+					hour: '2-digit',
+					minute: '2-digit',
+			  })
+			: '';
+	}
+
+	get fechaLlegadaString(): string {
+		return this.params.tiempoLlegada
+			? this.params.tiempoLlegada.toLocaleDateString('es-ES')
+			: '';
+	}
+
+	get horaLlegadaString(): string {
+		return this.params.tiempoLlegada
+			? this.params.tiempoLlegada.toLocaleTimeString('es-ES', {
+					hour: '2-digit',
+					minute: '2-digit',
+			  })
+			: '';
+	}
+
+	get fechaCompletadaString(): string {
+		return this.params.tiempoCompoletada
+			? this.params.tiempoCompoletada.toLocaleDateString('es-ES')
+			: '';
+	}
+
+	get horaCompletadaString(): string {
+		return this.params.tiempoCompoletada
+			? this.params.tiempoCompoletada.toLocaleTimeString('es-ES', {
+					hour: '2-digit',
+					minute: '2-digit',
+			  })
+			: '';
+	}
+
 	constructor(
 		private _asistencias: AsistenciasService,
 		public dialogRef: MatDialogRef<UpdateAsistenciaDialogComponent>,
@@ -35,9 +87,9 @@ export class UpdateAsistenciaDialogComponent implements OnInit, AfterViewInit {
 			categoria: string;
 			denominacion: string;
 			miembro: string;
-			fecha: Date;
-			tiempoLlegada: Date;
-			tiempoCompoletada: Date;
+			fechaCreacion: Date;
+			tiempoLlegada: Date | null;
+			tiempoCompoletada: Date | null;
 		},
 		public _cache: CacheService
 	) {
@@ -90,6 +142,18 @@ export class UpdateAsistenciaDialogComponent implements OnInit, AfterViewInit {
 		return item.nombre;
 	}
 
+	formatNewDate(dateModel: Date | null, timeModel: Date | null): Date | null {
+		if (dateModel && timeModel) {
+			const year = dateModel.getFullYear();
+			const month = dateModel.getMonth();
+			const day = dateModel.getDate();
+			const hours = timeModel.getHours();
+			const minutes = timeModel.getMinutes();
+			return new Date(year, month, day, hours, minutes);
+		}
+		return null;
+	}
+
 	async saveChanges(): Promise<void> {
 		const entity: IAsistenciaEdit | null = await firstValueFrom(
 			this.entity$
@@ -107,6 +171,19 @@ export class UpdateAsistenciaDialogComponent implements OnInit, AfterViewInit {
 			);
 			console.log(
 				`IsKeepingUnidad: ${this.iskeepingUnidad} Denominacion: ${denominacion}`
+			);
+
+			const newFechaCreacion = this.formatNewDate(
+				this.fechaCreacionModel,
+				this.horaCreacionModel
+			);
+			const newFechaLlegada = this.formatNewDate(
+				this.fechaLlegadaModel,
+				this.horaLlegadaModel
+			);
+			const newFechaCompletada = this.formatNewDate(
+				this.fechaCompletadaModel,
+				this.horaCompletadaModel
 			);
 
 			this._asistencias.CompletarInformacionAsistencia({
@@ -129,6 +206,10 @@ export class UpdateAsistenciaDialogComponent implements OnInit, AfterViewInit {
 				tipoAsistencias: entity.tipoAsistencias,
 				miembroId: miembro,
 				denominacionId: denominacion,
+
+				fechaCreacion: newFechaCreacion ?? entity.fechaCreacion,
+				tiempoLlegada: newFechaLlegada ?? entity.tiempoLlegada,
+				tiempoCompletada: newFechaCompletada ?? entity.tiempoCompletada,
 			});
 		}
 		//if (entity) this._asistencias.Update<IAsistencia>(entity);

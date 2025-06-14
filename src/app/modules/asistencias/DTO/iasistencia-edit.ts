@@ -18,4 +18,8 @@ export interface IAsistenciaEdit {
 	comentario: string;
 	miembroId: number;
 	denominacionId: number;
+
+	fechaCreacion: Date;
+	tiempoLlegada: Date | null;
+	tiempoCompletada: Date | null;
 }
