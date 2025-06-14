@@ -1,4 +1,10 @@
-import { Component, Inject, OnInit, AfterViewInit } from '@angular/core';
+import {
+	Component,
+	Inject,
+	OnInit,
+	AfterViewInit,
+	LOCALE_ID,
+} from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { AsistenciasService } from '../../services/asistencias.service';
 import { IAsistencia } from '../../entities/iasistencia';
@@ -7,11 +13,13 @@ import { BehaviorSubject, Observable, firstValueFrom } from 'rxjs';
 import { IAsistenciaEdit } from '../../DTO/iasistencia-edit';
 import { IGenericData } from 'src/app/modules/generic/Responses/igeneric-data';
 import { FormControl } from '@angular/forms';
+import { DatePipe } from '@angular/common';
 
 @Component({
 	selector: 'app-update-asistencia-dialog',
 	templateUrl: './update-asistencia-dialog.component.html',
 	styleUrls: ['./update-asistencia-dialog.component.scss'],
+	providers: [DatePipe, { provide: LOCALE_ID, useValue: 'es-ES' }],
 })
 export class UpdateAsistenciaDialogComponent implements OnInit, AfterViewInit {
 	entitySource: BehaviorSubject<IAsistenciaEdit | null> =
@@ -33,48 +41,45 @@ export class UpdateAsistenciaDialogComponent implements OnInit, AfterViewInit {
 	horaCompletadaModel: Date | null = null;
 
 	get fechaCreacionString(): string {
-		return this.params.fechaCreacion
-			? this.params.fechaCreacion.toLocaleDateString('es-ES')
-			: '';
+		return (
+			this.datePipe.transform(this.params.fechaCreacion, 'dd/MM/yyyy') ||
+			''
+		);
 	}
 
 	get horaCreacionString(): string {
-		return this.params.fechaCreacion
-			? this.params.fechaCreacion.toLocaleTimeString('es-ES', {
-					hour: '2-digit',
-					minute: '2-digit',
-			  })
-			: '';
+		return (
+			this.datePipe.transform(this.params.fechaCreacion, 'HH:mm') || ''
+		);
 	}
 
 	get fechaLlegadaString(): string {
-		return this.params.tiempoLlegada
-			? this.params.tiempoLlegada.toLocaleDateString('es-ES')
-			: '';
+		return (
+			this.datePipe.transform(this.params.tiempoLlegada, 'dd/MM/yyyy') ||
+			''
+		);
 	}
 
 	get horaLlegadaString(): string {
-		return this.params.tiempoLlegada
-			? this.params.tiempoLlegada.toLocaleTimeString('es-ES', {
-					hour: '2-digit',
-					minute: '2-digit',
-			  })
-			: '';
+		return (
+			this.datePipe.transform(this.params.tiempoLlegada, 'HH:mm') || ''
+		);
 	}
 
 	get fechaCompletadaString(): string {
-		return this.params.tiempoCompoletada
-			? this.params.tiempoCompoletada.toLocaleDateString('es-ES')
-			: '';
+		return (
+			this.datePipe.transform(
+				this.params.tiempoCompoletada,
+				'dd/MM/yyyy'
+			) || ''
+		);
 	}
 
 	get horaCompletadaString(): string {
-		return this.params.tiempoCompoletada
-			? this.params.tiempoCompoletada.toLocaleTimeString('es-ES', {
-					hour: '2-digit',
-					minute: '2-digit',
-			  })
-			: '';
+		return (
+			this.datePipe.transform(this.params.tiempoCompoletada, 'HH:mm') ||
+			''
+		);
 	}
 
 	constructor(
@@ -91,7 +96,8 @@ export class UpdateAsistenciaDialogComponent implements OnInit, AfterViewInit {
 			tiempoLlegada: Date | null;
 			tiempoCompoletada: Date | null;
 		},
-		public _cache: CacheService
+		public _cache: CacheService,
+		@Inject(DatePipe) private datePipe: DatePipe
 	) {
 		this.unidadSelected.valueChanges.subscribe((value: string) => {
 			setTimeout(() => this._cache.getDenominaciones(value), 1000);

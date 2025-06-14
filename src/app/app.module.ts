@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { LOCALE_ID, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -11,7 +11,11 @@ import { GenericModule } from './modules/generic/generic.module';
 import { LoadingInterceptor } from './interceptors/loading/loading.interceptor';
 import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
+import { DatePipe, registerLocaleData } from '@angular/common';
+import { provideMomentDateAdapter } from '@angular/material-moment-adapter';
+import localeEs from '@angular/common/locales/es';
 
+registerLocaleData(localeEs, 'es-ES');
 @NgModule({
 	declarations: [AppComponent],
 	imports: [
@@ -21,7 +25,10 @@ import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 		HttpClientModule,
 		MaterialModule,
 		GenericModule,
-  CalendarModule.forRoot({ provide: DateAdapter, useFactory: adapterFactory }),
+		CalendarModule.forRoot({
+			provide: DateAdapter,
+			useFactory: adapterFactory,
+		}),
 	],
 	providers: [
 		{ provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
@@ -30,6 +37,17 @@ import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 			useClass: LoadingInterceptor,
 			multi: true,
 		},
+		provideMomentDateAdapter({
+			parse: { dateInput: 'DD/MM/YYYY' },
+			display: {
+				dateInput: 'DD/MM/YYYY',
+				monthYearLabel: 'MMM YYYY',
+				dateA11yLabel: 'DD/MM/YYYY',
+				monthYearA11yLabel: 'MMMM YYYY',
+			},
+		}),
+		DatePipe,
+		{ provide: LOCALE_ID, useValue: 'es-ES' },
 	],
 	bootstrap: [AppComponent],
 })

@@ -1,4 +1,10 @@
-import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
+import {
+	Component,
+	OnInit,
+	AfterViewInit,
+	ViewChild,
+	LOCALE_ID,
+} from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { IPaginationFilters } from 'src/app/modules/generic/DTO/ipagination-filters';
@@ -25,6 +31,7 @@ import { HistoricoAsistenciaAlfaComponent } from '../../components/historico-asi
 import { FormControl } from '@angular/forms';
 import { debounceTime, distinctUntilChanged } from 'rxjs';
 import { ReportViewerDialogComponent } from '../../components/report-viewer-dialog/report-viewer-dialog.component';
+import { DatePipe } from '@angular/common';
 
 // to validate dialog data
 export interface IDialogData {
@@ -44,6 +51,7 @@ export enum Roles {
 	selector: 'app-list',
 	templateUrl: './list.component.html',
 	styleUrls: ['./list.component.scss'],
+	providers: [DatePipe, { provide: LOCALE_ID, useValue: 'es-ES' }],
 })
 export class ListComponent implements OnInit, AfterViewInit {
 	constructor(
