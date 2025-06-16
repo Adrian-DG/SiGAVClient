@@ -49,7 +49,7 @@ export class UpdateAsistenciaDialogComponent implements OnInit, AfterViewInit {
 
 	get horaCreacionString(): string {
 		return (
-			this.datePipe.transform(this.params.fechaCreacion, 'HH:mm') || ''
+			this.datePipe.transform(this.params.fechaCreacion, 'HH:mm a') || ''
 		);
 	}
 
@@ -62,14 +62,14 @@ export class UpdateAsistenciaDialogComponent implements OnInit, AfterViewInit {
 
 	get horaLlegadaString(): string {
 		return (
-			this.datePipe.transform(this.params.tiempoLlegada, 'HH:mm') || ''
+			this.datePipe.transform(this.params.tiempoLlegada, 'HH:mm a') || ''
 		);
 	}
 
 	get fechaCompletadaString(): string {
 		return (
 			this.datePipe.transform(
-				this.params.tiempoCompoletada,
+				this.params.tiempoCompletada,
 				'dd/MM/yyyy'
 			) || ''
 		);
@@ -77,7 +77,7 @@ export class UpdateAsistenciaDialogComponent implements OnInit, AfterViewInit {
 
 	get horaCompletadaString(): string {
 		return (
-			this.datePipe.transform(this.params.tiempoCompoletada, 'HH:mm') ||
+			this.datePipe.transform(this.params.tiempoCompletada, 'HH:mm a') ||
 			''
 		);
 	}
@@ -94,7 +94,7 @@ export class UpdateAsistenciaDialogComponent implements OnInit, AfterViewInit {
 			miembro: string;
 			fechaCreacion: Date;
 			tiempoLlegada: Date | null;
-			tiempoCompoletada: Date | null;
+			tiempoCompletada: Date | null;
 		},
 		public _cache: CacheService,
 		@Inject(DatePipe) private datePipe: DatePipe

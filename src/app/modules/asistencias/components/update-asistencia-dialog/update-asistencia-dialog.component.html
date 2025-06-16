@@ -17,7 +17,11 @@
 		<mat-chip *ngFor="let item of params.types">{{ item }}</mat-chip>
 	</mat-chip-listbox>
 </div>
-<div mat-dialog-content class="row" *ngIf="entity$ | async as data; else empty">
+<div
+	mat-dialog-content
+	class="row content"
+	*ngIf="entity$ | async as data; else empty"
+>
 	<mat-form-field>
 		<mat-label>Identificación</mat-label>
 		<input matInput [(ngModel)]="data.identificacion" />
@@ -249,8 +253,14 @@
 		</div>
 	</fieldset>
 
-	<fieldset>
+	<fieldset style="margin-top: 1em; width: 100%" class="datetime-fieldset">
 		<legend>Fecha y Hora</legend>
+		<div class="datetime-info">
+			<p>
+				Creación:
+				{{ data.fechaCreacion | date : 'dd/MM/yyyy HH:mm:ss a' }}
+			</p>
+		</div>
 		<div class="row">
 			<mat-form-field>
 				<mat-label
@@ -281,7 +291,15 @@
 					[placeholder]="horaCreacionString"
 				/>
 			</mat-form-field>
+		</div>
 
+		<div class="datetime-info">
+			<p>
+				Llegada:
+				{{ data.tiempoLlegada | date : 'dd/MM/yyyy HH:mm:ss a' }}
+			</p>
+		</div>
+		<div class="row">
 			<mat-form-field>
 				<mat-label>Fecha Llegada ({{ fechaLlegadaString }})</mat-label>
 				<input
@@ -309,7 +327,18 @@
 					[placeholder]="horaLlegadaString"
 				/>
 			</mat-form-field>
+		</div>
 
+		<div class="datetime-info">
+			<p>
+				Completada:
+				{{
+					(data.tiempoCompletada | date : 'dd/MM/yyyy HH:mm:ss a') ||
+						'No completada'
+				}}
+			</p>
+		</div>
+		<div class="row">
 			<mat-form-field>
 				<mat-label
 					>Fecha Completada ({{ fechaCompletadaString }})</mat-label
@@ -355,7 +384,7 @@
 	</div>
 </ng-template>
 
-<div mat-dialog-actions>
+<div class="actions" mat-dialog-actions>
 	<button mat-raised-button mat-dialog-close>Cerrar</button>
 	<button
 		mat-raised-button

@@ -23,7 +23,6 @@ import { UnidadSelectorComponent } from './components/unidad-selector/unidad-sel
 import { AsistenciaCalidadDialogComponent } from './components/asistencia-calidad-dialog/asistencia-calidad-dialog.component';
 import { ReportDialogCalidadComponent } from './components/report-dialog-calidad/report-dialog-calidad.component';
 import { HistoricoAsistenciaAlfaComponent } from './components/historico-asistencia-alfa/historico-asistencia-alfa.component';
-import { provideMomentDateAdapter } from '@angular/material-moment-adapter';
 
 @NgModule({
 	declarations: [

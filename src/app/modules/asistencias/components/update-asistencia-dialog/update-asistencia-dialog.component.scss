@@ -1,3 +1,7 @@
+.content {
+	overflow-y: auto;
+}
+
 .row {
 	width: 100%;
 	padding: 0.5em 1em;
@@ -14,6 +18,33 @@ mat-form-field {
 	flex-grow: 1;
 }
 
+.datetime-fieldset {
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: flex-start;
+	gap: 1em;
+	width: 100%;
+	.datetime-info {
+		width: 80%;
+		padding: 0.5em;
+		border-radius: 0.5em;
+		margin-left: 1em;
+		background-color: rgb(255, 255, 182);
+		color: gray;
+		font-weight: 600;
+	}
+}
+
 fieldset {
 	margin-top: -1.5em;
+}
+
+.actions {
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-end;
+	align-items: center;
+	gap: 0.3em;
+	margin-top: 1em;
 }

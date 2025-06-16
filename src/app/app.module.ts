@@ -12,7 +12,6 @@ import { LoadingInterceptor } from './interceptors/loading/loading.interceptor';
 import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { DatePipe, registerLocaleData } from '@angular/common';
-import { provideMomentDateAdapter } from '@angular/material-moment-adapter';
 import localeEs from '@angular/common/locales/es';
 
 registerLocaleData(localeEs, 'es-ES');
@@ -37,15 +36,6 @@ registerLocaleData(localeEs, 'es-ES');
 			useClass: LoadingInterceptor,
 			multi: true,
 		},
-		provideMomentDateAdapter({
-			parse: { dateInput: 'DD/MM/YYYY' },
-			display: {
-				dateInput: 'DD/MM/YYYY',
-				monthYearLabel: 'MMM YYYY',
-				dateA11yLabel: 'DD/MM/YYYY',
-				monthYearA11yLabel: 'MMMM YYYY',
-			},
-		}),
 		DatePipe,
 		{ provide: LOCALE_ID, useValue: 'es-ES' },
 	],
