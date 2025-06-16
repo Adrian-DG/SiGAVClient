@@ -19,7 +19,7 @@ export interface IAsistenciaEdit {
 	miembroId: number;
 	denominacionId: number;
 
-	fechaCreacion: Date;
-	tiempoLlegada: Date | null;
-	tiempoCompletada: Date | null;
+	fechaCreacion: string | null;
+	tiempoLlegada: string | null;
+	tiempoCompletada: string | null;
 }

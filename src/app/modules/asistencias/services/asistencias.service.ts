@@ -143,12 +143,8 @@ export class AsistenciasService extends GenericService {
 		});
 	}
 
-	CompletarInformacionAsistencia(model: IAsistenciaEdit): void {
-		this.$http.put<boolean>(`${this.endPoint}/edit`, model).subscribe(
-			(response: boolean) => alert('Se han guardado los cambios'),
-			(error) =>
-				alert('Error: Algo salio mal al intentar guardar los cambios')
-		);
+	CompletarInformacionAsistencia(model: IAsistenciaEdit) {
+		return this.$http.put<boolean>(`${this.endPoint}/edit`, model);
 	}
 
 	GetAsistenciaEditViewModel(id: number): Observable<IAsistenciaEdit> {

@@ -164,7 +164,7 @@
 				gap: 0.5em;
 			"
 		>
-			<mat-form-field *ngIf="iskeepingUnidad; else unidadAutoComplete">
+			<mat-form-field *ngIf="isKeepingUnidad; else unidadAutoComplete">
 				<mat-label>Unidad (Solo lectura)</mat-label>
 				<input
 					matInput
@@ -258,7 +258,8 @@
 		<div class="datetime-info">
 			<p>
 				Creación:
-				{{ data.fechaCreacion | date : 'dd/MM/yyyy HH:mm:ss a' }}
+				{{ data.fechaCreacion | date : 'dd/MM/yyyy hh:mm:ss a' }} |
+				{{ horaCreacionString }}
 			</p>
 		</div>
 		<div class="row">
@@ -279,24 +280,20 @@
 				<mat-datepicker #picker1></mat-datepicker>
 			</mat-form-field>
 
-			<mat-form-field>
-				<mat-label
-					>Hora de Creación ({{ horaCreacionString }})</mat-label
-				>
-				<input
-					matInput
-					type="time"
-					[(ngModel)]="horaCreacionModel"
-					[ngModelOptions]="{ standalone: true }"
-					[placeholder]="horaCreacionString"
-				/>
-			</mat-form-field>
+			<input
+				type="time"
+				class="time-input"
+				[(ngModel)]="horaCreacionModel"
+				[ngModelOptions]="{ standalone: true }"
+				[placeholder]="horaCreacionString"
+			/>
 		</div>
 
 		<div class="datetime-info">
 			<p>
 				Llegada:
-				{{ data.tiempoLlegada | date : 'dd/MM/yyyy HH:mm:ss a' }}
+				{{ data.tiempoLlegada | date : 'dd/MM/yyyy hh:mm:ss a' }} |
+				{{ horaLlegadaString }}
 			</p>
 		</div>
 		<div class="row">
@@ -315,27 +312,24 @@
 				<mat-datepicker #picker2></mat-datepicker>
 			</mat-form-field>
 
-			<mat-form-field>
-				<mat-label
-					>Tiempo de Llegada ({{ horaLlegadaString }})</mat-label
-				>
-				<input
-					matInput
-					type="time"
-					[(ngModel)]="horaLlegadaModel"
-					[ngModelOptions]="{ standalone: true }"
-					[placeholder]="horaLlegadaString"
-				/>
-			</mat-form-field>
+			<input
+				type="time"
+				class="time-input"
+				[(ngModel)]="horaLlegadaModel"
+				[ngModelOptions]="{ standalone: true }"
+				[placeholder]="horaLlegadaString"
+			/>
 		</div>
 
 		<div class="datetime-info">
 			<p>
 				Completada:
 				{{
-					(data.tiempoCompletada | date : 'dd/MM/yyyy HH:mm:ss a') ||
+					(data.tiempoCompletada | date : 'dd/MM/yyyy hh:mm:ss a') ||
 						'No completada'
 				}}
+				|
+				{{ horaCompletadaString }}
 			</p>
 		</div>
 		<div class="row">
@@ -356,18 +350,13 @@
 				<mat-datepicker #picker3></mat-datepicker>
 			</mat-form-field>
 
-			<mat-form-field>
-				<mat-label
-					>Tiempo Completada ({{ horaCompletadaString }})</mat-label
-				>
-				<input
-					matInput
-					type="time"
-					[(ngModel)]="horaCompletadaModel"
-					[ngModelOptions]="{ standalone: true }"
-					[placeholder]="horaCompletadaString"
-				/>
-			</mat-form-field>
+			<input
+				type="time"
+				class="time-input"
+				[(ngModel)]="horaCompletadaModel"
+				[ngModelOptions]="{ standalone: true }"
+				[placeholder]="horaCompletadaString"
+			/>
 		</div>
 	</fieldset>
 
@@ -386,12 +375,7 @@
 
 <div class="actions" mat-dialog-actions>
 	<button mat-raised-button mat-dialog-close>Cerrar</button>
-	<button
-		mat-raised-button
-		mat-dialog-close
-		color="accent"
-		(click)="saveChanges()"
-	>
+	<button mat-raised-button color="accent" (click)="saveChanges()">
 		Guardar Cambios
 	</button>
 </div>

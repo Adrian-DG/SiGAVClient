@@ -30,7 +30,7 @@ export class UpdateAsistenciaDialogComponent implements OnInit, AfterViewInit {
 	categoriaAsistencia!: number;
 	unidadSelected: FormControl = new FormControl('');
 	miembroSelected: FormControl = new FormControl('');
-	iskeepingUnidad: boolean = true;
+	isKeepingUnidad: boolean = true;
 	isKeepingMiembro: boolean = true;
 
 	fechaCreacionModel: Date | null = null;
@@ -78,7 +78,7 @@ export class UpdateAsistenciaDialogComponent implements OnInit, AfterViewInit {
 	get horaCompletadaString(): string {
 		return (
 			this.datePipe.transform(this.params.tiempoCompletada, 'HH:mm a') ||
-			''
+			'No Completada'
 		);
 	}
 
@@ -148,16 +148,33 @@ export class UpdateAsistenciaDialogComponent implements OnInit, AfterViewInit {
 		return item.nombre;
 	}
 
-	formatNewDate(dateModel: Date | null, timeModel: Date | null): Date | null {
-		if (dateModel && timeModel) {
-			const year = dateModel.getFullYear();
-			const month = dateModel.getMonth();
-			const day = dateModel.getDate();
-			const hours = timeModel.getHours();
-			const minutes = timeModel.getMinutes();
-			return new Date(year, month, day, hours, minutes);
+	formatTime(timeModel: Date | string | null): string | null {
+		let hora: string | null = null;
+
+		if (typeof timeModel === 'string') {
+			// Parse "HH:mm" string into a Date object for DatePipe
+			const [hours, minutes] = timeModel.split(':').map(Number);
+			const tempDate = new Date();
+			tempDate.setHours(hours, minutes, 0, 0);
+			hora = this.datePipe.transform(tempDate, 'HH:mm');
+		} else {
+			hora = this.datePipe.transform(timeModel, 'HH:mm');
 		}
-		return null;
+
+		console.log(`Formatting time: ${timeModel} to ${hora}`);
+		return hora;
+	}
+
+	formatNewDate(
+		dateModel: Date | string | null,
+		timeModel: Date | string | null
+	): string | null {
+		console.log(`Formatting date: ${dateModel}, time: ${timeModel}`);
+		if (!dateModel || !timeModel) return null;
+		const fecha = this.datePipe.transform(dateModel, 'yyyy-MM-dd');
+		const hora: string | null = this.formatTime(timeModel);
+		if (!fecha || !hora) return null;
+		return `${fecha} ${hora}`;
 	}
 
 	async saveChanges(): Promise<void> {
@@ -169,60 +186,63 @@ export class UpdateAsistenciaDialogComponent implements OnInit, AfterViewInit {
 			let miembro = this.isKeepingMiembro
 				? entity.miembroId
 				: this.miembroSelected.value.id;
-			let denominacion = this.iskeepingUnidad
+			let denominacion = this.isKeepingUnidad
 				? entity.denominacionId
 				: this.unidadSelected.value.id;
 			console.log(
 				`IsKeepingMiembro: ${this.isKeepingMiembro} Miembro: ${miembro}`
 			);
 			console.log(
-				`IsKeepingUnidad: ${this.iskeepingUnidad} Denominacion: ${denominacion}`
+				`IsKeepingUnidad: ${this.isKeepingUnidad} Denominacion: ${denominacion}`
 			);
 
-			const newFechaCreacion = this.formatNewDate(
-				this.fechaCreacionModel,
-				this.horaCreacionModel
-			);
-			const newFechaLlegada = this.formatNewDate(
-				this.fechaLlegadaModel,
-				this.horaLlegadaModel
-			);
-			const newFechaCompletada = this.formatNewDate(
-				this.fechaCompletadaModel,
-				this.horaCompletadaModel
-			);
+			this._asistencias
+				.CompletarInformacionAsistencia({
+					id: entity.id as number,
+					identificacion: entity.identificacion,
+					nombre: entity.nombre,
+					apellido: entity.apellido,
+					telefono: entity.telefono,
+					genero: entity.genero,
+					esExtranjero: entity.esExtranjero,
+					placa: entity.placa,
+					vehiculoTipoId: entity.vehiculoTipoId,
+					vehiculoMarcaId: entity.vehiculoMarcaId,
+					vehiculoColorId: entity.vehiculoColorId,
+					vehiculoModeloId: entity.vehiculoModeloId,
+					provinciaId: entity.provinciaId,
+					comentario: entity.comentario,
+					direccion: '',
+					municipioId: entity.municipioId,
+					tipoAsistencias: entity.tipoAsistencias,
+					miembroId: miembro,
+					denominacionId: denominacion,
 
-			this._asistencias.CompletarInformacionAsistencia({
-				id: entity.id as number,
-				identificacion: entity.identificacion,
-				nombre: entity.nombre,
-				apellido: entity.apellido,
-				telefono: entity.telefono,
-				genero: entity.genero,
-				esExtranjero: entity.esExtranjero,
-				placa: entity.placa,
-				vehiculoTipoId: entity.vehiculoTipoId,
-				vehiculoMarcaId: entity.vehiculoMarcaId,
-				vehiculoColorId: entity.vehiculoColorId,
-				vehiculoModeloId: entity.vehiculoModeloId,
-				provinciaId: entity.provinciaId,
-				comentario: entity.comentario,
-				direccion: '',
-				municipioId: entity.municipioId,
-				tipoAsistencias: entity.tipoAsistencias,
-				miembroId: miembro,
-				denominacionId: denominacion,
-
-				fechaCreacion: newFechaCreacion ?? entity.fechaCreacion,
-				tiempoLlegada: newFechaLlegada ?? entity.tiempoLlegada,
-				tiempoCompletada: newFechaCompletada ?? entity.tiempoCompletada,
-			});
+					fechaCreacion: this.formatNewDate(
+						this.fechaCreacionModel,
+						this.horaCreacionModel
+					),
+					tiempoLlegada: this.formatNewDate(
+						this.fechaLlegadaModel,
+						this.horaLlegadaModel
+					),
+					tiempoCompletada: this.formatNewDate(
+						this.fechaCompletadaModel,
+						this.horaCompletadaModel
+					),
+				})
+				.subscribe((response: boolean) => {
+					if (response) {
+						this.dialogRef.close(true);
+					} else {
+						alert('Error al actualizar la asistencia.');
+					}
+				});
 		}
-		//if (entity) this._asistencias.Update<IAsistencia>(entity);
 	}
 
 	changeUnidad(): void {
-		this.iskeepingUnidad = !this.iskeepingUnidad;
+		this.isKeepingUnidad = !this.isKeepingUnidad;
 	}
 
 	changeMiembro(): void {
