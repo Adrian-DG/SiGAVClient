@@ -402,7 +402,11 @@ export class ListComponent implements OnInit, AfterViewInit {
 			this._asistencias
 				.RemoveAsistencia(id)
 				.subscribe((response: IServerResponse) => {
-					alert(response.message);
+					alert(
+						response
+							? 'Asistencia eliminada correctamente'
+							: 'Error al eliminar asistencia'
+					);
 					setTimeout(() => this.loadData(), 2000);
 				});
 		}
