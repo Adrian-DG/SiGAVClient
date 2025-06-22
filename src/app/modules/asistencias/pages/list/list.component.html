@@ -232,7 +232,7 @@
 			<th mat-header-cell *matHeaderCellDef>Acciones</th>
 			<td mat-cell *matCellDef="let element">
 				<div class="action-row">
-					<button
+					<!-- <button
 						title="Ubicación GPS"
 						*ngIf="
 							element.estatusAsistencia != 'PENDIENTE' &&
@@ -243,7 +243,7 @@
 						(click)="copyLocationCoordinates(element.coordenadas)"
 					>
 						<mat-icon> pin_drop</mat-icon>
-					</button>
+					</button> -->
 					<button
 						title="Confirmar llegada"
 						mat-icon-button
@@ -301,7 +301,16 @@
 						mat-icon-button
 						(click)="openDetailsAsistenciaModal(element)"
 					>
-						<mat-icon>comment</mat-icon>
+						<mat-icon>info</mat-icon>
+					</button>
+
+					<button
+						style="color: rgb(20, 124, 20)"
+						title="Marcar Recibida Whatsapp"
+						mat-icon-button
+						(click)="MarcarAsistenciaReportadaWhatsApp(element.id)"
+					>
+						<mat-icon>message</mat-icon>
 					</button>
 
 					<button
@@ -320,8 +329,8 @@
 					</button>
 
 					<button
-						style="color: rgb(21, 204, 21)"
 						title="Completar o Cerrar asistencia"
+						style="color: rgb(28, 141, 28)"
 						mat-icon-button
 						(click)="actualizarAsistencia(element.id, 3)"
 						*ngIf="
@@ -329,7 +338,7 @@
 							hasValidStatus(user.rolUsuario)
 						"
 					>
-						<mat-icon>check_box</mat-icon>
+						<mat-icon>check_circle</mat-icon>
 					</button>
 					<button
 						style="color: rgb(230, 89, 96)"

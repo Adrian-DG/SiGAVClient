@@ -208,6 +208,13 @@ export class AsistenciasService extends GenericService {
 		);
 	}
 
+	MarcarAsistenciaReportadaWhatsApp(id: number): Observable<IServerResponse> {
+		return this.$http.put<IServerResponse>(
+			`${this.endPoint}/${id}/marcar-asistencia-reportada-whatsapp/`,
+			id
+		);
+	}
+
 	GetReporteAsistenciaCalidadPorFecha(filter: IDateFilter) {
 		const params = new HttpParams()
 			.set('initialDate', filter.initialDate.toDateString())

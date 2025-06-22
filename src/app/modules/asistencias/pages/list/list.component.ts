@@ -422,4 +422,19 @@ export class ListComponent implements OnInit, AfterViewInit {
 				});
 		}
 	}
+
+	MarcarAsistenciaReportadaWhatsApp(id: number): void {
+		if (
+			confirm(
+				'Esta seguro de marcar la asistencia como reportada por WhatsApp?'
+			)
+		) {
+			this._asistencias
+				.MarcarAsistenciaReportadaWhatsApp(id)
+				.subscribe((response: IServerResponse) => {
+					alert(response.message);
+					setTimeout(() => this.loadData(), 2000);
+				});
+		}
+	}
 }
