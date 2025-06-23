@@ -26,7 +26,7 @@ import { DetailAsistenciaDialogComponent } from '../../components/detail-asisten
 import { AsistenciaCalidadDialogComponent } from '../../components/asistencia-calidad-dialog/asistencia-calidad-dialog.component';
 import { IUserData } from 'src/app/modules/auth/interfaces/iuser-data';
 import { ReportDialogCalidadComponent } from '../../components/report-dialog-calidad/report-dialog-calidad.component';
-import { IAsistenciaPaginationDateFilter } from '../../DTO/iasistencia-pagination-date-filter';
+import { IAsistenciaPaginationAdvanceFilter } from '../../DTO/iasistencia-pagination-advance-filter';
 import { HistoricoAsistenciaAlfaComponent } from '../../components/historico-asistencia-alfa/historico-asistencia-alfa.component';
 import { FormControl } from '@angular/forms';
 import { debounceTime, distinctUntilChanged } from 'rxjs';
@@ -72,15 +72,14 @@ export class ListComponent implements OnInit, AfterViewInit {
 
 	pageSizeOptions = [5, 10, 25, 100];
 	totalRows: number = 0;
-	filters: IAsistenciaPaginationDateFilter = {
+	filters: IAsistenciaPaginationAdvanceFilter = {
 		page: 0,
 		size: 5,
 		searchTerm: '',
 		status: false,
 		estatusAsistencia: 2,
-		isDateFilter: false,
-		initialDate: new Date(),
-		finalDate: new Date(),
+		initialDate: null,
+		finalDate: null,
 		tipoBusqueda: 1,
 	};
 
@@ -99,6 +98,21 @@ export class ListComponent implements OnInit, AfterViewInit {
 
 	ngAfterViewInit(): void {
 		this.dataSource.paginator = this.paginator;
+	}
+
+	clearFilters(): void {
+		this.filters = {
+			page: 0,
+			size: 5,
+			searchTerm: '',
+			status: false,
+			estatusAsistencia: 2,
+			initialDate: null,
+			finalDate: null,
+			tipoBusqueda: 1,
+		};
+		this.searchBarControl.setValue('');
+		this.loadData();
 	}
 
 	hasAnalystRole(role: number): boolean {

@@ -1,9 +1,8 @@
 import { IAsistenciaPaginationFilter } from './iasistencia-pagination-filter';
 
-export interface IAsistenciaPaginationDateFilter
+export interface IAsistenciaPaginationAdvanceFilter
 	extends IAsistenciaPaginationFilter {
-	isDateFilter: boolean;
-	initialDate: Date;
-	finalDate: Date;
+	initialDate?: Date | null;
+	finalDate?: Date | null;
 	tipoBusqueda: number;
 }

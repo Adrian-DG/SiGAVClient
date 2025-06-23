@@ -19,8 +19,8 @@ import { IAsistenciaEdit } from '../DTO/iasistencia-edit';
 import { IAsistenciaCalidadCreate } from '../DTO/iasistencia-calidad-create';
 import { IAsistenciaCalidadViewModel } from '../DTO/iasistencia-calidad-view-model';
 import { IAsistenciaCalidadEdit } from '../DTO/iasistencia-calidad-edit';
-import { IAsistenciaPaginationDateFilter } from '../DTO/iasistencia-pagination-date-filter';
 import { IAsistenciaPreHospitalariaMinorDetailsViewModel } from '../viewModels/iasistencia-pre-hospitalaria-minor-details-view-model';
+import { IAsistenciaPaginationAdvanceFilter } from '../DTO/iasistencia-pagination-advance-filter';
 
 @Injectable({
 	providedIn: 'root',
@@ -43,7 +43,7 @@ export class AsistenciasService extends GenericService {
 	}
 
 	getAsistenciaPaginationParams(
-		filters: IAsistenciaPaginationDateFilter
+		filters: IAsistenciaPaginationAdvanceFilter
 	): HttpParams {
 		return new HttpParams()
 			.set('page', filters.page)
@@ -51,14 +51,13 @@ export class AsistenciasService extends GenericService {
 			.set('searchTerm', filters.searchTerm)
 			.set('status', filters.status)
 			.set('estatusAsistencia', filters.estatusAsistencia)
-			.set('isDateFilter', filters.isDateFilter)
-			.set('initialDate', filters.initialDate.toDateString())
-			.set('finalDate', filters.finalDate.toDateString())
+			.set('initialDate', filters.initialDate?.toDateString() ?? '')
+			.set('finalDate', filters.finalDate?.toDateString() ?? '')
 			.set('tipoBusqueda', filters.tipoBusqueda);
 	}
 
 	getAllAsistencias(
-		filters: IAsistenciaPaginationDateFilter
+		filters: IAsistenciaPaginationAdvanceFilter
 	): Observable<IPagedData<IAsistenciaViewModel>> {
 		return this.$http.get<IPagedData<IAsistenciaViewModel>>(
 			`${this.endPoint}/all`,
@@ -285,7 +284,7 @@ export class AsistenciasService extends GenericService {
 	}
 
 	generarReporteHistoricoAsistenciasR5(
-		filters: IAsistenciaPaginationDateFilter
+		filters: IAsistenciaPaginationAdvanceFilter
 	) {
 		return this.$http.get(
 			`${this.endPoint}/reporte/historico-asistencias-r5`,
@@ -299,7 +298,7 @@ export class AsistenciasService extends GenericService {
 	}
 
 	getReporteAsistenciasSolicitadasR5(
-		filter: IAsistenciaPaginationDateFilter
+		filter: IAsistenciaPaginationAdvanceFilter
 	) {
 		return this.$http.get(`${this.endPoint}/reporte/excel-r5`, {
 			observe: 'response',
