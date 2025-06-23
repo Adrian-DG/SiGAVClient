@@ -302,12 +302,16 @@
 					</button>
 
 					<button
+						*ngIf="element.reportadaPor !== 'WhatsApp'"
 						style="color: rgb(20, 124, 20)"
 						title="Marcar Recibida Whatsapp"
 						mat-icon-button
 						(click)="MarcarAsistenciaReportadaWhatsApp(element.id)"
 					>
-						<mat-icon>message</mat-icon>
+						<img
+							src="../../../../../assets/whatsapp-symbol-logo-svgrepo-com.svg"
+							alt=""
+						/>
 					</button>
 
 					<button
