@@ -184,7 +184,7 @@
 				<br />
 				<span>Reporta: {{ element.reportadaPor }}</span>
 				<br />
-				<span>Cierre: {{ element.tipoCierre }}</span>
+				<span>Transferida: {{ element.tipoCierre }}</span>
 				<br />
 				<span
 					>{{ element.fechaCreacion | date : 'dd/MM/YYYY' }}
@@ -244,7 +244,7 @@
 						<mat-icon> pin_drop</mat-icon>
 					</button> -->
 					<button
-						*ngIf="element.estatusAsistencia == 'COMPLETADA'"
+						*ngIf="element.estatusAsistencia != 'COMPLETADA'"
 						title="Actualizar Tipo de Cierre"
 						mat-icon-button
 						(click)="actualizarTipoCierre(element.id)"
