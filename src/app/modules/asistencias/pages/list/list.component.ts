@@ -103,7 +103,7 @@ export class ListComponent implements OnInit, AfterViewInit {
 	clearFilters(): void {
 		this.filters = {
 			page: 0,
-			size: 5,
+			size: 20,
 			searchTerm: '',
 			status: false,
 			estatusAsistencia: 2,
