@@ -242,6 +242,13 @@
 						<mat-icon> pin_drop</mat-icon>
 					</button> -->
 					<button
+						title="Actualizar Tipo de Cierre"
+						mat-icon-button
+						(click)="actualizarTipoCierre(element.id)"
+					>
+						<mat-icon>flag</mat-icon>
+					</button>
+					<button
 						title="Confirmar llegada"
 						mat-icon-button
 						(click)="ConfirmarTiempoLlegada(element.id)"

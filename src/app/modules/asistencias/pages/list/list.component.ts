@@ -32,6 +32,7 @@ import { FormControl } from '@angular/forms';
 import { debounceTime, distinctUntilChanged } from 'rxjs';
 import { ReportViewerDialogComponent } from '../../components/report-viewer-dialog/report-viewer-dialog.component';
 import { DatePipe } from '@angular/common';
+import { UpdateTipoCierreDialogComponent } from '../../components/update-tipo-cierre-dialog/update-tipo-cierre-dialog.component';
 
 // to validate dialog data
 export interface IDialogData {
@@ -180,6 +181,22 @@ export class ListComponent implements OnInit, AfterViewInit {
 					setTimeout(() => this.loadData(), 2000);
 				});
 		}
+	}
+
+	actualizarTipoCierre(asistenciaId: number): void {
+		this.dialog
+			.open(UpdateTipoCierreDialogComponent, {
+				data: { asistenciaId: asistenciaId },
+			})
+			.afterClosed()
+			.subscribe((result) => {
+				if (result) {
+					alert('Tipo de cierre actualizado correctamente!!!.');
+					this.loadData();
+				} else {
+					alert('Error: No se actualizó el tipo de cierre.');
+				}
+			});
 	}
 
 	onReportSelection(value: number): void {

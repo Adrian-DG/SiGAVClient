@@ -89,6 +89,18 @@ export class AsistenciasService extends GenericService {
 		);
 	}
 
+	updateAsistenciaTipoCierre(
+		id: number,
+		tipoCierre: number
+	): Observable<IServerResponse> {
+		return this.$http.put<IServerResponse>(
+			`${this.endPoint}/${id}/actualizar-tipo-cierre`,
+			{
+				tipoCierre: tipoCierre,
+			}
+		);
+	}
+
 	getReporteResumenAsistenciasPorFecha(filter: IDateFilter) {
 		const params = new HttpParams()
 			.set('initialDate', filter.initialDate.toDateString())
