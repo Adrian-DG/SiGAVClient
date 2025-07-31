@@ -74,7 +74,7 @@ export class ListComponent implements OnInit, AfterViewInit {
 	totalRows: number = 0;
 	filters: IAsistenciaPaginationAdvanceFilter = {
 		page: 0,
-		size: 5,
+		size: 100,
 		searchTerm: '',
 		status: false,
 		estatusAsistencia: 2,
