@@ -99,8 +99,7 @@ export class UpdateTipoCierreDialogComponent {
 				this.tipoCierreSelected
 			)
 			.subscribe((response) => {
-				alert(response.message);
-				if (response.status) {
+				if (response) {
 					this._dialogRef.close(true);
 				}
 			});

@@ -37,4 +37,5 @@ export interface IAsistenciaViewModel {
 	alfaId: number | null;
 	solicitoApoyo: boolean;
 	unidadAlfa: string;
+	tipoCierre: string;
 }

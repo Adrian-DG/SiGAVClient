@@ -95,9 +95,7 @@ export class AsistenciasService extends GenericService {
 	): Observable<IServerResponse> {
 		return this.$http.put<IServerResponse>(
 			`${this.endPoint}/${id}/actualizar-tipo-cierre`,
-			{
-				tipoCierre: tipoCierre,
-			}
+			tipoCierre
 		);
 	}
 
