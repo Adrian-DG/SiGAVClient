@@ -38,4 +38,5 @@ export interface IAsistenciaViewModel {
 	solicitoApoyo: boolean;
 	unidadAlfa: string;
 	tipoCierre: string;
+	tipoCierreDescripcion: string;
 }

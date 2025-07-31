@@ -165,7 +165,7 @@
 		<ng-container matColumnDef="agente">
 			<th mat-header-cell *matHeaderCellDef>Agente</th>
 			<td mat-cell *matCellDef="let element" class="personDataCell">
-				<span>{{ element.cedulaAgente | cedula }}</span>
+				<span>{{ element.cedulaAgente }}</span>
 				<br />
 				<span>{{ element.rangoAgente }}</span>
 				<br />
@@ -186,6 +186,15 @@
 				<br />
 				<span>Transferida: {{ element.tipoCierre }}</span>
 				<br />
+
+				<ng-container *ngIf="element.tipoCierre == 'SI'">
+					<span
+						>Tipo de Cierre:
+						{{ element.tipoCierreDescripcion }}</span
+					>
+					<br />
+				</ng-container>
+
 				<span
 					>{{ element.fechaCreacion | date : 'dd/MM/YYYY' }}
 					{{ element.fechaCreacion | horaMilitar }}</span
