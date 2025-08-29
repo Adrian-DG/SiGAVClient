@@ -454,6 +454,21 @@ export class ListComponent implements OnInit, AfterViewInit {
 		}
 	}
 
+	MarcarAsistenciaReportada511(id: number) {
+		if (
+			confirm(
+				'Esta seguro de marcar la asistencia como reportada por 511?'
+			)
+		) {
+			this._asistencias
+				.MarcarAsistenciaReportada511(id)
+				.subscribe((response: IServerResponse) => {
+					alert(response.message);
+					setTimeout(() => this.loadData(), 2000);
+				});
+		}
+	}
+
 	MarcarAsistenciaReportadaWhatsApp(id: number): void {
 		if (
 			confirm(

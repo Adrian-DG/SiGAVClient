@@ -224,6 +224,13 @@ export class AsistenciasService extends GenericService {
 		);
 	}
 
+	MarcarAsistenciaReportada511(id: number): Observable<IServerResponse> {
+		return this.$http.put<IServerResponse>(
+			`${this.endPoint}/${id}/marcar-asistencia-reportada-511/`,
+			id
+		);
+	}
+
 	GetReporteAsistenciaCalidadPorFecha(filter: IDateFilter) {
 		const params = new HttpParams()
 			.set('initialDate', filter.initialDate.toDateString())
