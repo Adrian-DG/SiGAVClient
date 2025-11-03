@@ -141,6 +141,14 @@ export class CreateComponent implements OnInit {
 
 		const unidadSelected: IUnidadAutoComplete = this.unidadAsignadaId.value;
 
+		if (!tipoAsistenciaId) {
+			alert('Debe seleccionar un tipo de asistencia');
+			return;
+		}
+
+		let tipoAsistenciaArray: number[] = [];
+		tipoAsistenciaArray.push(parseInt(tipoAsistenciaId));
+
 		const newAsistencia: IAsistenciaR5Create = {
 			// ciudadano
 			identificacion: identificacion,
@@ -160,7 +168,7 @@ export class CreateComponent implements OnInit {
 			provinciaId: provinciaId,
 			direccion: direccion,
 			unidadId: unidadSelected.unidadId,
-			tipoAsistencias: tipoAsistenciaId,
+			tipoAsistencias: tipoAsistenciaArray,
 			comentario: comentarios,
 			usuarioId: this._asistencias.userId,
 		};
