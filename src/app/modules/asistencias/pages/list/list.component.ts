@@ -34,6 +34,7 @@ import { ReportViewerDialogComponent } from '../../components/report-viewer-dial
 import { DatePipe } from '@angular/common';
 import { UpdateTipoCierreDialogComponent } from '../../components/update-tipo-cierre-dialog/update-tipo-cierre-dialog.component';
 import { MatDividerModule } from '@angular/material/divider';
+import { AsistenciaEstatusEnum } from '../../enums/asistencia-estatus.enum';
 // to validate dialog data
 export interface IDialogData {
 	id: number;
@@ -78,7 +79,7 @@ export class ListComponent implements OnInit, AfterViewInit {
 		size: 100,
 		searchTerm: '',
 		status: false,
-		estatusAsistencia: 0,
+		estatusAsistencia: AsistenciaEstatusEnum.EN_PROCESO,
 		initialDate: null,
 		finalDate: null,
 		tipoBusqueda: 1,
