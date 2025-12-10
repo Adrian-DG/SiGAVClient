@@ -138,6 +138,10 @@ export class ListComponent implements OnInit, AfterViewInit {
 		].includes(rol);
 	}
 
+	hasCompleteEstatus(item: IAsistenciaViewModel): boolean {
+		return item.estatusAsistencia === 'COMPLETADA';
+	}
+
 	changeStatus(): void {
 		this.filters.page = 0;
 		this.loadData();

@@ -217,7 +217,7 @@
 										element.identificacion,
 										element.placa
 									)
-								">
+								" *ngIf="hasCompleteEstatus(element)">
 							<mat-icon>collections</mat-icon>
 						</button>
 						<button title="Historial de asignaciones" mat-icon-button style="color: rgb(73, 73, 73)"
