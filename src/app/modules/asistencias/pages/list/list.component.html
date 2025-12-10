@@ -34,7 +34,7 @@
 				<input matEndDate placeholder="Fecha Final" [(ngModel)]="filters.finalDate"
 					(ngModelChange)="loadData()" />
 			</mat-date-range-input>
-			<mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
+			<!-- <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint> -->
 			<mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
 			<mat-date-range-picker #picker></mat-date-range-picker>
 		</mat-form-field>
@@ -64,7 +64,7 @@
 	</div>
 </div>
 
-
+<mat-divider></mat-divider>
 
 <mat-tab-group (selectedTabChange)="onTabSelectionChange($event)" class="tab-group" [selectedIndex]="2">
 	<mat-tab *ngFor="let item of asistenciaEstatus">
@@ -78,6 +78,7 @@
 	</mat-tab>
 </mat-tab-group>
 
+<mat-divider></mat-divider>
 
 <!-- Table -->
 <div class="table">
@@ -187,97 +188,98 @@
 		<ng-container matColumnDef="acciones" *ngIf="_auth.userData$ | async as user">
 			<th mat-header-cell *matHeaderCellDef>Acciones</th>
 			<td mat-cell *matCellDef="let element">
-				<mat-accordion>
-					<!-- <mat-expansion-panel hideToggle>
+				<!-- <mat-accordion>
+					<mat-expansion-panel hideToggle>
 						<mat-expansion-panel-header>
 							<mat-panel-title> Acciones </mat-panel-title>
 						</mat-expansion-panel-header>
 						
-					</mat-expansion-panel> -->
-					<div class="action-row">
+					</mat-expansion-panel>
+					
+				</mat-accordion> -->
+				<div class="action-row">
 
-						<button style="color: rgb(73, 73, 73)" *ngIf=" 
+					<button style="color: rgb(73, 73, 73)" *ngIf=" 
 									element.estatusAsistencia != 'COMPLETADA'
 								" title="Actualizar Tipo de Cierre" mat-icon-button (click)="actualizarTipoCierre(element.id)">
-							<mat-icon>flag</mat-icon>
-						</button>
-						<button style="color: rgb(73, 73, 73)" title="Confirmar llegada" mat-icon-button
-							(click)="ConfirmarTiempoLlegada(element.id)">
-							<mat-icon>access_alarm</mat-icon>
-						</button>
-						<button style="color: rgb(73, 73, 73)" title="Reasignar Asistencia" *ngIf="
+						<mat-icon>flag</mat-icon>
+					</button>
+					<button style="color: rgb(73, 73, 73)" title="Confirmar llegada" mat-icon-button
+						(click)="ConfirmarTiempoLlegada(element.id)">
+						<mat-icon>access_alarm</mat-icon>
+					</button>
+					<button style="color: rgb(73, 73, 73)" title="Reasignar Asistencia" *ngIf="
 									element.estatusAsistencia != 'COMPLETADA' &&
 									hasValidStatus(user.rolUsuario)
 								" mat-icon-button (click)="openReasignationModal(element)">
-							<mat-icon>autorenew</mat-icon>
-						</button>
-						<button title="Fotos asistencia" mat-icon-button style="color: rgb(73, 73, 73)" (click)="
+						<mat-icon>autorenew</mat-icon>
+					</button>
+					<button title="Fotos asistencia" mat-icon-button style="color: rgb(73, 73, 73)" (click)="
 									openPicturesDialog(
 										element.id,
 										element.identificacion,
 										element.placa
 									)
 								" *ngIf="hasCompleteEstatus(element)">
-							<mat-icon>collections</mat-icon>
-						</button>
-						<button title="Historial de asignaciones" mat-icon-button style="color: rgb(73, 73, 73)"
-							(click)="openHistoricoModal(element.id)">
-							<mat-icon>history</mat-icon>
-						</button>
-						<!-- Editar -->
-						<button title="Editar Asistencia" mat-icon-button style="color: rgb(73, 73, 73)"
-							*ngIf="hasValidStatus(user.rolUsuario)" (click)="openEditAsistenciaModal(element)">
-							<mat-icon>edit</mat-icon>
-						</button>
+						<mat-icon>collections</mat-icon>
+					</button>
+					<button title="Historial de asignaciones" mat-icon-button style="color: rgb(73, 73, 73)"
+						(click)="openHistoricoModal(element.id)">
+						<mat-icon>history</mat-icon>
+					</button>
+					<!-- Editar -->
+					<button title="Editar Asistencia" mat-icon-button style="color: rgb(73, 73, 73)"
+						*ngIf="hasValidStatus(user.rolUsuario)" (click)="openEditAsistenciaModal(element)">
+						<mat-icon>edit</mat-icon>
+					</button>
 
-						<button style="color: rgb(73, 73, 73)" title="Detalles Asistencia" mat-icon-button
-							(click)="openDetailsAsistenciaModal(element)">
-							<mat-icon>info</mat-icon>
-						</button>
+					<button style="color: rgb(73, 73, 73)" title="Detalles Asistencia" mat-icon-button
+						(click)="openDetailsAsistenciaModal(element)">
+						<mat-icon>info</mat-icon>
+					</button>
 
-						<button *ngIf="element.reportadaPor !== 'WhatsApp'" style="color: rgb(20, 124, 20)"
-							title="Marcar Recibida Whatsapp" mat-icon-button (click)="
+					<button *ngIf="element.reportadaPor !== 'WhatsApp'" style="color: rgb(20, 124, 20)"
+						title="Marcar Recibida Whatsapp" mat-icon-button (click)="
 									MarcarAsistenciaReportadaWhatsApp(
 										element.id
 									)
 								">
-							<img src="../../../../../assets/whatsapp-symbol-logo-svgrepo-com.svg" alt="" />
-						</button>
+						<img src="../../../../../assets/whatsapp-symbol-logo-svgrepo-com.svg" alt="" />
+					</button>
 
-						<button mat-icon-button style="font-weight: bold" (click)="
+					<button mat-icon-button style="font-weight: bold" (click)="
 									MarcarAsistenciaReportada511(element.id)
 								" style="color: rgb(73, 73, 73)">
-							511
-						</button>
+						511
+					</button>
 
-						<button [ngStyle]="{
+					<button [ngStyle]="{
 									color: element.fueEvaluada
 										? 'rgb(73, 73, 73)'
 										: 'rgb(212, 89, 89)'
 								}" style="color: rgb(73, 73, 73)" title="Evaluar Calidad Asistencia" mat-icon-button
-							(click)="openAsistenciaCalidadModal(element)" *ngIf="
+						(click)="openAsistenciaCalidadModal(element)" *ngIf="
 									isAvailableForQualityEvaluation(
 										user,
 										element
 									)
 								">
-							<mat-icon>perm_phone_msg</mat-icon>
-						</button>
+						<mat-icon>perm_phone_msg</mat-icon>
+					</button>
 
-						<button title="Completar o Cerrar asistencia" style="color: rgb(28, 141, 28)" mat-icon-button
-							(click)="actualizarAsistencia(element.id, 3)" *ngIf="
+					<button title="Completar o Cerrar asistencia" style="color: rgb(28, 141, 28)" mat-icon-button
+						(click)="actualizarAsistencia(element.id, 3)" *ngIf="
 									!enableCompleteBtn(
 										element.estatusAsistencia
 									) && hasValidStatus(user.rolUsuario)
 								">
-							<mat-icon>check_circle</mat-icon>
-						</button>
-						<button style="color: rgb(230, 89, 96)" title="Completar o Cerrar asistencia" mat-icon-button
-							(click)="removeAsistencia(element.id)" *ngIf="hasAnalystRole(user.rolUsuario)">
-							<mat-icon>delete</mat-icon>
-						</button>
-					</div>
-				</mat-accordion>
+						<mat-icon>check_circle</mat-icon>
+					</button>
+					<button style="color: rgb(230, 89, 96)" title="Completar o Cerrar asistencia" mat-icon-button
+						(click)="removeAsistencia(element.id)" *ngIf="hasAnalystRole(user.rolUsuario)">
+						<mat-icon>delete</mat-icon>
+					</button>
+				</div>
 			</td>
 		</ng-container>
 
