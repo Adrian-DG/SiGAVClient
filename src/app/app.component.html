@@ -2,11 +2,7 @@
 	<mat-toolbar color="primary" id="main-toolbar">
 		<mat-toolbar-row>
 			<div class="logo-div">
-				<button
-					mat-icon-button
-					(click)="sidenav.toggle()"
-					*ngIf="_auth.isAuthenticated$ | async"
-				>
+				<button mat-icon-button (click)="sidenav.toggle()" *ngIf="_auth.isAuthenticated$ | async">
 					<mat-icon>menu</mat-icon>
 				</button>
 				<span>SiGAV</span>
@@ -27,156 +23,73 @@
 	<!-- menu -->
 	<mat-sidenav-container class="sidenav-container">
 		<mat-sidenav #sidenav class="sidenav">
-			<mat-nav-list
-				class="sidenav-list"
-				*ngIf="_auth.userData$ | async as user"
-			>
+			<mat-nav-list class="sidenav-list" *ngIf="_auth.userData$ | async as user">
 				<!-- <a mat-list-item [routerLink]="item" *ngFor="let item of links">
 					{{ item | uppercase }}
 				</a> -->
 
 				<a mat-list-item [routerLink]="['actividades']">Actividades</a>
 
-				<a
-					mat-list-item
-					[routerLink]="['pre-hospitalaria/listado']"
-					*ngIf="
+				<a mat-list-item [routerLink]="['pre-hospitalaria/listado']" *ngIf="
 						user.esAdministrador ||
 						user.rolUsuario == Roles.ANALISTA_OPERACIONES ||
 						user.rolUsuario == Roles.PREHOSPITALARIA
-					"
-					>Pre-Hospitalaria</a
-				>
+					">Pre-Hospitalaria</a>
 
-				<a
-					mat-list-item
-					[routerLink]="['hospitales/listado']"
-					*ngIf="
+				<a mat-list-item [routerLink]="['hospitales/listado']" *ngIf="
 						user.esAdministrador ||
 						user.rolUsuario == Roles.PREHOSPITALARIA
-					"
-					>Hospitales</a
-				>
+					">Hospitales</a>
 
-				<a
-					mat-list-item
-					[routerLink]="['reportes']"
-					*ngIf="
+				<a mat-list-item [routerLink]="['reportes']" *ngIf="
 						user.esAdministrador ||
 						user.rolUsuario == Roles.ANALISTA_OPERACIONES
-					"
-					>REPORTES</a
-				>
-				<a
-					mat-list-item
-					[routerLink]="['asistencias/listado']"
-					*ngIf="
+					">REPORTES</a>
+				<a mat-list-item [routerLink]="['asistencias/listado']" *ngIf="
 						user.esAdministrador ||
 						user.rolUsuario == Roles.ANALISTA_OPERACIONES
-					"
-					>ASISTENCIAS</a
-				>
-				<a
-					mat-list-item
-					[routerLink]="['busqueda-avanzada']"
-					*ngIf="
+					">ASISTENCIAS</a>
+				<a mat-list-item [routerLink]="['busqueda-avanzada']" *ngIf="
 						user.esAdministrador ||
 						user.rolUsuario == Roles.ANALISTA_OPERACIONES
-					"
-					>BUSQUEDA AVANZADA</a
-				>
-				<a
-					mat-list-item
-					[routerLink]="['denominaciones/listado']"
-					*ngIf="
+					">BUSQUEDA AVANZADA</a>
+				<a mat-list-item [routerLink]="['denominaciones/listado']" *ngIf="
 						user.esAdministrador ||
 						user.rolUsuario == Roles.ANALISTA_OPERACIONES
-					"
-					>DENOMINACIONES</a
-				>
-				<a
-					mat-list-item
-					[routerLink]="['unidades/listado']"
-					*ngIf="
+					">DENOMINACIONES</a>
+				<a mat-list-item [routerLink]="['unidades/listado']" *ngIf="
 						user.esAdministrador ||
 						user.rolUsuario == Roles.ANALISTA_OPERACIONES
-					"
-					>UNIDADES</a
-				>
-				<a
-					mat-list-item
-					[routerLink]="['tramos/listado']"
-					*ngIf="
+					">UNIDADES</a>
+				<a mat-list-item [routerLink]="['tramos/listado']" *ngIf="
 						user.esAdministrador ||
 						user.rolUsuario == Roles.ANALISTA_OPERACIONES
-					"
-					>TRAMOS</a
-				>
-				<a
-					mat-list-item
-					[routerLink]="['miembros/listado']"
-					*ngIf="
+					">TRAMOS</a>
+				<a mat-list-item [routerLink]="['miembros/listado']" *ngIf="
 						user.esAdministrador ||
 						user.rolUsuario == Roles.ANALISTA_OPERACIONES
-					"
-					>MIEMBROS</a
-				>
-				<a
-					mat-list-item
-					[routerLink]="['usuarios/listado']"
-					*ngIf="
+					">MIEMBROS</a>
+				<a mat-list-item [routerLink]="['usuarios/listado']" *ngIf="
 						user.esAdministrador ||
 						user.rolUsuario == Roles.ANALISTA_OPERACIONES
-					"
-					>USUARIOS</a
-				>
+					">USUARIOS</a>
 
-				<a
-					mat-list-item
-					[routerLink]="['marcas/listado']"
-					*ngIf="
+				<a mat-list-item [routerLink]="['marcas/listado']" *ngIf="
 						user.esAdministrador ||
 						user.rolUsuario == Roles.ANALISTA_OPERACIONES
-					"
-					>Vehículo Marcas</a
-				>
+					">Vehículo Marcas</a>
 
-				<a
-					mat-list-item
-					[routerLink]="['modelos/listado']"
-					*ngIf="
+				<a mat-list-item [routerLink]="['modelos/listado']" *ngIf="
 						user.esAdministrador ||
 						user.rolUsuario == Roles.ANALISTA_OPERACIONES
-					"
-					>Vehículo Modelos</a
-				>
+					">Vehículo Modelos</a>
 
-				<!-- <a
-					mat-list-item
-					[matMenuTriggerFor]="miscelaneos"
-					*ngIf="user.esAdministrador"
-					>MISCELANEOS</a
-				>
-				<mat-menu #miscelaneos xPosition="after" yPosition="below">
-					<menu mat-menu-item [routerLink]="['marcas/listado']"
-						>Marcas</menu
-					>
-					<menu mat-menu-item [routerLink]="['modelos/listado']"
-						>Modelos</menu
-					>
-				</mat-menu> -->
 			</mat-nav-list>
 		</mat-sidenav>
 		<mat-sidenav-content class="sidenav-content">
 			<router-outlet>
-				<div
-					class="loading-container"
-					*ngIf="_spinner.isloading$ | async"
-				>
-					<mat-spinner
-						mode="indeterminate"
-						color="primary"
-					></mat-spinner>
+				<div class="loading-container" *ngIf="_spinner.isloading$ | async">
+					<mat-spinner mode="indeterminate" color="primary"></mat-spinner>
 				</div>
 			</router-outlet>
 		</mat-sidenav-content>

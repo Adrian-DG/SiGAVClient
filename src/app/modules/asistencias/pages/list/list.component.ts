@@ -33,7 +33,7 @@ import { debounceTime, distinctUntilChanged } from 'rxjs';
 import { ReportViewerDialogComponent } from '../../components/report-viewer-dialog/report-viewer-dialog.component';
 import { DatePipe } from '@angular/common';
 import { UpdateTipoCierreDialogComponent } from '../../components/update-tipo-cierre-dialog/update-tipo-cierre-dialog.component';
-
+import { MatDividerModule } from '@angular/material/divider';
 // to validate dialog data
 export interface IDialogData {
 	id: number;
@@ -78,7 +78,7 @@ export class ListComponent implements OnInit, AfterViewInit {
 		size: 100,
 		searchTerm: '',
 		status: false,
-		estatusAsistencia: 2,
+		estatusAsistencia: 0,
 		initialDate: null,
 		finalDate: null,
 		tipoBusqueda: 1,
@@ -92,6 +92,15 @@ export class ListComponent implements OnInit, AfterViewInit {
 	dataSource = new MatTableDataSource<IAsistenciaViewModel>();
 
 	searchBarControl = new FormControl('');
+
+	stateSelection: number = 1;
+
+	asistenciaEstatus = [
+		{ value: 0, viewValue: 'Todas' },
+		{ value: 1, viewValue: 'Pendientes' },
+		{ value: 2, viewValue: 'En Proceso' },
+		{ value: 3, viewValue: 'Completadas' },
+	];
 
 	ngOnInit(): void {
 		this.dialog.afterAllClosed.subscribe(() => this.loadData());
@@ -133,8 +142,6 @@ export class ListComponent implements OnInit, AfterViewInit {
 		this.loadData();
 	}
 
-	stateSelection: number = 1;
-
 	onSearchFiltering(): void {
 		this.searchBarControl.valueChanges
 			.pipe(debounceTime(500), distinctUntilChanged())
@@ -145,6 +152,13 @@ export class ListComponent implements OnInit, AfterViewInit {
 					this.loadData();
 				}
 			});
+	}
+
+	onTabSelectionChange(event: any): void {
+		this.stateSelection = event.index;
+		this.filters.estatusAsistencia = this.stateSelection;
+		this.filters.page = 0;
+		this.loadData();
 	}
 
 	loadData(): void {
