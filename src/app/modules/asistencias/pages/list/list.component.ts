@@ -142,6 +142,10 @@ export class ListComponent implements OnInit, AfterViewInit {
 		return item.estatusAsistencia === 'COMPLETADA';
 	}
 
+	hasInProgressEstatus(item: IAsistenciaViewModel): boolean {
+		return item.estatusAsistencia === 'EN CURSO';
+	}
+
 	changeStatus(): void {
 		this.filters.page = 0;
 		this.loadData();
