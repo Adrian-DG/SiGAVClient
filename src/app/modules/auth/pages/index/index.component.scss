@@ -1,13 +1,174 @@
-.container {
+.auth-container {
 	width: 100vw;
 	height: 90vh;
+	position: relative;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-	background-image: url('../../../../../assets/cover_image.jpeg');
-	background-position: center center;
-	background-repeat: no-repeat;
+	overflow: hidden;
+}
+
+/* Slider Styles */
+.slider-container {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 1;
+}
+
+.slider-wrapper {
+	position: relative;
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+}
+
+.slide {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	opacity: 0;
+	transition: opacity 1s ease-in-out;
+	z-index: 2;
+}
+
+.slide-image {
+	width: 100%;
+	height: 400px; /* Or 100vh for full screen */
 	background-size: cover;
+	background-repeat: no-repeat;
+}
+
+/* Slider Indicators */
+.slider-indicators {
+	position: absolute;
+	bottom: 30px;
+	left: 50%;
+	transform: translateX(-50%);
+	display: flex;
+	gap: 12px;
+	z-index: 3;
+}
+
+.indicator {
+	width: 12px;
+	height: 12px;
+	border-radius: 50%;
+	border: 2px solid rgba(255, 255, 255, 0.6);
+	background: transparent;
+	cursor: pointer;
+	transition: all 0.3s ease;
+
+	&:hover {
+		background: rgba(255, 255, 255, 0.8);
+		transform: scale(1.1);
+	}
+
+	&.active {
+		background: white;
+		box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+	}
+}
+
+.auth-content {
+	position: relative;
+	z-index: 3;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	gap: 2rem;
+	width: 100%;
+	max-width: 400px;
+	padding: 2rem;
+	min-height: 100vh;
+}
+
+.brand-section {
+	text-align: center;
+	color: white;
+	margin-bottom: 1rem;
+}
+
+.brand-logo {
+	display: flex;
+	justify-content: center;
+	margin-bottom: 1rem;
+}
+
+.brand-icon {
+	font-size: 3rem;
+	width: 3rem;
+	height: 3rem;
+	color: white;
+	drop-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.brand-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin: 0 0 0.5rem 0;
+	text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+	letter-spacing: 2px;
+}
+
+.brand-subtitle {
+	font-size: 1rem;
+	margin: 0;
 	opacity: 0.9;
+	text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+	font-weight: 300;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+	.auth-content {
+		padding: 1rem;
+		max-width: 350px;
+	}
+
+	.brand-title {
+		font-size: 2rem;
+	}
+
+	.brand-icon {
+		font-size: 2.5rem;
+		width: 2.5rem;
+		height: 2.5rem;
+	}
+
+	.slider-indicators {
+		bottom: 20px;
+	}
+
+	.indicator {
+		width: 10px;
+		height: 10px;
+	}
+}
+
+@media (max-width: 480px) {
+	.auth-content {
+		padding: 0.5rem;
+		max-width: 320px;
+	}
+
+	.brand-title {
+		font-size: 1.75rem;
+	}
+
+	.slider-indicators {
+		bottom: 15px;
+		gap: 8px;
+	}
+
+	.indicator {
+		width: 8px;
+		height: 8px;
+	}
 }

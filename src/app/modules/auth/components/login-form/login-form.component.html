@@ -1,38 +1,48 @@
-<mat-card>
-	<mat-card-header>
-		<mat-card-title class="title">Bienvenido</mat-card-title>
-		<mat-card-subtitle class="subtitle"
-			>Cliente Web Asistencia Vial</mat-card-subtitle
-		>
-	</mat-card-header>
-	<mat-card-content>
-		<form id="loginForm" [formGroup]="loginForm" (ngSubmit)="login()">
-			<mat-form-field style="width: 100%">
-				<mat-label>Usuario</mat-label>
-				<input
-					matInput
-					placeholder="usuario"
-					formControlName="username"
-				/>
-			</mat-form-field>
-			<br />
-			<mat-form-field style="width: 100%">
-				<mat-label>Contraseña</mat-label>
-				<input
-					matInput
-					type="password"
-					placeholder="Contraseña"
-					formControlName="password"
-				/>
-			</mat-form-field>
-			<button
-				mat-raised-button
-				color="accent"
-				type="submit"
-				[disabled]="!loginForm.valid"
-			>
-				Ingresar
-			</button>
-		</form>
-	</mat-card-content>
-</mat-card>
+<div class="login-wrapper">
+	<mat-card class="login-card">
+		<mat-card-header class="login-header">
+			<div class="login-icon">
+				<mat-icon>lock</mat-icon>
+			</div>
+			<mat-card-title class="login-title">Bienvenido</mat-card-title>
+			<mat-card-subtitle class="login-subtitle">
+				Ingresa tus credenciales para continuar
+			</mat-card-subtitle>
+		</mat-card-header>
+		<mat-card-content class="login-content">
+			<form id="loginForm" [formGroup]="loginForm" (ngSubmit)="login()" class="login-form">
+				<div class="form-field-container">
+					<mat-form-field appearance="outline" class="full-width">
+						<mat-label>Usuario</mat-label>
+						<input matInput placeholder="Ingresa tu usuario" formControlName="username"
+							autocomplete="username" />
+						<mat-icon matPrefix>person</mat-icon>
+					</mat-form-field>
+				</div>
+
+				<div class="form-field-container">
+					<mat-form-field appearance="outline" class="full-width">
+						<mat-label>Contraseña</mat-label>
+						<input matInput [type]="hidePassword ? 'password' : 'text'" placeholder="Ingresa tu contraseña"
+							formControlName="password" autocomplete="current-password" />
+						<mat-icon matPrefix>lock</mat-icon>
+						<button mat-icon-button matSuffix (click)="hidePassword = !hidePassword" type="button"
+							[attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePassword">
+							<mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+						</button>
+					</mat-form-field>
+				</div>
+
+				<div class="form-actions">
+					<button mat-raised-button color="primary" type="submit" class="login-button"
+						[disabled]="!loginForm.valid">
+						<mat-icon>login</mat-icon>
+						Ingresar
+					</button>
+				</div>
+
+
+			</form>
+		</mat-card-content>
+	</mat-card>
+</div>

@@ -8,7 +8,12 @@ import { AuthService } from '../../services/auth/auth.service';
 	styleUrls: ['./login-form.component.scss'],
 })
 export class LoginFormComponent {
-	constructor(private $fb: FormBuilder, private _auth: AuthService) {}
+	hidePassword: boolean = true;
+
+	constructor(
+		private $fb: FormBuilder,
+		private _auth: AuthService,
+	) {}
 
 	loginForm: FormGroup = this.$fb.group({
 		username: ['', [Validators.required]],

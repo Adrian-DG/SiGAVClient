@@ -1,3 +1,29 @@
-<div class="container">
-	<app-login-form></app-login-form>
+<div class="auth-container">
+	<!-- Background Image Slider -->
+	<div class="slider-container">
+		<div class="slider-wrapper">
+			<div class="slide" *ngFor="let slide of slides; let i = index" [class.active]="currentSlide === i">
+				<div class="slide-image" [style.background-image]="'url(' + slide + ')'">
+				</div>
+			</div>
+		</div>
+
+		<!-- Slide Indicators -->
+		<div class="slider-indicators">
+			<button *ngFor="let slide of slides; let i = index" class="indicator" [class.active]="currentSlide === i"
+				(click)="setCurrentSlide(i)">
+			</button>
+		</div>
+	</div>
+
+	<div class="auth-content">
+		<div class="brand-section">
+			<div class="brand-logo">
+				<mat-icon class="brand-icon">directions_car</mat-icon>
+			</div>
+			<h1 class="brand-title">SiGAV</h1>
+			<p class="brand-subtitle">Sistema de Gestión de Asistencia Vial</p>
+		</div>
+		<app-login-form></app-login-form>
+	</div>
 </div>

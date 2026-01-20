@@ -30,7 +30,7 @@ export class AuthService extends GenericService {
 		protected override $router: Router,
 		private _jwt: JwtTokenService,
 		private _snackbar: MatSnackBar,
-		private _spinner: SpinnerService
+		private _spinner: SpinnerService,
 	) {
 		super($http, $router);
 	}
@@ -96,11 +96,11 @@ export class AuthService extends GenericService {
 							break;
 						case RolUser.PREHOSPITALARIA: // PreHospitalaria
 							this.$router.navigateByUrl(
-								'/pre-hospitalaria/listado'
+								'/pre-hospitalaria/listado',
 							);
 							break;
 						default:
-							this.$router.navigateByUrl('/asistencias/listado');
+							this.$router.navigateByUrl('home');
 							break;
 					}
 				}
@@ -109,7 +109,7 @@ export class AuthService extends GenericService {
 				this._snackbar.open(
 					response.message,
 					'ocultar',
-					snackBarConfig
+					snackBarConfig,
 				);
 			});
 	}
