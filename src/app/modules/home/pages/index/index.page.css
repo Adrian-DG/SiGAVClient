@@ -9,6 +9,13 @@
 	box-sizing: border-box;
 }
 
+.row {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	gap: 0.5rem;
+}
+
 /* Smooth transitions for responsive changes */
 .dashboard-container,
 .dashboard-chart-container,

@@ -7,6 +7,7 @@ import {
 import { BehaviorSubject } from 'rxjs';
 import { ReportsService } from 'src/app/modules/reportes/services/reports.service';
 import { ChartType, ChartData, ChartOptions, ChartDataset } from 'chart.js';
+import { Router } from '@angular/router';
 
 @Component({
 	selector: 'app-index',
@@ -253,6 +254,7 @@ export class IndexPage implements OnInit {
 	constructor(
 		private _reportsService: ReportsService,
 		private _cdr: ChangeDetectorRef,
+		private $router: Router,
 	) {}
 
 	ngOnInit(): void {
@@ -348,5 +350,13 @@ export class IndexPage implements OnInit {
 				console.error('Error loading tipo categoria data:', error);
 			},
 		});
+	}
+
+	navigateToAsistenciasList(): void {
+		this.$router.navigateByUrl('/asistencias/listado');
+	}
+
+	navigateToEstadisticas(): void {
+		this.$router.navigateByUrl('/reportes');
 	}
 }

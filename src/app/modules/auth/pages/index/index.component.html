@@ -1,17 +1,40 @@
 <div class="auth-container">
-	<!-- Background Image Slider -->
-	<div class="slider-container">
-		<div class="slider-wrapper">
+	<!-- Background Image Carousel -->
+	<div class="carousel-container" (mouseenter)="onCarouselMouseEnter()" (mouseleave)="onCarouselMouseLeave()">
+
+		<div class="carousel-wrapper">
 			<div class="slide" *ngFor="let slide of slides; let i = index" [class.active]="currentSlide === i">
-				<div class="slide-image" [style.background-image]="'url(' + slide + ')'">
+				<div class="slide-image" [style.background-image]="'url(' + slide.url + ')'">
+					<div class="slide-content">
+						<h2 class="slide-title">{{ slide.title }}</h2>
+						<p class="slide-description">{{ slide.description }}</p>
+					</div>
 				</div>
 			</div>
 		</div>
 
+		<!-- Navigation Controls -->
+		<div class="carousel-controls">
+			<button class="carousel-btn prev-btn" (click)="previousSlide()" [attr.aria-label]="'Previous slide'">
+				<mat-icon>chevron_left</mat-icon>
+			</button>
+			<button class="carousel-btn next-btn" (click)="nextSlide()" [attr.aria-label]="'Next slide'">
+				<mat-icon>chevron_right</mat-icon>
+			</button>
+		</div>
+
+		<!-- Play/Pause Control -->
+		<div class="carousel-play-control">
+			<button class="play-pause-btn" (click)="togglePlayPause()"
+				[attr.aria-label]="isPlaying ? 'Pause carousel' : 'Play carousel'">
+				<mat-icon>{{ isPlaying ? 'pause' : 'play_arrow' }}</mat-icon>
+			</button>
+		</div>
+
 		<!-- Slide Indicators -->
-		<div class="slider-indicators">
+		<div class="carousel-indicators">
 			<button *ngFor="let slide of slides; let i = index" class="indicator" [class.active]="currentSlide === i"
-				(click)="setCurrentSlide(i)">
+				(click)="setCurrentSlide(i)" [attr.aria-label]="'Go to slide ' + (i + 1)">
 			</button>
 		</div>
 	</div>

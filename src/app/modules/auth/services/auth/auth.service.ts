@@ -92,7 +92,7 @@ export class AuthService extends GenericService {
 					// navigate to home
 					switch (response.rolUsuario) {
 						case RolUser.ANALISTA_OPERACIONES: // Analista Operaciones
-							this.$router.navigateByUrl('/asistencias/listado');
+							this.$router.navigate(['home']);
 							break;
 						case RolUser.PREHOSPITALARIA: // PreHospitalaria
 							this.$router.navigateByUrl(
@@ -100,7 +100,7 @@ export class AuthService extends GenericService {
 							);
 							break;
 						default:
-							this.$router.navigateByUrl('home');
+							this.$router.navigate(['home']);
 							break;
 					}
 				}
