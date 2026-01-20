@@ -1,104 +1,164 @@
 <div id="stats-container">
-	<!-- <mat-card>
+	<mat-card>
 		<mat-card-header class="header column">
-			<mat-card-title>Reportes Estadisticos</mat-card-title>
-			<mat-card-subtitle
-				>Estos graficos permitiran visualizar de manera
-				general.</mat-card-subtitle
-			>
-			<div class="row">
-				<mat-form-field>
+			<mat-card-title>Reportes Estadísticos</mat-card-title>
+			<mat-card-subtitle>Estos gráficos permitirán visualizar estadísticas de manera general.</mat-card-subtitle>
+			<div class="row filters-row">
+				<mat-form-field appearance="outline">
 					<mat-label>Seleccionar Estatus</mat-label>
-					<mat-select
-						[(ngModel)]="filters.estatus"
-						(selectionChange)="onFilterChange()"
-					>
+					<mat-select [(ngModel)]="filters.estatus" (selectionChange)="onFilterChange()">
+						<mat-option [value]="0">Todos</mat-option>
 						<mat-option [value]="1">Pendiente</mat-option>
 						<mat-option [value]="2">En Curso</mat-option>
 						<mat-option [value]="3">Completadas</mat-option>
 					</mat-select>
 				</mat-form-field>
 
-				<mat-form-field>
+				<mat-form-field appearance="outline">
 					<mat-label>Desde</mat-label>
-					<input
-						matInput
-						[matDatepicker]="picker1"
-						[(ngModel)]="filters.initial"
-					/>
+					<input matInput [matDatepicker]="picker1" [(ngModel)]="filters.initial" />
 					<mat-hint>MM/DD/YYYY</mat-hint>
-					<mat-datepicker-toggle
-						matIconSuffix
-						[for]="picker1"
-					></mat-datepicker-toggle>
+					<mat-datepicker-toggle matIconSuffix [for]="picker1"></mat-datepicker-toggle>
 					<mat-datepicker #picker1></mat-datepicker>
 				</mat-form-field>
 
-				<mat-form-field>
+				<mat-form-field appearance="outline">
 					<mat-label>Hasta</mat-label>
-					<input
-						matInput
-						[matDatepicker]="picker2"
-						[(ngModel)]="filters.final"
-						(dateChange)="onFilterChange()"
-					/>
+					<input matInput [matDatepicker]="picker2" [(ngModel)]="filters.final"
+						(dateChange)="onFilterChange()" />
 					<mat-hint>MM/DD/YYYY</mat-hint>
-					<mat-datepicker-toggle
-						matIconSuffix
-						[for]="picker2"
-					></mat-datepicker-toggle>
+					<mat-datepicker-toggle matIconSuffix [for]="picker2"></mat-datepicker-toggle>
 					<mat-datepicker #picker2></mat-datepicker>
 				</mat-form-field>
 			</div>
 		</mat-card-header>
 		<mat-card-content id="stats-content">
-			<div id="canvas-1" class="canvas">
-				<h4 style="text-align: center; margin-top: 0.2em">
-					Asistencias Por Tramo
-				</h4>
-				<app-dinamyc-chart
-					[chartOptions]="tramosChartOptions$"
-					[chartType]="'doughnut'"
-					[chartData]="tramoChartData$"
-				></app-dinamyc-chart>
+			<!-- Loading Indicator -->
+			<div *ngIf="isLoading" class="loading-container">
+				<mat-progress-spinner diameter="50" mode="indeterminate" color="primary">
+				</mat-progress-spinner>
+				<p>Cargando estadísticas...</p>
 			</div>
 
-			<div id="canvas-2" class="canvas">
-				<h4 style="text-align: center; margin-top: 0.2em">
-					Asistencias Por Tipo de Vehículo
-				</h4>
-				<app-dinamyc-chart
-					[chartOptions]="tipoVehiculosChartOptions$"
-					[chartType]="'pie'"
-					[chartData]="tipoVehiculoChartData$"
-				></app-dinamyc-chart>
+			<!-- Error Message -->
+			<div *ngIf="hasError && !isLoading" class="error-container">
+				<mat-icon color="warn">error</mat-icon>
+				<p>{{ errorMessage }}</p>
+				<button mat-raised-button color="primary" (click)="onFilterChange()">
+					Reintentar
+				</button>
 			</div>
 
-			<div id="canvas-3" class="canvas">
-				<h4 style="text-align: center; margin-top: 0.2em">
-					Asistencias Por Región
-				</h4>
-				<app-dinamyc-chart
-					[chartOptions]="regionChartOptions$"
-					[chartType]="'pie'"
-					[chartData]="regionChartData$"
-				></app-dinamyc-chart>
-			</div>
+			<!-- Charts Grid -->
+			<div *ngIf="!isLoading && !hasError" class="charts-grid">
 
-			<div id="canvas-4" class="canvas">
-				<h4 style="text-align: center; margin-top: 0.2em">
-					Asistencias Por Provincia
-				</h4>
-				<app-dinamyc-chart
-					[chartOptions]="provinciasChartOptions$"
-					[chartType]="'doughnut'"
-					[chartData]="provinciaChartData$"
-				></app-dinamyc-chart>
+
+				<div class="chart-container">
+					<div class="chart-header">
+						<h3>Asistencias Por Región</h3>
+					</div>
+					<div class="chart-content">
+						<app-dinamyc-chart [chartOptions]="regionChartOptions$" [chartType]="'bar'"
+							[chartData]="regionChartData$">
+						</app-dinamyc-chart>
+					</div>
+				</div>
+
+
+				<div class="chart-container">
+					<div class="chart-header">
+						<h3>Asistencias Por Tramo</h3>
+					</div>
+					<div class="chart-content">
+						<app-dinamyc-chart [chartOptions]="tramosChartOptions$" [chartType]="'bar'"
+							[chartData]="tramoChartData$">
+						</app-dinamyc-chart>
+					</div>
+				</div>
+
+				<div class="chart-container">
+					<div class="chart-header">
+						<h3>Asistencias Por Provincia</h3>
+					</div>
+					<div class="chart-content">
+						<app-dinamyc-chart [chartOptions]="provinciasChartOptions$" [chartType]="'doughnut'"
+							[chartData]="provinciaChartData$">
+						</app-dinamyc-chart>
+					</div>
+				</div>
+
+				<div class="chart-container">
+					<div class="chart-header">
+						<h3>Asistencias Por Tipo de Vehículo</h3>
+					</div>
+					<div class="chart-content">
+						<app-dinamyc-chart [chartOptions]="tipoVehiculosChartOptions$" [chartType]="'pie'"
+							[chartData]="tipoVehiculoChartData$">
+						</app-dinamyc-chart>
+					</div>
+				</div>
+
+				<div class="chart-container">
+					<div class="chart-header">
+						<h3>Asistencias Por Categoria</h3>
+					</div>
+					<div class="chart-content">
+						<app-dinamyc-chart [chartOptions]="tipoCategoriaChartOptions$" [chartType]="'doughnut'"
+							[chartData]="tipoCategoriaChartData$">
+						</app-dinamyc-chart>
+					</div>
+				</div>
+
+				<div class="chart-container">
+					<div class="chart-header">
+						<h3>Asistencias Por Tipo Asistencias</h3>
+					</div>
+					<div class="chart-content">
+						<app-dinamyc-chart [chartOptions]="tipoAsistenciaChartOptions$" [chartType]="'bar'"
+							[chartData]="tipoAsistenciaChartData$">
+						</app-dinamyc-chart>
+					</div>
+				</div>
+
+				<div class="chart-container">
+					<div class="chart-header">
+						<h3>Asistencias Por Tipo de Unidad</h3>
+					</div>
+					<div class="chart-content">
+						<app-dinamyc-chart [chartOptions]="tipoUnidadChartOptions$" [chartType]="'bar'"
+							[chartData]="tipoUnidadChartData$">
+						</app-dinamyc-chart>
+					</div>
+				</div>
+
+				<div class="chart-container">
+					<div class="chart-header">
+						<h3>Asistencias Por Estatus</h3>
+					</div>
+					<div class="chart-content">
+						<app-dinamyc-chart [chartOptions]="estatusChartOptions$" [chartType]="'pie'"
+							[chartData]="estatusChartData$">
+						</app-dinamyc-chart>
+					</div>
+				</div>
+
+				<div class="chart-container">
+					<div class="chart-header">
+						<h3>Asistencias Por Reportado Por</h3>
+					</div>
+					<div class="chart-content">
+						<app-dinamyc-chart [chartOptions]="reportadoPorChartOptions$" [chartType]="'bar'"
+							[chartData]="reportadoPorChartData$">
+						</app-dinamyc-chart>
+					</div>
+				</div>
+
+
 			</div>
 		</mat-card-content>
-	</mat-card> -->
+	</mat-card>
 
-	<iframe
+	<!-- <iframe
 		width="100%"
 		height="450px"
 		src="https://lookerstudio.google.com/embed/reporting/1b0ee230-9e66-4e83-abfd-7ac914d7688d/page/JgB8D"
@@ -106,5 +166,5 @@
 		style="border: 0"
 		allowfullscreen
 		sandbox="allow-storage-access-by-user-activation allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox"
-	></iframe>
+	></iframe> -->
 </div>

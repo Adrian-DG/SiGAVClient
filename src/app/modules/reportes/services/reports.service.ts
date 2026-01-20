@@ -16,7 +16,7 @@ export class ReportsService extends GenericService {
 
 	constructor(
 		protected override $http: HttpClient,
-		protected override $router: Router
+		protected override $router: Router,
 	) {
 		super($http, $router);
 	}
@@ -52,6 +52,46 @@ export class ReportsService extends GenericService {
 	getStatsTipoVehiculo(filters: IStatsFilterDTO): Observable<IReportData[]> {
 		const params = this.GetStatsParams(filters);
 		return this.$http.get<IReportData[]>(`${this.endPoint}/tipoVehiculos`, {
+			params: params,
+		});
+	}
+
+	getStatsByEstatus(filters: IStatsFilterDTO): Observable<IReportData[]> {
+		const params = this.GetStatsParams(filters);
+		return this.$http.get<IReportData[]>(`${this.endPoint}/estatus`, {
+			params: params,
+		});
+	}
+
+	getStatsReportadoPor(filters: IStatsFilterDTO): Observable<IReportData[]> {
+		const params = this.GetStatsParams(filters);
+		return this.$http.get<IReportData[]>(`${this.endPoint}/reportadoPor`, {
+			params: params,
+		});
+	}
+
+	getStatsTipoCategoria(filters: IStatsFilterDTO): Observable<IReportData[]> {
+		const params = this.GetStatsParams(filters);
+		return this.$http.get<IReportData[]>(`${this.endPoint}/tipoCategoria`, {
+			params: params,
+		});
+	}
+
+	getStatsTipoAsistencia(
+		filters: IStatsFilterDTO,
+	): Observable<IReportData[]> {
+		const params = this.GetStatsParams(filters);
+		return this.$http.get<IReportData[]>(
+			`${this.endPoint}/tipoAsistencia`,
+			{
+				params: params,
+			},
+		);
+	}
+
+	getStatsTipoUnidad(filters: IStatsFilterDTO): Observable<IReportData[]> {
+		const params = this.GetStatsParams(filters);
+		return this.$http.get<IReportData[]>(`${this.endPoint}/tipoUnidad`, {
 			params: params,
 		});
 	}
