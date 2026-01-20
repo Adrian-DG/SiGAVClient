@@ -19,6 +19,7 @@ import { ReportsService } from './services/reports.service';
 		FormsModule,
 		NgChartsModule,
 	],
-	providers: [ReportsService, DinamycChartComponent],
+	providers: [ReportsService],
+	exports: [DinamycChartComponent],
 })
 export class ReportsModule {}

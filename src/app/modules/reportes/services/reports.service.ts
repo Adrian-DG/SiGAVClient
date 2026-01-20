@@ -76,6 +76,7 @@ export class ReportsService extends GenericService {
 		if (filters === null) {
 			return this.$http.get<IReportData[]>(
 				`${this.endPoint}/tipoCategoria`,
+				{ params: new HttpParams() },
 			);
 		}
 
@@ -91,6 +92,7 @@ export class ReportsService extends GenericService {
 		if (filters === null) {
 			return this.$http.get<IReportData[]>(
 				`${this.endPoint}/tipoAsistencia`,
+				{ params: new HttpParams() },
 			);
 		}
 

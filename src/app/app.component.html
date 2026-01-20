@@ -28,27 +28,31 @@
 					{{ item | uppercase }}
 				</a> -->
 
-				<a mat-list-item [routerLink]="['actividades']">Actividades</a>
+				<!-- <a mat-list-item [routerLink]="['actividades']">Actividades</a> -->
 
-				<a mat-list-item [routerLink]="['pre-hospitalaria/listado']" *ngIf="
+				<!-- <a mat-list-item [routerLink]="['pre-hospitalaria/listado']" *ngIf="
 						user.esAdministrador ||
 						user.rolUsuario == Roles.ANALISTA_OPERACIONES ||
 						user.rolUsuario == Roles.PREHOSPITALARIA
-					">Pre-Hospitalaria</a>
+					">Pre-Hospitalaria</a> -->
 
-				<a mat-list-item [routerLink]="['hospitales/listado']" *ngIf="
+				<!-- <a mat-list-item [routerLink]="['hospitales/listado']" *ngIf="
 						user.esAdministrador ||
 						user.rolUsuario == Roles.PREHOSPITALARIA
-					">Hospitales</a>
+					">Hospitales</a> -->
 
-				<a mat-list-item [routerLink]="['reportes']" *ngIf="
+				<a mat-list-item [routerLink]="['home']" *ngIf="
 						user.esAdministrador ||
 						user.rolUsuario == Roles.ANALISTA_OPERACIONES
-					">REPORTES</a>
+					">INICIO</a>
 				<a mat-list-item [routerLink]="['asistencias/listado']" *ngIf="
 						user.esAdministrador ||
 						user.rolUsuario == Roles.ANALISTA_OPERACIONES
 					">ASISTENCIAS</a>
+				<a mat-list-item [routerLink]="['reportes']" *ngIf="
+						user.esAdministrador ||
+						user.rolUsuario == Roles.ANALISTA_OPERACIONES
+					">REPORTES</a>
 				<a mat-list-item [routerLink]="['busqueda-avanzada']" *ngIf="
 						user.esAdministrador ||
 						user.rolUsuario == Roles.ANALISTA_OPERACIONES
@@ -74,7 +78,7 @@
 						user.rolUsuario == Roles.ANALISTA_OPERACIONES
 					">USUARIOS</a>
 
-				<a mat-list-item [routerLink]="['marcas/listado']" *ngIf="
+				<!-- <a mat-list-item [routerLink]="['marcas/listado']" *ngIf="
 						user.esAdministrador ||
 						user.rolUsuario == Roles.ANALISTA_OPERACIONES
 					">Vehículo Marcas</a>
@@ -82,7 +86,7 @@
 				<a mat-list-item [routerLink]="['modelos/listado']" *ngIf="
 						user.esAdministrador ||
 						user.rolUsuario == Roles.ANALISTA_OPERACIONES
-					">Vehículo Modelos</a>
+					">Vehículo Modelos</a> -->
 
 			</mat-nav-list>
 		</mat-sidenav>

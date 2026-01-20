@@ -4,17 +4,24 @@ import { AuthGuard } from './guards/auth.guard';
 
 const routes: Routes = [
 	{
+		path: 'home',
+		loadChildren: () =>
+			import('./modules/home/home.module').then((m) => m.HomeModule),
+		canActivate: [AuthGuard],
+	},
+	{
 		path: 'actividades',
 		loadChildren: () =>
 			import('./modules/actividades/actividades.module').then(
-				(m) => m.ActividadesModule
+				(m) => m.ActividadesModule,
 			),
+		canActivate: [AuthGuard],
 	},
 	{
 		path: 'busqueda-avanzada',
 		loadChildren: () =>
 			import('./modules/busqueda-avanzada/busqueda-avanzada.module').then(
-				(m) => m.BusquedaAvanzadaModule
+				(m) => m.BusquedaAvanzadaModule,
 			),
 		canActivate: [AuthGuard],
 	},
@@ -22,7 +29,7 @@ const routes: Routes = [
 		path: 'denominaciones',
 		loadChildren: () =>
 			import('./modules/denominaciones/denominaciones.module').then(
-				(m) => m.DenominacionesModule
+				(m) => m.DenominacionesModule,
 			),
 		canActivate: [AuthGuard],
 	},
@@ -30,7 +37,7 @@ const routes: Routes = [
 		path: 'hospitales',
 		loadChildren: () =>
 			import('./modules/hospitales/hospitales.module').then(
-				(m) => m.HospitalesModule
+				(m) => m.HospitalesModule,
 			),
 		canActivate: [AuthGuard],
 	},
@@ -38,7 +45,7 @@ const routes: Routes = [
 		path: 'pre-hospitalaria',
 		loadChildren: () =>
 			import('./modules/preHospitalaria/pre-hospitalaria.module').then(
-				(m) => m.PreHospitalariaModule
+				(m) => m.PreHospitalariaModule,
 			),
 		canActivate: [AuthGuard],
 	},
@@ -46,30 +53,31 @@ const routes: Routes = [
 		path: 'reportes',
 		loadChildren: () =>
 			import('./modules/reportes/reports.module').then(
-				(m) => m.ReportsModule
-			),
-	},
-	{
-		path: 'modelos',
-		loadChildren: () =>
-			import('./modules/modelos/modelos.module').then(
-				(m) => m.ModelosModule
+				(m) => m.ReportsModule,
 			),
 		canActivate: [AuthGuard],
 	},
-	{
-		path: 'marcas',
-		loadChildren: () =>
-			import('./modules/marcas/marcas.module').then(
-				(m) => m.MarcasModule
-			),
-		canActivate: [AuthGuard],
-	},
+	// {
+	// 	path: 'modelos',
+	// 	loadChildren: () =>
+	// 		import('./modules/modelos/modelos.module').then(
+	// 			(m) => m.ModelosModule
+	// 		),
+	// 	canActivate: [AuthGuard],
+	// },
+	// {
+	// 	path: 'marcas',
+	// 	loadChildren: () =>
+	// 		import('./modules/marcas/marcas.module').then(
+	// 			(m) => m.MarcasModule
+	// 		),
+	// 	canActivate: [AuthGuard],
+	// },
 	{
 		path: 'usuarios',
 		loadChildren: () =>
 			import('./modules/usuarios/usuarios.module').then(
-				(m) => m.UsuariosModule
+				(m) => m.UsuariosModule,
 			),
 		canActivate: [AuthGuard],
 	},
@@ -77,7 +85,7 @@ const routes: Routes = [
 		path: 'miembros',
 		loadChildren: () =>
 			import('./modules/miembros/miembros.module').then(
-				(m) => m.MiembrosModule
+				(m) => m.MiembrosModule,
 			),
 		canActivate: [AuthGuard],
 	},
@@ -85,7 +93,7 @@ const routes: Routes = [
 		path: 'asistencias',
 		loadChildren: () =>
 			import('./modules/asistencias/asistencias.module').then(
-				(m) => m.AsistenciasModule
+				(m) => m.AsistenciasModule,
 			),
 		canActivate: [AuthGuard],
 	},
@@ -93,7 +101,7 @@ const routes: Routes = [
 		path: 'unidades',
 		loadChildren: () =>
 			import('./modules/unidades/unidades.module').then(
-				(m) => m.UnidadesModule
+				(m) => m.UnidadesModule,
 			),
 		canActivate: [AuthGuard],
 	},
@@ -101,7 +109,7 @@ const routes: Routes = [
 		path: 'tramos',
 		loadChildren: () =>
 			import('./modules/tramos/tramos.module').then(
-				(m) => m.TramosModule
+				(m) => m.TramosModule,
 			),
 		canActivate: [AuthGuard],
 	},

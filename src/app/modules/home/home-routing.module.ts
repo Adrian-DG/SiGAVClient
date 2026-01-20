@@ -1,0 +1,17 @@
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+import { IndexPage } from './pages/index/index.page';
+
+const homeRoutes: Routes = [
+	{
+		path: '',
+		pathMatch: 'full',
+		component: IndexPage,
+	},
+];
+
+@NgModule({
+	imports: [RouterModule.forChild(homeRoutes)],
+	exports: [RouterModule],
+})
+export class HomeRoutingModule {}
