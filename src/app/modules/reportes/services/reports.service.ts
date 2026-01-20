@@ -70,7 +70,15 @@ export class ReportsService extends GenericService {
 		});
 	}
 
-	getStatsTipoCategoria(filters: IStatsFilterDTO): Observable<IReportData[]> {
+	getStatsTipoCategoria(
+		filters: IStatsFilterDTO | null,
+	): Observable<IReportData[]> {
+		if (filters === null) {
+			return this.$http.get<IReportData[]>(
+				`${this.endPoint}/tipoCategoria`,
+			);
+		}
+
 		const params = this.GetStatsParams(filters);
 		return this.$http.get<IReportData[]>(`${this.endPoint}/tipoCategoria`, {
 			params: params,
@@ -78,8 +86,14 @@ export class ReportsService extends GenericService {
 	}
 
 	getStatsTipoAsistencia(
-		filters: IStatsFilterDTO,
+		filters: IStatsFilterDTO | null,
 	): Observable<IReportData[]> {
+		if (filters === null) {
+			return this.$http.get<IReportData[]>(
+				`${this.endPoint}/tipoAsistencia`,
+			);
+		}
+
 		const params = this.GetStatsParams(filters);
 		return this.$http.get<IReportData[]>(
 			`${this.endPoint}/tipoAsistencia`,
@@ -94,5 +108,9 @@ export class ReportsService extends GenericService {
 		return this.$http.get<IReportData[]>(`${this.endPoint}/tipoUnidad`, {
 			params: params,
 		});
+	}
+
+	getTotalAsistencias(): Observable<number> {
+		return this.$http.get<number>(`${this.endPoint}/total-asistencias`);
 	}
 }

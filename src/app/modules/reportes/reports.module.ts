@@ -7,6 +7,7 @@ import { IndexComponent } from './pages/index/index.component';
 import { FormsModule } from '@angular/forms';
 import { NgChartsModule } from 'ng2-charts';
 import { DinamycChartComponent } from './components/dinamyc-chart/dinamyc-chart.component';
+import { ReportsService } from './services/reports.service';
 
 @NgModule({
 	declarations: [IndexComponent, DinamycChartComponent],
@@ -18,5 +19,6 @@ import { DinamycChartComponent } from './components/dinamyc-chart/dinamyc-chart.
 		FormsModule,
 		NgChartsModule,
 	],
+	providers: [ReportsService, DinamycChartComponent],
 })
 export class ReportsModule {}

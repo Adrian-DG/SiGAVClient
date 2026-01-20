@@ -24,12 +24,14 @@
 
 				<mat-form-field appearance="outline">
 					<mat-label>Hasta</mat-label>
-					<input matInput [matDatepicker]="picker2" [(ngModel)]="filters.final"
-						(dateChange)="onFilterChange()" />
+					<input matInput [matDatepicker]="picker2" [(ngModel)]="filters.final" />
 					<mat-hint>MM/DD/YYYY</mat-hint>
 					<mat-datepicker-toggle matIconSuffix [for]="picker2"></mat-datepicker-toggle>
 					<mat-datepicker #picker2></mat-datepicker>
 				</mat-form-field>
+				<button mat-raised-button (click)="onFilterChange()" style="margin-top: -1em;">
+					Actualizar
+				</button>
 			</div>
 		</mat-card-header>
 		<mat-card-content id="stats-content">
