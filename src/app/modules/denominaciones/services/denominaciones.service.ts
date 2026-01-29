@@ -5,6 +5,8 @@ import { Router } from '@angular/router';
 import { IServerResponse } from '../../generic/Responses/iserver-response';
 import { IDenominacionesCreate } from '../interfaces/idenominaciones-create';
 import { Observable } from 'rxjs';
+import { IPaginationFilters } from '../../generic/DTO/ipagination-filters';
+import { IPagedData } from '../../generic/Responses/ipaged-data';
 
 @Injectable({
 	providedIn: 'root',
@@ -16,17 +18,26 @@ export class DenominacionesService extends GenericService {
 
 	constructor(
 		protected override $http: HttpClient,
-		protected override $router: Router
+		protected override $router: Router,
 	) {
 		super($http, $router);
 	}
 
 	CreateNewDenominacion(
-		model: IDenominacionesCreate
+		model: IDenominacionesCreate,
 	): Observable<IServerResponse> {
 		return this.$http.post<IServerResponse>(
 			`${this.endPoint}/create-new-denominacion`,
-			model
+			model,
+		);
+	}
+
+	getAllDenominaciones(filters: IPaginationFilters) {
+		return this.$http.get<IPagedData<any>>(
+			`${this.endPoint}/all-denominaciones`,
+			{
+				params: this.getPaginationParams(filters),
+			},
 		);
 	}
 }
