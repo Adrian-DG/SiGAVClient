@@ -24,8 +24,8 @@ export class IndexPage {
 	pageIndex = 0;
 	readonly pageSizeOptions = [10, 15, 25, 50];
 	isUploading = false;
-	errorMessage = '';
-	successMessage = '';
+	errorMessage: string | null = '';
+	successMessage: string | null = '';
 
 	constructor(private uploadService: UploadService) {}
 
@@ -132,9 +132,13 @@ export class IndexPage {
 			.pipe(finalize(() => (this.isUploading = false)))
 			.subscribe({
 				next: (response: IUnidadDenominacionUploadResponse) => {
-					this.successMessage =
-						response.message ||
-						'Se cargaron los datos correctamente.';
+					response.success
+						? (this.successMessage =
+								response.message ||
+								'Los datos se cargaron correctamente.')
+						: (this.errorMessage =
+								response.message ||
+								'Hubo un error al cargar los datos. Verifica el formato del archivo.');
 				},
 				error: () => {
 					this.errorMessage =
