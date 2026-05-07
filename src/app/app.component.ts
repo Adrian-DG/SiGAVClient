@@ -14,6 +14,7 @@ export enum RolUser {
 interface IMenuItem {
 	label: string;
 	route: string;
+	icon: string;
 }
 
 @Component({
@@ -24,15 +25,36 @@ interface IMenuItem {
 export class AppComponent implements OnInit {
 	title = 'SiGAVClient';
 	readonly menuItems: IMenuItem[] = [
-		{ label: 'INICIO', route: 'home' },
-		{ label: 'ASISTENCIAS', route: 'asistencias/listado' },
-		{ label: 'REPORTES', route: 'reportes' },
-		{ label: 'BUSQUEDA AVANZADA', route: 'busqueda-avanzada' },
-		{ label: 'DENOMINACIONES', route: 'denominaciones/listado' },
-		{ label: 'UNIDADES', route: 'unidades/listado' },
-		{ label: 'TRAMOS', route: 'tramos/listado' },
-		{ label: 'MIEMBROS', route: 'miembros/listado' },
-		{ label: 'USUARIOS', route: 'usuarios/listado' },
+		{ label: 'INICIO', route: 'home', icon: 'home' },
+		{
+			label: 'ASISTENCIAS',
+			route: 'asistencias/listado',
+			icon: 'medical_services',
+		},
+		{ label: 'REPORTES', route: 'reportes', icon: 'assessment' },
+		{
+			label: 'BUSQUEDA AVANZADA',
+			route: 'busqueda-avanzada',
+			icon: 'manage_search',
+		},
+		{
+			label: 'DENOMINACIONES',
+			route: 'denominaciones/listado',
+			icon: 'badge',
+		},
+		{
+			label: 'UNIDADES',
+			route: 'unidades/listado',
+			icon: 'directions_car',
+		},
+		{
+			label: 'ACTUALIZAR UNIDADES',
+			route: 'actualizar-unidades',
+			icon: 'edit_road',
+		},
+		{ label: 'TRAMOS', route: 'tramos/listado', icon: 'alt_route' },
+		{ label: 'MIEMBROS', route: 'miembros/listado', icon: 'groups' },
+		{ label: 'USUARIOS', route: 'usuarios/listado', icon: 'person' },
 	];
 
 	constructor(

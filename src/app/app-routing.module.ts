@@ -106,6 +106,14 @@ const routes: Routes = [
 		canActivate: [AuthGuard],
 	},
 	{
+		path: 'actualizar-unidades',
+		loadChildren: () =>
+			import('./modules/actualizar-unidades/actualizar-unidades.module').then(
+				(m) => m.ActualizarUnidadesModule,
+			),
+		canActivate: [AuthGuard],
+	},
+	{
 		path: 'tramos',
 		loadChildren: () =>
 			import('./modules/tramos/tramos.module').then(

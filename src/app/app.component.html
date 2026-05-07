@@ -22,7 +22,8 @@
 			<mat-nav-list class="sidenav-list" *ngIf="_auth.userData$ | async as user">
 				<ng-container *ngIf="canViewMainMenu(user)">
 					<a mat-list-item *ngFor="let item of menuItems; trackBy: trackByRoute" [routerLink]="[item.route]">
-						{{ item.label }}
+						<mat-icon matListItemIcon>{{ item.icon }}</mat-icon>
+						<span matListItemTitle>{{ item.label }}</span>
 					</a>
 				</ng-container>
 			</mat-nav-list>
