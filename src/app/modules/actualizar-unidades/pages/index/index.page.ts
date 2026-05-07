@@ -1,8 +1,11 @@
 import { Component } from '@angular/core';
 import * as XLSX from 'xlsx';
 import { finalize } from 'rxjs/operators';
-import { UploadService } from '../../../generic/services/upload/upload.service';
-import { IServerResponse } from '../../../generic/Responses/iserver-response';
+import { PageEvent } from '@angular/material/paginator';
+import {
+	IUnidadDenominacionUploadResponse,
+	UploadService,
+} from '../../../generic/services/upload/upload.service';
 
 type ExcelRow = Record<string, unknown>;
 
@@ -14,9 +17,12 @@ type ExcelRow = Record<string, unknown>;
 export class IndexPage {
 	selectedFileName = '';
 	selectedSheetName = 'Articulos';
+	private selectedFile: File | null = null;
 	headers: string[] = [];
 	rows: ExcelRow[] = [];
-	previewLimit = 15;
+	pageSize = 15;
+	pageIndex = 0;
+	readonly pageSizeOptions = [10, 15, 25, 50];
 	isUploading = false;
 	errorMessage = '';
 	successMessage = '';
@@ -43,6 +49,7 @@ export class IndexPage {
 		}
 
 		this.selectedFileName = file.name;
+		this.selectedFile = file;
 
 		const reader = new FileReader();
 		reader.onload = () => {
@@ -73,6 +80,7 @@ export class IndexPage {
 
 			this.headers = this.extractHeaders(parsedRows);
 			this.rows = parsedRows.map((row) => this.normalizeRow(row));
+			this.pageIndex = 0;
 		};
 
 		reader.onerror = () => {
@@ -91,23 +99,28 @@ export class IndexPage {
 	}
 
 	downloadTemplate(): void {
-		const templateHeaders = [
-			'Clasificacion',
-			'Categoria',
-			'Subcategoria',
-			'Marca',
-			'Modelo',
-			'Calibre',
-		];
+		this.resetMessages();
 
-		const worksheet = XLSX.utils.aoa_to_sheet([templateHeaders]);
-		const workbook = XLSX.utils.book_new();
-		XLSX.utils.book_append_sheet(workbook, worksheet, 'Articulos');
-		XLSX.writeFile(workbook, 'plantilla_datos.xlsx');
+		this.uploadService.downloadUnidadDenominacionTemplate().subscribe({
+			next: (blob: Blob) => {
+				const url = URL.createObjectURL(blob);
+				const anchor = document.createElement('a');
+				anchor.href = url;
+				anchor.download = 'UnidadDenominacionTemplate.xlsx';
+				document.body.appendChild(anchor);
+				anchor.click();
+				anchor.remove();
+				URL.revokeObjectURL(url);
+			},
+			error: () => {
+				this.errorMessage =
+					'No fue posible descargar la plantilla desde el servidor.';
+			},
+		});
 	}
 
 	uploadExcelData(): void {
-		if (!this.rows.length || this.isUploading) {
+		if (!this.selectedFile || this.isUploading) {
 			return;
 		}
 
@@ -115,10 +128,10 @@ export class IndexPage {
 		this.isUploading = true;
 
 		this.uploadService
-			.uploadUnidadesExcel(this.rows)
+			.uploadUnidadDenominacion(this.selectedFile)
 			.pipe(finalize(() => (this.isUploading = false)))
 			.subscribe({
-				next: (response: IServerResponse) => {
+				next: (response: IUnidadDenominacionUploadResponse) => {
 					this.successMessage =
 						response.message ||
 						'Se cargaron los datos correctamente.';
@@ -130,12 +143,41 @@ export class IndexPage {
 			});
 	}
 
-	get previewRows(): ExcelRow[] {
-		return this.rows.slice(0, this.previewLimit);
+	onPageChange(event: PageEvent): void {
+		this.pageSize = event.pageSize;
+		this.pageIndex = event.pageIndex;
+	}
+
+	get pagedRows(): ExcelRow[] {
+		const start = this.pageIndex * this.pageSize;
+		const end = start + this.pageSize;
+		return this.rows.slice(start, end);
 	}
 
 	get totalRows(): number {
 		return this.rows.length;
+	}
+
+	get displayedColumns(): string[] {
+		return ['_index', ...this.headers];
+	}
+
+	get firstRowIndex(): number {
+		if (!this.totalRows) {
+			return 0;
+		}
+		return this.pageIndex * this.pageSize + 1;
+	}
+
+	get lastRowIndex(): number {
+		if (!this.totalRows) {
+			return 0;
+		}
+		return Math.min((this.pageIndex + 1) * this.pageSize, this.totalRows);
+	}
+
+	getRowNumber(indexInPage: number): number {
+		return this.pageIndex * this.pageSize + indexInPage + 1;
 	}
 
 	trackByHeader(_: number, header: string): string {
@@ -165,8 +207,10 @@ export class IndexPage {
 	private clearParsedData(): void {
 		this.selectedFileName = '';
 		this.selectedSheetName = 'Articulos';
+		this.selectedFile = null;
 		this.headers = [];
 		this.rows = [];
+		this.pageIndex = 0;
 	}
 
 	private resetMessages(): void {

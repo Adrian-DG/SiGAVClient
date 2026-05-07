@@ -1,70 +1,94 @@
-<div class="actualizar-unidades-page">
-    <section class="excel-card">
-        <div class="card-header">
-            <h1>Carga de Datos desde Excel</h1>
-            <p>Sube y visualiza datos desde archivos de Excel para su procesamiento en el sistema</p>
-        </div>
+<div class="page-container actualizar-page">
+    <mat-card>
+        <mat-card-header>
+            <mat-card-title>Carga de Datos desde Excel</mat-card-title>
+            <mat-card-subtitle>
+                Sube y visualiza datos desde archivos de Excel para su procesamiento en el sistema.
+            </mat-card-subtitle>
+        </mat-card-header>
 
-        <input #excelInput class="hidden-input" id="excel-input" type="file" accept=".xlsx,.xls"
-            (change)="onFileSelected($event)" />
+        <mat-card-content class="content">
+            <input #excelInput class="hidden-input" id="excel-input" type="file" accept=".xlsx,.xls"
+                (change)="onFileSelected($event)" />
 
-        <div class="toolbar-actions">
-            <button type="button" class="btn btn-green" (click)="excelInput.click()">
-                <span class="btn-icon">↥</span>
-                <span>{{ selectedFileName ? 'Cambiar Archivo' : 'Seleccionar Archivo' }}</span>
-            </button>
+            <div class="row filters-container">
+                <div class="toolbar-actions">
+                    <button type="button" mat-raised-button color="primary" (click)="excelInput.click()">
+                        <mat-icon>upload_file</mat-icon>
+                        {{ selectedFileName ? 'Cambiar Archivo' : 'Seleccionar Archivo' }}
+                    </button>
 
-            <span class="file-chip" *ngIf="selectedFileName">{{ selectedFileName }}</span>
+                    <button type="button" mat-button (click)="clearSelection(excelInput)">
+                        <mat-icon>cleaning_services</mat-icon>
+                        Limpiar
+                    </button>
 
-            <button type="button" class="btn btn-gray" (click)="clearSelection(excelInput)">
-                <span class="btn-icon">✕</span>
-                <span>Limpiar</span>
-            </button>
+                    <button type="button" mat-button color="accent" (click)="downloadTemplate()">
+                        <mat-icon>download</mat-icon>
+                        Descargar Plantilla
+                    </button>
 
-            <button type="button" class="btn btn-purple" (click)="downloadTemplate()">
-                <span class="btn-icon">↓</span>
-                <span>Descargar Plantilla</span>
-            </button>
+                    <button type="button" mat-raised-button color="primary" (click)="uploadExcelData()"
+                        [disabled]="!rows.length || isUploading">
+                        <mat-icon>{{ isUploading ? 'sync' : 'cloud_upload' }}</mat-icon>
+                        {{ isUploading ? 'Subiendo...' : 'Cargar Archivo' }}
+                    </button>
+                </div>
 
-            <button type="button" class="btn btn-green" (click)="uploadExcelData()"
-                [disabled]="!rows.length || isUploading">
-                <span class="btn-icon">↥</span>
-                <span>{{ isUploading ? 'Subiendo...' : 'Cargar Archivo' }}</span>
-            </button>
-        </div>
+                <mat-chip-set *ngIf="selectedFileName" class="chip-row" aria-label="Archivo seleccionado">
+                    <mat-chip color="primary" selected>
+                        <mat-icon matChipAvatar>description</mat-icon>
+                        {{ selectedFileName }}
+                    </mat-chip>
+                </mat-chip-set>
 
-        <div class="message error" *ngIf="errorMessage">{{ errorMessage }}</div>
-        <div class="message success" *ngIf="successMessage">{{ successMessage }}</div>
+                <div class="status-message error" *ngIf="errorMessage">
+                    <mat-icon>error</mat-icon>
+                    <span>{{ errorMessage }}</span>
+                </div>
 
-        <section class="sheet-panel">
-            <div class="sheet-title">Hoja: {{ selectedSheetName }}</div>
-            <div class="row-counter">{{ totalRows }} filas</div>
+                <div class="status-message success" *ngIf="successMessage">
+                    <mat-icon>check_circle</mat-icon>
+                    <span>{{ successMessage }}</span>
+                </div>
+            </div>
 
-            <div class="table-wrapper">
-                <table>
-                    <thead>
-                        <tr>
-                            <th class="index-col">#</th>
-                            <th *ngFor="let header of headers; trackBy: trackByHeader">{{ header }}</th>
-                        </tr>
-                    </thead>
-                    <tbody *ngIf="previewRows.length; else emptyRows">
-                        <tr *ngFor="let row of previewRows; let i = index">
-                            <td class="index-col">{{ i + 1 }}</td>
-                            <td *ngFor="let header of headers; trackBy: trackByHeader">{{ row[header] }}</td>
-                        </tr>
-                    </tbody>
+            <mat-divider></mat-divider>
+
+            <div class="sheet-header">
+                <h2>Hoja: {{ selectedSheetName }}</h2>
+                <mat-chip color="accent" selected>{{ totalRows }} filas</mat-chip>
+            </div>
+
+            <div class="table">
+                <table mat-table [dataSource]="pagedRows" class="mat-elevation-z8 excel-table">
+                    <ng-container matColumnDef="_index">
+                        <th mat-header-cell *matHeaderCellDef>#</th>
+                        <td mat-cell *matCellDef="let _row; let i = index">{{ getRowNumber(i) }}</td>
+                    </ng-container>
+
+                    <ng-container *ngFor="let header of headers; trackBy: trackByHeader" [matColumnDef]="header">
+                        <th mat-header-cell *matHeaderCellDef>{{ header }}</th>
+                        <td mat-cell *matCellDef="let row">{{ row[header] }}</td>
+                    </ng-container>
+
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+
+                    <tr class="mat-row" *matNoDataRow>
+                        <td class="mat-cell empty-cell" [attr.colspan]="displayedColumns.length">
+                            No hay datos en esta hoja
+                        </td>
+                    </tr>
                 </table>
-
-                <ng-template #emptyRows>
-                    <div class="empty-row">No hay datos en esta hoja</div>
-                </ng-template>
             </div>
 
+            <mat-divider></mat-divider>
             <div class="table-footer">
-                <span>Mostrando 0 - {{ previewRows.length }} de {{ totalRows }} registros</span>
-                <span>{{ previewLimit }}</span>
+                <span>Mostrando {{ firstRowIndex }} - {{ lastRowIndex }} de {{ totalRows }} registros</span>
+                <mat-paginator [length]="totalRows" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions"
+                    (page)="onPageChange($event)" [showFirstLastButtons]="true"></mat-paginator>
             </div>
-        </section>
-    </section>
+        </mat-card-content>
+    </mat-card>
 </div>
