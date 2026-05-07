@@ -1,5 +1,11 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 
+interface ICarouselSlide {
+	url: string;
+	title: string;
+	description: string;
+}
+
 @Component({
 	selector: 'app-index',
 	templateUrl: './index.component.html',
@@ -8,9 +14,9 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 export class IndexComponent implements OnInit, OnDestroy {
 	currentSlide = 0;
 	isPlaying = true;
-	isPaused = false;
+	isCarouselHovered = false;
 
-	slides = [
+	readonly slides: ICarouselSlide[] = [
 		{
 			url: 'assets/cover_image.jpeg',
 			title: 'Asistencia Vial 24/7',
@@ -33,85 +39,92 @@ export class IndexComponent implements OnInit, OnDestroy {
 		},
 	];
 
-	private slideInterval: any;
-	private readonly SLIDE_DURATION = 4000; // 4 seconds
+	private slideInterval: ReturnType<typeof setInterval> | null = null;
+	private readonly slideDurationMs = 4000;
 
 	ngOnInit(): void {
-		this.startSlideShow();
+		this.restartSlideShow();
 	}
 
 	ngOnDestroy(): void {
-		if (this.slideInterval) {
-			clearInterval(this.slideInterval);
-		}
+		this.clearSlideShow();
 	}
 
-	startSlideShow(): void {
-		if (this.slideInterval) {
-			clearInterval(this.slideInterval);
+	private restartSlideShow(): void {
+		this.clearSlideShow();
+
+		if (!this.canAutoSlide()) {
+			return;
 		}
+
 		this.slideInterval = setInterval(() => {
-			if (!this.isPaused) {
-				this.nextSlide();
-			}
-		}, this.SLIDE_DURATION);
-		this.isPlaying = true;
+			this.nextSlide(false);
+		}, this.slideDurationMs);
 	}
 
-	stopSlideShow(): void {
+	private clearSlideShow(): void {
 		if (this.slideInterval) {
 			clearInterval(this.slideInterval);
 			this.slideInterval = null;
 		}
-		this.isPlaying = false;
 	}
 
-	pauseSlideShow(): void {
-		this.isPaused = true;
+	private canAutoSlide(): boolean {
+		return (
+			this.isPlaying && !this.isCarouselHovered && this.slides.length > 1
+		);
 	}
 
-	resumeSlideShow(): void {
-		this.isPaused = false;
-	}
+	nextSlide(restartTimer = true): void {
+		if (!this.slides.length) {
+			return;
+		}
 
-	nextSlide(): void {
 		this.currentSlide = (this.currentSlide + 1) % this.slides.length;
+
+		if (restartTimer) {
+			this.restartSlideShow();
+		}
 	}
 
 	previousSlide(): void {
+		if (!this.slides.length) {
+			return;
+		}
+
 		this.currentSlide =
 			this.currentSlide === 0
 				? this.slides.length - 1
 				: this.currentSlide - 1;
+
+		this.restartSlideShow();
 	}
 
 	setCurrentSlide(index: number): void {
-		this.currentSlide = index;
-		// Reset the timer when manually changing slides
-		if (this.isPlaying) {
-			this.startSlideShow();
+		if (index < 0 || index >= this.slides.length) {
+			return;
 		}
+
+		this.currentSlide = index;
+		this.restartSlideShow();
 	}
 
 	togglePlayPause(): void {
-		if (this.isPlaying) {
-			this.stopSlideShow();
-		} else {
-			this.startSlideShow();
-		}
+		this.isPlaying = !this.isPlaying;
+		this.restartSlideShow();
 	}
 
-	// Carousel event handlers
 	onCarouselMouseEnter(): void {
-		this.pauseSlideShow();
+		this.isCarouselHovered = true;
+		this.clearSlideShow();
 	}
 
 	onCarouselMouseLeave(): void {
-		this.resumeSlideShow();
+		this.isCarouselHovered = false;
+		this.restartSlideShow();
 	}
 
-	// Get current slide data
-	getCurrentSlide() {
-		return this.slides[this.currentSlide];
+	trackBySlide(index: number): number {
+		return index;
 	}
 }
