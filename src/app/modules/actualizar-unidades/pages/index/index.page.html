@@ -1,4 +1,70 @@
 <div class="actualizar-unidades-page">
-    <h1>Actualizar Unidades</h1>
-    <p>Modulo para gestionar la actualizacion de unidades.</p>
+    <section class="excel-card">
+        <div class="card-header">
+            <h1>Carga de Datos desde Excel</h1>
+            <p>Sube y visualiza datos desde archivos de Excel para su procesamiento en el sistema</p>
+        </div>
+
+        <input #excelInput class="hidden-input" id="excel-input" type="file" accept=".xlsx,.xls"
+            (change)="onFileSelected($event)" />
+
+        <div class="toolbar-actions">
+            <button type="button" class="btn btn-green" (click)="excelInput.click()">
+                <span class="btn-icon">↥</span>
+                <span>{{ selectedFileName ? 'Cambiar Archivo' : 'Seleccionar Archivo' }}</span>
+            </button>
+
+            <span class="file-chip" *ngIf="selectedFileName">{{ selectedFileName }}</span>
+
+            <button type="button" class="btn btn-gray" (click)="clearSelection(excelInput)">
+                <span class="btn-icon">✕</span>
+                <span>Limpiar</span>
+            </button>
+
+            <button type="button" class="btn btn-purple" (click)="downloadTemplate()">
+                <span class="btn-icon">↓</span>
+                <span>Descargar Plantilla</span>
+            </button>
+
+            <button type="button" class="btn btn-green" (click)="uploadExcelData()"
+                [disabled]="!rows.length || isUploading">
+                <span class="btn-icon">↥</span>
+                <span>{{ isUploading ? 'Subiendo...' : 'Cargar Archivo' }}</span>
+            </button>
+        </div>
+
+        <div class="message error" *ngIf="errorMessage">{{ errorMessage }}</div>
+        <div class="message success" *ngIf="successMessage">{{ successMessage }}</div>
+
+        <section class="sheet-panel">
+            <div class="sheet-title">Hoja: {{ selectedSheetName }}</div>
+            <div class="row-counter">{{ totalRows }} filas</div>
+
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th class="index-col">#</th>
+                            <th *ngFor="let header of headers; trackBy: trackByHeader">{{ header }}</th>
+                        </tr>
+                    </thead>
+                    <tbody *ngIf="previewRows.length; else emptyRows">
+                        <tr *ngFor="let row of previewRows; let i = index">
+                            <td class="index-col">{{ i + 1 }}</td>
+                            <td *ngFor="let header of headers; trackBy: trackByHeader">{{ row[header] }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <ng-template #emptyRows>
+                    <div class="empty-row">No hay datos en esta hoja</div>
+                </ng-template>
+            </div>
+
+            <div class="table-footer">
+                <span>Mostrando 0 - {{ previewRows.length }} de {{ totalRows }} registros</span>
+                <span>{{ previewLimit }}</span>
+            </div>
+        </section>
+    </section>
 </div>

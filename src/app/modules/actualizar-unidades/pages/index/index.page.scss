@@ -1,5 +1,268 @@
 .actualizar-unidades-page {
 	width: 100%;
-	padding: 2rem;
+	padding: 1rem;
 	box-sizing: border-box;
+	background: #eceff3;
+	min-height: calc(100vh - 120px);
+}
+
+.excel-card {
+	background: #f4f5f7;
+	border: 1px solid #d7dce2;
+	border-radius: 10px;
+	padding: 1rem;
+}
+
+.card-header {
+	h1 {
+		font-size: 2.2rem;
+		margin: 0;
+		color: #2c3e57;
+	}
+
+	p {
+		margin: 0.6rem 0 1.2rem;
+		color: #3f4f64;
+		font-size: 1.04rem;
+	}
+}
+
+.hidden-input {
+	display: none;
+}
+
+.toolbar-actions {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 0.65rem;
+	margin-bottom: 1rem;
+}
+
+.btn {
+	border: none;
+	border-radius: 6px;
+	padding: 0.58rem 1rem;
+	display: inline-flex;
+	align-items: center;
+	gap: 0.45rem;
+	font-size: 1.05rem;
+	font-weight: 600;
+	cursor: pointer;
+	transition: filter 0.2s ease;
+
+	&:hover {
+		filter: brightness(0.95);
+	}
+
+	&:disabled {
+		opacity: 0.6;
+		cursor: not-allowed;
+	}
+}
+
+.btn-green {
+	background: #16b874;
+	color: #ffffff;
+}
+
+.btn-purple {
+	background: #9151e6;
+	color: #ffffff;
+}
+
+.btn-gray {
+	background: #dde1e6;
+	color: #2e4361;
+}
+
+.btn-icon {
+	font-size: 1rem;
+}
+
+.file-chip {
+	background: #d6f2de;
+	color: #1f7a40;
+	border-radius: 8px;
+	padding: 0.35rem 0.7rem;
+	font-weight: 600;
+	max-width: 360px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.message {
+	margin-bottom: 0.75rem;
+	padding: 0.55rem 0.85rem;
+	border-radius: 8px;
+	font-size: 0.95rem;
+}
+
+.message.error {
+	background: #ffe6e6;
+	color: #9f1f1f;
+}
+
+.message.success {
+	background: #e7f8eb;
+	color: #146333;
+}
+
+.sheet-panel {
+	background: #f8f9fb;
+	border: 1px solid #d9dee6;
+	border-radius: 10px;
+	padding: 0.8rem;
+}
+
+.sheet-title {
+	font-size: 1.9rem;
+	font-weight: 700;
+	color: #2e4361;
+	margin-bottom: 0.55rem;
+}
+
+.row-counter {
+	display: inline-flex;
+	align-items: center;
+	padding: 0.25rem 0.6rem;
+	border-radius: 8px;
+	background: #d8ecfb;
+	color: #196699;
+	font-weight: 700;
+	margin-bottom: 0.55rem;
+}
+
+.table-wrapper {
+	border: 1px solid #cfd7e1;
+	border-radius: 8px;
+	overflow: auto;
+	background: #ffffff;
+	max-height: 55vh;
+}
+
+table {
+	width: 100%;
+	border-collapse: collapse;
+	min-width: 720px;
+}
+
+thead th {
+	text-align: left;
+	padding: 0.7rem 0.65rem;
+	font-size: 1.35rem;
+	font-weight: 700;
+	color: #2a4262;
+	border-bottom: 1px solid #cfd7e1;
+	background: #f8fbff;
+	position: sticky;
+	top: 0;
+	z-index: 1;
+}
+
+tbody td {
+	padding: 0.6rem 0.65rem;
+	font-size: 1.15rem;
+	color: #1f3552;
+	border-bottom: 1px solid #eef1f5;
+	white-space: nowrap;
+	max-width: 230px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.index-col {
+	width: 52px;
+	min-width: 52px;
+	text-align: center;
+}
+
+.empty-row {
+	padding: 0.9rem;
+	font-size: 1.15rem;
+	color: #3a4d66;
+	border-top: 1px solid #e5e9ef;
+}
+
+.table-footer {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	font-size: 1.08rem;
+	color: #5d6f88;
+	padding: 0.7rem 0.3rem 0;
+
+	span:last-child {
+		background: #dce5ef;
+		padding: 0.3rem 0.8rem;
+		border-radius: 8px;
+		font-weight: 700;
+		color: #3c4f68;
+	}
+}
+
+@media (max-width: 992px) {
+	.card-header h1 {
+		font-size: 1.7rem;
+	}
+
+	thead th {
+		font-size: 1.1rem;
+	}
+
+	tbody td,
+	.empty-row {
+		font-size: 0.98rem;
+	}
+
+	.sheet-title {
+		font-size: 1.45rem;
+	}
+}
+
+@media (max-width: 768px) {
+	.actualizar-unidades-page {
+		padding: 0.65rem;
+	}
+
+	.excel-card {
+		padding: 0.75rem;
+	}
+
+	.toolbar-actions {
+		gap: 0.5rem;
+	}
+
+	.file-chip {
+		max-width: 100%;
+		width: 100%;
+	}
+
+	.table-footer {
+		flex-direction: column;
+		align-items: flex-start;
+		gap: 0.5rem;
+	}
+
+	.btn {
+		font-size: 0.96rem;
+		padding: 0.55rem 0.8rem;
+	}
+}
+
+@media (max-width: 560px) {
+	.toolbar-actions {
+		button {
+			width: 100%;
+			justify-content: center;
+		}
+
+		.file-chip {
+			width: 100%;
+		}
+	}
+	.card-header h1 {
+		font-size: 1.45rem;
+	}
 }
