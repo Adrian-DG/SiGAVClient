@@ -206,10 +206,10 @@
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
-	gap: 1.4rem;
+	gap: 1rem;
 	width: 100%;
 	max-width: 440px;
-	padding: 1.8rem;
+	padding: 0.5rem 1.5rem 1rem 1.5rem;
 	border-radius: 18px;
 	background: rgba(14, 24, 38, 0.5);
 	backdrop-filter: blur(8px);
@@ -221,19 +221,19 @@
 .brand-section {
 	text-align: center;
 	color: white;
-	margin-bottom: 1rem;
+	margin-bottom: 0.5rem;
 }
 
 .brand-logo {
 	display: flex;
 	justify-content: center;
-	margin-bottom: 1rem;
+	margin-bottom: 0.5rem;
 }
 
 .brand-icon {
 	font-size: 3rem;
 	width: 3rem;
-	height: 3rem;
+	height: 2.5rem;
 	color: white;
 	drop-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
@@ -257,6 +257,8 @@
 .login-panel {
 	width: 100%;
 	max-width: 360px;
+	max-height: 80dvh;
+	overflow-y: hidden;
 }
 
 @media (max-width: 768px) {
