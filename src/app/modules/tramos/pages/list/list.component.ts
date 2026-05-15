@@ -5,6 +5,8 @@ import { IPaginationFilters } from 'src/app/modules/generic/DTO/ipagination-filt
 import { IPagedData } from 'src/app/modules/generic/Responses/ipaged-data';
 import { TramoService } from '../../services/tramo.service';
 import { ITramoViewModel } from '../../viewModels/itramo-view-model';
+import { FormControl } from '@angular/forms';
+import { debounceTime, distinctUntilChanged } from 'rxjs';
 
 @Component({
 	selector: 'app-list',
@@ -12,6 +14,7 @@ import { ITramoViewModel } from '../../viewModels/itramo-view-model';
 	styleUrls: ['./list.component.scss'],
 })
 export class ListComponent implements OnInit, AfterViewInit {
+	searchControl = new FormControl('');
 	constructor(private _tramos: TramoService) {}
 
 	displayedColumns = [
@@ -21,11 +24,11 @@ export class ListComponent implements OnInit, AfterViewInit {
 		'pertenece',
 		'acciones',
 	];
-	pageSizeOptions = [5, 10, 25, 100];
+	pageSizeOptions = [10, 25, 100];
 	totalRows: number = 0;
 	filters: IPaginationFilters = {
 		page: 0,
-		size: 5,
+		size: 10,
 		searchTerm: '',
 		status: true,
 	};
@@ -34,25 +37,28 @@ export class ListComponent implements OnInit, AfterViewInit {
 	dataSource = new MatTableDataSource<ITramoViewModel>();
 
 	ngOnInit(): void {
-		this.loadData();
+		this.searchControl.valueChanges
+			.pipe(distinctUntilChanged(), debounceTime(300))
+			.subscribe((value: string | null) => {
+				this.filters.searchTerm = value ?? '';
+				this.filters.page = 0;
+				this.loadData();
+			});
 	}
 
 	ngAfterViewInit(): void {
+		this.loadData();
 		this.dataSource.paginator = this.paginator;
 	}
 
-	onSearchFiltering(): void {
-		setTimeout(() => this.loadData(), 2000);
-	}
-
 	loadData(): void {
-		this.filters.page += 1; //this.filters.page < 1 ? 1 : this.filters.page;
 		this._tramos
 			.getAllTramos(this.filters)
 			.subscribe((data: IPagedData<ITramoViewModel>) => {
 				this.dataSource.data = data.items;
+				this.totalRows = data.totalCount;
 				setTimeout(() => {
-					this.paginator.pageIndex = this.filters.page - 1;
+					this.paginator.pageIndex = this.filters.page;
 					this.paginator.pageSize = this.filters.size;
 					this.paginator.length = data.totalCount;
 				});
