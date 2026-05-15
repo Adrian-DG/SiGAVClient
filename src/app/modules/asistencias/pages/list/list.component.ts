@@ -59,7 +59,7 @@ export class ListComponent implements OnInit, AfterViewInit {
 	constructor(
 		public _asistencias: AsistenciasService,
 		public dialog: MatDialog,
-		public _auth: AuthService
+		public _auth: AuthService,
 	) {}
 
 	displayedColumns: string[] = [
@@ -78,7 +78,7 @@ export class ListComponent implements OnInit, AfterViewInit {
 		page: 0,
 		size: 100,
 		searchTerm: '',
-		status: false,
+		status: true,
 		estatusAsistencia: AsistenciaEstatusEnum.EN_PROCESO,
 		initialDate: null,
 		finalDate: null,
@@ -334,11 +334,11 @@ export class ListComponent implements OnInit, AfterViewInit {
 
 	isAvailableForQualityEvaluation(
 		user: IUserData,
-		item: IAsistenciaViewModel
+		item: IAsistenciaViewModel,
 	): boolean {
 		return (
 			[Roles.AnalistaOperaciones, Roles.Calidad].includes(
-				user.rolUsuario
+				user.rolUsuario,
 			) && item.estatusAsistencia == 'COMPLETADA'
 		);
 	}
@@ -367,7 +367,7 @@ export class ListComponent implements OnInit, AfterViewInit {
 		alert(
 			coords
 				? `Se copiaron las coordenadas ${coords}`
-				: 'Error: Las coordenadas no estan disponibles!!'
+				: 'Error: Las coordenadas no estan disponibles!!',
 		);
 	}
 
@@ -400,7 +400,7 @@ export class ListComponent implements OnInit, AfterViewInit {
 		console.log('item: ', item);
 		const types = item.tipoAsistencias.map((x) => x.nombre);
 		const categorias = item.tipoAsistencias.map(
-			(x) => x.categoriaAsistencia
+			(x) => x.categoriaAsistencia,
 		)[0];
 		this.dialog.open(UpdateAsistenciaDialogComponent, {
 			data: {
@@ -459,7 +459,7 @@ export class ListComponent implements OnInit, AfterViewInit {
 					alert(
 						response
 							? 'Asistencia eliminada correctamente'
-							: 'Error al eliminar asistencia'
+							: 'Error al eliminar asistencia',
 					);
 					setTimeout(() => this.loadData(), 2000);
 				});
@@ -480,7 +480,7 @@ export class ListComponent implements OnInit, AfterViewInit {
 	MarcarAsistenciaReportada511(id: number) {
 		if (
 			confirm(
-				'Esta seguro de marcar la asistencia como reportada por 511?'
+				'Esta seguro de marcar la asistencia como reportada por 511?',
 			)
 		) {
 			this._asistencias
@@ -495,7 +495,7 @@ export class ListComponent implements OnInit, AfterViewInit {
 	MarcarAsistenciaReportadaWhatsApp(id: number): void {
 		if (
 			confirm(
-				'Esta seguro de marcar la asistencia como reportada por WhatsApp?'
+				'Esta seguro de marcar la asistencia como reportada por WhatsApp?',
 			)
 		) {
 			this._asistencias
