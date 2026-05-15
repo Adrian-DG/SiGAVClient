@@ -26,7 +26,10 @@ export abstract class GenericService {
 			.set('status', filters.status);
 	}
 
-	constructor(protected $http: HttpClient, protected $router: Router) {
+	constructor(
+		protected $http: HttpClient,
+		protected $router: Router,
+	) {
 		const env: string = isDevMode() ? Dev.api_url : Prod.api_url;
 		this.endPoint += `${env}/${this.GetResource()}`;
 
@@ -34,12 +37,6 @@ export abstract class GenericService {
 		if (usuarioId != null) {
 			this.userId = parseInt(usuarioId);
 		}
-	}
-
-	Get<T>(filters: IPaginationFilters): Observable<IPagedData<T>> {
-		return this.$http.get<IPagedData<T>>(`${this.endPoint}`, {
-			params: this.getPaginationParams(filters),
-		});
 	}
 
 	GetById<T>(id: number): Observable<T> {
@@ -69,7 +66,7 @@ export abstract class GenericService {
 				//this.$location.back();
 			},
 			(error) =>
-				alert('Error: Algo salio mal al intentar guardar los cambios')
+				alert('Error: Algo salio mal al intentar guardar los cambios'),
 		);
 	}
 }

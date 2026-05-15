@@ -7,6 +7,9 @@ import { INombreModelMetadata } from 'src/app/modules/generic/abstraction/inombr
 import { DenominacionesService } from '../../services/denominaciones.service';
 import { MatDialog } from '@angular/material/dialog';
 import { DenominacionesEditDialogComponent } from '../../components/denominaciones-edit-dialog/denominaciones-edit-dialog.component';
+import { IDenominacionViewModel } from '../../viewModels/Idenominacion.viewmodel';
+import { FormControl } from '@angular/forms';
+import { debounceTime, distinctUntilChanged } from 'rxjs';
 
 @Component({
 	selector: 'app-list',
@@ -15,24 +18,34 @@ import { DenominacionesEditDialogComponent } from '../../components/denominacion
 })
 export class ListComponent {
 	displayedColumns = ['#', 'nombre', 'tipo', 'tramo', 'acciones'];
-	pageSizeOptions = [5, 10, 25, 100];
+	pageSizeOptions = [10, 25, 100];
 	totalRows: number = 0;
 	filters: IPaginationFilters = {
-		page: 0,
-		size: 5,
+		page: 1,
+		size: 10,
 		searchTerm: '',
 		status: true,
 	};
+
+	searchControl = new FormControl('');
 
 	@ViewChild(MatPaginator) paginator!: MatPaginator;
 	dataSource = new MatTableDataSource<any>();
 
 	constructor(
 		private _denominaciones: DenominacionesService,
-		private _dialog: MatDialog
+		private _dialog: MatDialog,
 	) {}
 
 	ngOnInit(): void {
+		this.searchControl.valueChanges
+			.pipe(distinctUntilChanged(), debounceTime(300))
+			.subscribe((value: string | null) => {
+				this.filters.searchTerm = value ?? '';
+				this.filters.page = 1;
+				this.loadData();
+			});
+
 		this.loadData();
 	}
 
@@ -42,8 +55,8 @@ export class ListComponent {
 
 	loadData(): void {
 		this._denominaciones
-			.Get<INombreModelMetadata>(this.filters)
-			.subscribe((data: IPagedData<any>) => {
+			.getAllDenominaciones(this.filters)
+			.subscribe((data: IPagedData<IDenominacionViewModel>) => {
 				this.dataSource.data = data.items;
 				setTimeout(() => {
 					this.paginator.pageIndex = this.filters.page;

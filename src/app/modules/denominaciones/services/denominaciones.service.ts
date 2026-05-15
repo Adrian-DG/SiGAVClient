@@ -7,6 +7,7 @@ import { IDenominacionesCreate } from '../interfaces/idenominaciones-create';
 import { Observable } from 'rxjs';
 import { IPaginationFilters } from '../../generic/DTO/ipagination-filters';
 import { IPagedData } from '../../generic/Responses/ipaged-data';
+import { IDenominacionViewModel } from '../viewModels/Idenominacion.viewmodel';
 
 @Injectable({
 	providedIn: 'root',
@@ -33,8 +34,8 @@ export class DenominacionesService extends GenericService {
 	}
 
 	getAllDenominaciones(filters: IPaginationFilters) {
-		return this.$http.get<IPagedData<any>>(
-			`${this.endPoint}/all-denominaciones`,
+		return this.$http.get<IPagedData<IDenominacionViewModel>>(
+			`${this.endPoint}`,
 			{
 				params: this.getPaginationParams(filters),
 			},

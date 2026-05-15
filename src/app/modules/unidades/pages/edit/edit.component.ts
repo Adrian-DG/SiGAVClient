@@ -23,7 +23,7 @@ export class EditComponent implements OnInit, AfterViewInit {
 		private $activeRoute: ActivatedRoute,
 		public _cache: CacheService,
 		public _tramos: TramoService,
-		private _unidad: UnidadesService
+		private _unidad: UnidadesService,
 	) {}
 
 	ngOnInit(): void {
@@ -31,7 +31,7 @@ export class EditComponent implements OnInit, AfterViewInit {
 		this._tramos
 			.getFilteredTramosByNombre()
 			.subscribe(
-				(data: ITramoViewModel[]) => (this.tramosFilteredList = data)
+				(data: ITramoViewModel[]) => (this.tramosFilteredList = data),
 			);
 	}
 
@@ -54,7 +54,7 @@ export class EditComponent implements OnInit, AfterViewInit {
 	cancel(): void {
 		if (
 			confirm(
-				'Cualquier cambio que hayas realizado no se guardara, ¿estas seguro?'
+				'Cualquier cambio que hayas realizado no se guardara, ¿estas seguro?',
 			)
 		) {
 			this.$location.back();
