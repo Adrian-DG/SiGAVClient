@@ -21,7 +21,7 @@ export class ListComponent {
 	pageSizeOptions = [10, 25, 100];
 	totalRows: number = 0;
 	filters: IPaginationFilters = {
-		page: 1,
+		page: 0,
 		size: 10,
 		searchTerm: '',
 		status: true,
@@ -42,7 +42,7 @@ export class ListComponent {
 			.pipe(distinctUntilChanged(), debounceTime(300))
 			.subscribe((value: string | null) => {
 				this.filters.searchTerm = value ?? '';
-				this.filters.page = 1;
+				this.filters.page = 0;
 				this.loadData();
 			});
 
@@ -58,6 +58,7 @@ export class ListComponent {
 			.getAllDenominaciones(this.filters)
 			.subscribe((data: IPagedData<IDenominacionViewModel>) => {
 				this.dataSource.data = data.items;
+				this.totalRows = data.totalCount;
 				setTimeout(() => {
 					this.paginator.pageIndex = this.filters.page;
 					this.paginator.pageSize = this.filters.size;
