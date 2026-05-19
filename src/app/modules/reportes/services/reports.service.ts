@@ -56,7 +56,15 @@ export class ReportsService extends GenericService {
 		});
 	}
 
-	getStatsByEstatus(filters: IStatsFilterDTO): Observable<IReportData[]> {
+	getStatsByEstatus(
+		filters: IStatsFilterDTO | null,
+	): Observable<IReportData[]> {
+		if (filters === null) {
+			return this.$http.get<IReportData[]>(`${this.endPoint}/estatus`, {
+				params: new HttpParams(),
+			});
+		}
+
 		const params = this.GetStatsParams(filters);
 		return this.$http.get<IReportData[]>(`${this.endPoint}/estatus`, {
 			params: params,
@@ -105,7 +113,16 @@ export class ReportsService extends GenericService {
 		);
 	}
 
-	getStatsTipoUnidad(filters: IStatsFilterDTO): Observable<IReportData[]> {
+	getStatsTipoUnidad(
+		filters: IStatsFilterDTO | null,
+	): Observable<IReportData[]> {
+		if (filters === null) {
+			return this.$http.get<IReportData[]>(
+				`${this.endPoint}/tipoUnidad`,
+				{ params: new HttpParams() },
+			);
+		}
+
 		const params = this.GetStatsParams(filters);
 		return this.$http.get<IReportData[]>(`${this.endPoint}/tipoUnidad`, {
 			params: params,

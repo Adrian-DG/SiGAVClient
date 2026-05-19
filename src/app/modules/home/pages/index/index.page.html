@@ -39,12 +39,19 @@
             <div class="chart-row">
 
 
-                <!-- Tipo Categoria Chart -->
-                <div class="dashboard-chart-container">
-                    <div class="chart-header">
+                <!-- Tipo Unidad Chart -->
+                <div class="dashboard-chart-container chart-card chart-card--categoria">
+                    <div class="chart-header" [ngStyle]="chartCards.tipoUnidad.styles.header">
                         <div class="chart-title">
-                            <mat-icon>category</mat-icon>
-                            <h3>Distribución por Categoría</h3>
+                            <mat-icon [ngStyle]="chartCards.tipoUnidad.styles.icon">{{ chartCards.tipoUnidad.icon
+                                }}</mat-icon>
+                            <div>
+                                <h3 [ngStyle]="chartCards.tipoUnidad.styles.title">{{ chartCards.tipoUnidad.title
+                                    }}
+                                </h3>
+                                <p [ngStyle]="chartCards.tipoUnidad.styles.subtitle">{{
+                                    chartCards.tipoUnidad.subtitle }}</p>
+                            </div>
                         </div>
                         <div class="chart-actions">
                             <button mat-icon-button>
@@ -52,19 +59,28 @@
                             </button>
                         </div>
                     </div>
-                    <div class="chart-content">
-                        <app-dinamyc-chart [chartOptions]="tipoCategoriaChartOptions$" [chartType]="'pie'"
-                            [chartData]="tipoCategoriaChartData$">
+                    <div class="chart-content pie-chart-content">
+                        <app-dinamyc-chart [chartOptions]="tipoUnidadChartOptions$"
+                            [chartType]="chartCards.tipoUnidad.type" [chartData]="tipoUnidadChartData$"
+                            [showLegend]="chartCards.tipoUnidad.showLegend">
                         </app-dinamyc-chart>
                     </div>
                 </div>
 
                 <!-- Tipo Asistencia Chart -->
-                <div class="dashboard-chart-container">
-                    <div class="chart-header">
+                <div class="dashboard-chart-container chart-card chart-card--asistencia">
+                    <div class="chart-header" [ngStyle]="chartCards.tipoAsistencia.styles.header">
                         <div class="chart-title">
-                            <mat-icon>medical_services</mat-icon>
-                            <h3>Distribución por Tipo de Asistencia</h3>
+                            <mat-icon [ngStyle]="chartCards.tipoAsistencia.styles.icon">{{
+                                chartCards.tipoAsistencia.icon
+                                }}</mat-icon>
+                            <div>
+                                <h3 [ngStyle]="chartCards.tipoAsistencia.styles.title">{{
+                                    chartCards.tipoAsistencia.title
+                                    }}</h3>
+                                <p [ngStyle]="chartCards.tipoAsistencia.styles.subtitle">{{
+                                    chartCards.tipoAsistencia.subtitle }}</p>
+                            </div>
                         </div>
                         <div class="chart-actions">
                             <button mat-icon-button>
@@ -72,13 +88,13 @@
                             </button>
                         </div>
                     </div>
-                    <div class="chart-content">
-                        <app-dinamyc-chart [chartOptions]="tipoAsistenciaHorizontalChartOptions$" [chartType]="'bar'"
-                            [chartData]="tipoAsistenciaChartData$" [showLegend]="false">
+                    <div class="chart-content pie-chart-content">
+                        <app-dinamyc-chart [chartOptions]="tipoAsistenciaChartOptions$"
+                            [chartType]="chartCards.tipoAsistencia.type" [chartData]="tipoAsistenciaChartData$"
+                            [showLegend]="chartCards.tipoAsistencia.showLegend">
                         </app-dinamyc-chart>
                     </div>
                 </div>
-
 
             </div>
 
