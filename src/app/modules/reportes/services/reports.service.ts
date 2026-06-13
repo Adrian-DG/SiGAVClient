@@ -51,9 +51,12 @@ export class ReportsService extends GenericService {
 
 	getStatsTipoVehiculo(filters: IStatsFilterDTO): Observable<IReportData[]> {
 		const params = this.GetStatsParams(filters);
-		return this.$http.get<IReportData[]>(`${this.endPoint}/tipoVehiculos`, {
-			params: params,
-		});
+		return this.$http.get<IReportData[]>(
+			`${this.endPoint}/tipo-vehiculos`,
+			{
+				params: params,
+			},
+		);
 	}
 
 	getStatsByEstatus(
@@ -73,7 +76,7 @@ export class ReportsService extends GenericService {
 
 	getStatsReportadoPor(filters: IStatsFilterDTO): Observable<IReportData[]> {
 		const params = this.GetStatsParams(filters);
-		return this.$http.get<IReportData[]>(`${this.endPoint}/reportadoPor`, {
+		return this.$http.get<IReportData[]>(`${this.endPoint}/reportado-por`, {
 			params: params,
 		});
 	}
@@ -83,15 +86,18 @@ export class ReportsService extends GenericService {
 	): Observable<IReportData[]> {
 		if (filters === null) {
 			return this.$http.get<IReportData[]>(
-				`${this.endPoint}/tipoCategoria`,
+				`${this.endPoint}/tipo-categoria`,
 				{ params: new HttpParams() },
 			);
 		}
 
 		const params = this.GetStatsParams(filters);
-		return this.$http.get<IReportData[]>(`${this.endPoint}/tipoCategoria`, {
-			params: params,
-		});
+		return this.$http.get<IReportData[]>(
+			`${this.endPoint}/tipo-categoria`,
+			{
+				params: params,
+			},
+		);
 	}
 
 	getStatsTipoAsistencia(
@@ -99,14 +105,14 @@ export class ReportsService extends GenericService {
 	): Observable<IReportData[]> {
 		if (filters === null) {
 			return this.$http.get<IReportData[]>(
-				`${this.endPoint}/tipoAsistencia`,
+				`${this.endPoint}/tipo-asistencia`,
 				{ params: new HttpParams() },
 			);
 		}
 
 		const params = this.GetStatsParams(filters);
 		return this.$http.get<IReportData[]>(
-			`${this.endPoint}/tipoAsistencia`,
+			`${this.endPoint}/tipo-asistencia`,
 			{
 				params: params,
 			},
@@ -118,13 +124,13 @@ export class ReportsService extends GenericService {
 	): Observable<IReportData[]> {
 		if (filters === null) {
 			return this.$http.get<IReportData[]>(
-				`${this.endPoint}/tipoUnidad`,
+				`${this.endPoint}/tipo-unidad`,
 				{ params: new HttpParams() },
 			);
 		}
 
 		const params = this.GetStatsParams(filters);
-		return this.$http.get<IReportData[]>(`${this.endPoint}/tipoUnidad`, {
+		return this.$http.get<IReportData[]>(`${this.endPoint}/tipo-unidad`, {
 			params: params,
 		});
 	}
