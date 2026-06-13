@@ -1,4 +1,5 @@
 export interface ITipoAsistenciaViewModel {
-	nombre: string;
-	categoriaAsistencia: string;
+	id: number;
+	tipo: string;
+	categoria: string;
 }

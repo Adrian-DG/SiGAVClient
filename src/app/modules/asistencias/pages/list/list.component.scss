@@ -1,21 +1,10 @@
 // th,
 // td {
-// 	// overflow: hidden;
+// 	overflow: hidden;
 // 	width: auto;
 // 	text-overflow: ellipsis;
 // 	white-space: wrap;
 // }
-
-.actions-row {
-	display: flex;
-	flex-direction: row;
-	justify-content: center;
-	align-items: center;
-	flex-wrap: wrap;
-	button mat-icon {
-		font-size: 0.8rem;
-	}
-}
 
 .row {
 	display: flex;
@@ -33,8 +22,39 @@
 	border-radius: 0.5em;
 }
 
+.filter-col {
+	flex: 1 1 220px;
+}
+
+.filter-col-search {
+	flex-basis: 30%;
+	min-width: 240px;
+}
+
+.filter-field {
+	width: 100%;
+}
+
+.filter-actions {
+	display: flex;
+	align-items: flex-end;
+}
+
+.clear-filters-button {
+	margin-top: 1.5em;
+	width: 100%;
+}
+
 .tab-group {
 	margin: 1em auto;
+}
+
+.table {
+	overflow-x: auto;
+}
+
+.list-table {
+	min-width: 100%;
 }
 
 .personDataCell {
@@ -42,9 +62,83 @@
 	max-width: 180px;
 }
 
+.assistance-type {
+	font-weight: 500;
+}
+
+.support-section {
+	margin: 0.35rem 0 0;
+}
+
+.support-badge {
+	display: inline-block;
+	padding: 0.1em 0.3em;
+	border-radius: 0.2em;
+	background-color: rgb(194, 49, 49);
+	color: rgb(255, 255, 255);
+	font-weight: 700;
+	text-align: center;
+}
+
+.support-button {
+	padding: 0 !important;
+	border: none;
+	width: auto;
+	height: auto;
+}
+
+.support-button-icon {
+	vertical-align: bottom;
+}
+
+.action-row {
+	display: flex;
+	align-items: center;
+	justify-content: flex-start;
+	flex-wrap: wrap;
+	gap: 0.25rem;
+
+	button mat-icon {
+		font-size: 1.5rem;
+	}
+}
+
+.action-button {
+	color: rgb(73, 73, 73);
+}
+
+.action-button-success {
+	color: rgb(28, 141, 28);
+}
+
+.action-button-danger {
+	color: rgb(230, 89, 96);
+}
+
+.report-source-button {
+	font-weight: 700;
+}
+
+.whatsapp-button {
+	color: rgb(20, 124, 20);
+
+	img {
+		width: 1rem;
+		height: 1rem;
+	}
+}
+
 td {
 	font-size: 0.8rem;
 	font-weight: 400;
+}
+
+.no-data-cell {
+	width: 100%;
+}
+
+.list-paginator {
+	margin-top: 0.5em;
 }
 
 .servicios {
@@ -59,6 +153,7 @@ td {
 	gap: 1em;
 	overflow-y: none;
 	overflow-x: auto;
+
 	li {
 		list-style: none;
 		font-weight: 500;

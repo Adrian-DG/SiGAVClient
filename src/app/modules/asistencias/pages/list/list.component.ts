@@ -2,12 +2,12 @@ import {
 	Component,
 	OnInit,
 	AfterViewInit,
+	OnDestroy,
 	ViewChild,
 	LOCALE_ID,
 } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
-import { IPaginationFilters } from 'src/app/modules/generic/DTO/ipagination-filters';
 import { IPagedData } from 'src/app/modules/generic/Responses/ipaged-data';
 import { IUpdateAsistencia } from '../../DTO/iupdate-asistencia';
 import { AsistenciasService } from '../../services/asistencias.service';
@@ -18,7 +18,6 @@ import { PicturesDialogComponent } from '../../components/pictures-dialog/pictur
 import { AsistenciaFilterByDateDialogComponent } from '../../components/asistencia-filter-by-date-dialog/asistencia-filter-by-date-dialog.component';
 import { ReasignarUnidadDialogComponent } from '../../components/reasignar-unidad-dialog/reasignar-unidad-dialog.component';
 import { HistoricoAsistenciaDialogComponent } from '../../components/historico-asistencia-dialog/historico-asistencia-dialog.component';
-import { IAsistenciaPaginationFilter } from '../../DTO/iasistencia-pagination-filter';
 import { AuthService } from 'src/app/modules/auth/services/auth/auth.service';
 import { ReporteEstadisticoDialogComponent } from '../../components/reporte-estadistico-dialog/reporte-estadistico-dialog.component';
 import { UpdateAsistenciaDialogComponent } from '../../components/update-asistencia-dialog/update-asistencia-dialog.component';
@@ -29,12 +28,12 @@ import { ReportDialogCalidadComponent } from '../../components/report-dialog-cal
 import { IAsistenciaPaginationAdvanceFilter } from '../../DTO/iasistencia-pagination-advance-filter';
 import { HistoricoAsistenciaAlfaComponent } from '../../components/historico-asistencia-alfa/historico-asistencia-alfa.component';
 import { FormControl } from '@angular/forms';
-import { debounceTime, distinctUntilChanged } from 'rxjs';
+import { Subject, debounceTime, distinctUntilChanged, takeUntil } from 'rxjs';
 import { ReportViewerDialogComponent } from '../../components/report-viewer-dialog/report-viewer-dialog.component';
 import { DatePipe } from '@angular/common';
 import { UpdateTipoCierreDialogComponent } from '../../components/update-tipo-cierre-dialog/update-tipo-cierre-dialog.component';
-import { MatDividerModule } from '@angular/material/divider';
 import { AsistenciaEstatusEnum } from '../../enums/asistencia-estatus.enum';
+import { HttpResponse } from '@angular/common/http';
 // to validate dialog data
 export interface IDialogData {
 	id: number;
@@ -56,6 +55,11 @@ export enum Roles {
 	providers: [DatePipe, { provide: LOCALE_ID, useValue: 'es-ES' }],
 })
 export class ListComponent implements OnInit, AfterViewInit {
+	private readonly destroy$ = new Subject<void>();
+	private readonly defaultPageSize = 100;
+	private readonly defaultSearchType = 1;
+	private readonly defaultStatus = AsistenciaEstatusEnum.EN_PROCESO;
+
 	constructor(
 		public _asistencias: AsistenciasService,
 		public dialog: MatDialog,
@@ -74,19 +78,16 @@ export class ListComponent implements OnInit, AfterViewInit {
 
 	pageSizeOptions = [5, 10, 25, 100];
 	totalRows: number = 0;
-	filters: IAsistenciaPaginationAdvanceFilter = {
-		page: 0,
-		size: 100,
-		searchTerm: '',
-		status: true,
-		estatusAsistencia: AsistenciaEstatusEnum.EN_PROCESO,
-		initialDate: null,
-		finalDate: null,
-		tipoBusqueda: 1,
-	};
+	filters: IAsistenciaPaginationAdvanceFilter = this.createDefaultFilters();
 
 	get Roles() {
 		return Roles;
+	}
+
+	get selectedStatusIndex(): number {
+		return this.asistenciaEstatus.findIndex(
+			(item) => item.value === this.filters.estatusAsistencia,
+		);
 	}
 
 	@ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -94,35 +95,33 @@ export class ListComponent implements OnInit, AfterViewInit {
 
 	searchBarControl = new FormControl('');
 
-	stateSelection: number = 1;
-
 	asistenciaEstatus = [
-		{ value: 0, viewValue: 'Todas' },
-		{ value: 1, viewValue: 'Pendientes' },
-		{ value: 2, viewValue: 'En Proceso' },
-		{ value: 3, viewValue: 'Completadas' },
+		{ value: AsistenciaEstatusEnum.TODAS, viewValue: 'Todas' },
+		{ value: AsistenciaEstatusEnum.PENDIENTE, viewValue: 'Pendientes' },
+		{ value: AsistenciaEstatusEnum.EN_PROCESO, viewValue: 'En Proceso' },
+		{ value: AsistenciaEstatusEnum.COMPLETADA, viewValue: 'Completadas' },
 	];
 
 	ngOnInit(): void {
-		this.dialog.afterAllClosed.subscribe(() => this.loadData());
+		this.listenToSearchChanges();
+		this.dialog.afterAllClosed
+			.pipe(takeUntil(this.destroy$))
+			.subscribe(() => this.loadData());
+		this.loadData();
 	}
 
 	ngAfterViewInit(): void {
 		this.dataSource.paginator = this.paginator;
 	}
 
+	ngOnDestroy(): void {
+		this.destroy$.next();
+		this.destroy$.complete();
+	}
+
 	clearFilters(): void {
-		this.filters = {
-			page: 0,
-			size: 20,
-			searchTerm: '',
-			status: false,
-			estatusAsistencia: 2,
-			initialDate: null,
-			finalDate: null,
-			tipoBusqueda: 1,
-		};
-		this.searchBarControl.setValue('');
+		this.filters = this.createDefaultFilters();
+		this.searchBarControl.setValue('', { emitEvent: false });
 		this.loadData();
 	}
 
@@ -151,21 +150,23 @@ export class ListComponent implements OnInit, AfterViewInit {
 		this.loadData();
 	}
 
-	onSearchFiltering(): void {
+	private listenToSearchChanges(): void {
 		this.searchBarControl.valueChanges
-			.pipe(debounceTime(500), distinctUntilChanged())
+			.pipe(
+				debounceTime(500),
+				distinctUntilChanged(),
+				takeUntil(this.destroy$),
+			)
 			.subscribe((value: string | null) => {
-				if (value) {
-					this.filters.searchTerm = value ?? '';
-					this.filters.page = 0; // Reset to first page on search
-					this.loadData();
-				}
+				this.filters.searchTerm = value?.trim() ?? '';
+				this.filters.page = 0;
+				this.loadData();
 			});
 	}
 
-	onTabSelectionChange(event: any): void {
-		this.stateSelection = event.index;
-		this.filters.estatusAsistencia = this.stateSelection;
+	onTabSelectionChange(event: { index: number }): void {
+		this.filters.estatusAsistencia =
+			this.asistenciaEstatus[event.index]?.value ?? this.defaultStatus;
 		this.filters.page = 0;
 		this.loadData();
 	}
@@ -175,7 +176,12 @@ export class ListComponent implements OnInit, AfterViewInit {
 			.getAllAsistencias(this.filters)
 			.subscribe((data: IPagedData<IAsistenciaViewModel>) => {
 				this.dataSource.data = data.items;
+				this.totalRows = data.totalCount;
 				setTimeout(() => {
+					if (!this.paginator) {
+						return;
+					}
+
 					this.paginator.pageIndex = this.filters.page;
 					this.paginator.pageSize = this.filters.size;
 					this.paginator.length = data.totalCount;
@@ -201,7 +207,7 @@ export class ListComponent implements OnInit, AfterViewInit {
 				.updateAsistenciaCompletar(model)
 				.subscribe((response: IServerResponse) => {
 					alert(response.message);
-					setTimeout(() => this.loadData(), 2000);
+					this.scheduleRefresh();
 				});
 		}
 	}
@@ -225,7 +231,6 @@ export class ListComponent implements OnInit, AfterViewInit {
 	onReportSelection(value: number): void {
 		switch (value) {
 			case 1:
-				console.log('value: ', value);
 				this.getReporteResumenAsistenciasDiario();
 				break;
 			case 2:
@@ -272,51 +277,19 @@ export class ListComponent implements OnInit, AfterViewInit {
 	getReporteAsistenciasDetalles(): void {
 		this._asistencias
 			.GetReporteDetalleAsistencias()
-			.subscribe((response) => {
-				let filename = response.headers
-					.get('content-disposition')
-					?.split(';')[1]
-					.split('=')[1];
-				let blob: Blob = response.body as Blob;
-				let a = document.createElement('a');
-
-				a.download = filename ?? '';
-				a.href = window.URL.createObjectURL(blob);
-				a.click();
-			});
+			.subscribe((response) => this.downloadFileResponse(response));
 	}
 
 	getReporteResumenAsistenciasDiario(): void {
 		this._asistencias
 			.GetReporteResumenAsistenciasDiario()
-			.subscribe((response) => {
-				let filename = response.headers
-					.get('content-disposition')
-					?.split(';')[1]
-					.split('=')[1];
-				let blob: Blob = response.body as Blob;
-				let a = document.createElement('a');
-
-				a.download = filename ?? '';
-				a.href = window.URL.createObjectURL(blob);
-				a.click();
-			});
+			.subscribe((response) => this.downloadFileResponse(response));
 	}
 
 	getReporteAsistenciasSolicitadasR5(): void {
 		this._asistencias
 			.getReporteAsistenciasSolicitadasR5(this.filters)
-			.subscribe((response) => {
-				let filename = response.headers
-					.get('content-disposition')
-					?.split(';')[1]
-					.split('=')[1];
-				let blob: Blob = response.body as Blob;
-				let a = document.createElement('a');
-				a.download = filename ?? '';
-				a.href = window.URL.createObjectURL(blob);
-				a.click();
-			});
+			.subscribe((response) => this.downloadFileResponse(response));
 	}
 
 	enableCompleteBtn(status: string): boolean {
@@ -397,11 +370,8 @@ export class ListComponent implements OnInit, AfterViewInit {
 	}
 
 	openEditAsistenciaModal(item: IAsistenciaViewModel): void {
-		console.log('item: ', item);
-		const types = item.tipoAsistencias.map((x) => x.nombre);
-		const categorias = item.tipoAsistencias.map(
-			(x) => x.categoriaAsistencia,
-		)[0];
+		const types = item.tipoAsistencias.map((x) => x.tipo);
+		const categorias = item.tipoAsistencias.map((x) => x.categoria)[0];
 		this.dialog.open(UpdateAsistenciaDialogComponent, {
 			data: {
 				id: item.id,
@@ -419,9 +389,9 @@ export class ListComponent implements OnInit, AfterViewInit {
 
 	openDetailsAsistenciaModal(model: IAsistenciaViewModel) {
 		const { id, comentario } = model;
-		const types = model.tipoAsistencias.map((x) => x.nombre);
+		const types = model.tipoAsistencias.map((x) => x.tipo);
 		this.dialog.open(DetailAsistenciaDialogComponent, {
-			data: { id, comment: comentario, types },
+			data: { id, comment: comentario, types: types },
 			...this.modalConfig,
 		});
 	}
@@ -461,7 +431,7 @@ export class ListComponent implements OnInit, AfterViewInit {
 							? 'Asistencia eliminada correctamente'
 							: 'Error al eliminar asistencia',
 					);
-					setTimeout(() => this.loadData(), 2000);
+					this.scheduleRefresh();
 				});
 		}
 	}
@@ -472,7 +442,7 @@ export class ListComponent implements OnInit, AfterViewInit {
 				.ConfirmarTiempoLlegada(id)
 				.subscribe((response: IServerResponse) => {
 					alert(response.message);
-					setTimeout(() => this.loadData(), 2000);
+					this.scheduleRefresh();
 				});
 		}
 	}
@@ -487,7 +457,7 @@ export class ListComponent implements OnInit, AfterViewInit {
 				.MarcarAsistenciaReportada511(id)
 				.subscribe((response: IServerResponse) => {
 					alert(response.message);
-					setTimeout(() => this.loadData(), 2000);
+					this.scheduleRefresh();
 				});
 		}
 	}
@@ -502,8 +472,48 @@ export class ListComponent implements OnInit, AfterViewInit {
 				.MarcarAsistenciaReportadaWhatsApp(id)
 				.subscribe((response: IServerResponse) => {
 					alert(response.message);
-					setTimeout(() => this.loadData(), 2000);
+					this.scheduleRefresh();
 				});
 		}
+	}
+
+	private createDefaultFilters(): IAsistenciaPaginationAdvanceFilter {
+		return {
+			page: 0,
+			size: this.defaultPageSize,
+			searchTerm: '',
+			status: true,
+			estatusAsistencia: this.defaultStatus,
+			initialDate: null,
+			finalDate: null,
+			tipoBusqueda: this.defaultSearchType,
+		};
+	}
+
+	private scheduleRefresh(): void {
+		setTimeout(() => this.loadData(), 2000);
+	}
+
+	private downloadFileResponse(response: HttpResponse<Blob>): void {
+		const blob = response.body;
+
+		if (!blob) {
+			return;
+		}
+
+		const anchor = document.createElement('a');
+		anchor.download = this.getDownloadFilename(response);
+		anchor.href = window.URL.createObjectURL(blob);
+		anchor.click();
+	}
+
+	private getDownloadFilename(response: HttpResponse<Blob>): string {
+		return (
+			response.headers
+				.get('content-disposition')
+				?.split(';')[1]
+				?.split('=')[1]
+				?.replace(/\"/g, '') ?? ''
+		);
 	}
 }

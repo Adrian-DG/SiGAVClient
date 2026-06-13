@@ -1,14 +1,13 @@
 <div class="row filters-container">
-	<div class="col" style="width: 30%">
-		<mat-form-field class="filter">
+	<div class="col filter-col filter-col-search">
+		<mat-form-field class="filter-field">
 			<mat-label>Filtrar</mat-label>
-			<input matInput (keyup)="onSearchFiltering()" placeholder="Nombre o Identificación"
-				[formControl]="searchBarControl" />
+			<input matInput placeholder="Nombre o Identificación" [formControl]="searchBarControl" />
 		</mat-form-field>
 	</div>
 
-	<div class="col">
-		<mat-form-field style="width: 100%">
+	<div class="col filter-col">
+		<mat-form-field class="filter-field">
 			<mat-label>Tipo Busqueda</mat-label>
 			<mat-select [(ngModel)]="filters.tipoBusqueda">
 				<mat-option [value]="1">Cédula/Pasaporte o Nombre</mat-option>
@@ -26,8 +25,8 @@
 		</mat-form-field>
 	</div>
 
-	<div class="col">
-		<mat-form-field style="width: 100%">
+	<div class="col filter-col">
+		<mat-form-field class="filter-field">
 			<mat-label>Rango de fecha</mat-label>
 			<mat-date-range-input [rangePicker]="picker">
 				<input matStartDate placeholder="Fecha Inicial" [(ngModel)]="filters.initialDate" />
@@ -40,10 +39,10 @@
 		</mat-form-field>
 	</div>
 
-	<div class="col" *ngIf="_auth.userData$ | async as user">
-		<mat-form-field style="width: 100%">
+	<div class="col filter-col" *ngIf="_auth.userData$ | async as user">
+		<mat-form-field class="filter-field">
 			<mat-label>Reportes</mat-label>
-			<mat-select (selectionChange)="onReportSelection(reportValue.value)" #reportValue>
+			<mat-select (selectionChange)="onReportSelection($event.value)">
 				<mat-option [value]="6">Listado Asistencia Solicitadas (Call Center R5
 					PDF)</mat-option>
 				<mat-option [value]="7">Listado Asistencia Solicitadas (Call Center R5
@@ -57,8 +56,8 @@
 		</mat-form-field>
 	</div>
 
-	<div class="col">
-		<button mat-button style="margin-top: 1.5em; width: 100%" (click)="clearFilters()">
+	<div class="col filter-col filter-actions">
+		<button mat-button class="clear-filters-button" (click)="clearFilters()">
 			limpiar filtros
 		</button>
 	</div>
@@ -66,7 +65,8 @@
 
 <mat-divider></mat-divider>
 
-<mat-tab-group (selectedTabChange)="onTabSelectionChange($event)" class="tab-group" [selectedIndex]="2">
+<mat-tab-group (selectedTabChange)="onTabSelectionChange($event)" class="tab-group"
+	[selectedIndex]="selectedStatusIndex">
 	<mat-tab *ngFor="let item of asistenciaEstatus">
 		<ng-template mat-tab-label>
 			<span *ngIf="item.value === 0"><mat-icon>list</mat-icon></span>
@@ -82,7 +82,7 @@
 
 <!-- Table -->
 <div class="table">
-	<table mat-table [dataSource]="dataSource" [fixedLayout]="false" class="mat-elevation-z8">
+	<table mat-table [dataSource]="dataSource" [fixedLayout]="false" class="mat-elevation-z8 list-table">
 		<!-- Table header -->
 		<ng-container matColumnDef="id">
 			<th mat-header-cell *matHeaderCellDef>#</th>
@@ -94,11 +94,11 @@
 		<ng-container matColumnDef="ciudadano">
 			<th mat-header-cell *matHeaderCellDef>Ciudadano</th>
 			<td mat-cell *matCellDef="let element" class="personDataCell">
-				<span>{{ element.identificacion }}</span>
+				<span>{{ element.identificacion | cedula }}</span>
 				<br />
 				<span>{{ element.nombreCiudadano | titlecase }}</span>
 				<br />
-				<span>{{ element.telefono }}</span>
+				<span>{{ element.telefono | telefono }}</span>
 			</td>
 		</ng-container>
 
@@ -129,7 +129,7 @@
 		<ng-container matColumnDef="agente">
 			<th mat-header-cell *matHeaderCellDef>Agente</th>
 			<td mat-cell *matCellDef="let element" class="personDataCell">
-				<span>{{ element.cedulaAgente }}</span>
+				<span>{{ element.cedulaAgente | cedula }}</span>
 				<br />
 				<span>{{ element.rangoAgente }}</span>
 				<br />
@@ -142,7 +142,7 @@
 		<ng-container matColumnDef="creacion">
 			<th mat-header-cell *matHeaderCellDef>Datos</th>
 			<td mat-cell *matCellDef="let element">
-				<span style="font-weight: 500">{{
+				<span class="assistance-type">{{
 					element.esEmergencia ? 'Accidente' : 'Asistencia'
 					}}</span>
 				<br />
@@ -160,26 +160,14 @@
 				<span>{{ element.fechaCreacion | date : 'dd/MM/YYYY' }}
 					{{ element.fechaCreacion | horaMilitar }}</span>
 				<br />
-				<p *ngIf="element.solicitoApoyo">
+				<p *ngIf="element.solicitoApoyo" class="support-section">
 					Apoyo:
 					<br />
-					<span style="
-							font-weight: bold;
-							background-color: rgb(194, 49, 49);
-							color: rgb(255, 255, 255);
-							padding: 0.1em 0.3em;
-							border-radius: 0.2em;
-							text-align: center;
-						">
+					<span class="support-badge">
 						{{ element.unidadAlfa | uppercase }}
 					</span>
-					<button mat-icon-button style="
-							padding: 0 !important;
-							border: none;
-							width: auto;
-							height: auto;
-						" (click)="openAsistenciaApoyoAlfa(element)">
-						<mat-icon style="vertical-align: bottom">search</mat-icon>
+					<button mat-icon-button class="support-button" (click)="openAsistenciaApoyoAlfa(element)">
+						<mat-icon class="support-button-icon">search</mat-icon>
 					</button>
 				</p>
 			</td>
@@ -199,22 +187,22 @@
 				</mat-accordion> -->
 				<div class="action-row">
 
-					<button style="color: rgb(73, 73, 73)" *ngIf=" 
+					<button class="action-button" *ngIf=" 
 									element.estatusAsistencia != 'COMPLETADA'
 								" title="Actualizar Tipo de Cierre" mat-icon-button (click)="actualizarTipoCierre(element.id)">
 						<mat-icon>flag</mat-icon>
 					</button>
-					<button style="color: rgb(73, 73, 73)" title="Confirmar llegada" mat-icon-button
+					<button class="action-button" title="Confirmar llegada" mat-icon-button
 						(click)="ConfirmarTiempoLlegada(element.id)">
 						<mat-icon>access_alarm</mat-icon>
 					</button>
-					<button style="color: rgb(73, 73, 73)" title="Reasignar Asistencia" *ngIf="
+					<button class="action-button" title="Reasignar Asistencia" *ngIf="
 									element.estatusAsistencia != 'COMPLETADA' &&
 									hasValidStatus(user.rolUsuario)
 								" mat-icon-button (click)="openReasignationModal(element)">
 						<mat-icon>autorenew</mat-icon>
 					</button>
-					<button title="Fotos asistencia" mat-icon-button style="color: rgb(73, 73, 73)" (click)="
+					<button title="Fotos asistencia" mat-icon-button class="action-button" (click)="
 									openPicturesDialog(
 										element.id,
 										element.identificacion,
@@ -223,22 +211,22 @@
 								" *ngIf="hasCompleteEstatus(element)">
 						<mat-icon>collections</mat-icon>
 					</button>
-					<button title="Historial de asignaciones" mat-icon-button style="color: rgb(73, 73, 73)"
+					<button title="Historial de asignaciones" mat-icon-button class="action-button"
 						*ngIf="hasCompleteEstatus(element)" (click)="openHistoricoModal(element.id)">
 						<mat-icon>history</mat-icon>
 					</button>
 					<!-- Editar -->
-					<button title="Editar Asistencia" mat-icon-button style="color: rgb(73, 73, 73)"
+					<button title="Editar Asistencia" mat-icon-button class="action-button"
 						*ngIf="hasValidStatus(user.rolUsuario)" (click)="openEditAsistenciaModal(element)">
 						<mat-icon>edit</mat-icon>
 					</button>
 
-					<button style="color: rgb(73, 73, 73)" title="Detalles Asistencia" mat-icon-button
+					<button class="action-button" title="Detalles Asistencia" mat-icon-button
 						(click)="openDetailsAsistenciaModal(element)">
 						<mat-icon>info</mat-icon>
 					</button>
 
-					<button *ngIf="element.reportadaPor !== 'WhatsApp'" style="color: rgb(20, 124, 20)"
+					<button *ngIf="element.reportadaPor !== 'WhatsApp'" class="action-button whatsapp-button"
 						title="Marcar Recibida Whatsapp" mat-icon-button (click)="
 									MarcarAsistenciaReportadaWhatsApp(
 										element.id
@@ -247,9 +235,9 @@
 						<img src="../../../../../assets/whatsapp-symbol-logo-svgrepo-com.svg" alt="" />
 					</button>
 
-					<button mat-icon-button style="font-weight: bold" (click)="
+					<button mat-icon-button class="action-button report-source-button" (click)="
 									MarcarAsistenciaReportada511(element.id)
-								" style="color: rgb(73, 73, 73)">
+								">
 						511
 					</button>
 
@@ -257,26 +245,25 @@
 									color: element.fueEvaluada
 										? 'rgb(73, 73, 73)'
 										: 'rgb(212, 89, 89)'
-								}" style="color: rgb(73, 73, 73)" title="Evaluar Calidad Asistencia" mat-icon-button
-						(click)="openAsistenciaCalidadModal(element)" *ngIf="
+								}" title="Evaluar Calidad Asistencia" mat-icon-button (click)="openAsistenciaCalidadModal(element)" *ngIf="
 									isAvailableForQualityEvaluation(
 										user,
 										element
 									)
-								">
+								" class="action-button">
 						<mat-icon>perm_phone_msg</mat-icon>
 					</button>
 
-					<button title="Completar o Cerrar asistencia" style="color: rgb(28, 141, 28)" mat-icon-button
-						(click)="actualizarAsistencia(element.id, 3)" *ngIf="
+					<button title="Completar o Cerrar asistencia" class="action-button action-button-success"
+						mat-icon-button (click)="actualizarAsistencia(element.id, 3)" *ngIf="
 									!enableCompleteBtn(
 										element.estatusAsistencia
 									) && hasValidStatus(user.rolUsuario)
 								">
 						<mat-icon>check_circle</mat-icon>
 					</button>
-					<button style="color: rgb(230, 89, 96)" title="Completar o Cerrar asistencia" mat-icon-button
-						(click)="removeAsistencia(element.id)" *ngIf="hasAnalystRole(user.rolUsuario)">
+					<button class="action-button action-button-danger" title="Completar o Cerrar asistencia"
+						mat-icon-button (click)="removeAsistencia(element.id)" *ngIf="hasAnalystRole(user.rolUsuario)">
 						<mat-icon>delete</mat-icon>
 					</button>
 				</div>
@@ -288,14 +275,14 @@
 
 		<!-- Row shown when there is no matching data. -->
 		<tr class="mat-row" *matNoDataRow>
-			<td class="mat-cell" colspan="12" style="width: 100%">
+			<td class="mat-cell no-data-cell" colspan="12">
 				No hay registros para mostrar
 			</td>
 		</tr>
 	</table>
 </div>
 <mat-divider></mat-divider>
-<mat-paginator #paginator style="margin-top: 0.5em" (page)="pageChanged($event)" [pageSizeOptions]="pageSizeOptions"
+<mat-paginator #paginator class="list-paginator" (page)="pageChanged($event)" [pageSizeOptions]="pageSizeOptions"
 	[length]="totalRows" [pageIndex]="filters.page" [pageSize]="filters.size" [showFirstLastButtons]="true"
 	aria-label="Select page">
 </mat-paginator>

@@ -9,9 +9,16 @@ import { MaterialModule } from '../material/material.module';
 import { GenericModule } from '../generic/generic.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EditComponent } from './pages/edit/edit.component';
+import { CedulaPipe } from '../asistencias/pipes/cedula.pipe';
 
 @NgModule({
-	declarations: [IndexComponent, ListComponent, CreateComponent, EditComponent],
+	declarations: [
+		IndexComponent,
+		ListComponent,
+		CreateComponent,
+		EditComponent,
+		CedulaPipe,
+	],
 	imports: [
 		CommonModule,
 		MiembrosRoutingModule,
@@ -20,5 +27,6 @@ import { EditComponent } from './pages/edit/edit.component';
 		ReactiveFormsModule,
 		FormsModule,
 	],
+	providers: [CedulaPipe],
 })
 export class MiembrosModule {}
