@@ -17,7 +17,6 @@ import { CedulaPipe } from '../asistencias/pipes/cedula.pipe';
 		ListComponent,
 		CreateComponent,
 		EditComponent,
-		CedulaPipe,
 	],
 	imports: [
 		CommonModule,
