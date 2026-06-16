@@ -17,7 +17,6 @@ import { CedulaPipe } from '../asistencias/pipes/cedula.pipe';
 		ListComponent,
 		CreateComponent,
 		EditComponent,
-		CedulaPipe,
 	],
 	imports: [
 		CommonModule,
@@ -27,6 +26,6 @@ import { CedulaPipe } from '../asistencias/pipes/cedula.pipe';
 		ReactiveFormsModule,
 		FormsModule,
 	],
-	providers: [CedulaPipe],
+	providers: [],
 })
 export class MiembrosModule {}

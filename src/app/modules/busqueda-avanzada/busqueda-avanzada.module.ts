@@ -7,7 +7,7 @@ import { GenericModule } from '../generic/generic.module';
 import { MaterialModule } from '../material/material.module';
 import { FormsModule } from '@angular/forms';
 import { AsistenciasService } from '../asistencias/services/asistencias.service';
-import { AsistenciasModule } from '../asistencias/asistencias.module';
+import { CedulaPipe } from '../asistencias/pipes/cedula.pipe';
 
 @NgModule({
 	declarations: [IndexComponent],
@@ -17,7 +17,6 @@ import { AsistenciasModule } from '../asistencias/asistencias.module';
 		BusquedaAvanzadaRoutingModule,
 		GenericModule,
 		MaterialModule,
-		AsistenciasModule,
 	],
 	providers: [AsistenciasService],
 })
