@@ -54,5 +54,6 @@ import { HistoricoAsistenciaAlfaComponent } from './components/historico-asisten
 		HttpClientModule,
 	],
 	providers: [CedulaPipe, TelefonoPipe, HoraMilitarPipe],
+	exports: [CedulaPipe, TelefonoPipe, HoraMilitarPipe],
 })
 export class AsistenciasModule {}
