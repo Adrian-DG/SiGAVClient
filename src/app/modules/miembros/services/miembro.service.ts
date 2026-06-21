@@ -29,18 +29,22 @@ export class MiembroService extends GenericService {
 		protected override $http: HttpClient,
 		protected override $router: Router,
 		private _snackbar: MatSnackBar,
-		private _spinner: SpinnerService
+		private _spinner: SpinnerService,
 	) {
 		super($http, $router);
 	}
 
 	getAllMiembros(
-		filters: IPaginationFilters
+		filters: IPaginationFilters,
 	): Observable<IPagedData<IMiembroViewModel>> {
 		return this.$http.get<IPagedData<IMiembroViewModel>>(
 			`${this.endPoint}/all`,
-			{ params: this.getPaginationParams(filters) }
+			{ params: this.getPaginationParams(filters) },
 		);
+	}
+
+	getMiembroById(id: number): Observable<IMiembro> {
+		return this.$http.get<IMiembro>(`${this.endPoint}/${id}`);
 	}
 
 	createMiembro(model: ICreateMiembro): void {
@@ -58,7 +62,7 @@ export class MiembroService extends GenericService {
 
 	UpdateEstatusMiembro(
 		id: number,
-		type: number
+		type: number,
 	): Observable<IServerResponse> {
 		return this.$http.put<IServerResponse>(`${this.endPoint}/authorize`, {
 			id: id,
@@ -69,7 +73,7 @@ export class MiembroService extends GenericService {
 	UpdateMiembro(id: number, miembro: IMiembro) {
 		return this.$http.put<IServerResponse>(
 			`${this.endPoint}/${id}/editar`,
-			miembro
+			miembro,
 		);
 	}
 }

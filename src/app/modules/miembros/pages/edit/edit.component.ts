@@ -19,7 +19,7 @@ export class EditComponent implements OnInit, AfterViewInit {
 		private $activeRoute: ActivatedRoute,
 		private _miembros: MiembroService,
 		public _cache: CacheService,
-		public $router: Router
+		public $router: Router,
 	) {}
 
 	ngOnInit(): void {
@@ -29,7 +29,7 @@ export class EditComponent implements OnInit, AfterViewInit {
 
 	ngAfterViewInit(): void {
 		this._miembros
-			.GetById<IMiembro>(this.id)
+			.getMiembroById(this.id)
 			.subscribe((data: IMiembro) => (this.miembro = data));
 	}
 
