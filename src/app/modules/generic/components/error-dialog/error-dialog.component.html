@@ -1,0 +1,30 @@
+<div class="error-dialog">
+    <div class="error-dialog__header">
+        <div class="error-dialog__icon-wrapper">
+            <mat-icon class="error-dialog__icon">error_outline</mat-icon>
+        </div>
+        <button mat-icon-button class="error-dialog__close-btn" (click)="close()" aria-label="Cerrar">
+            <mat-icon>close</mat-icon>
+        </button>
+    </div>
+
+    <div class="error-dialog__content">
+        <h2 class="error-dialog__title">{{ data.title }}</h2>
+        <p class="error-dialog__message">{{ data.message }}</p>
+        <div class="error-dialog__divider"></div>
+        <p class="error-dialog__footer-text" *ngIf="data.status !== undefined">
+            <strong>Codigo de error:</strong> {{ data.status }}
+        </p>
+    </div>
+
+    <mat-dialog-actions class="error-dialog__actions">
+        <button mat-stroked-button class="error-dialog__btn-secondary" (click)="close()">
+            <mat-icon>close</mat-icon>
+            Cancelar
+        </button>
+        <button mat-flat-button color="primary" class="error-dialog__btn-primary" (click)="close()">
+            <mat-icon>check_circle</mat-icon>
+            Entendido
+        </button>
+    </mat-dialog-actions>
+</div>

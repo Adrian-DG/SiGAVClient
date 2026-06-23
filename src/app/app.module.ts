@@ -9,6 +9,7 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { JwtInterceptor } from './interceptors/jwt/jwt.interceptor';
 import { GenericModule } from './modules/generic/generic.module';
 import { LoadingInterceptor } from './interceptors/loading/loading.interceptor';
+import { ErrorInterceptor } from './interceptors/error/error.interceptor';
 import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { DatePipe, registerLocaleData } from '@angular/common';
@@ -30,6 +31,7 @@ registerLocaleData(localeEs, 'es-ES');
 		}),
 	],
 	providers: [
+		{ provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
 		{ provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
 		{
 			provide: HTTP_INTERCEPTORS,
