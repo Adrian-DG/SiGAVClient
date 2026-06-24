@@ -189,7 +189,186 @@
 							</table>
 						</div>
 					</mat-expansion-panel>
-				</mat-accordion>
+					<!-- Crear o Actualizar Asistencia -->
+
+					<mat-expansion-panel class="panel panel-report">
+						<mat-expansion-panel-header>
+							<mat-panel-title>
+								Crear o Actualizar Asistencia
+							</mat-panel-title>
+							<mat-panel-description>
+								Ingrese los datos completos de la asistencia para guardar
+							</mat-panel-description>
+						</mat-expansion-panel-header>
+
+						<div class="filter-groups">
+							<!-- Datos de la Asistencia -->
+							<fieldset class="filter-group">
+								<legend>Datos de la Asistencia</legend>
+								<div class="filter-row">
+									<mat-form-field>
+										<mat-label>No Asistencia</mat-label>
+										<input matInput [(ngModel)]="reportData.noAsistencia" />
+									</mat-form-field>
+									<mat-form-field>
+										<mat-label>Tipo de Asistencia</mat-label>
+										<input matInput [(ngModel)]="reportData.tipoAsistencia" />
+									</mat-form-field>
+									<mat-form-field>
+										<mat-label>Cantidad de Personas</mat-label>
+										<input matInput type="number" [(ngModel)]="reportData.cantidadPersonas" />
+									</mat-form-field>
+									<mat-form-field>
+										<mat-label>Asistencia en Campo</mat-label>
+										<input matInput [(ngModel)]="reportData.asistenciaEnCampo" />
+									</mat-form-field>
+								</div>
+							</fieldset>
+
+							<!-- Datos del Ciudadano -->
+							<fieldset class="filter-group">
+								<legend>Datos del Ciudadano</legend>
+								<div class="filter-row">
+									<mat-form-field>
+										<mat-label>Identificacion</mat-label>
+										<input matInput [(ngModel)]="reportData.identificacion" />
+									</mat-form-field>
+									<mat-form-field>
+										<mat-label>Nombre</mat-label>
+										<input matInput [(ngModel)]="reportData.nombre" />
+									</mat-form-field>
+									<mat-form-field>
+										<mat-label>Apellido</mat-label>
+										<input matInput [(ngModel)]="reportData.apellido" />
+									</mat-form-field>
+									<mat-form-field>
+										<mat-label>Telefono</mat-label>
+										<input matInput [(ngModel)]="reportData.telefono" />
+									</mat-form-field>
+								</div>
+							</fieldset>
+
+							<!-- Ubicacion -->
+							<fieldset class="filter-group">
+								<legend>Ubicacion</legend>
+								<div class="filter-row">
+									<mat-form-field>
+										<mat-label>Ubicacion</mat-label>
+										<input matInput [(ngModel)]="reportData.ubicacion" />
+									</mat-form-field>
+									<mat-form-field>
+										<mat-label>Provincia</mat-label>
+										<input matInput [(ngModel)]="reportData.provincia" />
+									</mat-form-field>
+									<mat-form-field>
+										<mat-label>Municipio</mat-label>
+										<input matInput [(ngModel)]="reportData.municipio" />
+									</mat-form-field>
+									<mat-form-field>
+										<mat-label>Tramo</mat-label>
+										<input matInput [(ngModel)]="reportData.tramo" />
+									</mat-form-field>
+								</div>
+							</fieldset>
+
+							<!-- Datos del Vehiculo -->
+							<fieldset class="filter-group">
+								<legend>Datos del Vehiculo</legend>
+								<div class="filter-row">
+									<mat-form-field>
+										<mat-label>Marca</mat-label>
+										<input matInput [(ngModel)]="reportData.marca" />
+									</mat-form-field>
+									<mat-form-field>
+										<mat-label>Modelo</mat-label>
+										<input matInput [(ngModel)]="reportData.modelo" />
+									</mat-form-field>
+									<mat-form-field>
+										<mat-label>Tipo</mat-label>
+										<input matInput [(ngModel)]="reportData.tipo" />
+									</mat-form-field>
+									<mat-form-field>
+										<mat-label>Ano</mat-label>
+										<input matInput [(ngModel)]="reportData.ano" placeholder="Ej: 2024" />
+									</mat-form-field>
+									<mat-form-field>
+										<mat-label>Color</mat-label>
+										<input matInput [(ngModel)]="reportData.color" />
+									</mat-form-field>
+									<mat-form-field>
+										<mat-label>Placa</mat-label>
+										<input matInput [(ngModel)]="reportData.placa" />
+									</mat-form-field>
+								</div>
+							</fieldset>
+
+							<!-- Datos de la Patrullera -->
+							<fieldset class="filter-group">
+								<legend>Datos de la Patrullera</legend>
+								<div class="filter-row">
+									<mat-form-field>
+										<mat-label>Denominacion</mat-label>
+										<input matInput [(ngModel)]="reportData.denominacion" />
+									</mat-form-field>
+									<mat-form-field>
+										<mat-label>Ficha</mat-label>
+										<input matInput [(ngModel)]="reportData.ficha" />
+									</mat-form-field>
+									<mat-form-field>
+										<mat-label>Agente</mat-label>
+										<input matInput [(ngModel)]="reportData.agente" />
+									</mat-form-field>
+								</div>
+							</fieldset>
+
+							<!-- Tiempos y Fechas -->
+							<fieldset class="filter-group">
+								<legend>Tiempos y Fechas</legend>
+								<div class="filter-row">
+									<mat-form-field>
+										<mat-label>Fecha Creacion</mat-label>
+										<input matInput [(ngModel)]="reportData.fechaCreacion"
+											placeholder="DD/MM/YYYY" />
+									</mat-form-field>
+									<mat-form-field>
+										<mat-label>Hora Despacho</mat-label>
+										<input matInput [(ngModel)]="reportData.horaDespacho" placeholder="HH:MM" />
+									</mat-form-field>
+									<mat-form-field>
+										<mat-label>Hora Llegada</mat-label>
+										<input matInput [(ngModel)]="reportData.horaLlegada" placeholder="HH:MM" />
+									</mat-form-field>
+									<mat-form-field>
+										<mat-label>Hora Salida</mat-label>
+										<input matInput [(ngModel)]="reportData.horaSalida" placeholder="HH:MM" />
+									</mat-form-field>
+								</div>
+							</fieldset>
+
+							<!-- Observaciones y Otros -->
+							<fieldset class="filter-group">
+								<legend>Observaciones y Otros</legend>
+								<div class="filter-row" style="display: flex; flex-direction: column; gap: 0.7rem;">
+									<mat-form-field style="width: 100%;">
+										<mat-label>Observaciones</mat-label>
+										<textarea matInput rows="3" [(ngModel)]="reportData.observaciones"></textarea>
+									</mat-form-field>
+								</div>
+							</fieldset>
+						</div>
+
+						<div style="display: flex; gap: 0.75rem; margin-top: 1rem;">
+							<button mat-raised-button color="primary" class="search-action" (click)="submitReport()"
+								[disabled]="!hasValidReportData">
+								<mat-icon>save</mat-icon>
+								Guardar Asistencia
+							</button>
+							<button mat-stroked-button (click)="resetReportData()">
+								<mat-icon>refresh</mat-icon>
+								Limpiar Formulario
+							</button>
+						</div>
+					</mat-expansion-panel> </mat-accordion>
 			</mat-card-content>
 		</mat-card>
 		<aside class="report-viewer">

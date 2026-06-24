@@ -1,0 +1,30 @@
+export interface IAsistenciaReportField {
+	noAsistencia: number;
+	identificacion: string;
+	nombre: string;
+	apellido: string;
+	telefono: string;
+	cantidadPersonas: string;
+	ubicacion: string;
+	provincia: string;
+	municipio: string;
+	tramo: string;
+	marca: string;
+	modelo: string;
+	tipo: string;
+	ano: number;
+	color: string;
+	placa: string;
+	tipoAsistencia: string;
+	denominacion: string;
+	ficha: string;
+	agente: string;
+	asistenciaEnCampo: string;
+	fechaCreacion: string;
+	horaDespacho: string;
+	horaLlegada: string;
+	horaSalida: string;
+	observaciones: string;
+	usuario: string;
+	estatus: boolean;
+}

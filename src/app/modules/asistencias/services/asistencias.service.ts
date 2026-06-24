@@ -1,4 +1,4 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpParams, HttpResponse } from '@angular/common/http';
 import { Location } from '@angular/common';
 import { Injectable } from '@angular/core';
 import { Observable, filter, finalize } from 'rxjs';
@@ -21,6 +21,7 @@ import { IAsistenciaCalidadViewModel } from '../DTO/iasistencia-calidad-view-mod
 import { IAsistenciaCalidadEdit } from '../DTO/iasistencia-calidad-edit';
 import { IAsistenciaPreHospitalariaMinorDetailsViewModel } from '../viewModels/iasistencia-pre-hospitalaria-minor-details-view-model';
 import { IAsistenciaPaginationAdvanceFilter } from '../DTO/iasistencia-pagination-advance-filter';
+import { IAsistenciaReportField } from '../DTO/iasistencia-report-field';
 
 @Injectable({
 	providedIn: 'root',
@@ -33,7 +34,7 @@ export class AsistenciasService extends GenericService {
 	constructor(
 		protected override $http: HttpClient,
 		protected override $router: Router,
-		private _spinner: SpinnerService
+		private _spinner: SpinnerService,
 	) {
 		super($http, $router);
 	}
@@ -43,7 +44,7 @@ export class AsistenciasService extends GenericService {
 	}
 
 	getAsistenciaPaginationParams(
-		filters: IAsistenciaPaginationAdvanceFilter
+		filters: IAsistenciaPaginationAdvanceFilter,
 	): HttpParams {
 		return new HttpParams()
 			.set('page', filters.page)
@@ -57,13 +58,13 @@ export class AsistenciasService extends GenericService {
 	}
 
 	getAllAsistencias(
-		filters: IAsistenciaPaginationAdvanceFilter
+		filters: IAsistenciaPaginationAdvanceFilter,
 	): Observable<IPagedData<IAsistenciaViewModel>> {
 		return this.$http.get<IPagedData<IAsistenciaViewModel>>(
 			`${this.endPoint}/all`,
 			{
 				params: this.getAsistenciaPaginationParams(filters),
-			}
+			},
 		);
 	}
 
@@ -80,22 +81,22 @@ export class AsistenciasService extends GenericService {
 	}
 
 	updateAsistenciaCompletar(
-		model: IUpdateAsistencia
+		model: IUpdateAsistencia,
 	): Observable<IServerResponse> {
 		const estatus = model.estatusAsistencia == 2 ? 'comenzar' : 'completar';
 		return this.$http.put<IServerResponse>(
 			`${this.endPoint}/actualizar`,
-			model
+			model,
 		);
 	}
 
 	updateAsistenciaTipoCierre(
 		id: number,
-		tipoCierre: number
+		tipoCierre: number,
 	): Observable<IServerResponse> {
 		return this.$http.put<IServerResponse>(
 			`${this.endPoint}/${id}/actualizar-tipo-cierre`,
-			tipoCierre
+			tipoCierre,
 		);
 	}
 
@@ -136,7 +137,7 @@ export class AsistenciasService extends GenericService {
 	GetHistorialAsistencia(id: number): Observable<IHistoricoViewModel[]> {
 		return this.$http.get<IHistoricoViewModel[]>(
 			`${this.endPoint}/historial`,
-			{ params: new HttpParams().set('IdAsistencia', id) }
+			{ params: new HttpParams().set('IdAsistencia', id) },
 		);
 	}
 
@@ -162,7 +163,7 @@ export class AsistenciasService extends GenericService {
 
 	GetAsistenciaFechaNewFormatsExcel(
 		filterType: number,
-		dateFilter: IDateFilter
+		dateFilter: IDateFilter,
 	) {
 		const params = new HttpParams()
 			.set('filterType', filterType)
@@ -185,49 +186,49 @@ export class AsistenciasService extends GenericService {
 				observe: 'response',
 				responseType: 'blob',
 				params: params,
-			}
+			},
 		);
 	}
 
 	GetRegistroCalidadAsistencia(
-		id: number
+		id: number,
 	): Observable<IAsistenciaCalidadViewModel> {
 		return this.$http.get<IAsistenciaCalidadViewModel>(
-			`${this.endPoint}/${id}/registro-calidad`
+			`${this.endPoint}/${id}/registro-calidad`,
 		);
 	}
 
 	CreateRegistroCalidadAsistencia(
-		model: IAsistenciaCalidadCreate
+		model: IAsistenciaCalidadCreate,
 	): Observable<IServerResponse> {
 		model.usuarioId = this.userId;
 		return this.$http.post<IServerResponse>(
 			`${this.endPoint}/create-registro-calidad`,
-			model
+			model,
 		);
 	}
 
 	EditRegistroCalidadAsistencia(
 		id: number,
-		model: IAsistenciaCalidadEdit
+		model: IAsistenciaCalidadEdit,
 	): Observable<IServerResponse> {
 		return this.$http.put<IServerResponse>(
 			`${this.endPoint}/${id}/registro-calidad`,
-			model
+			model,
 		);
 	}
 
 	MarcarAsistenciaReportadaWhatsApp(id: number): Observable<IServerResponse> {
 		return this.$http.put<IServerResponse>(
 			`${this.endPoint}/${id}/marcar-asistencia-reportada-whatsapp/`,
-			id
+			id,
 		);
 	}
 
 	MarcarAsistenciaReportada511(id: number): Observable<IServerResponse> {
 		return this.$http.put<IServerResponse>(
 			`${this.endPoint}/${id}/marcar-asistencia-reportada-511/`,
-			id
+			id,
 		);
 	}
 
@@ -243,7 +244,7 @@ export class AsistenciasService extends GenericService {
 	}
 
 	GetHistorialAsistenciaPorAlfa(
-		alfaId: number
+		alfaId: number,
 	): Observable<IAsistenciaPreHospitalariaMinorDetailsViewModel[]> {
 		const params = new HttpParams().set('Id', alfaId);
 		return this.$http.get<
@@ -251,9 +252,9 @@ export class AsistenciasService extends GenericService {
 		>(
 			`${this.endPoint.replace(
 				'asistencias',
-				'pre-hospitalaria'
+				'pre-hospitalaria',
 			)}/historial`,
-			{ params: params }
+			{ params: params },
 		);
 	}
 
@@ -263,7 +264,7 @@ export class AsistenciasService extends GenericService {
 
 	filtrarAsistenciasAvanzada(
 		filters: IPaginationFilters,
-		parameters: { [key: string]: any }
+		parameters: { [key: string]: any },
 	): Observable<any[]> {
 		let params = new HttpParams();
 
@@ -278,7 +279,7 @@ export class AsistenciasService extends GenericService {
 			filters,
 			{
 				params: params,
-			}
+			},
 		);
 	}
 
@@ -289,19 +290,19 @@ export class AsistenciasService extends GenericService {
 				observe: 'response',
 				responseType: 'blob',
 				reportProgress: true,
-			}
+			},
 		);
 	}
 
 	ConfirmarTiempoLlegada(id: number) {
 		return this.$http.put<IServerResponse>(
 			`${this.endPoint}/confirmar-tiempo-llegada/${id}`,
-			{}
+			{},
 		);
 	}
 
 	generarReporteHistoricoAsistenciasR5(
-		filters: IAsistenciaPaginationAdvanceFilter
+		filters: IAsistenciaPaginationAdvanceFilter,
 	) {
 		return this.$http.get(
 			`${this.endPoint}/reporte/historico-asistencias-r5`,
@@ -310,17 +311,30 @@ export class AsistenciasService extends GenericService {
 				responseType: 'blob',
 				reportProgress: true,
 				params: this.getAsistenciaPaginationParams(filters),
-			}
+			},
 		);
 	}
 
 	getReporteAsistenciasSolicitadasR5(
-		filter: IAsistenciaPaginationAdvanceFilter
+		filter: IAsistenciaPaginationAdvanceFilter,
 	) {
 		return this.$http.get(`${this.endPoint}/reporte/excel-r5`, {
 			observe: 'response',
 			responseType: 'blob',
 			params: this.getAsistenciaPaginationParams(filter),
 		});
+	}
+
+	generatePdfReportFromInput(
+		model: IAsistenciaReportField,
+	): Observable<HttpResponse<Blob>> {
+		return this.$http.post(
+			`${this.endPoint}/reporte/estadistico-avanzado-from-input`,
+			model,
+			{
+				observe: 'response',
+				responseType: 'blob',
+			},
+		);
 	}
 }
