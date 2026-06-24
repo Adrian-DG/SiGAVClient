@@ -11,33 +11,31 @@ import { Router } from '@angular/router';
 
 @Injectable()
 export class JwtInterceptor implements HttpInterceptor {
-	constructor(private $router: Router) {}
+	constructor(private router: Router) {}
 
 	intercept(
 		request: HttpRequest<unknown>,
-		next: HttpHandler
+		next: HttpHandler,
 	): Observable<HttpEvent<unknown>> {
-		let req = request;
-		const bearerToken: string | null = sessionStorage?.getItem('token');
+		const bearerToken = sessionStorage?.getItem('token');
 
+		// 1. Cleaned up cloning logic
 		if (bearerToken) {
-			request = req.clone({
+			request = request.clone({
 				setHeaders: { Authorization: `Bearer ${bearerToken}` },
 			});
 		}
 
-		return next
-			.handle(request)
-			.pipe(
-				catchError((error: HttpErrorResponse) => this.showError(error))
-			);
-	}
+		// 2. Explicitly return the catchError observable stream
+		return next.handle(request).pipe(
+			catchError((error: HttpErrorResponse) => {
+				if (error.status === 401) {
+					this.router.navigate(['/']);
+				}
 
-	showError(error: HttpErrorResponse) {
-		if (error.status === 401) {
-			this.$router.navigate(['/']);
-		}
-
-		return throwError(() => new Error('Invalid token'));
+				// 3. Pass the original error through so components know what went wrong
+				return throwError(() => error);
+			}),
+		);
 	}
 }

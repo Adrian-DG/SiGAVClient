@@ -7,12 +7,15 @@ import {
 	HttpErrorResponse,
 } from '@angular/common/http';
 import { catchError, Observable, throwError } from 'rxjs';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ErrorDialogComponent } from 'src/app/modules/generic/components/error-dialog/error-dialog.component';
 import { IServerResponse } from 'src/app/modules/generic/Responses/iserver-response';
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
+	// Flag to track if an error modal is already on-screen
+	private isDialogOpen = false;
+
 	constructor(private _dialog: MatDialog) {}
 
 	intercept(
@@ -20,46 +23,55 @@ export class ErrorInterceptor implements HttpInterceptor {
 		next: HttpHandler,
 	): Observable<HttpEvent<unknown>> {
 		return next.handle(request).pipe(
-			catchError((error: any) => {
+			catchError((error: unknown) => {
 				console.error('ErrorInterceptor:', error);
-				this.showErrorDialog(error);
+
+				// Only process actual HTTP errors
+				if (error instanceof HttpErrorResponse) {
+					this.showErrorDialog(error);
+				}
+
 				return throwError(() => error);
 			}),
 		);
 	}
 
-	private showErrorDialog(error: any): void {
+	private showErrorDialog(error: HttpErrorResponse): void {
+		// Prevent dialog spam if one is already open
+		if (this.isDialogOpen) {
+			return;
+		}
+
 		let title = 'Error';
 		let message = 'Se produjo un error inesperado.';
 		let status = false;
 
-		// Check if it's an Angular HttpErrorResponse wrapper
-		if (error instanceof HttpErrorResponse) {
-			// Extract the actual backend payload from the .error property
-			const serverResponse = error.error as IServerResponse;
+		const serverResponse = error.error as IServerResponse | undefined;
 
-			if (serverResponse) {
-				title = serverResponse.title || title;
-				message = serverResponse.message || message;
-				status = serverResponse.status ?? false;
-			} else if (error.status === 0) {
-				// Connection or CORS error (server is offline)
-				message =
-					'No se pudo conectar con el servidor. Verifique su conexión.';
-			} else {
-				// Fallback for raw status text if no JSON body was parsed
-				message = error.message || message;
-			}
+		// Ensure serverResponse is actually an object and contains expected properties
+		if (serverResponse && typeof serverResponse === 'object') {
+			title = serverResponse.title || title;
+			message = serverResponse.message || message;
+			status = serverResponse.status ?? false;
+		} else if (error.status === 0) {
+			message =
+				'No se pudo conectar con el servidor. Verifique su conexión.';
+		} else {
+			// Fallback to the Angular HttpErrorResponse message string if no body present
+			message = error.message || message;
 		}
 
-		this._dialog.open(ErrorDialogComponent, {
+		this.isDialogOpen = true;
+
+		const dialogRef = this._dialog.open(ErrorDialogComponent, {
 			width: '420px',
 			disableClose: true,
-			data: {
-				title,
-				message,
-				status,
-			},
+			data: { title, message, status },
+		});
+
+		// Reset the flag once the user acknowledges and closes the modal
+		dialogRef.afterClosed().subscribe(() => {
+			this.isDialogOpen = false;
 		});
 	}
 }
