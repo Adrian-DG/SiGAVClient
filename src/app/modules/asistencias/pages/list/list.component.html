@@ -1,13 +1,13 @@
 <div class="row filters-container">
 	<div class="col filter-col filter-col-search">
-		<mat-form-field class="filter-field">
+		<mat-form-field class="filter-field" appearance="outline">
 			<mat-label>Filtrar</mat-label>
 			<input matInput placeholder="Nombre o Identificación" [formControl]="searchBarControl" />
 		</mat-form-field>
 	</div>
 
 	<div class="col filter-col">
-		<mat-form-field class="filter-field">
+		<mat-form-field class="filter-field" appearance="outline">
 			<mat-label>Tipo Busqueda</mat-label>
 			<mat-select [(ngModel)]="filters.tipoBusqueda">
 				<mat-option [value]="1">Cédula/Pasaporte o Nombre</mat-option>
@@ -26,7 +26,7 @@
 	</div>
 
 	<div class="col filter-col">
-		<mat-form-field class="filter-field">
+		<mat-form-field class="filter-field" appearance="outline">
 			<mat-label>Rango de fecha</mat-label>
 			<mat-date-range-input [rangePicker]="picker">
 				<input matStartDate placeholder="Fecha Inicial" [(ngModel)]="filters.initialDate" />
@@ -40,7 +40,7 @@
 	</div>
 
 	<div class="col filter-col" *ngIf="_auth.userData$ | async as user">
-		<mat-form-field class="filter-field">
+		<mat-form-field class="filter-field" appearance="outline">
 			<mat-label>Reportes</mat-label>
 			<mat-select (selectionChange)="onReportSelection($event.value)">
 				<mat-option [value]="6">Listado Asistencia Solicitadas (Call Center R5
@@ -176,97 +176,81 @@
 		<ng-container matColumnDef="acciones" *ngIf="_auth.userData$ | async as user">
 			<th mat-header-cell *matHeaderCellDef>Acciones</th>
 			<td mat-cell *matCellDef="let element">
-				<!-- <mat-accordion>
-					<mat-expansion-panel hideToggle>
-						<mat-expansion-panel-header>
-							<mat-panel-title> Acciones </mat-panel-title>
-						</mat-expansion-panel-header>
-						
-					</mat-expansion-panel>
-					
-				</mat-accordion> -->
-				<div class="action-row">
+				<button mat-icon-button class="action-menu-trigger" [matMenuTriggerFor]="actionsMenu" title="Acciones">
+					<mat-icon>more_vert</mat-icon>
+				</button>
 
-					<button class="action-button" *ngIf=" 
-									element.estatusAsistencia != 'COMPLETADA'
-								" title="Actualizar Tipo de Cierre" mat-icon-button (click)="actualizarTipoCierre(element.id)">
+				<mat-menu #actionsMenu="matMenu" xPosition="before">
+					<button mat-menu-item *ngIf="element.estatusAsistencia != 'COMPLETADA'"
+						(click)="actualizarTipoCierre(element.id)">
 						<mat-icon>flag</mat-icon>
+						<span>Actualizar Tipo de Cierre</span>
 					</button>
-					<button class="action-button" title="Confirmar llegada" mat-icon-button
-						(click)="ConfirmarTiempoLlegada(element.id)">
+
+					<button mat-menu-item (click)="ConfirmarTiempoLlegada(element.id)">
 						<mat-icon>access_alarm</mat-icon>
+						<span>Confirmar llegada</span>
 					</button>
-					<button class="action-button" title="Reasignar Asistencia" *ngIf="
-									element.estatusAsistencia != 'COMPLETADA' &&
-									hasValidStatus(user.rolUsuario)
-								" mat-icon-button (click)="openReasignationModal(element)">
+
+					<button mat-menu-item
+						*ngIf="element.estatusAsistencia != 'COMPLETADA' && hasValidStatus(user.rolUsuario)"
+						(click)="openReasignationModal(element)">
 						<mat-icon>autorenew</mat-icon>
+						<span>Reasignar Asistencia</span>
 					</button>
-					<button title="Fotos asistencia" mat-icon-button class="action-button" (click)="
-									openPicturesDialog(
-										element.id,
-										element.identificacion,
-										element.placa
-									)
-								" *ngIf="hasCompleteEstatus(element)">
+
+					<button mat-menu-item *ngIf="hasCompleteEstatus(element)"
+						(click)="openPicturesDialog(element.id, element.identificacion, element.placa)">
 						<mat-icon>collections</mat-icon>
+						<span>Fotos asistencia</span>
 					</button>
-					<button title="Historial de asignaciones" mat-icon-button class="action-button"
-						*ngIf="hasCompleteEstatus(element)" (click)="openHistoricoModal(element.id)">
+
+					<button mat-menu-item *ngIf="hasCompleteEstatus(element)" (click)="openHistoricoModal(element.id)">
 						<mat-icon>history</mat-icon>
+						<span>Historial de asignaciones</span>
 					</button>
-					<!-- Editar -->
-					<button title="Editar Asistencia" mat-icon-button class="action-button"
-						*ngIf="hasValidStatus(user.rolUsuario)" (click)="openEditAsistenciaModal(element)">
+
+					<button mat-menu-item *ngIf="hasValidStatus(user.rolUsuario)"
+						(click)="openEditAsistenciaModal(element)">
 						<mat-icon>edit</mat-icon>
+						<span>Editar Asistencia</span>
 					</button>
 
-					<button class="action-button" title="Detalles Asistencia" mat-icon-button
-						(click)="openDetailsAsistenciaModal(element)">
+					<button mat-menu-item (click)="openDetailsAsistenciaModal(element)">
 						<mat-icon>info</mat-icon>
+						<span>Detalles Asistencia</span>
 					</button>
 
-					<button *ngIf="element.reportadaPor !== 'WhatsApp'" class="action-button whatsapp-button"
-						title="Marcar Recibida Whatsapp" mat-icon-button (click)="
-									MarcarAsistenciaReportadaWhatsApp(
-										element.id
-									)
-								">
-						<img src="../../../../../assets/whatsapp-symbol-logo-svgrepo-com.svg" alt="" />
+					<button mat-menu-item *ngIf="element.reportadaPor !== 'WhatsApp'"
+						(click)="MarcarAsistenciaReportadaWhatsApp(element.id)">
+						<mat-icon>chat</mat-icon>
+						<span>Marcar reportada por WhatsApp</span>
 					</button>
 
-					<button mat-icon-button class="action-button report-source-button" (click)="
-									MarcarAsistenciaReportada511(element.id)
-								">
-						511
+					<button mat-menu-item (click)="MarcarAsistenciaReportada511(element.id)">
+						<mat-icon>call</mat-icon>
+						<span>Marcar reportada por 511</span>
 					</button>
 
-					<button [ngStyle]="{
-									color: element.fueEvaluada
-										? 'rgb(73, 73, 73)'
-										: 'rgb(212, 89, 89)'
-								}" title="Evaluar Calidad Asistencia" mat-icon-button (click)="openAsistenciaCalidadModal(element)" *ngIf="
-									isAvailableForQualityEvaluation(
-										user,
-										element
-									)
-								" class="action-button">
+					<button mat-menu-item *ngIf="isAvailableForQualityEvaluation(user, element)"
+						(click)="openAsistenciaCalidadModal(element)" [class.menu-action-alert]="!element.fueEvaluada">
 						<mat-icon>perm_phone_msg</mat-icon>
+						<span>Evaluar Calidad Asistencia</span>
 					</button>
 
-					<button title="Completar o Cerrar asistencia" class="action-button action-button-success"
-						mat-icon-button (click)="actualizarAsistencia(element.id, 3)" *ngIf="
-									!enableCompleteBtn(
-										element.estatusAsistencia
-									) && hasValidStatus(user.rolUsuario)
-								">
+					<button mat-menu-item
+						*ngIf="!enableCompleteBtn(element.estatusAsistencia) && hasValidStatus(user.rolUsuario)"
+						(click)="actualizarAsistencia(element.id, 3)" class="menu-action-success">
 						<mat-icon>check_circle</mat-icon>
+						<span>Completar o Cerrar asistencia</span>
 					</button>
-					<button class="action-button action-button-danger" title="Completar o Cerrar asistencia"
-						mat-icon-button (click)="removeAsistencia(element.id)" *ngIf="hasAnalystRole(user.rolUsuario)">
+
+					<button mat-menu-item *ngIf="hasAnalystRole(user.rolUsuario)" (click)="removeAsistencia(element.id)"
+						class="menu-action-danger">
 						<mat-icon>delete</mat-icon>
+						<span>Eliminar asistencia</span>
 					</button>
-				</div>
+				</mat-menu>
 			</td>
 		</ng-container>
 
