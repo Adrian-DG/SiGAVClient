@@ -1,51 +1,62 @@
-<div class="dialog">
+<div class="dialog" #dialogShell>
 	<div mat-dialog-title class="title">
 		<div class="row">
 			<h2>Imagenes Asistencia</h2>
-			<!-- <button mat-icon-button mat-dialog-close>
-				<mat-icon>close</mat-icon>
-			</button> -->
+			<div class="title-actions">
+				<span class="count-pill" *ngIf="hasPictures">{{ pictures.length }} imagenes</span>
+				<button type="button" mat-icon-button class="close-icon" (click)="closeDialog()"
+					aria-label="Cerrar dialogo">
+					<mat-icon>close</mat-icon>
+				</button>
+			</div>
 		</div>
-		<small
-			>Las imagenes siguientes corresponden a la asistencia con ID
-			<strong>{{ data.id }}</strong
-			>.</small
-		>
-		<span
-			>Identificación Ciudadano: {{ data.cedula | cedula }} | Placa:
-			{{ data.placa }}</span
-		>
+		<small>Las imagenes siguientes corresponden a la asistencia con ID
+			<strong>{{ data.id }}</strong>.</small>
+		<span class="meta">Identificación Ciudadano: {{ data.cedula | cedula }} | Placa:
+			{{ data.placa }}</span>
 	</div>
 	<div mat-dialog-content [align]="'start'" class="content">
-		<mat-grid-list
-			*ngIf="hasPictures; else empty"
-			cols="2"
-			rowHeight="2:2"
-			[gutterSize]="'10px'"
-		>
-			<mat-grid-tile
-				*ngFor="let item of pictures; index as i"
-				style="border: 2px solid gainsboro"
-			>
-				<img
-					[src]="item"
-					class="pictures"
-					style="object-fit: scale-down"
-				/>
-			</mat-grid-tile>
-		</mat-grid-list>
+		<div *ngIf="hasPictures; else empty" class="viewer-shell">
+			<div class="viewer-toolbar">
+				<div class="zoom-state">Zoom {{ zoomPercent }}%</div>
+				<div class="zoom-actions">
+					<button mat-mini-fab color="primary" (click)="zoomOut()" [disabled]="zoomLevel <= minZoom"
+						aria-label="Reducir zoom">
+						<mat-icon>remove</mat-icon>
+					</button>
+					<button mat-mini-fab color="primary" (click)="zoomIn()" [disabled]="zoomLevel >= maxZoom"
+						aria-label="Aumentar zoom">
+						<mat-icon>add</mat-icon>
+					</button>
+					<button mat-icon-button (click)="resetZoom()" [disabled]="zoomLevel === minZoom"
+						aria-label="Restablecer zoom" title="Restablecer zoom">
+						<mat-icon>center_focus_strong</mat-icon>
+					</button>
+				</div>
+			</div>
+
+			<div class="preview-stage" (wheel)="onWheelZoom($event)">
+				<img *ngIf="selectedPicture" [src]="selectedPicture" class="preview-image"
+					[style.transform]="'scale(' + zoomLevel + ')'" (dblclick)="toggleZoom()" />
+			</div>
+
+			<div class="thumb-strip" role="listbox" aria-label="Lista de imagenes">
+				<button type="button" class="thumb" *ngFor="let item of pictures; index as i" (click)="selectPicture(i)"
+					[class.active]="i === selectedPictureIndex">
+					<img [src]="item" alt="Imagen {{ i + 1 }}" />
+				</button>
+			</div>
+		</div>
 		<ng-template #empty>
-			<mat-progress-bar
-				*ngIf="isLoading"
-				mode="indeterminate"
-				color="accent"
-			></mat-progress-bar>
+			<mat-progress-bar *ngIf="isLoading" mode="indeterminate" color="accent"></mat-progress-bar>
 			<div *ngIf="!isLoading" class="alert-message">
 				<h3>No hay imagenes para mostrar</h3>
 			</div>
 		</ng-template>
 	</div>
 	<div mat-dialog-actions [align]="'end'" class="actions">
-		<button mat-raised-button mat-dialog-close>Cerrar</button>
+		<button mat-raised-button color="primary" (click)="closeDialog()">Cerrar</button>
 	</div>
+	<button type="button" class="resize-handle" (mousedown)="startResize($event)" aria-label="Redimensionar dialogo"
+		title="Arrastra para cambiar tamano"></button>
 </div>

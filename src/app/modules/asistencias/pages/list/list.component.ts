@@ -319,15 +319,17 @@ export class ListComponent implements OnInit, AfterViewInit {
 	private modalConfig: MatDialogConfig = {
 		minWidth: '500px',
 		minHeight: '150px',
-		maxWidth: '900px',
-		maxHeight: '600px',
+		maxWidth: '1000px',
+		maxHeight: '1000px',
 		autoFocus: true,
 	};
 
 	openPicturesDialog(id: number, cedula: string, placa: string): void {
 		this.dialog.open(PicturesDialogComponent, {
 			data: { id: id, cedula: cedula, placa: placa },
-			...this.modalConfig,
+			maxWidth: '1000px',
+			maxHeight: '1000px',
+			autoFocus: true,
 		});
 	}
 
