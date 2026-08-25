@@ -5,6 +5,7 @@ import { Route, Router } from '@angular/router';
 import { IStatsFilterDTO } from '../interfaces/istats-filter-dto';
 import { IReportData } from '../interfaces/ireport-data';
 import { Observable } from 'rxjs';
+import { IDateFilter } from '../../asistencias/DTO/idate-filter';
 
 @Injectable({
 	providedIn: 'root',
@@ -135,7 +136,12 @@ export class ReportsService extends GenericService {
 		});
 	}
 
-	getTotalAsistencias(): Observable<number> {
-		return this.$http.get<number>(`${this.endPoint}/total-asistencias`);
+	getTotalAsistencias(filters: IStatsFilterDTO): Observable<number> {
+		const params = new HttpParams()
+			.set('initial', filters.initial.toDateString())
+			.set('final', filters.final.toDateString());
+		return this.$http.get<number>(`${this.endPoint}/total-asistencias`, {
+			params: params,
+		});
 	}
 }

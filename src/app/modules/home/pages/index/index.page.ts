@@ -3,6 +3,7 @@ import { BehaviorSubject } from 'rxjs';
 import { ReportsService } from 'src/app/modules/reportes/services/reports.service';
 import { ChartType, ChartOptions } from 'chart.js';
 import { Router } from '@angular/router';
+import { IDateFilter } from 'src/app/modules/asistencias/DTO/idate-filter';
 
 interface ChartCardProperties {
 	type: ChartType;
@@ -25,6 +26,12 @@ interface ChartCardProperties {
 	styleUrls: ['./index.page.css'],
 })
 export class IndexPage implements OnInit {
+	dateFilter: IDateFilter = {
+		initialDate: new Date(new Date().setDate(new Date().getDate() - 30)),
+		finalDate: new Date(),
+	};
+	activeQuickRange: number | null = 30;
+
 	totalAsistenciasSource = new BehaviorSubject<number>(0);
 	totalAsistencias$ = this.totalAsistenciasSource.asObservable();
 	chartCards = {
@@ -68,6 +75,66 @@ export class IndexPage implements OnInit {
 
 	ngOnInit(): void {
 		this.loadReportData();
+	}
+
+	applyDateFilter(): void {
+		if (!this.dateFilter.initialDate || !this.dateFilter.finalDate) {
+			return;
+		}
+
+		if (this.dateFilter.initialDate > this.dateFilter.finalDate) {
+			const initialDate = this.dateFilter.initialDate;
+			this.dateFilter.initialDate = this.dateFilter.finalDate;
+			this.dateFilter.finalDate = initialDate;
+		}
+
+		this.activeQuickRange = null;
+
+		this.loadReportData();
+	}
+
+	resetDateFilter(): void {
+		this.setQuickRange(30);
+	}
+
+	setQuickRange(days: number): void {
+		const finalDate = new Date();
+		const initialDate = new Date();
+		initialDate.setDate(finalDate.getDate() - days);
+
+		this.dateFilter = {
+			initialDate,
+			finalDate,
+		};
+		this.activeQuickRange = days;
+		this.loadReportData();
+	}
+
+	setCurrentMonthRange(): void {
+		const today = new Date();
+		this.dateFilter = {
+			initialDate: new Date(today.getFullYear(), today.getMonth(), 1),
+			finalDate: today,
+		};
+		this.activeQuickRange = null;
+		this.loadReportData();
+	}
+
+	get selectedRangeLabel(): string {
+		const formatter = new Intl.DateTimeFormat('es-DO', {
+			day: '2-digit',
+			month: 'short',
+			year: 'numeric',
+		});
+		return `${formatter.format(this.dateFilter.initialDate)} - ${formatter.format(this.dateFilter.finalDate)}`;
+	}
+
+	private getStatsFilters(): { estatus: number; initial: Date; final: Date } {
+		return {
+			estatus: 0,
+			initial: this.dateFilter.initialDate,
+			final: this.dateFilter.finalDate,
+		};
 	}
 
 	getChartProperties(
@@ -183,8 +250,10 @@ export class IndexPage implements OnInit {
 	}
 
 	loadReportData(): void {
+		const statsFilters = this.getStatsFilters();
+
 		// Load total asistencias
-		this._reportsService.getTotalAsistencias().subscribe({
+		this._reportsService.getTotalAsistencias(statsFilters).subscribe({
 			next: (total) => {
 				console.log('Total asistencias:', total);
 				this.totalAsistenciasSource.next(total);
@@ -196,7 +265,7 @@ export class IndexPage implements OnInit {
 		});
 
 		// Load tipo asistencia chart data
-		this._reportsService.getStatsTipoAsistencia(null).subscribe({
+		this._reportsService.getStatsTipoAsistencia(statsFilters).subscribe({
 			next: (data) => {
 				console.log('Tipo asistencia data:', data);
 				if (data && data.length > 0) {
@@ -240,7 +309,7 @@ export class IndexPage implements OnInit {
 		});
 
 		// Load tipo unidad chart data
-		this._reportsService.getStatsTipoUnidad(null).subscribe({
+		this._reportsService.getStatsTipoUnidad(statsFilters).subscribe({
 			next: (data) => {
 				console.log('Tipo unidad data:', data);
 				if (data && data.length > 0) {

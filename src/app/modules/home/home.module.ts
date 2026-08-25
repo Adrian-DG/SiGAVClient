@@ -7,6 +7,7 @@ import { MaterialModule } from '../material/material.module';
 import { IndexPage } from './pages/index/index.page';
 import { ReportsService } from '../reportes/services/reports.service';
 import { DinamycChartComponent } from '../reportes/components/dinamyc-chart/dinamyc-chart.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
 	declarations: [IndexPage],
@@ -15,6 +16,7 @@ import { DinamycChartComponent } from '../reportes/components/dinamyc-chart/dina
 		HomeRoutingModule,
 		MaterialModule,
 		ReportsModule,
+		FormsModule,
 		NgChartsModule,
 	],
 	providers: [ReportsService],

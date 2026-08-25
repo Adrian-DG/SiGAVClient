@@ -5,19 +5,73 @@
             <h1>Panel de Control - Asistencias</h1>
             <p>Vista general del sistema de asistencias</p>
         </div>
-        <div class="row">
-            <button mat-raised-button color="primary" (click)="loadReportData()">
-                <mat-icon>refresh</mat-icon>
-                Actualizar
-            </button>
-            <button mat-raised-button (click)="navigateToEstadisticas()">
-                <mat-icon>arrow_forward</mat-icon>
-                Ver Estadisticas
-            </button>
-            <button mat-raised-button color="primary" (click)="navigateToAsistenciasList()">
-                <mat-icon>arrow_forward</mat-icon>
-                Ver asistencias
-            </button>
+        <div class="row row-stats">
+            <div class="filters-panel">
+                <div class="filters-main">
+                    <mat-form-field appearance="outline" class="date-filter-field">
+                        <mat-label>Desde</mat-label>
+                        <input matInput [matDatepicker]="initialPicker" [(ngModel)]="dateFilter.initialDate" />
+                        <mat-datepicker-toggle matIconSuffix [for]="initialPicker"></mat-datepicker-toggle>
+                        <mat-datepicker #initialPicker></mat-datepicker>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline" class="date-filter-field">
+                        <mat-label>Hasta</mat-label>
+                        <input matInput [matDatepicker]="finalPicker" [(ngModel)]="dateFilter.finalDate" />
+                        <mat-datepicker-toggle matIconSuffix [for]="finalPicker"></mat-datepicker-toggle>
+                        <mat-datepicker #finalPicker></mat-datepicker>
+                    </mat-form-field>
+
+                    <button mat-raised-button color="accent" (click)="applyDateFilter()">
+                        <mat-icon>filter_alt</mat-icon>
+                        Aplicar
+                    </button>
+                    <button mat-button (click)="resetDateFilter()">
+                        <mat-icon>restart_alt</mat-icon>
+                        Limpiar
+                    </button>
+                </div>
+
+                <div class="filters-meta">
+                    <span class="range-chip">
+                        <mat-icon>event</mat-icon>
+                        {{ selectedRangeLabel }}
+                    </span>
+                    <div class="quick-ranges">
+                        <button mat-stroked-button [class.quick-active]="activeQuickRange === 7"
+                            (click)="setQuickRange(7)">
+                            7 dias
+                        </button>
+                        <button mat-stroked-button [class.quick-active]="activeQuickRange === 30"
+                            (click)="setQuickRange(30)">
+                            30 dias
+                        </button>
+                        <button mat-stroked-button [class.quick-active]="activeQuickRange === 90"
+                            (click)="setQuickRange(90)">
+                            90 dias
+                        </button>
+                        <button mat-stroked-button [class.quick-active]="activeQuickRange === null"
+                            (click)="setCurrentMonthRange()">
+                            Mes actual
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="header-actions">
+                <button mat-raised-button color="primary" (click)="loadReportData()">
+                    <mat-icon>refresh</mat-icon>
+                    Actualizar
+                </button>
+                <button mat-raised-button (click)="navigateToEstadisticas()">
+                    <mat-icon>arrow_forward</mat-icon>
+                    Ver Estadisticas
+                </button>
+                <button mat-raised-button color="primary" (click)="navigateToAsistenciasList()">
+                    <mat-icon>arrow_forward</mat-icon>
+                    Ver asistencias
+                </button>
+            </div>
         </div>
     </div>
 
