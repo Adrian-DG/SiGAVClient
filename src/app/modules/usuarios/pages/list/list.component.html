@@ -5,9 +5,8 @@
 		<mat-label>Filtrar</mat-label>
 		<input
 			matInput
-			(keyup)="loadData()"
 			placeholder="usuario"
-			[(ngModel)]="filters.searchTerm"
+			[formControl]="searchControl"
 		/>
 	</mat-form-field>
 	<mat-checkbox

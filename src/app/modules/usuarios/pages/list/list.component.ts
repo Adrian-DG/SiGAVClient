@@ -1,4 +1,5 @@
 import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { IPaginationFilters } from 'src/app/modules/generic/DTO/ipagination-filters';
@@ -10,6 +11,7 @@ import { ChangePasswordDialogComponent } from '../../components/change-password-
 import { ChangePasswordDTO } from '../../DTO/change-password-dto';
 import { UserPasswordInfo } from '../../DTO/user-password-info';
 import { EditUserDialogComponent } from '../../components/edit-user-dialog/edit-user-dialog.component';
+import { debounceTime, distinctUntilChanged } from 'rxjs';
 
 @Component({
 	selector: 'app-list',
@@ -20,7 +22,7 @@ export class ListComponent implements OnInit, AfterViewInit {
 	pageSizeOptions = [5, 10, 50, 100];
 	totalRows = 0;
 	filters: IPaginationFilters = {
-		page: 1,
+		page: 0,
 		size: 5,
 		searchTerm: '',
 		status: true,
@@ -37,10 +39,21 @@ export class ListComponent implements OnInit, AfterViewInit {
 	@ViewChild(MatPaginator) paginator!: MatPaginator;
 	dataSource = new MatTableDataSource<IUsuarioViewModel>();
 
+	searchControl = new FormControl(''); 
+
 	constructor(private _usuarios: UsuarioService, private dialog: MatDialog) {}
 
 	ngOnInit(): void {
+
 		this.loadData();
+
+		this.searchControl.valueChanges.pipe(
+			debounceTime(300),
+			distinctUntilChanged()
+		).subscribe((value: string | null) => {
+			this.filters.searchTerm = value ?? '';
+			this.loadData();
+		});
 	}
 
 	ngAfterViewInit(): void {
@@ -53,7 +66,7 @@ export class ListComponent implements OnInit, AfterViewInit {
 			.subscribe((data: IPagedData<IUsuarioViewModel>) => {
 				this.dataSource.data = data.items;
 				setTimeout(() => {
-					this.paginator.pageIndex = this.filters.page - 1;
+					this.paginator.pageIndex = this.filters.page;
 					this.paginator.pageSize = this.filters.size;
 					this.paginator.length = data.totalCount;
 				});
