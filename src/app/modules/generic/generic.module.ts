@@ -6,9 +6,10 @@ import { PageIntroComponent } from './components/page-intro/page-intro.component
 import { MaterialModule } from '../material/material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RemoveUnderscorePipe } from './pipes/remove-underscore.pipe';
+import { ExcelUploadComponent } from './components/excel-upload/excel-upload.component';
 
 @NgModule({
-	declarations: [PageIntroComponent, RemoveUnderscorePipe],
+	declarations: [PageIntroComponent, RemoveUnderscorePipe, ExcelUploadComponent],
 	imports: [
 		CommonModule,
 		HttpClientModule,
@@ -16,6 +17,6 @@ import { RemoveUnderscorePipe } from './pipes/remove-underscore.pipe';
 		ReactiveFormsModule,
 		FormsModule,
 	],
-	exports: [PageIntroComponent, RemoveUnderscorePipe],
+	exports: [PageIntroComponent, RemoveUnderscorePipe, ExcelUploadComponent],
 })
 export class GenericModule {}

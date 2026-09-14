@@ -1,0 +1,245 @@
+:host {
+	display: block;
+	width: 100%;
+	height: 100%;
+}
+
+.excel-upload-page {
+	width: 100%;
+	height: 90vh;
+	padding: 0;
+	box-sizing: border-box;
+	overflow: auto;
+	min-width: 100%;
+	max-width: 100%;
+}
+
+.excel-upload-page mat-card {
+	width: 100%;
+	height: 100%;
+	margin: 0;
+	display: flex;
+	flex-direction: column;
+}
+
+.excel-upload-page .content {
+	display: flex;
+	flex-direction: column;
+	gap: 0.75rem;
+	height: calc(100% - 2rem);
+}
+
+.row {
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+}
+
+.filters-container {
+	padding: 0.75rem;
+	border: 1px solid gainsboro;
+	border-radius: 0.5rem;
+}
+
+:host ::ng-deep .excel-upload-page .mat-mdc-card-header {
+	padding-bottom: 0.5rem;
+}
+
+:host ::ng-deep .excel-upload-page .mat-mdc-card-title {
+	font-size: 1.35rem;
+	line-height: 1.2;
+	font-weight: 700;
+	color: #2b3f5f;
+}
+
+:host ::ng-deep .excel-upload-page .mat-mdc-card-subtitle {
+	font-size: 0.92rem;
+	color: #4a5f7f;
+}
+
+.hidden-input {
+	display: none;
+}
+
+.option-field {
+	width: 100%;
+	max-width: 420px;
+}
+
+.toolbar-actions {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 0.6rem;
+}
+
+:host ::ng-deep .toolbar-actions .mat-mdc-button-base {
+	border-radius: 10px;
+}
+
+.chip-row {
+	margin-top: 0.25rem;
+}
+
+:host ::ng-deep .chip-row .mdc-evolution-chip__text-label {
+	max-width: 360px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.status-message {
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+	margin-bottom: 0.7rem;
+	padding: 0.6rem 0.85rem;
+	border-radius: 8px;
+	font-size: 0.92rem;
+
+	mat-icon {
+		font-size: 1rem;
+		height: 1rem;
+		width: 1rem;
+	}
+}
+
+.status-message.error {
+	background: #ffe6e6;
+	color: #9f1f1f;
+}
+
+.status-message.success {
+	background: #e7f8eb;
+	color: #146333;
+}
+
+.sheet-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin: 0.25rem 0 0.35rem;
+
+	h2 {
+		font-size: 1.35rem;
+		font-weight: 700;
+		color: #2e4361;
+		margin: 0 0 0.4rem;
+	}
+}
+
+.excel-table {
+	width: 100%;
+	min-width: 680px;
+}
+
+.table {
+	width: 100% !important;
+	max-height: 100%;
+	min-height: 0;
+	overflow: auto;
+}
+
+:host ::ng-deep .excel-table .mat-mdc-header-cell {
+	font-weight: 700;
+	color: #304966;
+	background: #f8fbff;
+	border-bottom: 1px solid #d2dcea;
+}
+
+:host ::ng-deep .excel-table .mat-mdc-cell {
+	color: #1f3552;
+	border-bottom: 1px solid #edf1f7;
+	max-width: 260px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+:host ::ng-deep .excel-table .mat-column-_index {
+	max-width: 60px;
+	width: 60px;
+}
+
+.table-footer {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	font-size: 0.95rem;
+	color: #5d6f88;
+	padding: 0.35rem 0 0;
+	gap: 0.75rem;
+}
+
+.empty-cell {
+	text-align: center;
+	padding: 1rem;
+	font-style: italic;
+	color: #5a6c83;
+}
+
+:host ::ng-deep .table-footer .mat-mdc-paginator {
+	background: transparent;
+}
+
+@media (max-width: 992px) {
+	:host ::ng-deep .excel-upload-page .mat-mdc-card-title {
+		font-size: 1.5rem;
+	}
+
+	:host ::ng-deep .excel-table .mat-mdc-header-cell,
+	:host ::ng-deep .excel-table .mat-mdc-cell {
+		font-size: 0.9rem;
+	}
+
+	.sheet-header h2 {
+		font-size: 1.15rem;
+	}
+}
+
+@media (max-width: 768px) {
+	.excel-upload-page {
+		height: auto;
+		min-height: 90vh;
+	}
+
+	.excel-upload-page .content {
+		height: auto;
+	}
+
+	.option-field {
+		max-width: 100%;
+	}
+
+	.toolbar-actions {
+		gap: 0.5rem;
+	}
+
+	.table-footer {
+		flex-direction: column;
+		align-items: flex-start;
+		gap: 0.2rem;
+	}
+}
+
+@media (max-width: 560px) {
+	.toolbar-actions {
+		.mat-mdc-button-base {
+			width: 100%;
+			justify-content: center;
+		}
+	}
+
+	:host ::ng-deep .chip-row .mdc-evolution-chip__text-label {
+		max-width: 240px;
+	}
+
+	:host ::ng-deep .excel-upload-page .mat-mdc-card-title {
+		font-size: 1.25rem;
+	}
+
+	:host ::ng-deep .table-footer .mat-mdc-paginator-container {
+		justify-content: flex-start;
+		padding-left: 0;
+	}
+}

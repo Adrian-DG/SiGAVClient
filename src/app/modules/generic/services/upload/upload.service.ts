@@ -3,41 +3,36 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment as Prod } from 'src/environment/environment.prod';
 import { environment as Dev } from 'src/environment/environment';
-import { IServerResponse } from '../../Responses/iserver-response';
-
-export interface IUnidadDenominacionUploadResponse {
-	success: boolean;
-	message: string;
-	processedCount: number;
-}
+import { IExcelUploadResponse } from '../../components/excel-upload/excel-upload.models';
 
 @Injectable({
 	providedIn: 'root',
 })
 export class UploadService {
-	private readonly baseUrl: string;
 	private readonly excelTemplateUrl: string;
 
 	constructor(private http: HttpClient) {
 		const env = isDevMode() ? Dev.api_url : Prod.api_url;
-		this.baseUrl = `${env}/upload`;
 		this.excelTemplateUrl = `${env}/excel-template`;
 	}
 
-	downloadUnidadDenominacionTemplate(): Observable<Blob> {
-		return this.http.get(`${this.excelTemplateUrl}/download`, {
+	/** Descarga la plantilla del tipo indicado. */
+	downloadTemplate(templateType: string): Observable<Blob> {
+		return this.http.get(`${this.excelTemplateUrl}/download/${templateType}`, {
 			responseType: 'blob',
 		});
 	}
 
-	uploadUnidadDenominacion(
+	/** Envia el archivo de Excel al endpoint del tipo indicado. */
+	uploadExcel(
+		templateType: string,
 		file: File,
-	): Observable<IUnidadDenominacionUploadResponse> {
+	): Observable<IExcelUploadResponse> {
 		const formData = new FormData();
 		formData.append('file', file, file.name);
 
-		return this.http.post<IUnidadDenominacionUploadResponse>(
-			`${this.excelTemplateUrl}/unidad-denominacion`,
+		return this.http.post<IExcelUploadResponse>(
+			`${this.excelTemplateUrl}/upload/${templateType}`,
 			formData,
 		);
 	}
