@@ -48,7 +48,7 @@ export class AppComponent implements OnInit {
 			icon: 'directions_car',
 		},
 		{
-			label: 'PLANTILLA EXCEL',
+			label: 'Carga Excel',
 			route: 'plantilla-excel',
 			icon: 'cloud_upload',
 		},
