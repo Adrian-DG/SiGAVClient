@@ -10,7 +10,11 @@
                 (change)="onFileSelected($event)" />
 
             <div class="row filters-container">
-                <mat-form-field appearance="outline" class="option-field">
+               
+
+                <div class="toolbar-actions">
+
+                     <mat-form-field appearance="outline" class="option-field">
                     <mat-label>{{ selectLabel }}</mat-label>
                     <mat-select [(ngModel)]="selectedOption" (selectionChange)="onOptionChange()">
                         <mat-option *ngFor="let option of options; trackBy: trackByTemplateType" [value]="option">
@@ -20,28 +24,32 @@
                     <mat-hint *ngIf="selectedOption?.description">{{ selectedOption?.description }}</mat-hint>
                 </mat-form-field>
 
-                <div class="toolbar-actions">
-                    <button type="button" mat-raised-button color="primary" [disabled]="!selectedOption"
-                        (click)="excelInput.click()">
-                        <mat-icon>upload_file</mat-icon>
-                        {{ selectedFileName ? 'Cambiar Archivo' : 'Seleccionar Archivo' }}
-                    </button>
-
-                    <button type="button" mat-button (click)="clearSelection()">
-                        <mat-icon>cleaning_services</mat-icon>
-                        Limpiar
-                    </button>
-
                     <button type="button" mat-button color="accent" [disabled]="!selectedOption || isDownloading"
                         (click)="downloadTemplate()">
                         <mat-icon>{{ isDownloading ? 'sync' : 'download' }}</mat-icon>
                         {{ isDownloading ? 'Descargando...' : 'Descargar Plantilla' }}
                     </button>
 
+                    
+
+                    <button type="button" mat-raised-button color="primary" [disabled]="!selectedOption"
+                        (click)="excelInput.click()">
+                        <mat-icon>upload_file</mat-icon>
+                        {{ selectedFileName ? 'Cambiar Archivo' : 'Seleccionar Archivo' }}
+                    </button>                    
+
+                    
+                    
+
                     <button type="button" mat-raised-button color="primary" [disabled]="!canUpload"
                         (click)="uploadExcelData()">
                         <mat-icon>{{ isUploading ? 'sync' : 'cloud_upload' }}</mat-icon>
                         {{ isUploading ? 'Subiendo...' : 'Cargar Archivo' }}
+                    </button>
+
+                    <button type="button" mat-button (click)="clearSelection()">
+                        <mat-icon>cleaning_services</mat-icon>
+                        Limpiar
                     </button>
                 </div>
 

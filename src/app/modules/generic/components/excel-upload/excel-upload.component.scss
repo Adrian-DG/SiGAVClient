@@ -69,8 +69,12 @@
 .toolbar-actions {
 	display: flex;
 	flex-wrap: wrap;
+	justify-content: center;
 	align-items: center;
 	gap: 0.6rem;
+	button {
+		margin-top: -1rem;
+	}
 }
 
 :host ::ng-deep .toolbar-actions .mat-mdc-button-base {

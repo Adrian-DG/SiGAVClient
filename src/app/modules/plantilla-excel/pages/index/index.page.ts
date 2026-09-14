@@ -14,8 +14,7 @@ export class IndexPage {
 		{
 			templateType: ExcelTemplateType.UnidadDenominacion,
 			label: 'Unidades y Denominaciones',
-			description:
-				'Actualiza las unidades con su denominacion, tramo y tipo de unidad.',
+			description: 'Actualiza las unidades con su denominacion, tramo y tipo de unidad.',
 			templateFileName: 'UnidadDenominacionTemplate.xlsx',
 			expectedColumns: ['Ficha', 'Denominacion', 'Tramo', 'TipoUnidad'],
 		},

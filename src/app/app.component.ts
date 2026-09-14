@@ -48,9 +48,9 @@ export class AppComponent implements OnInit {
 			icon: 'directions_car',
 		},
 		{
-			label: 'ACTUALIZAR UNIDADES',
-			route: 'actualizar-unidades',
-			icon: 'edit_road',
+			label: 'PLANTILLA EXCEL',
+			route: 'plantilla-excel',
+			icon: 'cloud_upload',
 		},
 		{ label: 'TRAMOS', route: 'tramos/listado', icon: 'alt_route' },
 		{ label: 'MIEMBROS', route: 'miembros/listado', icon: 'groups' },

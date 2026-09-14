@@ -106,10 +106,10 @@ const routes: Routes = [
 		canActivate: [AuthGuard],
 	},
 	{
-		path: 'actualizar-unidades',
+		path: 'plantilla-excel',
 		loadChildren: () =>
-			import('./modules/actualizar-unidades/actualizar-unidades.module').then(
-				(m) => m.ActualizarUnidadesModule,
+			import('./modules/plantilla-excel/plantilla-excel.module').then(
+				(m) => m.PlantillaExcelModule,
 			),
 		canActivate: [AuthGuard],
 	},
